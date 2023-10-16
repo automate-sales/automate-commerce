@@ -6,16 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "monday:seed" : "ts-node monday/seed.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.428.0",
+    "@heroicons/react": "^2.0.18",
     "@prisma/client": "^5.4.2",
     "dotenv": "^16.3.1",
+    "framer-motion": "^10.16.4",
     "next": "13.5.4",
+    "popmotion": "^11.0.5",
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.32.6"

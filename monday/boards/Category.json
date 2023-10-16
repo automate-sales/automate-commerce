@@ -1,0 +1,57 @@
+{
+  "commerce_id": {
+    "title": "Commerce_id",
+    "description": "commerce_id of the category",
+    "column_type": "numbers"
+  },
+  "slug": {
+    "title": "Slug",
+    "description": "slug of the category",
+    "column_type": "text"
+  },
+  "title": {
+    "title": "Title",
+    "description": "title of the category",
+    "column_type": "text"
+  },
+  "description": {
+    "title": "Description",
+    "description": "description of the category",
+    "column_type": "text"
+  },
+  "images": {
+    "title": "Images",
+    "description": "images of the category",
+    "column_type": "file"
+  },
+  "subcategories": {
+    "title": "Subcategories",
+    "description": "subcategories of the category",
+    "column_type": "file"
+  },
+  "priority": {
+    "title": "Priority",
+    "description": "priority of the category",
+    "column_type": "text"
+  },
+  "created_at": {
+    "title": "Created_at",
+    "description": "created_at of the category",
+    "column_type": "date"
+  },
+  "updated_at": {
+    "title": "Updated_at",
+    "description": "updated_at of the category",
+    "column_type": "date"
+  },
+  "created_by": {
+    "title": "Created_by",
+    "description": "created_by of the category",
+    "column_type": "text"
+  },
+  "updated_by": {
+    "title": "Updated_by",
+    "description": "updated_by of the category",
+    "column_type": "text"
+  }
+}
