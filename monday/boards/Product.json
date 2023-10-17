@@ -1,46 +1,46 @@
 {
   "commerce_id": {
-    "title": "Commerce_id",
-    "description": "commerce_id of the category",
+    "title": "Commerce id*",
+    "description": "commerce id of the category",
     "column_type": "numbers"
   },
   "sku": {
-    "title": "Sku",
+    "title": "Sku*",
     "description": "sku of the category",
     "column_type": "text"
   },
   "sku_group": {
-    "title": "Sku_group",
-    "description": "sku_group of the category",
+    "title": "Sku group*",
+    "description": "sku group of the category",
     "column_type": "text"
   },
   "title": {
-    "title": "Title",
+    "title": "Title*",
     "description": "title of the category",
     "column_type": "text"
   },
   "description": {
     "title": "Description",
     "description": "description of the category",
-    "column_type": "text"
+    "column_type": "long_text"
   },
   "subcategory_id": {
-    "title": "Subcategory_id",
-    "description": "subcategory_id of the category",
+    "title": "Subcategory id*",
+    "description": "subcategory id of the category",
     "column_type": "numbers"
   },
   "subcategory": {
-    "title": "Subcategory",
+    "title": "Subcategory*",
     "description": "subcategory of the category",
     "column_type": "text"
   },
   "price": {
-    "title": "Price",
+    "title": "Price*",
     "description": "price of the category",
-    "column_type": "text"
+    "column_type": "numbers"
   },
   "stock": {
-    "title": "Stock",
+    "title": "Stock*",
     "description": "stock of the category",
     "column_type": "numbers"
   },
@@ -70,14 +70,14 @@
     "column_type": "text"
   },
   "images": {
-    "title": "Images",
+    "title": "Images*",
     "description": "images of the category",
     "column_type": "file"
   },
   "assembly": {
-    "title": "Assembly",
+    "title": "Assembly*",
     "description": "assembly of the category",
-    "column_type": "text"
+    "column_type": "numbers"
   },
   "shipping": {
     "title": "Shipping",
@@ -85,28 +85,28 @@
     "column_type": "text"
   },
   "display": {
-    "title": "Display",
+    "title": "Display*",
     "description": "display of the category",
-    "column_type": "text"
+    "column_type": "checkbox"
   },
   "created_at": {
-    "title": "Created_at",
-    "description": "created_at of the category",
+    "title": "Created at*",
+    "description": "created at of the category",
     "column_type": "date"
   },
   "updated_at": {
-    "title": "Updated_at",
-    "description": "updated_at of the category",
+    "title": "Updated at*",
+    "description": "updated at of the category",
     "column_type": "date"
   },
   "created_by": {
-    "title": "Created_by",
-    "description": "created_by of the category",
+    "title": "Created by",
+    "description": "created by of the category",
     "column_type": "text"
   },
   "updated_by": {
-    "title": "Updated_by",
-    "description": "updated_by of the category",
+    "title": "Updated by",
+    "description": "updated by of the category",
     "column_type": "text"
   }
 }

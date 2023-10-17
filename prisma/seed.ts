@@ -3,10 +3,11 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${NODE_ENV}`});
 
 import { Category, PrismaClient, Product, Subcategory } from "@prisma/client"
-import categories from "../data/categories";
 import { createPublicBucket, uploadImageFromURL, wipeS3Bucket } from "../src/utils/s3";
-import subcategories from "../data/subcategories";
-import products from "../data/products";
+
+import categories from "../data/Category";
+import subcategories from "../data/Subcategory";
+import products from "../data/Product";
 const prisma = new PrismaClient()
 
 const bucketName = `${process.env.PROJECT_NAME}-media`
