@@ -16,7 +16,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
+          <h1 className="text-xl font-bold">Create Next App</h1>
+          <ul className="flex space-x-4">
+            <li>
+              <a href="https://nextjs.org/docs">Docs</a>
+            </li>
+            <li>
+              <a href="https://nextjs.org/learn">Learn</a>
+            </li>
+          </ul>
+        </nav>
+        {children}
+        <footer className="p-4 bg-gray-800 text-white">
+          <p>© {new Date().getFullYear()} Create Next App</p>
+        </footer>
+      </body>
     </html>
   )
 }
