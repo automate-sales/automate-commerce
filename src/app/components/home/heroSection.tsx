@@ -5,21 +5,22 @@ interface HeroSectionProps {
   title: string;
   description: string;
   buttonText: string;
+  imageSrc: string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ title, description, buttonText }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ title, description, buttonText, imageSrc }) => {
   return (
     <div className="relative h-screen w-full">
       <Image
-        src="/path/to/default/image.jpg" // Default image
+        src={imageSrc}
         layout="fill"
         objectFit="cover"
         alt="Background"
         className="absolute z-0"
         // You can include multiple sources within the Image component or use <picture> directly for more control
       />
-      <div className="z-10 relative flex items-center justify-end h-full bg-white bg-opacity-50 p-4 md:p-8">
-        <div className="text-right max-w-md">
+      <div className="z-10 relative flex items-center justify-end h-full px-20">
+        <div className="p-6 max-w-md bg-white bg-opacity-75">
           <h1 className="text-4xl font-bold mb-4">{title}</h1>
           <p className="mb-8">{description}</p>
           <button>{buttonText}</button>

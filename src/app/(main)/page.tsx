@@ -1,9 +1,8 @@
 import { Category, PrismaClient, Product } from '@prisma/client'
-import Image from 'next/image'
 import Carousel from '../components/carousel'
 import HeroSection from '../components/home/heroSection'
 import CenteredImageSection from '../components/home/centeredImageSection'
-import TextAndImageSection from '../components/home/textAndImageSection'
+import TextAndVideoSection from '../components/home/textAndVideoSection'
 import SpecsSection from '../components/home/specsSection'
 const prisma = new PrismaClient()
 
@@ -14,11 +13,10 @@ export default async function Home() {
   const categories = await prisma.category.findMany()
   return (
     <div>
-      
-      <HeroSection title="Welcome to the Next.js E-commerce Store" description="This is a simple e-commerce store built with Next.js and Prisma." buttonText="Shop Now" />
+      <HeroSection imageSrc='/images/home/header-desktop.jpg' title="Welcome to the Next.js E-commerce Store" description="This is a simple e-commerce store built with Next.js and Prisma." buttonText="Shop Now" />
       <Carousel autoplay={4} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: c.title} })} />
-      <CenteredImageSection imageSrc="/path/to/default/image.jpg" padding="8" content="This is a centered image section." />
-      <TextAndImageSection text="This is a text and image section." imageSrc="/path/to/default/image.jpg" textDirection="right" padding="8" />
+      <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content="This is a centered image section." />
+      <TextAndVideoSection text="This is a text and image section." imageSrc="/path/to/default/image.jpg" textDirection="right" padding="8" />
       <SpecsSection specs={[
         {
           icon: '/path/to/default/image.jpg',
@@ -36,7 +34,7 @@ export default async function Home() {
           paragraph: 'This is the third feature.'
         }
       ]} padding="8"/>
-      <CenteredImageSection imageSrc="/path/to/default/image.jpg" padding="0" content="This is another centered image section." />
+      <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content="This is another centered image section." />
       <Carousel autoplay={4} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: p.title, subheading: `$${p.price}`} })} />
 
      
