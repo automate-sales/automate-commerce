@@ -42,7 +42,7 @@ const Carousel = ({ items, autoplay, size='lg' }: CarouselProps) => {
   const totalWidth = (itemWidth-gapWidth) * itemCount
  
   return (
-    <div className="w-full bg-blue-500">
+    <div className="w-full p-8">
       <motion.div ref={constraintsRef} className="overflow-hidden w-full">
         <motion.div
           className="flex gap-4"

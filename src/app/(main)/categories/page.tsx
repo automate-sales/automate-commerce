@@ -1,21 +1,17 @@
+import Item from '@/app/components/item'
 import { PrismaClient, Category } from '@prisma/client'
-import Image from 'next/image'
 const prisma = new PrismaClient()
 
-export default async function Home() {
+export default async function Page() {
   const categories = await prisma.category.findMany()
   return (
-    <div className='grid grid-cols-4'>
-        {categories.map((c: Category, index: number) => (
-            <div key={index} className='flex flex-col items-center'>
-                <Image 
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`} 
-                    width={200} height={200}
-                    alt={c.title}
-                />
-                <p>{c.title}</p>
-            </div>)
-        )}
+    <div className="container mx-auto p-8">
+      <h1 className="text-4xl text-center font-bold py-16">Categories</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {categories.map((category: Category, index: number) => (
+          <Item key={index} link={`/categories/${category.slug}`} title={category.title} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${category.images[0]}`}/>
+        ))}
+      </div>
     </div>
   )
 }
