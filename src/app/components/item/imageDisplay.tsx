@@ -13,7 +13,7 @@ export default function ImageDipslay({product}: ImageDisplayProps) {
   return (
         <div>
           <div className="relative h-96">
-            <Image src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product?.images[selectedImage]}`} layout="fill" objectFit="contain" alt="Product Image" />
+            <Image src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product?.images[selectedImage]}`} fill alt="Product Image" />
           </div>
           <div className="flex justify-center space-x-4 mt-4">
             {product?.images.map((img, index) => (
