@@ -1,12 +1,8 @@
 'use client'
 
-import { motion } from "framer-motion";
-import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-
-
+import { useEffect, useRef, useState } from "react";
 
 type Item = {
   imageUrl: string;
@@ -15,65 +11,69 @@ type Item = {
   subheading?: string;
 };
 
-type CarouselProps = { 
-    items: Item[], 
-    autoplay?: number | null,
-    size?: 'sm' | 'md' | 'lg'
+type CarouselProps = {
+  items: Item[];
+  autoplay?: number; // Autoplay speed in milliseconds for changing slides
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const getSizes =(size: CarouselProps['size'])=> {
-    switch(size){
-        case 'sm':
-            return {
-                itemHeight: 200,
-                itemWidth: 200,
-            }
-        case 'md':
-            return {itemHeight: 300}
-        case 'lg':
-            return {itemHeight: 400}
+const Carousel = ({ items, autoplay = 3000, size = 'md' }: CarouselProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const itemsRef = useRef([...items, ...items]); // Duplicate items for an infinite loop
+
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () => setCurrentIndex((prevIndex) =>
+        prevIndex === itemsRef.current.length / 2 - 1 ? 0 : prevIndex + 1
+      ),
+      autoplay
+    );
+
+    return () => {
+      resetTimeout();
+    };
+  }, [currentIndex, autoplay]);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
-}
-const Carousel = ({ items, autoplay, size='lg' }: CarouselProps) => {
-  const constraintsRef = useRef(null);
-  const itemCount = items.length-1;
-  const itemWidth = 320; // Width of each item
-  const gapWidth = 16; // Gap between each item
-  const totalWidth = (itemWidth-gapWidth) * itemCount
- 
+  };
+
+  // Adjust item sizes based on the 'size' prop
+  const itemSize = {
+    'sm': { width: 150, height: 150, padding: 'p-2' },
+    'md': { width: 200, height: 200, padding: 'p-4' },
+    'lg': { width: 250, height: 250, padding: 'p-4' },
+  }[size];
+
   return (
-    <div className="w-full p-8">
-      <motion.div ref={constraintsRef} className="overflow-hidden w-full">
-        <motion.div
-          className="flex gap-4"
-          transition={autoplay ? { ease: "linear", duration: itemCount*autoplay } : {}}
-          animate={autoplay ? { x: -totalWidth } : {}}
-          drag="x"
-          dragConstraints={{
-            left: -totalWidth,
-            right: 0,
-          }} // Set dragging constraints based on total items
-          dragElastic={1}
-        >
-          {items.map((item, idx) => (
-            <motion.div
-              className="cursor-grab bg-white flex flex-shrink-0 flex-col items-center first-letter:p-10 h-"
-              key={idx}
-            >
-                    <Link href={item.link as Url}>
-                        <Image
-                            src={item.imageUrl}
-                            alt={item.heading || `carousel item ${idx}`}
-                            width={200}
-                            height={200}
-                        />
-                    </Link>
-                    <h2>{item.heading}</h2>
-                    <p>{item.subheading}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+    <div className="w-full overflow-hidden p-8">
+      <div className={`flex transition-transform ease-linear duration-1000`} style={{ transform: `translateX(-${currentIndex * (itemSize.width + 32)}px)` }}>
+        {itemsRef.current.map((item, idx) => (
+          <div
+            className={`flex-none ${itemSize.padding} bg-white flex flex-col justify-center items-center text-center m-2 shadow-lg rounded-lg p-5`}
+            key={idx}
+            style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
+          >
+            <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
+
+                <Image
+                  src={item.imageUrl}
+                  alt={item.heading || `Carousel item ${idx}`}
+                  width={itemSize.width - 32} // Deduct padding for actual image size
+                  height={itemSize.height - 32} // Deduct padding for actual image size
+                  objectFit="contain"
+                />
+
+            </Link>
+            <h2 className="text-sm font-semibold w-full">{item.heading}</h2>
+            <p className="text-xs">{item.subheading}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

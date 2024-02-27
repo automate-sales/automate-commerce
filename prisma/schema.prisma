@@ -60,8 +60,78 @@ model Product {
   assembly            Float
   shipping            Json?
   display             Boolean     @default(true)
+  
+  cartItems           CartItem[]
+  
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
   createdBy           String?
   updatedBy           String?
+}
+
+enum LeadStatus {
+  lead
+  prospect
+  customer
+  loyalty
+  duplicate
+}
+
+model Lead {
+  id            String    @id @default(cuid())
+  fingerprint String
+  status LeadStatus @default(lead)
+  name String?
+  username String?
+  email String?
+  phone_numbers String[] @default([])
+  address String?
+  birth_date String?
+  carts Cart[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  createdBy     String?
+  updatedBy     String?
+}
+
+enum CartStatus {
+  active
+  purchased
+  abandoned
+}
+model Cart {
+  id String   @id @default(cuid())
+  status CartStatus @default(active)
+  leadId String?
+  lead              Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  cartItems      CartItem[]
+  purchasedAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+}
+
+model CartItem {
+  id          String   @id @default(cuid())
+  status CartItemStatus  @default(new)
+  price Float
+  qty Int
+  cartId           String
+  cart             Cart    @relation(fields: [cartId], references: [id])
+  productId           Int
+  product             Product    @relation(fields: [productId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  @@unique([cartId, productId])
+}
+
+enum CartItemStatus {
+  new
+  sold
+  abandoned
+  returned
 }

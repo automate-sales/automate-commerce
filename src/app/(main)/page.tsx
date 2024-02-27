@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <div>
       <HeroSection imageSrc='/images/home/header-desktop.jpg' title="Welcome to the Next.js E-commerce Store" description="This is a simple e-commerce store built with Next.js and Prisma." buttonText="Shop Now" />
-      <Carousel autoplay={4} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: c.title} })} />
+      <Carousel items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: c.title} })} />
       <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content="This is a centered image section." />
       <TextAndVideoSection text="This is a text and image section." imageSrc="/path/to/default/image.jpg" textDirection="right" padding="8" />
       <SpecsSection specs={[
@@ -35,7 +35,7 @@ export default async function Home() {
         }
       ]} padding="8"/>
       <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content="This is another centered image section." />
-      <Carousel autoplay={4} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: p.title, subheading: `$${p.price}`} })} />
+      <Carousel items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: p.title, subheading: `$${p.price}`} })} />
 
      
     </div>

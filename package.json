@@ -7,30 +7,31 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "monday:seed" : "ts-node monday/seed.ts"
+    "monday:seed": "ts-node monday/seed.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.428.0",
-    "@heroicons/react": "^2.0.18",
+    "@fingerprintjs/fingerprintjs": "^4.2.2",
+    "@heroicons/react": "^2.1.1",
     "@prisma/client": "^5.4.2",
     "dotenv": "^16.3.1",
-    "framer-motion": "^10.16.4",
-    "next": "13.5.4",
-    "popmotion": "^11.0.5",
-    "react": "^18",
-    "react-dom": "^18",
-    "sharp": "^0.32.6"
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.32.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10",
     "eslint": "^8",
-    "eslint-config-next": "13.5.4",
+    "eslint-config-next": "^14.1.0",
     "postcss": "^8",
     "prisma": "^5.4.2",
     "tailwindcss": "^3",
