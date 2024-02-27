@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Navbar from '../components/nav'
 
 export default function RootLayout({
   children,
@@ -7,22 +8,7 @@ export default function RootLayout({
 }) {
   return (
       <>
-        <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
-          <Link passHref href="/">
-            <h1 className="text-xl font-bold">Create Next App</h1>
-          </Link>
-          <ul className="flex space-x-4">
-            <li>
-              <Link passHref href="/products">Products</Link>
-            </li>
-            <li>
-              <Link passHref href="/categories">Categories</Link>
-            </li>
-            <li>
-              <Link passHref href="/subcategories">Subcategories</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
         {children}
         <footer className="p-4 bg-gray-800 text-white">
           <p>© {new Date().getFullYear()} Create Next App</p>
