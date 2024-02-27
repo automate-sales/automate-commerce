@@ -34,8 +34,8 @@ export async function createLeadAndCart(
 export async function updateCartItem(
   cartId: string,
   productId: number,
-  quantity: number,
   price: number,
+  quantity?: number | null | undefined,
 ) {
     const cartItem = await prisma.cartItem.upsert({
         where: {
@@ -45,12 +45,12 @@ export async function updateCartItem(
           },
         },
         update: {
-          qty: quantity
+          ...( quantity ? { qty: quantity } : { qty: { increment: 1 } })
         },
         create: {
           cartId: cartId,
           productId: productId,
-          qty: quantity,
+          qty: quantity || 1,
           price: price
         },
     })

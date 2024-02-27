@@ -10,14 +10,14 @@ type CartItemWithProduct = CartItem & { product: Product };
 export default function UpdateCartButton({cartId, cartItem}:{cartId: string, cartItem: CartItemWithProduct}){
     const removeItemFromCart = async (cartItem: CartItemWithProduct) => {
         console.log(`Removing product with SKU: ${cartItem.product.sku}`);
-        await updateCartItem(cartId, cartItem.product.id, 0, cartItem.product.price);
+        await updateCartItem(cartId, cartItem.product.id, cartItem.product.price, 0);
         setQty(0);
       };
     
     const updateItemQty = async (cartItem: CartItemWithProduct, newQty: number) => {
         if (!isNaN(newQty) && newQty >= 0) {
             console.log(`Updating product with SKU: ${cartItem.product.sku} from cart with ID: ${cartId} to quantity: ${newQty}`);
-            await updateCartItem(cartId, cartItem.product.id, newQty, cartItem.product.price);
+            await updateCartItem(cartId, cartItem.product.id, cartItem.product.price, newQty);
         } setQty(newQty);
     };
     const [qty, setQty] = useState(cartItem.qty);
