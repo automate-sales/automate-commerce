@@ -105,6 +105,12 @@ const UserMenu = ({ children, user }: { children: JSX.Element| string, user:any 
     const toggleDropdown = () => setIsOpen(!isOpen);
     const urlPath = usePathname();
 
+    const logOut = async () => {
+        await signOut();
+        console.log('User signed out');
+        router.push(urlPath);
+    }
+
     return (
         <div className="relative inline-block text-left z-20 h-full">
             <button onClick={toggleDropdown} className="flex items-center h-full">
@@ -123,17 +129,15 @@ const UserMenu = ({ children, user }: { children: JSX.Element| string, user:any 
                             <li className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>{user.email}</li>
                             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Link scroll={false} passHref href="/orders">Mis ordenes</Link></li>
                             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <button id='signOutBtn' onClick={() => {
-                                    router.push(urlPath, { })
-                                }}
-                                    className="py-1 px-3 bg-main text-white">Cerrar sesión</button>
+                                <button id='signOutBtn' onClick={() => logOut()}
+                                    className="py-1 px-3 bg-gray-300 text-white">Cerrar sesión</button>
                             </li>
                         </ul>
                     ) : (
                         <ul>
-                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Link scroll={false} passHref href={`/login?redirect=${router.asPath}`}>Iniciar sesión</Link></li>
+                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Link scroll={false} passHref href={`/login?redirect=${urlPath}`}>Iniciar sesión</Link></li>
                             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <div className="py-1 px-3 bg-main text-white">
+                                <div className="py-1 px-3 bg-gray-300 text-white">
                                     <Link scroll={false} passHref href={`/login?redirect=${urlPath}`}>Crear cuenta</Link>
                                 </div>
                             </li>
