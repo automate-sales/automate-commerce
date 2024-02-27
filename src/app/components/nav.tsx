@@ -3,6 +3,8 @@
 import React, { useState, useRef } from 'react';
 import { Bars3Icon, XMarkIcon, ShoppingBagIcon, UserIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
 
 type NavItem = {
     label: string;
@@ -20,7 +22,11 @@ const navItems = [
         {label: 'Product 6', type: 'link', data: '/product6'}
     ]},
     {label: 'Blog', type: 'link', data: '/blog'},
-    {label: 'Soporte', type: 'dropdown', data: []},
+    {label: 'Soporte', type: 'dropdown', data: [
+        {label: 'item 1', type: 'link', data: '/item1'},
+        {label: 'item 2', type: 'link', data: '/item2'},
+        {label: 'item 3', type: 'link', data: '/item3'},
+    ]},
 ] as NavItem[];
 
 const DropdownMenu = ({ children, data }: {children : JSX.Element | string, data: NavItem[]}) => {
@@ -90,9 +96,60 @@ const DropdownMenu = ({ children, data }: {children : JSX.Element | string, data
         default:
             return <></>;
     }
-  }
+}
 
-const Navbar = () => {
+const UserMenu = ({ children, user }: { children: JSX.Element| string, user:any }) => {
+    const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+    const urlPath = usePathname();
+
+    const logOut = async () => {
+        await signOut();
+        console.log('User signed out');
+        router.push(urlPath);
+    }
+
+    return (
+        <div className="relative inline-block text-left z-20 h-full">
+            <button onClick={toggleDropdown} className="flex items-center h-full">
+                {children}
+            </button>
+            {isOpen && (
+                <div
+                    className={`origin-top-right absolute right-0 w-48 shadow-sm bg-white ${isOpen ? 'block' : 'hidden'}`}
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="menu-button"
+                    tabIndex={-1}
+                >
+                    {user ? (
+                        <ul>
+                            <li className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'>{user.email}</li>
+                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Link scroll={false} passHref href="/orders">Mis ordenes</Link></li>
+                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <button id='signOutBtn' onClick={() => logOut()}
+                                    className="py-1 px-3 bg-gray-300 text-white">Cerrar sesión</button>
+                            </li>
+                        </ul>
+                    ) : (
+                        <ul>
+                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><Link scroll={false} passHref href={`/login?redirect=${urlPath}`}>Iniciar sesión</Link></li>
+                            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <div className="py-1 px-3 bg-gray-300 text-white">
+                                    <Link scroll={false} passHref href={`/login?redirect=${urlPath}`}>Crear cuenta</Link>
+                                </div>
+                            </li>
+                        </ul>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const Navbar = ({user}: {user:any}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
@@ -172,13 +229,9 @@ const Navbar = () => {
 
           {/* Icons on the right */}
           <div className="flex items-center space-x-4">
-            <DropdownMenu data={[
-                {label: 'Profile', type: 'link', data: '/profile'},
-                {label: 'Orders', type: 'link', data: '/orders'},
-                {label: 'Logout', type: 'link', data: '/logout'}
-            ]}>
+            <UserMenu user={user}>
                 <UserIcon className="h-6 w-6" />
-            </DropdownMenu>
+            </UserMenu>
             <Link href='/cart'><ShoppingBagIcon className="h-6 w-6" /></Link>
           </div>
         </div>
