@@ -45,9 +45,7 @@ export async function updateCartItem(
           },
         },
         update: {
-          qty: {
-            increment: quantity,
-          },
+          qty: quantity
         },
         create: {
           cartId: cartId,
@@ -56,5 +54,6 @@ export async function updateCartItem(
           price: price
         },
     })
+    console.log('CART ITEM MUTATION RESULT: ', cartItem)
     return cartItem
 }

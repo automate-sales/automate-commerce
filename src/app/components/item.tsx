@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import AddToCartButton from './cart/add';
 import { Category, Product, Subcategory } from '@prisma/client';
+import { cookies } from 'next/headers'
 
 interface ItemProps {
     //item: Product | Category | Subcategory;
@@ -11,11 +12,16 @@ interface ItemProps {
     link: string;
     title?: string;
     description?: string;
+    id?: number;
     price?: number;
-    buttonText?: string;
 }
 
-const Item: React.FC<ItemProps> = ({ image, link, title, description, price, buttonText }) => {
+const Item: React.FC<ItemProps> = ({ image, link, title, description, id, price }) => {
+    const cookieStore = cookies()
+    const visitorId = cookieStore.get('ergo_lead_id')?.value
+    const cartId = cookieStore.get('ergo_cart_id')?.value || ''
+    console.log('visitorId *** ', visitorId)
+    console.log('cartId *** ', cartId)
     return (
         <div >
             <Link href={link} className="flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden">
@@ -27,9 +33,9 @@ const Item: React.FC<ItemProps> = ({ image, link, title, description, price, but
                 {title && <div className='h-16'><h4 className="text-lg font-semibold mb-2">{title}</h4></div>}
                 {description && <p className="text-sm text-gray-600 mb-4">{description}</p>}
                 {price && <p className="text-lg font-bold">$ {price}.00</p>}
-                {buttonText && <AddToCartButton  cartId='' product={null}/>}
             </div>
             </Link>
+            {id && price && <AddToCartButton  cartId={cartId} productId={id} productPrice={price}/>}
         </div>
     );
 };

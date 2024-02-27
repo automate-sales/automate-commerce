@@ -10,7 +10,8 @@ export default async function Page() {
     const cartWithItems = await prisma.cart.findUnique({
         where: { id: cartId },
         include: { cartItems: {
-            include: { product: true }
+          where: { qty: { gt: 0 } },
+          include: { product: true }
         } 
     }
   })
