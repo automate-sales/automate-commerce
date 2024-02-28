@@ -19,10 +19,9 @@ import {
     //getDiscount
 } from '@/utils/calc'
 
-import { CartWithItems } from '@/types';
+import { CartWithItems, CustomerInfo, OrderInfo, ShippingInfo } from '@/types';
 import OrderCostSummary from './costSummary';
-import { get } from 'http';
-import { getCoupon } from '@/app/actions';
+import { createOrder } from '@/app/actions';
 
 const addressFields: FormField[] = [
     { name: 'street_1', label: 'Dirección', inputType: 'text' },
@@ -56,7 +55,7 @@ const emptyCustomer = {
     full_name: "",
     phone_number: "",
     email: ""
-}
+} as CustomerInfo
 const emptyAddress = {
     street_1: "",
     street_2: "",
@@ -64,7 +63,7 @@ const emptyAddress = {
     state: "panama_ciudad",
     zip: "00000",
     country: "panama"
-}
+} as ShippingInfo
 const emptyPayment = {
     name: "",
     ccNumber: "",
@@ -83,11 +82,11 @@ const emptyOrder = {
     coupon: '',
     //referredBy: null,
     source: 'ecommerce',
-    paymentMethod: '',
+    paymentMethod: 'unknown',
     cartId: '',
     leadId: '',
     loggedIn: false
-}
+} as OrderInfo
 
 export default function CheckoutForm({ user, cart, cartId, leadId }: {
     user: any,
@@ -117,11 +116,12 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     }
 
     const sameAsShipping = (ev: { target: { checked: boolean; }; }) => {
+        const optional: { [key: string]: boolean } = { street_2: true }
         ev.target.checked && setBilling(shipping)
-        Object.entries(shipping).every(e => e[1]) && setSteps({
+            Object.entries(shipping).every(e => e[1] || optional[e[0]] ) && setSteps({
             ...steps,
-            [3]: { ...steps[3], done: true },
-            [4]: { ...steps[4], hidden: false }
+            [3]:{...steps[3], done:true}, 
+            [4]:{...steps[4], hidden: false}
         })
     }
 
@@ -133,36 +133,28 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
         5: {}
     })
 
-    const submitCheckout = async (ev) => {
+    const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         // add the leadId and cartId to the order
-        const orderData = {
-            ...order,
-            ...customer,
-            shippingAddress: shipping,
-            billingAddress: billing,
-            subtotal: subtotal,
-            discount: discount,
-            tax: tax,
-            shippingFee: shippingFee,
-            assemblyFee: assemblyFee,
-            total: total,
-            cartId: cartId,
-            leadId: leadId,
-            paymentMethod: getCardType(payment.ccNumber),
-            source: 'ecommerce',
-            loggedIn: user ? true : false
-        }
-        try {
-            console.log({ payment: payment, order: orderData })
-            console.log('¡Gracias por tu compra!')
-            const res = '1234'
-            router.push(`/order_confirmation?order=${res}`)
-        }
-        catch (err) {
-            console.log(err)
-            console.error('Hubo un error al procesar tu pedido')
-        }
+        const {orderId, newCartId} = await createOrder({
+            orderInfo: { 
+                ...order,
+                subtotal,
+                discount,
+                tax,
+                shippingFee,
+                assemblyFee,
+                total,
+                cartId, 
+                leadId 
+            },
+            customerInfo: customer,
+            shippingInfo: shipping,
+            billingInfo: billing,
+            paymentInfo: payment
+        })
+        if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
+        console.log('The order has been created succesfully with id: ', orderId)
     }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:pt-5">
@@ -208,7 +200,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                     optional={{ street_2: true }}
                 >
                     <div className="inline">
-                        <span className="pr-2 text-xl">Igual a la dirección de envío?</span>
+                        <span className="pr-2 text-l">Igual a la dirección de envío?</span>
                         <input id="same_as_shipping" type="checkbox" onChange={sameAsShipping} />
                     </div>
                 </FormGroup>
@@ -227,7 +219,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                     ]}
                 />
                 <div className='pt-5 flex justify-end'>
-                    <button id="checkout-btn" type='submit' className="w-full md:w-auto md:px-12 link text-2xl uppercase text-white py-2 bg-main">
+                    <button id="checkout-btn" type='submit' className="w-full md:w-auto md:px-12 text-2xl uppercase text-white py-2 bg-gray-400">
                         Checkout
                     </button>
                 </div>

@@ -1,5 +1,6 @@
 import type { CartItem, Coupon, Product } from "@prisma/client"
 import { getCoupon } from "@/app/actions"
+import { ShippingInfo } from "@/types"
 
 type CartItemWithProduct = CartItem & { product: Product }
 
@@ -20,6 +21,19 @@ const shippingRates = {
 export const normalizeString = (str: string) => {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s/g, "_")
 }
+
+export const formatAddress = (address: ShippingInfo): string => {
+    const addressParts = [
+      address.street_1,
+      address.street_2,
+      address.city,
+      address.state,
+      address.zip,
+      address.country
+    ].filter(part => part); // Remove any empty parts to avoid including unnecessary commas
+
+    return addressParts.join(', ');
+};
 
 //get the credit card type
 export const getCardType =(cardNumber:string)=> {

@@ -185,7 +185,7 @@ model VerificationToken {
 
 model Order {
   id               String   @id @default(cuid())
-  status           Status
+  status           OrderStatus @default(unpaid)
   //customer information
   full_name        String
   phone_number     String
@@ -208,7 +208,7 @@ model Order {
   loggedIn         Boolean @default(false)
   referredBy      String?
   source           String @default("ecommerce")
-  paymentMethod   PaymentMethod
+  paymentMethod   PaymentMethod @default(unknown)
   paymentId        String?
   invoiceId        String?
   //relations
@@ -223,7 +223,7 @@ model Order {
   updatedBy        String?
 }
 
-enum Status {
+enum OrderStatus {
   unpaid
   partial_payment
   complete_payment
@@ -241,6 +241,7 @@ enum PaymentMethod {
   yappy
   ach
   cash
+  unknown
 }
 
 model Coupon {
