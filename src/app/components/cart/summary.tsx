@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import AppContext from '../../utils/context';
-import { Cart, CartItem, Product } from '@prisma/client';
 import { updateCartItem } from '@/app/actions';
 import UpdateCartButton from './update';
+import { CartItemWithProduct, CartWithItems } from '@/types';
 
-type CartItemWithProduct = CartItem & { product: Product };
 type CartProps = {
-    cartWithItems: Cart & { cartItems: CartItemWithProduct[]}
+    cartWithItems: CartWithItems
 };
 
 const bucketUrl = process.env.NEXT_PUBLIC_IMAGE_HOST;

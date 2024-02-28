@@ -57,3 +57,12 @@ export async function updateCartItem(
     console.log('CART ITEM MUTATION RESULT: ', cartItem)
     return cartItem
 }
+
+export async function getCoupon(
+  code: string
+) {
+  const res = await prisma.coupon.findUnique({
+    where: { code: code },
+  });
+  return res
+}

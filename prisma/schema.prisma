@@ -88,7 +88,7 @@ model Lead {
   address String?
   birth_date String?
   carts Cart[]
-
+  orders Order[]
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   createdBy     String?
@@ -107,6 +107,7 @@ model Cart {
   lead              Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
   cartItems      CartItem[]
   purchasedAt   DateTime?
+  order Order?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   String?
@@ -180,4 +181,78 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Order {
+  id               String   @id @default(cuid())
+  status           Status
+  //customer information
+  full_name        String
+  phone_number     String
+  email            String
+  shippingAddress  Json
+  billingAddress   Json
+  // order options
+  shipping         Boolean  @default(false)
+  assembly         Boolean  @default(false)
+  coupon           String?
+  // charges
+  subtotal         Float
+  discount         Float?
+  shippingFee     Float?
+  assemblyFee     Float?
+  shippingDate    DateTime?
+  tax              Float
+  total            Float
+  // additional information
+  loggedIn         Boolean @default(false)
+  referredBy      String?
+  source           String @default("ecommerce")
+  paymentMethod   PaymentMethod
+  paymentId        String?
+  invoiceId        String?
+  //relations
+  cartId            String @unique
+  cart              Cart @relation(fields: [cartId], references: [id])           
+  leadId            String?
+  lead              Lead?    @relation(fields: [leadId], references: [id])
+  //timestamps
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  createdBy        String?
+  updatedBy        String?
+}
+
+enum Status {
+  unpaid
+  partial_payment
+  complete_payment
+  payment_declined
+  payment_error
+  ready_to_ship
+  on_route
+  delivered
+  confirmed
+}
+
+enum PaymentMethod {
+  visa
+  mastercard
+  yappy
+  ach
+  cash
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  code      String   @unique
+  title       String
+  valid_till  String
+  discount    Float
+  description String?
+  products    Int[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
 }
