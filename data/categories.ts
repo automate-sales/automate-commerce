@@ -12,7 +12,7 @@ const categories: Category[] = [
     "priority": 1,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -26,7 +26,7 @@ const categories: Category[] = [
     "priority": 2,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -40,7 +40,7 @@ const categories: Category[] = [
     "priority": 3,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -54,7 +54,7 @@ const categories: Category[] = [
     "priority": 4,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -68,7 +68,7 @@ const categories: Category[] = [
     "priority": 5,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -82,7 +82,7 @@ const categories: Category[] = [
     "priority": 6,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -96,7 +96,7 @@ const categories: Category[] = [
     "priority": 7,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -110,7 +110,7 @@ const categories: Category[] = [
     "priority": 8,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -124,7 +124,7 @@ const categories: Category[] = [
     "priority": 9,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -138,7 +138,7 @@ const categories: Category[] = [
     "priority": 10,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   },
   {
@@ -152,7 +152,7 @@ const categories: Category[] = [
     "priority": 11,
     "createdAt": new Date("2022-02-07T05:57:41.000Z"),
     "updatedAt": new Date("2022-02-07T05:57:41.000Z"),
-    "createdBy": "gabriel@torus-digital.com",
+    "createdBy": "admin@test-admin.com",
     "updatedBy": null
   }
 ];
