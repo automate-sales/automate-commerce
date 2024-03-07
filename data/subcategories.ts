@@ -13,7 +13,7 @@ const subcategories: Subcategory[] = [
       "priority": 0,
       "createdAt": new Date("2022-08-24T23:10:54.000Z"),
       "updatedAt": new Date("2022-08-24T23:10:55.498Z"),
-      "createdBy": "lucas@torus-digital.com",
+      "createdBy": "tester@user-tester.com",
       "updatedBy": null
     },
     {
@@ -373,7 +373,7 @@ const subcategories: Subcategory[] = [
       "priority": 3,
       "createdAt": new Date("2023-01-18T21:40:32.000Z"),
       "updatedAt": new Date("2023-01-18T21:40:32.611Z"),
-      "createdBy": "lucas@torus-digital.com",
+      "createdBy": "tester@user-tester.com",
       "updatedBy": null
     },
     {
@@ -493,7 +493,7 @@ const subcategories: Subcategory[] = [
       "priority": 4,
       "createdAt": new Date("2023-01-19T05:26:04.000Z"),
       "updatedAt": new Date("2023-01-19T05:26:05.104Z"),
-      "createdBy": "lucas@torus-digital.com",
+      "createdBy": "tester@user-tester.com",
       "updatedBy": null
     },
     {
@@ -626,8 +626,8 @@ const subcategories: Subcategory[] = [
       "priority": 8,
       "createdAt": new Date("2022-08-14T21:30:50.000Z"),
       "updatedAt": new Date("2022-08-19T01:16:38.000Z"),
-      "createdBy": "lucas@torus-digital.com",
-      "updatedBy": "lucas@torus-digital.com"
+      "createdBy": "tester@user-tester.com",
+      "updatedBy": "tester@user-tester.com"
     },
     {
       "id": 35,
@@ -641,7 +641,7 @@ const subcategories: Subcategory[] = [
       "priority": 8,
       "createdAt": new Date("2022-08-14T20:02:10.000Z"),
       "updatedAt": new Date("2022-08-14T20:02:11.367Z"),
-      "createdBy": "lucas@torus-digital.com",
+      "createdBy": "tester@user-tester.com",
       "updatedBy": null
     }
 ];

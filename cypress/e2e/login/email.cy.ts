@@ -32,19 +32,19 @@ describe('An existing user signs in from the login page', () => {
       cy.visit('localhost:3000/login')
       .wait(1000)
       cy.get('#email')
-      .type('gkardonski@gmail.com')
-      .should('have.value', 'gkardonski@gmail.com')
+      .type('user@testuser.com')
+      .should('have.value', 'user@testuser.com')
       .type('{enter}')
       //cy.contains(email_confirmation_msg).should("be.visible")
       .wait(3000)
-      cy.task('getLastEmail', 'gkardonski@gmail.com').then((email:{body:string, html:string})=> {
+      cy.task('getLastEmail', 'user@testuser.com').then((email:{body:string, html:string})=> {
         cy.log('EMAIl FOUND: ', email)
         let body = email.body.toString()
-       /*  let url = body.slice(body.indexOf('http'))
+        let url = body.slice(body.indexOf('http'))
         expect(url).to.not.be.empty
         cy.visit({url: url, method: 'POST'})
         .wait(1000)
-        cy.url().should('eq', 'http://localhost:3000/user/info?first_login=true') */
+        cy.url().should('eq', 'http://localhost:3000/user/info?first_login=true')
         //cy.contains(sign_in_success_msg).should("be.visible")
         //fill out the user info
         //cy.get('#userMenuBtn').click()
