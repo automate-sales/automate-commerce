@@ -58,18 +58,11 @@ export const authOptions = {
     ],
     adapter: PrismaAdapter(prisma),
     callbacks: {
-        async signIn({ user }) {
-            const allowedDomains = [
-                'torus-digital.com',
-                'ergonomicadesk.com',
-                'nauralsleep.com'
-            ]
-            const isAllowedToSignIn = user.email && allowedDomains.includes(user.email.split('@').pop())
-          if (isAllowedToSignIn) {
+        async signIn({ user }: {user: UserObj}) {
+            console.log('user signing in: ', user)
+            
             return true
-          } else {
-            return '/error?' + new URLSearchParams({error: 'Unauthorized - Invalid email address'})
-          }
+         
         }
     },
 }
