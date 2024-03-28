@@ -12,10 +12,12 @@ const generateFingerprint = async () => {
     return result.visitorId
 };
 
+let mounted = false
 const getOrCreateLead = async(
     visitorId: string | null | undefined
 ) => {
-    if(!visitorId) {
+    if(!visitorId && !mounted) {
+        mounted = true
         if (typeof window !== 'undefined') {
             let leadId = localStorage.getItem('ergo_lead_id')
             let cartId = localStorage.getItem('ergo_cart_id')
@@ -23,7 +25,9 @@ const getOrCreateLead = async(
             console.log('cartId: ', cartId)
             if(!leadId) {
                 const fingerprint = await generateFingerprint()
+                console.log('fingerprint: ', fingerprint)
                 const response = await createLeadAndCart(fingerprint)
+                console.log('response: ', response)
                 leadId = response.leadId
                 cartId = response.cartId
                 localStorage.setItem('ergo_lead_id', leadId)

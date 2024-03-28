@@ -58,7 +58,7 @@ export const authOptions = {
     ],
     adapter: PrismaAdapter(prisma),
     callbacks: {
-        async signIn({ user }) {
+        async signIn({ user }: {user: UserObj}) {
             console.log('user signing in: ', user)
             
             return true
