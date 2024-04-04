@@ -1,10 +1,10 @@
-import { Category, PrismaClient, Product } from '@prisma/client'
+import { Category, Product } from '@prisma/client'
 import Carousel from '../components/carousel'
 import HeroSection from '../components/home/heroSection'
 import CenteredImageSection from '../components/home/centeredImageSection'
 import TextAndVideoSection from '../components/home/textAndVideoSection'
 import SpecsSection from '../components/home/specsSection'
-const prisma = new PrismaClient()
+import prisma from '@/db'
 
 export default async function Home() {
   const mainProducts = await prisma.product.findMany({

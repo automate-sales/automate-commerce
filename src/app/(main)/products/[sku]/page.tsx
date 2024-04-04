@@ -1,6 +1,6 @@
 import ImageDipslay from '@/app/components/item/imageDisplay';
-import { PrismaClient, Product } from '@prisma/client'
-const prisma = new PrismaClient()
+import { Product } from '@prisma/client'
+import prisma from '@/db'
 
 export default async function Page({ params }: { params: { sku: string } }) {
   const productData = await prisma.product.findUnique({
