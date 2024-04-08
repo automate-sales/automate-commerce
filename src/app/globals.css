@@ -16,47 +16,10 @@
   }
 }
 
-html, body {
+html,
+body {
   width: 100%;
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-} 
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.slide-in-left {
-  animation: slideInLeft 0.5s forwards;
-}
-
-.slide-in-right {
-  animation: slideInRight 0.5s forwards;
-}
-
-.slider-next-btn {
-  right: -30px;
-}
- 
-.slider-prev-btn {
-  left: -30px;
 }

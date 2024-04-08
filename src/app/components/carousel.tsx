@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+import { Autoplay, Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'swiper/css/autoplay';
 
 type Item = {
   imageUrl: string;
@@ -56,24 +57,44 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true }:
     'lg': { width: 250, height: 250, padding: 'p-4' },
   }[size];
 
+
+  const swiperStyle = {
+    '--swiper-navigation-size': '20px !important',  
+    '--swiper-theme-color': '#000 !important',
+    '--swiper-navigation-color': 'var(--swiper-theme-color)',
+    padding: '10px 30px !important',
+  };
+
   return (
     <div className="w-full overflow-hidden p-8">
       <div >
         <Swiper
+          style={swiperStyle}
           loop={infiniteScroll}
           navigation
           spaceBetween={20}
-          slidesPerView={6}
+          slidesPerView={10}
           rewind
-          autoplay={{delay: autoplay}}
-          modules={[Navigation]}
-          onSwiper={swiper => console.log(swiper)}
-          className='h-96 w-full rounded-lg'
+          autoplay={{
+            delay: autoplay,
+            disableOnInteraction: false // Ye line add karein
+          }}
+          modules={[Navigation, Autoplay]}
+          className=' w-full rounded-lg'
+          breakpoints={{
+            640: {slidesPerView: 2},
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4,},
+            1170: { slidesPerView: 5,},
+            1440: { slidesPerView: 6,},
+            1920: { slidesPerView: 10,},
+          }}
+          
         >
           {itemsRef.current.map((item, idx) => (
             <SwiperSlide key={idx}>
               <div
-                className={`flex-none ${itemSize.padding} bg-white flex flex-col justify-center items-center text-center m-2 shadow-lg rounded-lg p-5`}
+                className={`flex-none ${itemSize.padding} bg-white flex flex-col justify-center items-center text-center m-2 rounded-lg p-5`}
                 key={idx}
                 style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
               >
