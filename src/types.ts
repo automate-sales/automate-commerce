@@ -73,10 +73,4 @@ export type CustomerInfo = {
     billingInfo: ShippingInfo;
     paymentInfo: PaymentInfo;
   };
-
-  export interface ToastContextType {
-    showToast: boolean;
-    showToastMessage: (message: string) => void;
-    toastMessage: string;
-  }
   
