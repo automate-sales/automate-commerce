@@ -4,7 +4,6 @@ import prisma from '@/db'
 
 export default async function Page() {
   const products = await prisma.product.findMany()
-  console.log("🚀 ~ Page ~ products:", products)
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold py-16">Products</h1>
