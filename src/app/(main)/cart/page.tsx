@@ -1,6 +1,6 @@
 import Cart from '@/app/components/cart/summary'
-import { PrismaClient, Category } from '@prisma/client'
-const prisma = new PrismaClient()
+import { Category } from '@prisma/client'
+import prisma from '@/db'
 
 import { cookies } from 'next/headers'
 import Link from 'next/link'

@@ -1,6 +1,6 @@
 import Item from '@/app/components/item'
-import { PrismaClient, Product } from '@prisma/client'
-const prisma = new PrismaClient()
+import {  Product } from '@prisma/client'
+import prisma from '@/db'
 
 export default async function Page() {
   const products = await prisma.product.findMany()
