@@ -204,8 +204,6 @@ const DropdownMenu = ({ children, data }: { children: JSX.Element | string, data
         tabIndex={-1}
       >
         {data.map((item, index) => <div key={index} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">{NavElement({ item, index })}</div>)}
-
-        {/* More dropdown items */}
       </div>
     </div>
   );
@@ -257,7 +255,7 @@ const FullDropdownMenu = ({ children, data }: { children: JSX.Element | string, 
   );
 };
 
-const NavElement = ({ item, index = 1, categories }: { item: NavItem, index?: number, categories: any }) => {
+const NavElement = ({ item, index = 1, categories }: { item: NavItem, index?: number, categories?: any }) => {
   switch (item.type) {
     case 'link':
       return <Link href={item.data}>
