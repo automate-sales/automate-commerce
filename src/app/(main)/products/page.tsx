@@ -1,32 +1,17 @@
+import Item from '@/app/components/item'
 import {  Product } from '@prisma/client'
 import prisma from '@/db'
-import ImageDipslay from '@/app/components/item/imageDisplay';
 
-export default async function Page({ params }: { params: { sku: string } }) {
-  const productData = await prisma.product.findUnique({
-    where: {
-      sku: params.sku
-    }
-  }) as Product
-
+export default async function Page() {
+  const products = await prisma.product.findMany()
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
-        <div>Breadcrumbs</div>
-        <div>Share Buttons</div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <ImageDipslay product={productData} />
-        <div>
-          <h1 className="text-3xl font-bold">{productData?.title}</h1>
-          <p className="text-xl my-2">{productData?.price}</p>
-          <p className="mb-4">{productData?.description}</p>
-          <div className="flex items-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to Cart</button>
-            <input type="number" className="ml-4 p-2 border rounded" defaultValue={1} />
-          </div>
-        </div>
+    <div className="container mx-auto p-8">
+      <h1 className="text-4xl text-center font-bold py-16">Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {products.map((product: Product, index: number) => (
+          <Item key={index} link={`/products/${product.sku}`} title={product.title} price={product.price} id={product.id} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}`}/>
+        ))}
       </div>
     </div>
-  );
-};
+  )
+}
