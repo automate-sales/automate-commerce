@@ -80,21 +80,23 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true }:
             disableOnInteraction: false // Ye line add karein
           }}
           modules={[Navigation, Autoplay]}
+          onSwiper={swiper => console.log(swiper)}
           className=' w-full rounded-lg'
           breakpoints={{
+            320: {slidesPerView: 1},
             640: {slidesPerView: 2},
             768: { slidesPerView: 3 },
             1024: { slidesPerView: 4,},
-            1170: { slidesPerView: 5,},
-            1440: { slidesPerView: 6,},
+            1170: { slidesPerView: 6,},
+            1440: { slidesPerView: 8,},
             1920: { slidesPerView: 10,},
           }}
           
         >
           {itemsRef.current.map((item, idx) => (
-            <SwiperSlide key={idx}>
+            <SwiperSlide className={'swiper-slide'} key={idx}>
               <div
-                className={`flex-none ${itemSize.padding} bg-white flex flex-col justify-center items-center text-center m-2 rounded-lg p-5`}
+                className={`${itemSize.padding} swiper-slide-inner bg-white flex flex-col justify-center items-center text-center m-2 rounded-lg p-5`}
                 key={idx}
                 style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
               >
