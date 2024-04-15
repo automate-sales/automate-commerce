@@ -107,6 +107,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     const assemblyFee = order.assembly ? getAssemblyCost(Object.values(cart.cartItems)) : 0
     const tax = getTax(subtotal, discount, shippingFee, assemblyFee)
     const total = getTotal(subtotal, discount, shippingFee, assemblyFee, tax)
+    const [submitting, setSubmitting] = useState(false)
     const router = useRouter()
 
     const calcDiscount = async (couponCode: string) => {
@@ -136,6 +137,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         // add the leadId and cartId to the order
+        setSubmitting(true)
         const {orderId, newCartId} = await createOrder({
             orderInfo: { 
                 ...order,
@@ -154,6 +156,8 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
             paymentInfo: payment
         })
         if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
+        setSubmitting(false)
+        router.push(`/orders/confirmation?id=${orderId}`)
         console.log('The order has been created succesfully with id: ', orderId)
     }
     return (
@@ -219,7 +223,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                     ]}
                 />
                 <div className='pt-5 flex justify-end'>
-                    <button id="checkout-btn" type='submit' className="w-full md:w-auto md:px-12 text-2xl uppercase text-white py-2 bg-gray-400">
+                    <button disabled={submitting} id="checkout-btn" type='submit' className="w-full md:w-auto md:px-12 text-2xl uppercase text-white py-2 bg-gray-400">
                         Checkout
                     </button>
                 </div>
