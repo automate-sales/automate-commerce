@@ -22,6 +22,7 @@ const config: Config = {
   plugins: [
     plugin(function({ addUtilities }) {
       const newUtilities = {
+<<<<<<< HEAD
         '.swiper-slide': {
           display: 'flex !important',
         },
@@ -29,6 +30,8 @@ const config: Config = {
           flex: '1 !important',
         },
         
+=======
+>>>>>>> 6f9535693545881f8dbd4804a1cc08cb9ded9e7f
         '.slide-in-left': {
           animation: 'slideInLeft 0.5s forwards',
         },

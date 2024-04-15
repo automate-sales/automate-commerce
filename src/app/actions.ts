@@ -1,13 +1,14 @@
 'use server'
  
 import { cookies } from 'next/headers'
-import { Order, PrismaClient } from '@prisma/client'
+import { Order } from '@prisma/client'
 import { CartWithItems, CheckoutOrder } from '@/types'
 import { validateCart, validateCheckout, validateUniqueCart } from '@/utils/validations'
 import { formatAddress } from '@/utils/calc'
 import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
-const prisma = new PrismaClient()
+import prisma from '@/db'
+
 
 export async function createCookie(name: string, value: string) {
     cookies().set({

@@ -1,6 +1,6 @@
 import Item from '@/app/components/item'
-import { PrismaClient, Subcategory } from '@prisma/client'
-const prisma = new PrismaClient()
+import { Subcategory } from '@prisma/client'
+import prisma from '@/db'
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const categoryData = await prisma.category.findUnique({
