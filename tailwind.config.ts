@@ -28,7 +28,9 @@ const config: Config = {
         '.swiper-slide-inner': {
           flex: '1 !important',
         },
-        
+        '.white-svg': {
+          filter: 'brightness(0) invert(1)'
+        },
         '.slide-in-left': {
           animation: 'slideInLeft 0.5s forwards',
         },
