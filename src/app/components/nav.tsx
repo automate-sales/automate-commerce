@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react';
-import { Bars3Icon, XMarkIcon, ShoppingBagIcon, UserIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ShoppingBagIcon, UserIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -122,6 +122,7 @@ const Navbar = ({ user, categories }: { user: any, categories: any }) => {
 
             {/* Icons on the right */}
             <div className="flex items-center space-x-4">
+              <div className='hidden lg:flex'><SearchInput /></div>
               <UserMenu user={user}>
                 <UserIcon className="h-6 w-6" />
               </UserMenu>
@@ -143,9 +144,10 @@ const Navbar = ({ user, categories }: { user: any, categories: any }) => {
       >
         <div className="p-5">
           <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
+          <div className='py-4'><SearchInput /></div>
           <div className="flex flex-col space-y-4">
             {navItems.map((item, index) => (
-              <a href="#" key={index} className={`py-5 px-3 ${index === 0 ? 'font-bold' : ''} hover:text-gray-900`}>{item.label}</a>
+              <a href="#" key={index} className={`px-3 ${index === 0 ? 'font-bold' : ''} hover:text-gray-900`}>{item.label}</a>
             ))}
           </div>
         </div>
@@ -162,6 +164,28 @@ const Navbar = ({ user, categories }: { user: any, categories: any }) => {
     </>
   );
 };
+
+export const SearchInput =()=> {
+  const [query, setQuery] = useState('');
+  const router = useRouter()
+
+  const searchProducts =(ev:React.FormEvent<HTMLFormElement>)=> {
+      ev.preventDefault()
+      const urlQuery = query.replace(' ', '%20')
+      //searchEvent(urlQuery, leadId)
+      router.push(`/products?query=${urlQuery}`)
+  }
+
+return (
+  <form className="flex items-center px-1 lg:px-2 lg:border-b-2 lg:border-blue-200" onSubmit={(ev) => searchProducts(ev)}>
+    <MagnifyingGlassIcon className="h-6 w-6 lg:hidden" />
+    <input id="search" type="text" className="w-36 p-1 bg-transparent text-gray-700 focus:outline-none" required minLength={2} value={query} onChange={(e) => setQuery(e.target.value)} placeholder='search' />
+    <button type='submit' className="focus:outline-none items-center justify-center hidden lg:flex">
+      <MagnifyingGlassIcon className="h-5 w-5 text-gray-400"/>
+    </button>
+  </form>
+)
+}
 
 const DropdownMenu = ({ children, data }: { children: JSX.Element | string, data: NavItem[] }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -190,7 +214,6 @@ const DropdownMenu = ({ children, data }: { children: JSX.Element | string, data
 const FullDropdownMenu = ({ children, data }: { children: JSX.Element | string, data: any }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
-  console.log(data);
   return (
     <div className="relative inline-block text-left z-20">
       <button onClick={toggleDropdown} className="flex items-center">
