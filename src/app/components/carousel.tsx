@@ -3,6 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/autoplay';
 
 type Item = {
   imageUrl: string;
@@ -15,12 +20,14 @@ type CarouselProps = {
   items: Item[];
   autoplay?: number; // Autoplay speed in milliseconds for changing slides
   size?: 'sm' | 'md' | 'lg';
+  infiniteScroll?:boolean
 }
 
-const Carousel = ({ items, autoplay = 3000, size = 'md' }: CarouselProps) => {
+const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const itemsRef = useRef([...items, ...items]); // Duplicate items for an infinite loop
+
 
   useEffect(() => {
     resetTimeout();
@@ -36,6 +43,7 @@ const Carousel = ({ items, autoplay = 3000, size = 'md' }: CarouselProps) => {
     };
   }, [currentIndex, autoplay]);
 
+
   const resetTimeout = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -49,30 +57,66 @@ const Carousel = ({ items, autoplay = 3000, size = 'md' }: CarouselProps) => {
     'lg': { width: 250, height: 250, padding: 'p-4' },
   }[size];
 
+
+  const swiperStyle = {
+    '--swiper-navigation-size': '20px !important',  
+    '--swiper-theme-color': '#000 !important',
+    '--swiper-navigation-color': 'var(--swiper-theme-color)',
+    padding: '10px 30px !important',
+  };
+
   return (
     <div className="w-full overflow-hidden p-8">
-      <div className={`flex transition-transform ease-linear duration-1000`} style={{ transform: `translateX(-${currentIndex * (itemSize.width + 32)}px)` }}>
-        {itemsRef.current.map((item, idx) => (
-          <div
-            className={`flex-none ${itemSize.padding} bg-white flex flex-col justify-center items-center text-center m-2 shadow-lg rounded-lg p-5`}
-            key={idx}
-            style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
-          >
-            <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
+      <div >
+        <Swiper
+          style={swiperStyle}
+          loop={infiniteScroll}
+          navigation
+          spaceBetween={20}
+          slidesPerView={10}
+          rewind
+          autoplay={{
+            delay: autoplay,
+            disableOnInteraction: false // Ye line add karein
+          }}
+          modules={[Navigation, Autoplay]}
+          className=' w-full rounded-lg'
+          breakpoints={{
+            320: {slidesPerView: 1},
+            640: {slidesPerView: 2},
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4,},
+            1170: { slidesPerView: 6,},
+            1440: { slidesPerView: 8,},
+            1920: { slidesPerView: 10,},
+          }}
+          
+        >
+          {itemsRef.current.map((item, idx) => (
+            <SwiperSlide className={'swiper-slide'} key={idx}>
+              <div
+                className={`${itemSize.padding} swiper-slide-inner bg-white flex flex-col justify-center items-center text-center m-2 rounded-lg p-5`}
+                key={idx}
+                style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
+              >
+                <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
 
-                <Image
-                  src={item.imageUrl}
-                  alt={item.heading || `Carousel item ${idx}`}
-                  width={itemSize.width - 32} // Deduct padding for actual image size
-                  height={itemSize.height - 32} // Deduct padding for actual image size
-                  objectFit="contain"
-                />
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.heading || `Carousel item ${idx}`}
+                    width={itemSize.width - 32} // Deduct padding for actual image size
+                    height={itemSize.height - 32} // Deduct padding for actual image size
+                    objectFit="contain"
+                  />
 
-            </Link>
-            <h2 className="text-sm font-semibold w-full">{item.heading}</h2>
-            <p className="text-xs">{item.subheading}</p>
-          </div>
-        ))}
+                </Link>
+                <h2 className="text-sm font-semibold w-full">{item.heading}</h2>
+                <p className="text-xs">{item.subheading}</p>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
       </div>
     </div>
   );
