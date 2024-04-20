@@ -1,9 +1,15 @@
 import Item from '@/app/components/item'
 import {  Product, Prisma } from '@prisma/client'
 import prisma from '@/db'
+import Pagination from '@/app/components/pagination';
 
-async function searchProducts(searchTerm: string) {
-  const query = Prisma.sql`
+async function searchProducts(
+  searchTerm: string | null,
+  pageSize: number,
+  pageNumber: number
+):  Promise<[number, Product[] | undefined]> {
+  const offset = pageNumber * pageSize;
+  const productsQuery = Prisma.sql`
     SELECT * FROM "Product"
     WHERE "sku" = ${searchTerm}
     OR similarity(title, ${searchTerm}) > 0.1
@@ -18,8 +24,17 @@ async function searchProducts(searchTerm: string) {
         ELSE 6
       END
     ) ASC
+    LIMIT ${pageSize} OFFSET ${offset}
   `;
-  return await prisma.$queryRaw(query) as Product[] | undefined;
+  const countQuery = Prisma.sql`
+    SELECT COUNT(*) FROM "Product"
+    WHERE "sku" = ${searchTerm}
+    OR similarity(title, ${searchTerm}) > 0.1
+    OR similarity(description, ${searchTerm}) > 0.3
+  `;
+  const products = await prisma.$queryRaw(productsQuery) as Product[] | undefined;
+  const count = await prisma.$queryRaw(countQuery) as { count: number }[];
+  return [ Number(count[0].count), products ]
 }
 
 export default async function Page({
@@ -27,28 +42,17 @@ export default async function Page({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const pageSize = 20;
+  const pageNumber = searchParams?.page ? Number(searchParams.page) : 0
   const query = searchParams?.query ? searchParams.query as string : null
-
-  const productFields = {
-    id: true,
-    sku: true,
-    title: true,
-    description: true,
-    price: true,
-    stock: true,
-    images: true,
-    subcategory: {
-      select: {
-        id: true,
-        slug: true,
-        title: true
-      }
-    }
-  }
-  const products = query? await searchProducts(query) : await prisma.product.findMany({
-    select: productFields
-  });
-  console.log('PRODUCTS: ', products)
+  const [count, products] = query ? await searchProducts(query, pageSize, pageNumber) : await prisma.$transaction([
+    prisma.product.count(),
+    prisma.product.findMany({
+      take: pageSize,
+      skip: pageSize * pageNumber,
+    })
+  ])
+  
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold py-16">Products</h1>
@@ -57,6 +61,7 @@ export default async function Page({
           <Item key={index} link={`/products/${product.sku}`} title={product.title} price={product.price} id={product.id} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}`}/>
         ))}
       </div>
+      <Pagination count={count} pageSize={pageSize} pageNumber={pageNumber} model='products' query={query}/>
     </div>
   )
 }
