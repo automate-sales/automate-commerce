@@ -1,3 +1,5 @@
+
+import AddToCartButton from '@/app/components/cart/add';
 import ImageDipslay from '@/app/components/item/imageDisplay';
 import { Product } from '@prisma/client'
 import prisma from '@/db'
@@ -8,7 +10,6 @@ export default async function Page({ params }: { params: { sku: string } }) {
       sku: params.sku
     }
   }) as Product
-
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -23,7 +24,8 @@ export default async function Page({ params }: { params: { sku: string } }) {
           <p className="text-xl my-2">{productData?.price}</p>
           <p className="mb-4">{productData?.description}</p>
           <div className="flex items-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to Cart</button>
+            <AddToCartButton cartId={""} productId={productData?.id} productPrice={productData?.price}/>
+            {/* <button onClick={() => toast.success("Item added to cart.")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to Cart</button> */}
             <input type="number" className="ml-4 p-2 border rounded" defaultValue={1} />
           </div>
         </div>

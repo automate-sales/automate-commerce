@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
 import LeadGen from './components/leadGen'
-
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

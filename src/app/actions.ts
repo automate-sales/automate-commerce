@@ -9,7 +9,6 @@ import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
 
-
 export async function createCookie(name: string, value: string) {
     cookies().set({
         name: name,
@@ -61,7 +60,7 @@ export async function updateCartItem(
           price: price
         },
     })
-    console.log('CART ITEM MUTATION RESULT: ', cartItem)
+    console.log('CART ITEM MUTATION RESULT: ', cartItem);
     return cartItem
 }
 
