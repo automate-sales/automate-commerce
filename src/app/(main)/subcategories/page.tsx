@@ -1,9 +1,6 @@
 import Item from '@/app/components/item'
 import { Subcategory } from '@prisma/client'
 import prisma from '@/db'
-
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link';
 import Pagination from '@/app/components/pagination';
 
 export default async function Page({
@@ -11,7 +8,7 @@ export default async function Page({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const pageSize = 30;
+  const pageSize = 20;
   const pageNumber = searchParams?.page ? Number(searchParams.page) : 0
   const [count, subcategories] = await prisma.$transaction([
     prisma.subcategory.count(),
