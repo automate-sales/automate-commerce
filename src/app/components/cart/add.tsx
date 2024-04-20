@@ -13,15 +13,10 @@ export default function AddToCartButton({
   productPrice: number;
 }) {
   return (
-    // <button onClick={()=>updateCartItem(cartId, productId, productPrice)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-    //     Add to Cart
-    // </button>
     <>
       <ToastContainer />
-      <button
-        onClick={() => toast.success("Item added to cart.")}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
+      <button onClick={()=> updateCartItem(cartId, productId, productPrice).then(() => {toast.success("Item added to cart.")})}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Add to Cart
       </button>
     </>
