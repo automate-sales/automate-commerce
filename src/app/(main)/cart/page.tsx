@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default async function Page() {
     const cookieStore = cookies()
-    const cartId = cookieStore.get('ergo_cart_id')?.value
+    const cartId = cookieStore.get('ergo_cart_id')?.value;
     const cartWithItems = await prisma.cart.findUnique({
         where: { id: cartId },
         include: { cartItems: {
