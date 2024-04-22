@@ -33,7 +33,7 @@ const navItems = [
   },
 ] as NavItem[];
 
-const Navbar = ({ user, categories }: { user: any, categories: any }) => {
+const Navbar = ({ user, categories, cartItemsCount }: { user: any, categories: any, cartItemsCount:number }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const drawerRef = useRef(null);
@@ -126,7 +126,7 @@ const Navbar = ({ user, categories }: { user: any, categories: any }) => {
               <UserMenu user={user}>
                 <UserIcon className="h-6 w-6" />
               </UserMenu>
-              <Link href='/cart'><ShoppingBagIcon className="h-6 w-6" /></Link>
+              <Link href='/cart'><ShoppingBagIcon className="h-6 w-6" />{cartItemsCount}</Link>
             </div>
           </div>
         </div >
