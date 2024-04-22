@@ -51,7 +51,7 @@ export async function updateCartItem(
           },
         },
         update: {
-          ...( quantity ? { qty: quantity } : { qty: { increment: 1 } })
+          ...( quantity || quantity === 0 ? { qty: quantity } : { qty: { increment: 1 } })
         },
         create: {
           cartId: cartId,
