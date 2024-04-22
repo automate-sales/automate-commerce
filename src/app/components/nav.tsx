@@ -126,7 +126,9 @@ const Navbar = ({ user, categories, cartItemsCount }: { user: any, categories: a
               <UserMenu user={user}>
                 <UserIcon className="h-6 w-6" />
               </UserMenu>
-              <Link href='/cart'><ShoppingBagIcon className="h-6 w-6" />{cartItemsCount}</Link>
+              <Link className='relative' href='/cart'><ShoppingBagIcon className="h-6 w-6" />
+                <span className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-3 -end-3 dark:border-gray-900">{cartItemsCount}</span>
+              </Link>
             </div>
           </div>
         </div >
