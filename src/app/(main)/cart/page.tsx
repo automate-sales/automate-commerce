@@ -7,13 +7,13 @@ import Link from 'next/link'
 
 export default async function Page() {
     const cookieStore = cookies()
-    const cartId = cookieStore.get('ergo_cart_id')?.value
+    const cartId = cookieStore.get('ergo_cart_id')?.value;
     const cartWithItems = await prisma.cart.findUnique({
         where: { id: cartId },
         include: { cartItems: {
           where: { qty: { gt: 0 } },
           include: { product: true },
-          orderBy: { createdAt: 'desc' }
+          orderBy: { createdAt: 'asc' }
         } 
     }
   })

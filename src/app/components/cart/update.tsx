@@ -24,13 +24,12 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId: string, car
     const updateItemQty = async (newQty: number) => {
       console.log(`Updating product with SKU: ${cartItem.product.sku} from cart with ID: ${cartId} to quantity: ${newQty}`);
       await updateCartItem(cartId, cartItem.product.id, cartItem.product.price, newQty);
-      router.refresh();
       toast.success(`Quantity updated.`);
+      router.refresh();
     };
   
     useEffect(() => {
       if (!userHasInteracted) return; // Only run the effect if the user has interacted
-  
       if (inputValue === '') return; // Do nothing if input is empty
       if (debounceRef.current) clearTimeout(debounceRef.current);
   
@@ -53,7 +52,7 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId: string, car
   
     return (
       <div className="flex justify-between w-full">
-        <div>
+        <div className='flex flex-col'>
           <input
             type="number"
             min="1"

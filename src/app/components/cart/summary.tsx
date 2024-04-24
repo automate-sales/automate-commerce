@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { updateCartItem } from '@/app/actions';
 import UpdateCartButton from './update';
 import { CartItemWithProduct, CartWithItems } from '@/types';
 
@@ -12,10 +11,7 @@ type CartProps = {
 const bucketUrl = process.env.NEXT_PUBLIC_IMAGE_HOST;
 
 const Cart: React.FC<CartProps> = ({ cartWithItems }) => {
-
-    const cartId = cartWithItems.id;
-  // Function to remove an item from the cart
-  
+  const cartId = cartWithItems.id;
 
   return (
     <>
@@ -29,7 +25,7 @@ const Cart: React.FC<CartProps> = ({ cartWithItems }) => {
       </div>
 
         {cartWithItems.cartItems.map((cartItem: CartItemWithProduct, index:number) => (
-          <div key={index} className="flex w-full justify-between items-center border-b border-gray-200 p-2">
+          <div key={cartItem.id} className="flex w-full justify-between items-center border-b border-gray-200 p-2">
             <div className="flex items-center w-2/3">
               <Image src={`${bucketUrl}/products/${cartItem.product.images[0]}`} alt={cartItem.product.title} width={200} height={200} className="object-cover" />
               <div className='px-8'>
