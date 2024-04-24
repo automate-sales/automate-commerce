@@ -12,7 +12,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const user = await getCurrentUser();
-  let itemCount;
+  let itemCount = 0;
   const categories = await prisma.category.findMany({
     include: {
       subcategories: true,
@@ -25,29 +25,29 @@ export default async function RootLayout({
   const cartId = cookieStore.get("ergo_cart_id")?.value;
  
   if (cartId) {
-    itemCount = await prisma.cart.findUnique({
+    const items = await prisma.cart.findUnique({
       where: { id: cartId },
       select: {
-        _count: {
-          select: {
-            cartItems: {
-              where: { qty: { gt: 0 } },
-            },
-          },
+        cartItems: {
+          where: { qty: { gt: 0 } },
         },
       },
     });
+    if(items) {
+      itemCount = items.cartItems.reduce((acc, curr) => acc + curr.qty, 0);
+    }
+    
   }
   return (
-      <>
-        <Navbar
-          cartItemsCount={itemCount ? itemCount._count.cartItems : 0}
-          user={user}
-          categories={categories}
-        />
-        {children}
-        <ToastContainer />
-        <Footer />
-      </>
-  )
+    <>
+      <Navbar
+        cartItemsCount={itemCount}
+        user={user}
+        categories={categories}
+      />
+      {children}
+      <ToastContainer/>
+      <Footer />
+    </>
+  );
 }
