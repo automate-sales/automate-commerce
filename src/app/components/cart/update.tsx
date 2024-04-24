@@ -4,7 +4,6 @@ import { updateCartItem } from "@/app/actions";
 import { CartItem, Product } from "@prisma/client";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/navigation';
 type CartItemWithProduct = CartItem & { product: Product };
 

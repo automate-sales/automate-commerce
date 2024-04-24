@@ -3,6 +3,7 @@ import { getCurrentUser } from '@/utils/auth'
 import Footer from '../components/footer'
 import prisma from '@/db'
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default async function RootLayout({
   children,
 }: {
