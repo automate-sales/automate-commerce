@@ -12,7 +12,8 @@ export default async function Page() {
         where: { id: cartId },
         include: { cartItems: {
           where: { qty: { gt: 0 } },
-          include: { product: true }
+          include: { product: true },
+          orderBy: { createdAt: 'desc' }
         } 
     }
   })
