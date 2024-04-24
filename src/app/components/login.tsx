@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { signIn } from "next-auth/react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  toast } from "react-toastify";
 export default function LoginForm() {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ export default function LoginForm() {
 
   return (
     <>
-      <ToastContainer />
       <div id="Email">
         <form className="block" onSubmit={submitForm}>
           <input
