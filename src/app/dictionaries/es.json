@@ -1,0 +1,49 @@
+{
+  "heroSection": {
+    "title": "Welcome to the Next.js E-commerce Store",
+    "description": "This is a simple e-commerce store built with Next.js and Prisma.",
+    "btnText": "Shop Now"
+  },
+  "centeredImageSection": {
+    "content1": "This is a centered image section.",
+    "content2": "This is another centered image section."
+  },
+  "textImageSection": {
+    "text": "This is a text and image section."
+  },
+  "specsSection": {
+    "feature1": {
+      "title": "Feature 1",
+      "paragraph": "This is the first feature."
+    },
+    "feature2": {
+      "title": "Feature 2",
+      "paragraph": "This is the second feature."
+    },
+    "feature3": {
+      "title": "Feature 3",
+      "paragraph": "This is the third feature."
+    }
+  },
+
+  "footer": {
+    "products": "Productos",
+    "explore": "Explore",
+    "support": "Soporte",
+    "contactUs": "Contáctenos",
+    "visitShowroom": "Visita nuestro showroom",
+    "aboutUs": "Sobre Nosotros",
+    "ourPhilosophy": "Nuestra Filosofía",
+    "blog": "Blog",
+    "catalogue": "Catalogo",
+    "faq": "FAQ",
+    "instructions": "Instrucciones",
+    "deliveries": "Entregas",
+    "returns": "Devoluciones",
+    "cancellations": "Cancelaciones",
+    "showroomTimings": "Estamos abiertos de lunes a viernes 12PM-6PM y sabados de 9AM-12PM",
+    "privacyPolicy": "Políticas de Privacidad",
+    "termsConditions": "Términos y Condiciones",
+    "followUs": "Síguenos"
+  }
+}

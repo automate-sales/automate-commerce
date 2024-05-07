@@ -1,0 +1,28 @@
+{
+  "heroSection": {
+    "title": "Bienvenido a la tienda de comercio electrónico Next.js",
+    "description": "Esta es una tienda de comercio electrónico sencilla creada con Next.js y Prisma.",
+    "btnText": "Compra ahora"
+  },
+  "centeredImageSection": {
+    "content-1": "Esta es una sección de imagen centrada.",
+    "content-2": "Esta es otra sección de imagen centrada."
+  },
+  "textImageSection": {
+    "text": "Esta es una sección de texto e imágenes."
+  },
+  "specsSection": {
+    "feature1": {
+      "title": "Característica 1",
+      "paragraph": "Esta es la primera característica."
+    },
+    "feature2": {
+      "title": "Característica 2",
+      "paragraph": "Ésta es la segunda característica."
+    },
+    "feature3": {
+      "title": "Característica 3",
+      "paragraph": "Ésta es la tercera característica."
+    }
+  }
+}
