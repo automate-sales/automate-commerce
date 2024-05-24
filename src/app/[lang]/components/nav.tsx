@@ -11,55 +11,65 @@ import {
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import locales from "@/utils/locales";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
+
 type NavItem = {
   label: string;
   type: "link" | "dropdown" | "fulldropdown";
   data: any;
 };
 
-const navItems = [
-  {
-    label: "Products",
-    type: "fulldropdown",
-    data: [
-      { label: "Product 1", type: "link", data: "/product1" },
-      { label: "Product 2", type: "link", data: "/product2" },
-      { label: "Product 3", type: "link", data: "/product3" },
-      { label: "Product 4", type: "link", data: "/product4" },
-      { label: "Product 5", type: "link", data: "/product5" },
-      { label: "Product 6", type: "link", data: "/product6" },
-    ],
-  },
-  { label: "Blog", type: "link", data: "/blog" },
-  {
-    label: "Soporte",
-    type: "dropdown",
-    data: [
-      { label: "item 1", type: "link", data: "/item1" },
-      { label: "item 2", type: "link", data: "/item2" },
-      { label: "item 3", type: "link", data: "/item3" },
-    ],
-  },
-] as NavItem[];
-
 const Navbar = ({
   user,
   categories,
   cartItemsCount,
+  dict,
 }: {
   user: any;
   categories: any;
   cartItemsCount: number;
+  dict: any;
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const drawerRef = useRef(null);
   const [drawerPosition, setDrawerPosition] = useState("-100%"); // Drawer is hidden initially
-  const router = useRouter();
+
   const pathName = usePathname();
-  const toggleProductsDropdown = () => {
+  const currentLocale = locales.includes(pathName.split("/")[1]) ? pathName.split("/")[1] : null;
+  const currentPath = currentLocale ? pathName.replace(`/${currentLocale}`, "") : pathName;
+  const locale = currentLocale ? currentLocale : "en";
+  const reorderedLangs = (target: string, arr: Array<string>) => [target].concat(arr.filter(item => item !== target));
+  
+  const navItems = [
+    {
+      label: dict.nav.products,
+      type: "fulldropdown",
+      data: [
+        { label: "Product 1", type: "link", data: "/product1" },
+        { label: "Product 2", type: "link", data: "/product2" },
+        { label: "Product 3", type: "link", data: "/product3" },
+        { label: "Product 4", type: "link", data: "/product4" },
+        { label: "Product 5", type: "link", data: "/product5" },
+        { label: "Product 6", type: "link", data: "/product6" },
+      ],
+    },
+    { label: dict.nav.blog, type: "link", data: "/blog" },
+    {
+      label: dict.nav.support,
+      type: "dropdown",
+      data: [
+        { label: "item 1", type: "link", data: "/item1" },
+        { label: "item 2", type: "link", data: "/item2" },
+        { label: "item 3", type: "link", data: "/item3" },
+      ],
+    },
+  ] as NavItem[];
+
+  /* const toggleProductsDropdown = () => {
     setIsProductsDropdownOpen(!isProductsDropdownOpen);
-  };
+  }; */
 
   const openDrawer = () => {
     setIsMenuOpen(true);
@@ -151,26 +161,14 @@ const Navbar = ({
                   {cartItemsCount}
                 </span>
               </Link>
-              <div className="flex items-center space-x-1 pl-3">
-                {" "}
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    router.push(`${pathName}?lang=en`);
-                  }}
-                >
-                  English
-                </span>{" "}
-                <span>|</span>
-                <span
-                  className="cursor-pointer"
-                  onClick={() => {
-                    router.push(`${pathName}?lang=es`);
-                  }}
-                >
-                  Español
-                </span>
-              </div>
+              
+              <DropdownMenu data={reorderedLangs(locale, locales).map((lang) => ({ label: lang, type: "link", data: `/${lang}${currentPath}` }))}>
+                <div className={`flex items-center py-5 px-3 hover:text-gray-900`}>
+                  <span className="pr-1">{currentLocale}</span>
+                  <ChevronDownIcon className="h-4 w-4" />
+                </div>
+              </DropdownMenu>
+              
             </div>
           </div>
         </div>

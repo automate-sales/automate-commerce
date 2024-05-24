@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "products": "Products",
+    "blog": "Blog",
+    "support": "Support"
+  },
   "heroSection": {
     "title": "Welcome to the Next.js E-commerce Store",
     "description": "This is a simple e-commerce store built with Next.js and Prisma.",

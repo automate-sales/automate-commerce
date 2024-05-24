@@ -1,47 +1,52 @@
 {
+  "nav": {
+    "products": "Productos",
+    "blog": "Blog",
+    "support": "Soporte"
+  },
   "heroSection": {
-    "title": "Welcome to the Next.js E-commerce Store",
-    "description": "This is a simple e-commerce store built with Next.js and Prisma.",
-    "btnText": "Shop Now"
+    "title": "Bienvenido a la tienda de e-commerce Next.js",
+    "description": "Esta es una tienda de comercio electrónico simple construida con Next.js y Prisma.",
+    "btnText": "Comprar ahora"
   },
   "centeredImageSection": {
-    "content1": "This is a centered image section.",
-    "content2": "This is another centered image section."
+    "content1": "Esta es una sección de imagen centrada.",
+    "content2": "Esta es otra sección de imagen centrada."
   },
   "textImageSection": {
-    "text": "This is a text and image section."
+    "text": "Esta es una sección de texto e imagen."
   },
   "specsSection": {
     "feature1": {
-      "title": "Feature 1",
-      "paragraph": "This is the first feature."
+      "title": "Característica 1",
+      "paragraph": "Esta es la primera característica."
     },
     "feature2": {
-      "title": "Feature 2",
-      "paragraph": "This is the second feature."
+      "title": "Característica 2",
+      "paragraph": "Esta es la segunda característica."
     },
     "feature3": {
-      "title": "Feature 3",
-      "paragraph": "This is the third feature."
+      "title": "Característica 3",
+      "paragraph": "Esta es la tercera característica."
     }
   },
 
   "footer": {
     "products": "Productos",
-    "explore": "Explore",
+    "explore": "Explorar",
     "support": "Soporte",
     "contactUs": "Contáctenos",
     "visitShowroom": "Visita nuestro showroom",
     "aboutUs": "Sobre Nosotros",
     "ourPhilosophy": "Nuestra Filosofía",
     "blog": "Blog",
-    "catalogue": "Catalogo",
+    "catalogue": "Catálogo",
     "faq": "FAQ",
     "instructions": "Instrucciones",
     "deliveries": "Entregas",
     "returns": "Devoluciones",
     "cancellations": "Cancelaciones",
-    "showroomTimings": "Estamos abiertos de lunes a viernes 12PM-6PM y sabados de 9AM-12PM",
+    "showroomTimings": "Estamos abiertos de lunes a viernes de 12PM a 6PM y sábados de 9AM a 12PM",
     "privacyPolicy": "Políticas de Privacidad",
     "termsConditions": "Términos y Condiciones",
     "followUs": "Síguenos"

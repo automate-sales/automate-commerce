@@ -5,6 +5,8 @@ import prisma from '@/db'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookies } from "next/headers";
+import { getDictionary } from '@/app/dictionaries'
+import { get } from 'http';
 
 export default async function RootLayout({
   children,
@@ -13,6 +15,7 @@ export default async function RootLayout({
   children: React.ReactNode,
   params: any
 }) {
+  const dict = await getDictionary(params.lang);
   const user = await getCurrentUser();
   let itemCount = 0;
   const categories = await prisma.category.findMany({
@@ -43,10 +46,10 @@ export default async function RootLayout({
   return (
     <>
       <Navbar
-        
         cartItemsCount={itemCount}
         user={user}
         categories={categories}
+        dict={dict}
       />
       {children}
       <ToastContainer/>
