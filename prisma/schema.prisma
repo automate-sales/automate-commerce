@@ -14,8 +14,8 @@ datasource db {
 model Category {
   id            Int      @id @default(autoincrement())
   slug          String        @unique
-  title         String
-  description   String?
+  title         Json
+  description   Json?
   images        String[]      @default([])
   subcategories Subcategory[]
   priority      Int?
@@ -28,8 +28,8 @@ model Category {
 model Subcategory {
   id          Int      @id @default(autoincrement())
   slug        String    @unique
-  title       String
-  description String?
+  title       Json
+  description Json?
   images      String[]  @default([])
   categoryId  Int
   category    Category  @relation(fields: [categoryId], references: [id])
@@ -45,8 +45,8 @@ model Product {
   id                  Int      @id @default(autoincrement())
   sku                 String      @unique
   skuGroup            String
-  title               String
-  description         String?
+  title               Json
+  description         Json?
   subcategoryId       Int
   subcategory         Subcategory @relation(fields: [subcategoryId], references: [id])
   price               Float

@@ -4,33 +4,6 @@
     "blog": "Blog",
     "support": "Soporte"
   },
-  "heroSection": {
-    "title": "Bienvenido a la tienda de e-commerce Next.js",
-    "description": "Esta es una tienda de comercio electrónico simple construida con Next.js y Prisma.",
-    "btnText": "Comprar ahora"
-  },
-  "centeredImageSection": {
-    "content1": "Esta es una sección de imagen centrada.",
-    "content2": "Esta es otra sección de imagen centrada."
-  },
-  "textImageSection": {
-    "text": "Esta es una sección de texto e imagen."
-  },
-  "specsSection": {
-    "feature1": {
-      "title": "Característica 1",
-      "paragraph": "Esta es la primera característica."
-    },
-    "feature2": {
-      "title": "Característica 2",
-      "paragraph": "Esta es la segunda característica."
-    },
-    "feature3": {
-      "title": "Característica 3",
-      "paragraph": "Esta es la tercera característica."
-    }
-  },
-
   "footer": {
     "products": "Productos",
     "explore": "Explorar",
@@ -50,5 +23,42 @@
     "privacyPolicy": "Políticas de Privacidad",
     "termsConditions": "Términos y Condiciones",
     "followUs": "Síguenos"
+  },
+  "home": {
+    "heroSection": {
+      "title": "Bienvenido a la tienda de e-commerce Next.js",
+      "description": "Esta es una tienda de comercio electrónico simple construida con Next.js y Prisma.",
+      "btnText": "Comprar ahora"
+    },
+    "centeredImageSection": {
+      "content1": "Esta es una sección de imagen centrada.",
+      "content2": "Esta es otra sección de imagen centrada."
+    },
+    "textImageSection": {
+      "text": "Esta es una sección de texto e imagen."
+    },
+    "specsSection": {
+      "feature1": {
+        "title": "Característica 1",
+        "paragraph": "Esta es la primera característica."
+      },
+      "feature2": {
+        "title": "Característica 2",
+        "paragraph": "Esta es la segunda característica."
+      },
+      "feature3": {
+        "title": "Característica 3",
+        "paragraph": "Esta es la tercera característica."
+      }
+    }
+  },
+  "categories": {
+    "title": "Categorias"
+  },
+  "subcategories": {
+    "title": "Subcategorias"
+  },
+  "products": {
+    "title": "Productos"
   }
 }

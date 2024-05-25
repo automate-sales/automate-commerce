@@ -13,6 +13,7 @@ import { signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import locales from "@/utils/locales";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { getIntl } from "@/utils/utils";
 
 type NavItem = {
   label: string;
@@ -25,11 +26,13 @@ const Navbar = ({
   categories,
   cartItemsCount,
   dict,
+  lang
 }: {
   user: any;
   categories: any;
   cartItemsCount: number;
   dict: any;
+  lang: string;
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
@@ -143,7 +146,7 @@ const Navbar = ({
             {/* Middle navigation: only shown on medium screens and up */}
             <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item, index) => (
-                <NavElement key={index} item={item} index={index} categories={categories} />
+                <NavElement key={index} item={item} index={index} categories={categories} lang={lang} />
               ))}
             </div>
 
@@ -162,7 +165,7 @@ const Navbar = ({
                 </span>
               </Link>
               
-              <DropdownMenu data={reorderedLangs(locale, locales).map((lang) => ({ label: lang, type: "link", data: `/${lang}${currentPath}` }))}>
+              <DropdownMenu lang={lang} data={reorderedLangs(locale, locales).map((lang) => ({ label: lang, type: "link", data: `/${lang}${currentPath}` }))}>
                 <div className={`flex items-center py-5 px-3 hover:text-gray-900`}>
                   <span className="pr-1">{currentLocale}</span>
                   <ChevronDownIcon className="h-4 w-4" />
@@ -248,7 +251,7 @@ export const SearchInput = () => {
   );
 };
 
-const DropdownMenu = ({ children, data }: { children: JSX.Element | string; data: NavItem[] }) => {
+const DropdownMenu = ({ children, data, lang }: { children: JSX.Element | string; data: NavItem[], lang:string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
 
@@ -271,7 +274,7 @@ const DropdownMenu = ({ children, data }: { children: JSX.Element | string; data
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             role="menuitem"
           >
-            {NavElement({ item, index })}
+            {NavElement({ item, index, lang })}
           </div>
         ))}
       </div>
@@ -279,7 +282,7 @@ const DropdownMenu = ({ children, data }: { children: JSX.Element | string; data
   );
 };
 
-const FullDropdownMenu = ({ children, data }: { children: JSX.Element | string; data: any }) => {
+const FullDropdownMenu = ({ children, data, lang }: { children: JSX.Element | string; data: any, lang: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen); // Toggle dropdown visibility
   return (
@@ -300,7 +303,7 @@ const FullDropdownMenu = ({ children, data }: { children: JSX.Element | string; 
             <div className="py-1" key={`cat-${ci}`}>
               <div className="text-md font-bold link">
                 <Link scroll={false} passHref href={`/categories/${cat.slug}`}>
-                  {cat.title}
+                  {getIntl(cat.title, lang)}
                 </Link>
               </div>
               <ul className="pt-2">
@@ -310,7 +313,7 @@ const FullDropdownMenu = ({ children, data }: { children: JSX.Element | string; 
                       <div key={`sub-${si}`}>
                         <li className="link pb-1 text-sm">
                           <Link scroll={false} passHref href={`/subcategories/${subcat.slug}`}>
-                            {subcat.title}
+                            {getIntl(subcat.title, lang)}
                           </Link>
                         </li>
                       </div>
@@ -331,10 +334,12 @@ const NavElement = ({
   item,
   index = 1,
   categories,
+  lang
 }: {
   item: NavItem;
   index?: number;
   categories?: any;
+  lang: string
 }) => {
   switch (item.type) {
     case "link":
@@ -347,7 +352,7 @@ const NavElement = ({
       );
     case "dropdown":
       return (
-        <DropdownMenu data={item.data}>
+        <DropdownMenu data={item.data} lang={lang}>
           <span className={`py-5 px-3 ${index === 0 ? "font-bold" : ""} hover:text-gray-900`}>
             {item.label}
           </span>
@@ -355,7 +360,7 @@ const NavElement = ({
       );
     case "fulldropdown":
       return (
-        <FullDropdownMenu data={categories}>
+        <FullDropdownMenu data={categories} lang={lang}>
           <span className={`py-5 px-3 ${index === 0 ? "font-bold" : ""} hover:text-gray-900`}>
             {item.label}
           </span>

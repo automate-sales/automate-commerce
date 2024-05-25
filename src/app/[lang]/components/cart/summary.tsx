@@ -30,9 +30,9 @@ const Cart: React.FC<CartProps> = ({ cartWithItems }) => {
               <Image src={`${bucketUrl}/products/${cartItem.product.images[0]}`} alt={cartItem.product.title} width={200} height={200} className="object-cover" />
               <div className='px-8'>
                 <Link className="text-lg font-bold" href={`/products/${cartItem.product.sku}`}>
-                  {cartItem.product.title}
+                  {cartItem.product.title?.es}
                 </Link>
-                <p className="text-gray-500">{cartItem.product.description}</p>
+                <p className="text-gray-500">{cartItem.product.description?.es}</p>
                 {cartItem.product.color && <p>Color: {cartItem.product.color}</p>}
                 {cartItem.product.size && <p>Size: {cartItem.product.size}</p>}
               </div>

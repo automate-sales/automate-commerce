@@ -4,33 +4,6 @@
     "blog": "Blog",
     "support": "Support"
   },
-  "heroSection": {
-    "title": "Welcome to the Next.js E-commerce Store",
-    "description": "This is a simple e-commerce store built with Next.js and Prisma.",
-    "btnText": "Shop Now"
-  },
-  "centeredImageSection": {
-    "content1": "This is a centered image section.",
-    "content2": "This is another centered image section."
-  },
-  "textImageSection": {
-    "text": "This is a text and image section."
-  },
-  "specsSection": {
-    "feature1": {
-      "title": "Feature 1",
-      "paragraph": "This is the first feature."
-    },
-    "feature2": {
-      "title": "Feature 2",
-      "paragraph": "This is the second feature."
-    },
-    "feature3": {
-      "title": "Feature 3",
-      "paragraph": "This is the third feature."
-    }
-  },
-
   "footer": {
     "products": "Products",
     "explore": "Explore",
@@ -50,5 +23,42 @@
     "privacyPolicy": "Privacy policies",
     "termsConditions": "Terms and Conditions",
     "followUs": "Follow us"
+  },
+  "home": {
+    "heroSection": {
+      "title": "Welcome to the Next.js E-commerce Store",
+      "description": "This is a simple e-commerce store built with Next.js and Prisma.",
+      "btnText": "Shop Now"
+    },
+    "centeredImageSection": {
+      "content1": "This is a centered image section.",
+      "content2": "This is another centered image section."
+    },
+    "textImageSection": {
+      "text": "This is a text and image section."
+    },
+    "specsSection": {
+      "feature1": {
+        "title": "Feature 1",
+        "paragraph": "This is the first feature."
+      },
+      "feature2": {
+        "title": "Feature 2",
+        "paragraph": "This is the second feature."
+      },
+      "feature3": {
+        "title": "Feature 3",
+        "paragraph": "This is the third feature."
+      }
+    }
+  },
+  "categories": {
+    "title": "Categories"
+  },
+  "subcategories": {
+    "title": "Subcategories"
+  },
+  "products": {
+    "title": "Products"
   }
 }

@@ -20,10 +20,11 @@ type CarouselProps = {
   items: Item[];
   autoplay?: number; // Autoplay speed in milliseconds for changing slides
   size?: 'sm' | 'md' | 'lg';
-  infiniteScroll?:boolean
+  infiniteScroll?:boolean;
+  lang: string;
 }
 
-const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true }: CarouselProps) => {
+const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, lang = 'en' }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const itemsRef = useRef([...items, ...items]); // Duplicate items for an infinite loop
@@ -99,7 +100,7 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true }:
                 key={idx}
                 style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
               >
-                <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
+                <Link className="flex items-center justify-center h-full" href={`/${lang}/${item.link}` || '#'}>
 
                   <Image
                     src={item.imageUrl}

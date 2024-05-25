@@ -3,10 +3,11 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${NODE_ENV}`});
 
 import { Category, PrismaClient, Product, Subcategory } from "@prisma/client"
-import categories from "../data/categories";
+import categories from "../data/categories.json"
+import subcategories from "../data/subcategories.json"
+import products from "../data/products.json";
+
 import { createPublicBucket, uploadImageFromURL, wipeS3Bucket } from "../src/utils/s3";
-import subcategories from "../data/subcategories";
-import products from "../data/products";
 const prisma = new PrismaClient()
 
 const bucketName = `${process.env.PROJECT_NAME}-media`
@@ -33,8 +34,18 @@ async function wipeProductsSubcategoriesAndCategories() {
   return true
 }
 
+function datify(arr: {createdAt: string, updatedAt: string, [key: string]: any }[]) {
+  return arr.map(obj => {
+      return {
+          ...obj,
+          createdAt: new Date(obj.createdAt),
+          updatedAt: new Date(obj.updatedAt)
+      };
+  });
+}
+
 async function seedCategories() {
-  const createCategoryPromises = categories.map(async (c: Category ) => {
+  const createCategoryPromises = datify(categories).map(async (c: Category ) => {
     //c.subcategories && delete c.subcategories;
     await prisma.category.create({ data: c });
     return Promise.all(c.images.map((i: string) => {
@@ -49,7 +60,7 @@ async function seedCategories() {
 }
 
 async function seedSubcategories() {
-  const createSubcategoryPromises = subcategories.map(async (s: Subcategory ) => {
+  const createSubcategoryPromises = datify(subcategories).map(async (s: Subcategory ) => {
     //s.category && delete s.category;
     await prisma.subcategory.create({ data: s });
     return Promise.all(s.images.map((i: string) => {
@@ -64,7 +75,7 @@ async function seedSubcategories() {
 }
 
 async function seedProducts() {
-  const createProductPromises = products.map(async (p: Product ) => {
+  const createProductPromises = datify(products).map(async (p: Product ) => {
     await prisma.product.create({ data: p });
     return Promise.all(p.images.map((i: string) => {
       return uploadImageFromURL(

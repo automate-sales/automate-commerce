@@ -6,14 +6,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookies } from "next/headers";
 import { getDictionary } from '@/app/dictionaries'
-import { get } from 'http';
 
 export default async function RootLayout({
   children,
   params
 }: {
   children: React.ReactNode,
-  params: any
+  params: {lang: string}
 }) {
   const dict = await getDictionary(params.lang);
   const user = await getCurrentUser();
@@ -50,8 +49,9 @@ export default async function RootLayout({
         user={user}
         categories={categories}
         dict={dict}
+        lang={params.lang}
       />
-      {children}
+      <div className='pt-16'>{children}</div>
       <ToastContainer/>
       <Footer params={params}/>
     </>

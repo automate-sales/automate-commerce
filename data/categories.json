@@ -1,0 +1,222 @@
+[
+  {
+    "id": 5,
+    "slug": "stands",
+    "title": {
+      "es": "Soportes",
+      "en": "supports"
+    },
+    "description": {
+      "es": "Soporte para todos tu dispositivos incluyendo los celulares, tabletas, laptops, cpus y monitores. Los brazos de monitor junto con los otros soportes ayudan a que tengas un flow de trabajo más eficiente y productivo.",
+      "en": "Support for all your devices including cell phones, tablets, laptops, desktop PCs, and monitors. Monitor arms along with the other mounts help you have a more efficient and productive workflow."
+    },
+    "images": [
+      "stands/stands-category-image.jpg"
+    ],
+    "priority": 3,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 2,
+    "slug": "desks",
+    "title": {
+      "es": "Escritorios",
+      "en": "Desks"
+    },
+    "description": {
+      "es": "El escritorio es la parte parte principal de tu área de trabajo o home office. Los escritorios ergonómicos consisten de una base motorizada de altura ajustable y un sobre de mesa. Puedes escoger el material, color y tamaño del sobre que más te guste.",
+      "en": "The desk is the main part of your workspace or home office. Ergonomic desks consist of a motorized height-adjustable base and a tabletop. You can choose the material, color, and size of the tabletop that you like the most."
+    },
+    "images": [
+      "desks/standing-desk-bl-1.jpg"
+    ],
+    "priority": 1,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 10,
+    "slug": "accesories",
+    "title": {
+      "es": "Accesorios",
+      "en": "Accessories"
+    },
+    "description": {
+      "es": "Accesorios para agregar a tu standing desks que te ayudan a mejorar la ergonomía y a organizar tu área de trabajo. Incluye alfombras antifatiga, pads de eco leather, lamparas, gabinetes, manejo de cables y otros.",
+      "en": "Accessories to add to your standing desk that help improve ergonomics and organize your workspace. Includes anti-fatigue mats, eco leather pads, lamps, cabinets, cable management, and others."
+    },
+    "images": [
+      "accesories/accesories-category-image.jpg"
+    ],
+    "priority": 4,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 6,
+    "slug": "hubs_adapters",
+    "title": {
+      "es": "Hubs & adaptadores",
+      "en": "Hubs & Adapters"
+    },
+    "description": {
+      "es": "Hubs USB, hubs tipo C, cables HDMI y tipo C, adaptadores para tu laptops y dispositivos, HDMI Splitters, y otros productos que te facilitan las conexiones y también expanden la capacidad de tu laptop o computadora.",
+      "en": "USB hubs, USB-C hubs, HDMI and USB-C cables, adapters for your laptops and devices, HDMI Splitters, and other products that make your connections easier and also expand the capability of your laptop or computer."
+    },
+    "images": [
+      "hubs_adapters/hubs-adap-category.jpg"
+    ],
+    "priority": 5,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 3,
+    "slug": "sound",
+    "title": {
+      "es": "Sonido",
+      "en": "Sound"
+    },
+    "description": {
+      "es": "Bocinas de escritorio, soundbars, headphones y productos para el sonido.",
+      "en": "Desktop speakers, soundbars, headphones, and sound products."
+    },
+    "images": [
+      "sound/sound-bookshelf-BT4in-bl-2.jpg"
+    ],
+    "priority": 8,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 11,
+    "slug": "chargers",
+    "title": {
+      "es": "Cargadores",
+      "en": "Chargers"
+    },
+    "description": {
+      "es": "Tomacorrientes, cargadores USB y cargadores inalámbricos para tu dispositivos como celulares, computadoras y 110v.",
+      "en": "Power outlets, USB chargers, and wireless chargers for your devices such as cell phones, computers, and 110v."
+    },
+    "images": [
+      "chargers/charge-strip-6outlet-bl-1.jpg"
+    ],
+    "priority": 7,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 8,
+    "slug": "keyboard_mouse",
+    "title": {
+      "es": "Teclados & mouses",
+      "en": "Keyboards & mice"
+    },
+    "description": {
+      "es": "Teclados inalámbricos, teclados mecanicos, mouses de oficina, mouses ergonómicos, mouses gamer y otros productos para tu home office.",
+      "en": "Wireless keyboards, mechanical keyboards, office mice, ergonomic mice, gaming mice, and other products for your home office."
+    },
+    "images": [
+      "keyboard_mouse/keyboard-mouse-category.jpg"
+    ],
+    "priority": 6,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 1,
+    "slug": "health",
+    "title": {
+      "es": "Salud",
+      "en": "Health"
+    },
+    "description": {
+      "es": "Productos prar mantener tu cuerpo saludable y libres de dolor. Incluyen yoga mats, masajeadores, rollers, y otros.",
+      "en": "Products to keep your body healthy and free of pain. They include yoga mats, massagers, rollers, and others."
+    },
+    "images": [
+      "health/health-body-minigun-bl-1.jpg"
+    ],
+    "priority": 9,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 4,
+    "slug": "monitors",
+    "title": {
+      "es": "Monitores",
+      "en": "Monitors"
+    },
+    "description": {
+      "es": "Monitores de oficina y gaming de marcas LG y Samsung",
+      "en": "Office and gaming monitors from LG and Samsung brands."
+    },
+    "images": [
+      "monitors/monitors-category.jpg"
+    ],
+    "priority": 11,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 9,
+    "slug": "decoration",
+    "title": {
+      "es": "Decoración",
+      "en": "Decoration"
+    },
+    "description": {
+      "es": "Decoraciónes para crear un ambiente de trabajo que te de ganas de trabajar como cuadros, artes, plantas y otros productos que le dan personalidad a tu home office.",
+      "en": "Decorations to create a work environment that makes you want to work, such as paintings, art, plants, and other products that add personality to your home office."
+    },
+    "images": [
+      "decoration/decoration-category-image.jpg"
+    ],
+    "priority": 10,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  },
+  {
+    "id": 7,
+    "slug": "seating",
+    "title": {
+      "es": "Sillas",
+      "en": "Chairs"
+    },
+    "description": {
+      "es": "Sillas y stools ergonómicos de alta calidad para tu home office. Nuestras sillas son especiales para esas personas que pasan largas horas frente a la computadora. Son una parte esencial de tu configuración para el home office.",
+      "en": "High quality ergonomic chairs and stools for your home office. Our chairs are designed for those who spend long hours in front of the computer. They are an essential part of your home office setup."
+    },
+    "images": [
+      "seating/chair-category-image.jpg"
+    ],
+    "priority": 2,
+    "createdAt": "2022-02-07T05:57:41.000Z",
+    "updatedAt": "2022-02-07T05:57:41.000Z",
+    "createdBy": "admin@test-admin.com",
+    "updatedBy": null
+  }
+]

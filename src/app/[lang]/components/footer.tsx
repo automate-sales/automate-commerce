@@ -4,18 +4,22 @@ import type { Category } from "@prisma/client";
 import prisma from '@/db';
 import Image from 'next/image';
 import { getDictionary } from '@/app/dictionaries'
+import { getIntl } from '@/utils/utils';
 
-const CategoryLinks = (categories: Array<Category>) => {
-  return categories.map((cat: Category, i: number) =>
-    <li key={i} className="pb-1 link">
-      <Link scroll={false} passHref href={`/categories/${cat.slug}`}>{cat.title}</Link>
-    </li>
-  )
-}
+
 
 export default async function Footer({params}: {params: {lang:string}}) {
+  const lang = params.lang;
   const dict = await getDictionary(params.lang);
   const categories = await prisma.category.findMany()
+
+  const CategoryLinks = (categories: Array<Category>) => {
+    return categories.map((cat: Category, i: number) =>
+      <li key={i} className="pb-1 link">
+        <Link scroll={false} passHref href={`/categories/${cat.slug}`}>{getIntl(cat.title, lang)}</Link>
+      </li>
+    )
+  }
   return (
     <div className="pt-5 text-sm md:text-md">
       <div className="bg-zinc-600 py-3 px-5 text-white">
