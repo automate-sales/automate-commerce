@@ -1,6 +1,7 @@
 import posthog from 'posthog-js'
 import { Product, Order, CartItem } from "@prisma/client";
-import { getItems, getSubTotal } from './utils';
+import { OrderAny, getItems, getSubTotal } from './utils';
+import { CartItemWithProduct } from '@/types';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
 export const init =()=> {
@@ -69,7 +70,7 @@ export const addToCart = (product:Product, qty:number, path:string, leadId: stri
   phEvent(eventName, eventData);
 }
 
-export const viewCart =(cartItems:CartItem[], leadId: string): void=> {
+export const viewCart =(cartItems:CartItemWithProduct[]|CartItem[], leadId: string): void=> {
   const eventName = "view_cart";
   const eventData = {
     currency: "USD",
@@ -80,7 +81,7 @@ export const viewCart =(cartItems:CartItem[], leadId: string): void=> {
   phEvent(eventName, eventData);
 }
 
-export const checkout =(cart:CartItem[], leadId: string): void=> {
+export const checkout =(cart:CartItemWithProduct[]|CartItem[], leadId: string): void=> {
   const eventName = "begin_checkout";
   const eventData = {
     currency: "USD",
@@ -112,7 +113,7 @@ export const paymentInfo =(paymentType:string, leadId: string, coupon?:string)=>
   phEvent(eventName, eventData);
 }
 
-export const purchase =(order:Order, cartItems: CartItem[])=> {
+export const purchase =(order:OrderAny, cartItems: CartItemWithProduct[] | CartItem[])=> {
   const eventName = "purchase";
   const eventData = {
     transaction_id: order.id,
