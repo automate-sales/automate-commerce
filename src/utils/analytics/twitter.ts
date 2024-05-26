@@ -1,3 +1,5 @@
+import { CartItemWithProduct } from '@/types';
+import { CartItem } from '@prisma/client';
 import { v1 as uuidv1 } from 'uuid';
 
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
@@ -35,7 +37,14 @@ const sendTwitterEvent = async (
   }
 };
 
-export const trackPageView = (): void => {
+export const trackEvent = (name: string, data: any): void => {
+    if (isAnalyticsEnabled) {
+      const eventId = uuidv1();
+      sendTwitterEvent(name, eventId, data);
+    }
+};
+
+export const pageview = (): void => {
   if (isAnalyticsEnabled) {
     const eventName = 'PageView';
     const eventId = uuidv1();
@@ -47,42 +56,35 @@ export const trackPageView = (): void => {
   }
 };
 
-export const trackEvent = (name: string, data: any): void => {
-  if (isAnalyticsEnabled) {
-    const eventId = uuidv1();
-    sendTwitterEvent(name, eventId, data);
-  }
-};
-
-export const trackSearch = (query: string, userId: string): void => {
+export const search = (query: string, userId: string): void => {
     const eventName = 'Search';
     const eventId = uuidv1();
     const eventData = { search_string: query, user_id: userId };
     trackEvent(eventName, eventData);
   };
   
-  export const trackSignUp = (userId: string, email?: string): void => {
+  export const signUp = (userId: string, email?: string): void => {
     const eventName = 'SignUp';
     const eventId = uuidv1();
     const eventData = { user_id: userId, email };
     trackEvent(eventName, eventData);
   };
   
-  export const trackAddToCart = (productId: string, quantity: number, userId: string): void => {
+  export const addToCart = (productId: number, quantity: number, userId: string): void => {
     const eventName = 'AddToCart';
     const eventId = uuidv1();
     const eventData = { product_id: productId, quantity, user_id: userId };
     trackEvent(eventName, eventData);
   };
   
-  export const trackCheckout = (cartItems: any[], userId: string): void => {
+  export const checkout = (cartItems: CartItemWithProduct[]| CartItem[], userId: string): void => {
     const eventName = 'Checkout';
     const eventId = uuidv1();
     const eventData = { cart_items: cartItems, user_id: userId };
     trackEvent(eventName, eventData);
   };
   
-  export const trackPurchase = (orderId: string, amount: number, userId: string): void => {
+  export const purchase = (orderId: string, amount: number, userId: string): void => {
     const eventName = 'Purchase';
     const eventId = uuidv1();
     const eventData = { order_id: orderId, amount, user_id: userId };

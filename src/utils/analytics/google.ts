@@ -1,5 +1,6 @@
 import { Product, CartItem, Order } from "@prisma/client";
-import { getItems, getSubTotal } from "./utils";
+import { OrderAny, getItems, getSubTotal } from "./utils";
+import { CartItemWithProduct } from "@/types";
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID || "";
 
@@ -61,7 +62,7 @@ export const addToCart = (product:Product, qty:number, path:string, leadId: stri
   gaEvent(eventName, eventData);
 }
 
-export const viewCart =(cartItems: CartItem[], leadId: string): void=> {
+export const viewCart =(cartItems:CartItemWithProduct[] | CartItem[], leadId: string): void=> {
   const eventName = "view_cart";
   const eventData = {
     currency: "USD",
@@ -72,7 +73,7 @@ export const viewCart =(cartItems: CartItem[], leadId: string): void=> {
   gaEvent(eventName, eventData);
 }
 
-export const checkout =(cart: CartItem[], leadId: string): void=> {
+export const checkout =(cart:CartItemWithProduct[] | CartItem[], leadId: string): void=> {
   const eventName = "begin_checkout";
   const eventData = {
     currency: "USD",
@@ -104,7 +105,7 @@ export const paymentInfo =(paymentType:string, leadId: string, coupon?:string)=>
   gaEvent(eventName, eventData);
 }
 
-export const purchase =(order:Order, cartItems: CartItem[])=> {
+export const purchase =(order:Order|OrderAny, cartItems: CartItemWithProduct[] | CartItem[])=> {
   const eventName = "purchase";
   const eventData = {
     transaction_id: order.id,

@@ -29,26 +29,38 @@ import {
     paymentInfo as phPaymentInfo,
     purchase as phPurchase 
 } from "./posthog"
+
+import {
+    pageview as twPageview,
+    search as twSearch,
+    signUp as twSignUp,
+    addToCart as twAddToCart,
+    checkout as twCheckout,
+    purchase as twPurchase
+} from "./twitter"
+
 import { CartItem, Order, Product } from "@prisma/client"
-//import { CartItemWithProduct,  } from "../../types/shared"
-//import { OrderAny } from "./utils"
+import { OrderAny } from "./utils"
 
 export const pageview = (url: string, leadId?: string): void => {
     gaPageview(url, leadId)
     fbPageview()
     phPageview()
+    twPageview()
 }
 
 export const search = (query: string, leadId: string): void => {
     gaSearch(query, leadId)
     fbSearch(query, leadId)
     phSearch(query, leadId)
+    twSearch(query, leadId)
 }
 
 export const signUp =(leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
     gaSignUp(leadId, method)
     fbSignUp(leadId, method)
     phSignUp(leadId, method)
+    twSignUp(leadId, method)
 }
 
 export const login =(leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
@@ -60,6 +72,7 @@ export const addToCart = (product:Product, qty:number, path:string, leadId: stri
     gaAddToCart(product, qty, path, leadId)
     fbAddToCart(product, qty, leadId)
     phAddToCart(product, qty, path, leadId)
+    twAddToCart(product.id, qty, leadId)
 }
 
 export const viewCart =(cartItems:CartItem[], leadId: string): void=> {
@@ -71,6 +84,7 @@ export const checkout =(cart:CartItem[], leadId: string): void=> {
     gaCheckout(cart, leadId)
     fbCheckout(cart, leadId)
     phCheckout(cart, leadId)
+    twCheckout(cart, leadId)
 }
 
 export const paymentInfo =(paymentType: string, leadId: string): void=> {
@@ -79,8 +93,9 @@ export const paymentInfo =(paymentType: string, leadId: string): void=> {
     phPaymentInfo(paymentType, leadId)
 }
 
-export const purchase =(order:Order, cartItems: CartItem[]): void=> {
+export const purchase =(order:OrderAny, cartItems: CartItem[]): void=> {
     gaPurchase(order, cartItems)
     fbPurchase(order, cartItems)
     phPurchase(order, cartItems)
+    twPurchase(order.id, order.total, order.leadId)
 }

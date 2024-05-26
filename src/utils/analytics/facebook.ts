@@ -1,6 +1,7 @@
 import { CartItem, Order, Product } from '@prisma/client';
 import { v1 as uuidv1 } from 'uuid';
 import { OrderAny, getContentIds, getContents, getSubTotal, getTotalQty } from './utils';
+import { CartItemWithProduct } from '@/types';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
 const sendApiEvent = async (
@@ -90,7 +91,7 @@ export const addToCart = (product:Product, qty:number, leadId: string): void => 
   sendApiEvent(eventName, eventId, eventData)
 }
 
-export const checkout = (cartItems:CartItem[], leadId: string): void => {
+export const checkout = (cartItems:CartItemWithProduct[]|CartItem[], leadId: string): void => {
   const eventName = 'InitiateCheckout'
   const eventId = uuidv1()
   const eventData = {
@@ -120,7 +121,7 @@ export const paymentInfo = (paymentType:string, leadId: string, coupon?: string)
   sendApiEvent(eventName, eventId, eventData)
 }
 
-export const purchase = (order: Order, cartItems:CartItem[]) => {
+export const purchase = (order: OrderAny, cartItems:CartItemWithProduct[] | CartItem[]) => {
   const eventName = 'Purchase'
   const eventId = uuidv1()
   const eventData = {
