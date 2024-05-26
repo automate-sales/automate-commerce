@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import locales from "@/utils/locales";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { getIntl } from "@/utils/utils";
+import { createCookie } from "@/app/actions";
 
 type NavItem = {
   label: string;
@@ -49,14 +50,7 @@ const Navbar = ({
     {
       label: dict.nav.products,
       type: "fulldropdown",
-      data: [
-        { label: "Product 1", type: "link", data: "/product1" },
-        { label: "Product 2", type: "link", data: "/product2" },
-        { label: "Product 3", type: "link", data: "/product3" },
-        { label: "Product 4", type: "link", data: "/product4" },
-        { label: "Product 5", type: "link", data: "/product5" },
-        { label: "Product 6", type: "link", data: "/product6" },
-      ],
+      data: []
     },
     { label: dict.nav.blog, type: "link", data: "/blog" },
     {
@@ -109,6 +103,50 @@ const Navbar = ({
     if (drawerRef.current) {
       (drawerRef.current as any).touchStartX = null;
     }
+  };
+
+  const langs = reorderedLangs(locale, locales);
+  
+  const LangSelector = () => {
+    const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleDropdown = () => setIsOpen(!isOpen);
+    
+    const redirectLang = (lang: string) => {
+      const newUrl = `/${lang}${currentPath}`;
+      createCookie("locale", lang).then(() => {
+        router.push(newUrl);
+      });
+    };
+
+    return (
+      <div className="relative inline-block text-left z-20 h-full">
+        <button onClick={toggleDropdown} className="flex items-center h-full">
+          <div className={`flex items-center py-5 px-3 hover:text-gray-900`}>
+            <span className="pr-1">{currentLocale}</span>
+            <ChevronDownIcon className="h-4 w-4" />
+          </div>
+        </button>
+        <div
+          className={`origin-top-right absolute shadow-sm bg-gray-50 ${isOpen ? "block" : "hidden"
+            }`}
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabIndex={-1}
+        >
+          {langs.map((l, index) => (
+            <div
+              key={index}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              <button onClick={() => redirectLang(l)}>{l}</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -165,12 +203,7 @@ const Navbar = ({
                 </span>
               </Link>
               
-              <DropdownMenu lang={lang} data={reorderedLangs(locale, locales).map((lang) => ({ label: lang, type: "link", data: `/${lang}${currentPath}` }))}>
-                <div className={`flex items-center py-5 px-3 hover:text-gray-900`}>
-                  <span className="pr-1">{currentLocale}</span>
-                  <ChevronDownIcon className="h-4 w-4" />
-                </div>
-              </DropdownMenu>
+              <LangSelector />
               
             </div>
           </div>
@@ -250,6 +283,10 @@ export const SearchInput = () => {
     </form>
   );
 };
+
+
+
+
 
 const DropdownMenu = ({ children, data, lang }: { children: JSX.Element | string; data: NavItem[], lang:string }) => {
   const [isOpen, setIsOpen] = useState(false);

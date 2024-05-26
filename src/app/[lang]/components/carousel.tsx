@@ -21,7 +21,7 @@ type CarouselProps = {
   autoplay?: number; // Autoplay speed in milliseconds for changing slides
   size?: 'sm' | 'md' | 'lg';
   infiniteScroll?:boolean;
-  lang: string;
+  lang?: string;
 }
 
 const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, lang = 'en' }: CarouselProps) => {
