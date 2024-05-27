@@ -2,6 +2,9 @@ import Item from '@/app/[lang]/components/item'
 import { Subcategory } from '@prisma/client'
 import prisma from '@/db'
 import { getIntl } from '@/utils/utils'
+import type { Metadata, ResolvingMetadata } from 'next'
+import { seoCompotnent } from '@/app/[lang]/components/seo'
+const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Page({ 
   params 
@@ -17,7 +20,12 @@ export default async function Page({
     }
   })
   return (
-    <div className="container mx-auto p-8">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(carouselJsonLd(categoryData?.subcategories, params.lang)) }}
+      />
+      <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold pt-16 pb-8">{getIntl(categoryData?.title, params.lang)}</h1>
       <p className='text-xl text-center pb-16'>{getIntl(categoryData?.description, params.lang)}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -26,6 +34,54 @@ export default async function Page({
         ))}
       </div>
     </div>
+    </>
   )
 }
+
+export type Props = {
+  params: { slug: string, lang: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const category = await prisma.category.findUnique({
+    where: {
+      slug: params.slug
+    }
+  })
+  const title = getIntl(category?.title, params.lang)
+  const parentKeywords = (await parent).keywords
+  return seoCompotnent(
+    title,
+    getIntl(category?.description, params.lang),
+    params.lang,
+    category?.images.map((image: string) => {
+      return {
+        url: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${image}`,
+        width: 800,
+        height: 600,
+      }
+    }),
+    `categories/${params.slug}`,
+    parentKeywords ? parentKeywords.concat(title): [title]
+  )
+}
+
+const carouselJsonLd = (subcategories?: Subcategory[], lang: string='en') => {
+  return subcategories ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": subcategories.map((subcat: Subcategory, index: number) => {
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `${SITE_ROOT}/subcategories/${subcat.slug}`,
+        "name": getIntl(subcat.title, lang),
+        "image": `${process.env.NEXT_PUBLIC_IMAGE_HOST}/subcategories/${subcat.images[0]}`
+      }
+    })
+  } : {}
+} 
 

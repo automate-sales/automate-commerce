@@ -2,9 +2,9 @@ const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export const seoCompotnent = (
     title: string, 
-    description: string, 
-    images?: {url: string, width: number, height: number}[],
+    description: string,
     locale: string = 'en',
+    images?: {url: string, width: number, height: number}[],
     urlPath?: string,
     keywords?: string[],
 ) => {

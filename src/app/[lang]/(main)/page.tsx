@@ -23,7 +23,7 @@ export default async function Home({
   })
   const categories = await prisma.category.findMany()
   return (
-    <div>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
@@ -55,7 +55,7 @@ export default async function Home({
       ]} padding="8"/>
       <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content={dict.home.centeredImageSection.content2} />
       <Carousel lang={params.lang} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: getIntl(p.title, params.lang), subheading: `$${p.price}`} })} />
-    </div>
+    </>
   )
 }
 
@@ -67,14 +67,14 @@ export async function generateMetadata(
   return seoCompotnent(
     dict.home.title,
     dict.home.description,
+    params.lang,
     [
       {
-        url: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/home/header-desktop.jpg`,
+        url: `${SITE_ROOT}/images/home/header-desktop.jpg`,
         width: 800,
         height: 600,
       },
-    ],
-    params.lang
+    ]
   )
 }
 
