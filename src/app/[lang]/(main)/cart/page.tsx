@@ -1,10 +1,12 @@
 import Cart from '@/app/[lang]/components/cart/summary'
-import { Category } from '@prisma/client'
 import prisma from '@/db'
-
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getSubTotal } from '@/utils/calc'
+import type { Metadata, ResolvingMetadata } from 'next'
+import { Props, seoCompotnent } from '../../components/seo';
+import { getDictionary } from '@/app/dictionaries'
+const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Page() {
     const cookieStore = cookies()
@@ -34,3 +36,18 @@ export default async function Page() {
     </div>
   )
 }
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const dict = await getDictionary(params.lang)
+  return seoCompotnent(
+    dict.cart.title,
+    dict.cart.description,
+    params.lang,
+    undefined,
+    'cart'
+  )
+}
+

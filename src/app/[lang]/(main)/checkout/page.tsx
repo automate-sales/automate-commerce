@@ -1,9 +1,12 @@
 import CheckoutForm from "@/app/[lang]/components/checkout/form";
 import { CartWithItems } from "@/types";
 import { getCurrentUser } from "@/utils/auth";
-import { Cart, PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-const prisma = new PrismaClient()
+import prisma from '@/db';
+
+import type { Metadata, ResolvingMetadata } from 'next'
+import { Props, seoCompotnent } from '../../components/seo';
+import { getDictionary } from "@/app/dictionaries";
 
 export default async function Page() {
     const cookieStore = cookies()
@@ -31,3 +34,17 @@ export default async function Page() {
             </div>
     )
 }
+
+export async function generateMetadata(
+    { params, searchParams }: Props,
+    parent: ResolvingMetadata
+  ): Promise<Metadata> {
+    const dict = await getDictionary(params.lang)
+    return seoCompotnent(
+      dict.checkout.title,
+      dict.checkout.description,
+      params.lang,
+      undefined,
+      'checkout'
+    )
+  }

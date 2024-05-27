@@ -43,7 +43,7 @@ export async function generateMetadata(
     params.lang,
     [
       {
-        url: `${SITE_ROOT}/images/home/coombinations-desktop.jpg`,
+        url: `${SITE_ROOT}/images/home/combinations-desktop.jpg`,
         width: 800,
         height: 600,
       },
