@@ -8,15 +8,99 @@ import SpecsSection from '../components/home/specsSection'
 import prisma from '@/db'
 import { getDictionary } from '@/app/dictionaries'
 import { getIntl } from '@/utils/utils'
-import { Metadata } from 'next'
+import { Props, seoCompotnent } from '../components/seo'
+import type { Metadata, ResolvingMetadata } from 'next'
+const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
-const richSnippet = {
+export default async function Home({ 
+  params
+}: { 
+  params: { lang:string } 
+}) {
+  const dict = await getDictionary(params.lang) // en
+  const mainProducts = await prisma.product.findMany({
+    take: 30
+  })
+  const categories = await prisma.category.findMany()
+  return (
+    <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(searchJsonLd(params.lang)) }}
+      />
+      <HeroSection imageSrc='/images/home/header-desktop.jpg' title={dict.home.heroSection.title} description={dict.home.heroSection.description}  buttonText={dict.home.heroSection.btnText} />
+      <Carousel lang={params.lang} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: getIntl(c.title, params.lang)} } )} />
+      <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content={dict.home.centeredImageSection.content1}  />
+      <TextAndVideoSection text={dict.home.textImageSection.text} imageSrc="/path/to/default/image.jpg" textDirection="right" padding="8" />
+      <SpecsSection specs={[
+        {
+          icon: '/path/to/default/image.jpg',
+          title: dict.home.specsSection.feature1.title,
+          paragraph: dict.home.specsSection.feature1.paragraph,
+        },
+        {
+          icon: '/path/to/default/image.jpg',
+          title: dict.home.specsSection.feature2.title,
+          paragraph: dict.home.specsSection.feature2.paragraph,
+        },
+        {
+          icon: '/path/to/default/image.jpg',
+          title: dict.home.specsSection.feature3.title,
+          paragraph: dict.home.specsSection.feature3.paragraph,
+        }
+      ]} padding="8"/>
+      <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content={dict.home.centeredImageSection.content2} />
+      <Carousel lang={params.lang} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: getIntl(p.title, params.lang), subheading: `$${p.price}`} })} />
+    </div>
+  )
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const dict = await getDictionary(params.lang)
+  return seoCompotnent(
+    dict.home.title,
+    dict.home.description,
+    [
+      {
+        url: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/home/header-desktop.jpg`,
+        width: 800,
+        height: 600,
+      },
+    ],
+    params.lang
+  )
+}
+
+const searchJsonLd =(lang: string)=> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": SITE_ROOT,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${SITE_ROOT}/${lang}/?query={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+}
+
+const storeJsonLd = {
   "@context": "https://schema.org",
   "@type": "Store",
-  "@id": "https://ergonomicadesk.com",
+  "@id": SITE_ROOT,
   "name": "Ergonomica Desk",
   "description": "Everything you need for your home office",
-  "url": "https://ergonomicadesk.com",
+  "url": SITE_ROOT,
   "telephone": "+50769477336",
   "address": {
     "@type": "PostalAddress",
@@ -144,54 +228,4 @@ const richSnippet = {
     }
   ]
 }
-
-export const metadata: Metadata = {
-  title: 'Ergonomica Desk',
-  description: 'We got cool stuff',
-}
-export default async function Home({ 
-  params
-}: { 
-  params: { lang:string } 
-}) {
-  const dict = await getDictionary(params.lang) // en
-  const mainProducts = await prisma.product.findMany({
-    take: 30
-  })
-  const categories = await prisma.category.findMany()
-  return (
-    <div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(richSnippet) }}
-      />
-      <HeroSection imageSrc='/images/home/header-desktop.jpg' title={dict.home.heroSection.title} description={dict.home.heroSection.description}  buttonText={dict.home.heroSection.btnText} />
-      <Carousel lang={params.lang} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: getIntl(c.title, params.lang)} } )} />
-      <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content={dict.home.centeredImageSection.content1}  />
-      <TextAndVideoSection text={dict.home.textImageSection.text} imageSrc="/path/to/default/image.jpg" textDirection="right" padding="8" />
-      <SpecsSection specs={[
-        {
-          icon: '/path/to/default/image.jpg',
-          title: dict.home.specsSection.feature1.title,
-          paragraph: dict.home.specsSection.feature1.paragraph,
-        },
-        {
-          icon: '/path/to/default/image.jpg',
-          title: dict.home.specsSection.feature2.title,
-          paragraph: dict.home.specsSection.feature2.paragraph,
-        },
-        {
-          icon: '/path/to/default/image.jpg',
-          title: dict.home.specsSection.feature3.title,
-          paragraph: dict.home.specsSection.feature3.paragraph,
-        }
-      ]} padding="8"/>
-      <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content={dict.home.centeredImageSection.content2} />
-      <Carousel lang={params.lang} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: getIntl(p.title, params.lang), subheading: `$${p.price}`} })} />
-
-     
-    </div>
-  )
-}
-
 

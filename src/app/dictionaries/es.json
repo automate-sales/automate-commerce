@@ -25,6 +25,8 @@
     "followUs": "Síguenos"
   },
   "home": {
+    "title": "Inicio",
+    "description": "Descubra muebles de oficina ergonómicos de alta calidad para su hogar, oficina mediana o corporativa. Compre escritorios de pie, sillas ergonómicas y más para un espacio de trabajo cómodo.",
     "heroSection": {
       "title": "Bienvenido a la tienda de e-commerce Next.js",
       "description": "Esta es una tienda de comercio electrónico simple construida con Next.js y Prisma.",
@@ -52,13 +54,46 @@
       }
     }
   },
+  "login": {
+    "title": "Login",
+    "description": "Acceda a su cuenta para gestionar pedidos, rastrear envíos y actualizar su perfil en nuestra tienda de muebles de oficina ergonómicos."
+  },
   "categories": {
-    "title": "Categorias"
+    "title": "Categorias",
+    "description": "Explora nuestra amplia gama de categorías de muebles de oficina ergonómicos. Encuentre el escritorio de pie, la silla ergonómica y los accesorios de oficina perfectos para sus necesidades."
   },
   "subcategories": {
-    "title": "Subcategorias"
+    "title": "Subcategorias",
+    "description": "Explora nuestras subcategorías para encontrar muebles de oficina ergonómicos especializados. Desde escritorios de pie hasta sillas ergonómicas, tenemos todo lo necesario para equipar su espacio de trabajo."
   },
   "products": {
-    "title": "Productos"
+    "title": "Productos",
+    "description": "Explore nuestra amplia colección de muebles de oficina ergonómicos. Encuentre el escritorio de pie, la silla ergonómica y más para crear su espacio de trabajo ideal."
+  },
+  "cart": {
+    "title": "Cart",
+    "description": "Revise los artículos de muebles de oficina ergonómicos seleccionados en su carrito. Proceda al pago para completar su compra y mejorar su espacio de trabajo."
+  },
+  "checkout": {
+    "title": "Checkout",
+    "description": "Complete su compra de muebles de oficina ergonómicos. Pago seguro para escritorios de pie, sillas ergonómicas y más para mejorar la comodidad de su oficina."
+  },
+  "policies": {
+    "cancellations": {
+      "title": "Cancellations and Returns",
+      "description": "Conozca nuestra política de cancelación. Entienda cómo cancelar su pedido de muebles de oficina ergonómicos y nuestros términos y condiciones."
+    },
+    "deliveries": {
+      "title": "Delivery Policy",
+      "description": "Lea nuestra política de entrega para muebles de oficina ergonómicos. Obtenga información sobre los tiempos de envío, opciones de entrega y más."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Revise nuestra política de privacidad para entender cómo protegemos su información personal mientras compra muebles de oficina ergonómicos."
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "description": "Entienda los términos y condiciones para comprar muebles de oficina ergonómicos en nuestra tienda. Conozca sobre garantías, devoluciones y más."
+    }
   }
 }
