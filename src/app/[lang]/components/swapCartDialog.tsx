@@ -1,7 +1,6 @@
 'use client'
 
 import { swapCarts } from "@/app/actions";
-import { useEffect, useRef } from "react";
 
 function SwapCartDialog(
     {
@@ -14,8 +13,6 @@ function SwapCartDialog(
         leadId: string
     }
 ) {
-  const ref = useRef();
-
   return (
     <div className="fixed top-0 z-50 w-screen h-screen flex flex-col justify-center items-center bg-gray-800 bg-opacity-75">
         <div className="p-8 bg-white rounded-sm">
