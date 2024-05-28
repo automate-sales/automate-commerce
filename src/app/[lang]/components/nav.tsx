@@ -151,7 +151,7 @@ const Navbar = ({
 
   return (
     <>
-      <nav className="bg-gray-50 z-50 fixed fixed-top w-full">
+      <nav className="bg-gray-50 z-20 fixed fixed-top w-full">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between">
             <div className="md:hidden flex items-center">
@@ -213,7 +213,7 @@ const Navbar = ({
       {/* Side drawer */}
       <div
         ref={drawerRef}
-        className={`fixed top-0 left-0 w-80 h-full bg-gray-50 z-50 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed top-0 left-0 w-80 h-full bg-gray-50 z-20 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-300`}
         style={{ left: drawerPosition }}
         onTouchStart={handleTouchStart}
