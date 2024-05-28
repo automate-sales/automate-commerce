@@ -4,14 +4,13 @@ import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
 import LeadGen from './[lang]/components/leadGen'
 const inter = Inter({ subsets: ['latin'] })
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+const SITE_ROOT = 'http://ergonomicadesk.com';
 
 export const metadata: Metadata = {
   // shared by all files
   generator: 'Torus Commerce',
   applicationName: 'Ergonomica Ecommerce',
   referrer: 'origin-when-cross-origin',
-  keywords: ['Home Office', 'Ergonomic', 'Desk', 'Standing Desk', 'Chair', 'Accessories'],
   authors: [{ name: 'Gabriel Kardonski', url: 'https://github.com/gkpty' }],
   creator: 'Gabriel Kardonski',
   publisher: 'Gabriel Kardonski',
@@ -21,6 +20,7 @@ export const metadata: Metadata = {
     shortcut: '/icons/logo/favicon-32x32.png',
     apple: '/icons/logo/apple-touch-icon.png'
   },
+  keywords: ['Home Office', 'Ergonomic', 'Desk', 'Standing Desk', 'Chair', 'Accessories'],
 
   // default values for individual properties
   title: {
@@ -34,13 +34,7 @@ export const metadata: Metadata = {
     languages: {
       'en': `${SITE_ROOT}/en`,
       'es': `${SITE_ROOT}/es`,
-    },
-    media: {
-      'only screen and (max-width: 600px)': 'https://nextjs.org/mobile',
-    },
-    types: {
-      'application/rss+xml': 'https://nextjs.org/rss',
-    },
+    }
   },
 
   openGraph: {

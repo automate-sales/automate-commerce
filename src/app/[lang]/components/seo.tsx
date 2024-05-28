@@ -1,4 +1,54 @@
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+import { ChevronRightIcon } from "@heroicons/react/16/solid";
+import Link from "next/link";
+const SITE_ROOT = 'http://ergonomicadesk.com';
+
+type BreadCrumb = {
+    name: string,
+    path: string
+}
+export function Breadcrumbs({
+	crumbs,
+    hide=false
+}:{
+	crumbs: BreadCrumb[],
+    hide?: boolean
+}){
+	const breadCrumbs = crumbs.map((crumb, index)=>
+		index===crumbs.length-1?
+			<li key={index} className="text-gray-400 md:whitespace-nowrap">{crumb.name}</li> :
+			<li className="flex h-5 items-center" key={index}>
+				<Link className="link text-blue-300 md:whitespace-nowrap" href={`${SITE_ROOT}${crumb.path}`}>{crumb.name}</Link>
+				<ChevronRightIcon height={20}/>
+			</li>
+	)
+	return <>
+		<>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadCrumbJsonLd(SITE_ROOT, crumbs)) }}
+            />
+            {!hide && <ol className='flex items-center absolute z-10 p-4'>{breadCrumbs}</ol>}
+		</>
+	</>
+}
+
+export function breadCrumbJsonLd(
+    baseUrl: string,
+    breadCrumbs: BreadCrumb[]
+){
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadCrumbs.map((crumb, index)=>{
+            return{
+                "@type": "ListItem",
+                "position": index+1,
+                "name": crumb.name,
+                "item": `${baseUrl}${crumb.path}`
+            }
+        })
+    }
+}
 
 export const seoCompotnent = (
     title: string, 

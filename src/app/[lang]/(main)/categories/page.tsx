@@ -4,8 +4,8 @@ import prisma from '@/db'
 import { getIntl } from '@/utils/utils';
 import { getDictionary } from '@/app/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next'
-import { Props, seoCompotnent } from '../../components/seo';
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
+const SITE_ROOT = 'https://ergonomicadesk.com';
 
 export default async function Page({
   params
@@ -20,6 +20,10 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(carouselJsonLd(categories, params.lang)) }}
       />
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+        {name: dict.breadCrumbs.categories, path: '/categories'}
+      ]} />
       <div className="container mx-auto p-8">
         <h1 className="text-4xl text-center font-bold py-16">{dict.categories.title}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -3,8 +3,9 @@ import { Subcategory } from '@prisma/client'
 import prisma from '@/db'
 import { getIntl } from '@/utils/utils'
 import type { Metadata, ResolvingMetadata } from 'next'
-import { seoCompotnent } from '@/app/[lang]/components/seo'
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
+import { getDictionary } from '@/app/dictionaries'
+const SITE_ROOT = 'https://ergonomicadesk.com';
 
 export default async function Page({ 
   params 
@@ -19,12 +20,18 @@ export default async function Page({
       subcategories: true
     }
   })
+  const dict = await getDictionary(params.lang)
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(carouselJsonLd(categoryData?.subcategories, params.lang)) }}
       />
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+        {name: dict.categories.title, path: '/categories'},
+        {name: getIntl(categoryData?.title, params.lang), path: `/categories/${categoryData?.slug}`}
+      ]} />
       <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold pt-16 pb-8">{getIntl(categoryData?.title, params.lang)}</h1>
       <p className='text-xl text-center pb-16'>{getIntl(categoryData?.description, params.lang)}</p>

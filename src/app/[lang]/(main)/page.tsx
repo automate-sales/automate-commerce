@@ -8,9 +8,9 @@ import SpecsSection from '../components/home/specsSection'
 import prisma from '@/db'
 import { getDictionary } from '@/app/dictionaries'
 import { getIntl } from '@/utils/utils'
-import { Props, seoCompotnent } from '../components/seo'
+import { Breadcrumbs, Props, seoCompotnent } from '../components/seo'
 import type { Metadata, ResolvingMetadata } from 'next'
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+const SITE_ROOT = 'https://ergonomicadesk.com';
 
 export default async function Home({ 
   params
@@ -28,10 +28,13 @@ export default async function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
       />
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(searchJsonLd(params.lang)) }}
-      />
+      /> */}
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+      ]} hide/>
       <HeroSection imageSrc='/images/home/header-desktop.jpg' title={dict.home.heroSection.title} description={dict.home.heroSection.description}  buttonText={dict.home.heroSection.btnText} />
       <Carousel lang={params.lang} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: getIntl(c.title, params.lang)} } )} />
       <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content={dict.home.centeredImageSection.content1}  />
@@ -78,7 +81,7 @@ export async function generateMetadata(
   )
 }
 
-const searchJsonLd =(lang: string)=> {
+/* const searchJsonLd =(lang: string)=> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -92,13 +95,13 @@ const searchJsonLd =(lang: string)=> {
       "query-input": "required name=search_term_string"
     }
   }
-}
+} */
 
 const storeJsonLd = {
   "@context": "https://schema.org",
   "@type": "Store",
   "@id": SITE_ROOT,
-  "name": "Ergonomica Desk",
+  "name": "Ergonomica Office",
   "description": "Everything you need for your home office",
   "url": SITE_ROOT,
   "telephone": "+50769477336",
@@ -123,7 +126,10 @@ const storeJsonLd = {
   "review": [
     {
       "@type": "Review",
-      "author": "Ryan",
+      "author": {
+        "@type": "Person",
+        "name": "Ryan"
+      },
       "datePublished": "2021-11-26",
       "name": "Great quality",
       "reviewBody": "Great quality product and service",
@@ -136,7 +142,10 @@ const storeJsonLd = {
     },
     {
       "@type": "Review",
-      "author": "Vladlena",
+      "author": {
+        "@type": "Person",
+        "name": "Vladlena"
+      },
       "datePublished": "2021-11-26",
       "name": "Exceptional service",
       "reviewBody": "The desks are of the highest quality and the service is exceptional. Less than 3 hours after making the purchase I was already using mine! I am MEGA pleased not only with the product and with the quality of the customer service, which is something very difficult to find. In addition to having a wide range of height with memory options to save the perfect graduation, there are different options of sizes, colors and even wheels to be able to rotate and move it with minimal effort, all this with a 5-year guarantee. 5 STARS!!! I recommend this company WITHOUT REPAIRS. The only downside is not having more rooms in the house to put more desks :) The best recommendation in a long time and definitely a chance to stay healthy while working.",

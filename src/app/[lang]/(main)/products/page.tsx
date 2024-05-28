@@ -5,8 +5,8 @@ import Pagination from '@/app/[lang]/components/pagination';
 import { getIntl } from '@/utils/utils';
 import { getDictionary } from '@/app/dictionaries';
 import type { Metadata, ResolvingMetadata } from 'next'
-import { Props, seoCompotnent } from '../../components/seo';
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
+const SITE_ROOT = 'https://ergonomicadesk.com';
 
 async function searchProducts(
   searchTerm: string | null,
@@ -67,10 +67,14 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(carouselJsonLd(products || [], params.lang)) }}
       />
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(searchJsonLd(params.lang)) }}
-      />
+      /> */}
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+        {name: dict.breadCrumbs.products, path: '/products'}
+      ]} />
       <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold py-16">{dict.products.title}</h1>
       <div id="products" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -110,7 +114,7 @@ export async function generateMetadata(
   )
 }
 
-const searchJsonLd =(lang: string)=> {
+/* const searchJsonLd =(lang: string)=> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -124,7 +128,7 @@ const searchJsonLd =(lang: string)=> {
       "query-input": "required name=search_term_string"
     }
   }
-}
+} */
 
 const carouselJsonLd = (products: Product[], lang: string) => {
   return {

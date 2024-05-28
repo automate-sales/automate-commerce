@@ -24,6 +24,20 @@
     "termsConditions": "Terms and Conditions",
     "followUs": "Follow us"
   },
+  "breadCrumbs": {
+    "home": "Home",
+    "categories": "Categories",
+    "subcategories": "Subcategories",
+    "products": "Products",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "login": "Login",
+    "policies": "Policies",
+    "cancellation": "Cancellations",
+    "delivery": "Delivery",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
   "home": {
     "title": "Home",
     "description": "Discover top-quality ergonomic office furniture for your home, medium, or corporate office. Shop standing desks, ergonomic chairs, and more for a comfortable workspace.",
@@ -79,11 +93,11 @@
     "description": "Complete your purchase of ergonomic office furniture. Secure checkout for standing desks, ergonomic chairs, and more to improve your office comfort."
   },
   "policies": {
-    "cancellations": {
+    "cancellation": {
       "title": "Cancellations and Returns",
       "description": "Learn about our cancellation and return policy. Understand how to cancel your order for ergonomic office furniture and our terms and conditions."
     },
-    "deliveries": {
+    "delivery": {
       "title": "Delivery Policy",
       "description": "Read our delivery policy for ergonomic office furniture. Get information on shipping times, delivery options, and more."
     },

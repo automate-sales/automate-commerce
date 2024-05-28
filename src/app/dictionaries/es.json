@@ -24,6 +24,20 @@
     "termsConditions": "Términos y Condiciones",
     "followUs": "Síguenos"
   },
+  "breadCrumbs": {
+    "home": "Inicio",
+    "categories": "Categorias",
+    "subcategories": "Subcategorias",
+    "products": "Productos",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "login": "Login",
+    "policies": "Políticas",
+    "cancellation": "Cancelaciones",
+    "delivery": "Entregas",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
   "home": {
     "title": "Inicio",
     "description": "Descubra muebles de oficina ergonómicos de alta calidad para su hogar, oficina mediana o corporativa. Compre escritorios de pie, sillas ergonómicas y más para un espacio de trabajo cómodo.",

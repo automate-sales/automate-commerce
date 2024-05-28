@@ -6,8 +6,9 @@ import prisma from '@/db'
 import { getIntl } from '@/utils/utils';
 import { cookies } from 'next/headers';
 import type { Metadata, ResolvingMetadata } from 'next'
-import { seoCompotnent } from '@/app/[lang]/components/seo'
-const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
+import { getDictionary } from '@/app/dictionaries';
+const SITE_ROOT = 'https://ergonomicadesk.com';
 
 export default async function Page({
   params
@@ -23,17 +24,20 @@ export default async function Page({
   const visitorId = cookieStore.get('ergo_lead_id')?.value
   const cartId = cookieStore.get('ergo_cart_id')?.value || ''
 
+  const dict = await getDictionary(params.lang)
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(productData, params.lang)) }}
       />
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+        {name: dict.products.title, path: '/products'},
+        {name: getIntl(productData?.title, params.lang), path: `/products/${productData?.sku}`}
+      ]} />
       <div className="max-w-4xl mx-auto p-4">
-        <div className="flex justify-between items-center mb-8">
-          <div>Breadcrumbs</div>
-          <div>Share Buttons</div>
-        </div>
+        <div className="flex justify-between items-center mb-8"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <ImageDipslay product={productData} />
           <div>
@@ -89,7 +93,7 @@ const productJsonLd = (product: Product, lang: string = 'en') => {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": getIntl(product.title, lang),
-    "image": product.images.map(image => `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${image}`),
+    "image": product.images.map(image => `${SITE_ROOT}/products/${image}`),
     "description": getIntl(product.description, lang),
     "sku": product.sku,
     //"gtin": product.gtin,
@@ -108,7 +112,57 @@ const productJsonLd = (product: Product, lang: string = 'en') => {
       "seller": {
         "@type": "Organization",
         "name": "Ergonomica Office"
-      }
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "PA",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 30,
+        "returnMethod": "https://schema.org/ReturnInStore",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingDestination": [
+          {
+            "@type": "DefinedRegion",
+            "addressCountry": "PA",
+            "addressRegion": ["PA"]
+          }
+        ],
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "businessDays": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                  "https://schema.org/Monday",
+                  "https://schema.org/Tuesday",
+                  "https://schema.org/Wednesday",
+                  "https://schema.org/Thursday",
+                  "https://schema.org/Friday",
+                  "https://schema.org/Saturday"
+              ]
+          },
+          "cutoffTime": "12:00:15Z",
+          "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 1,
+              "unitCode": "d"
+          },
+          "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 1,
+              "unitCode": "d"
+          }
+      },
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "currency": "USD",
+          "value": "0.00"
+        }
+      },
     },
     "aggregateRating": {
       "@type": "AggregateRating",
