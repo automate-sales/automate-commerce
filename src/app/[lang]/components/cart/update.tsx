@@ -15,16 +15,15 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId: string, car
     const [userHasInteracted, setUserHasInteracted] = useState(false); // State to track user interaction
   
     const removeItemFromCart = async () => {
-      console.log(`Removing product with SKU: ${cartItem.product.sku}`);
-      await updateCartItem(cartId, cartItem.product.id, cartItem.product.price, 0);
-      toast.success(`Item ${cartItem.product.title} has been deleted from cart`);
+      await updateCartItem(cartId, cartItem.product.id, 0);
+      toast.success(`Item removed from cart`);
       router.refresh();
     };
   
     const updateItemQty = async (newQty: number) => {
-      console.log(`Updating product with SKU: ${cartItem.product.sku} from cart with ID: ${cartId} to quantity: ${newQty}`);
-      await updateCartItem(cartId, cartItem.product.id, cartItem.product.price, newQty);
-      toast.success(`Quantity updated.`);
+      const obj = await updateCartItem(cartId, cartItem.product.id, newQty)
+      toast[obj.type](obj.text);
+      setInputValue(obj.item.qty.toString());
       router.refresh();
     };
   
@@ -54,6 +53,7 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId: string, car
       <div className="flex justify-between w-full">
         <div className='flex flex-col'>
           <input
+            id={`${cartItem.product.sku}-qty`}
             type="number"
             min="1"
             value={inputValue}
@@ -64,11 +64,11 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId: string, car
             className="border border-gray-300 rounded-md p-2 w-20"
             placeholder="Qty"
           />
-          <button onClick={removeItemFromCart} className="text-red-500 hover:underline">
+          <button id={`${cartItem.product.sku}-remove`} onClick={removeItemFromCart} className="text-red-500 hover:underline">
             Remove
           </button>
         </div>
-        <div className="text-xl">${cartItem.product.price * parseInt(inputValue || '0')}</div>
+        <div id={`${cartItem.product.sku}-total`} className="text-xl">${cartItem.product.price * parseInt(inputValue || '0')}</div>
       </div>
     );
   }

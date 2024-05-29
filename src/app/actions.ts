@@ -38,11 +38,11 @@ export async function createLeadAndCart(
     return {leadId: lead.id, cartId: lead.carts[0].id}
 }
 
-export async function updateCartItem(
+export async function addToCart(
   cartId: string,
   productId: number,
   price: number,
-  quantity?: number | null | undefined,
+  quantity: number = 1,
 ): Promise<{type: 'error' | 'warn' | 'success', text: string, item: CartItem}>{
   // Fetch the current cart item, if it exists
   const existingCartItem = await prisma.cartItem.findUnique({
@@ -64,15 +64,13 @@ export async function updateCartItem(
     },
   });
 
-  if (!product) {
-    throw new Error('Product not found');
-  }
+  if (!product) throw new Error('Product not found');
 
   // Calculate the current quantity and requested quantity
   const currentQty = existingCartItem ? existingCartItem.qty : 0;
-  const requestedQty = quantity ?? 1;
-  const allowableQty = Math.min(requestedQty, product.stock - currentQty);
+  const allowableQty = Math.min(quantity, product.stock - currentQty);
 
+  console.log(existingCartItem, product, currentQty, quantity, allowableQty)
   // Perform the upsert operation with the allowable quantity
   const cartItem = await prisma.cartItem.upsert({
     where: {
@@ -93,9 +91,50 @@ export async function updateCartItem(
   });
 
   if(product.stock <= 0) return({type: 'error', text: `Item is out of stock`, item: cartItem})
-  else if(allowableQty < requestedQty) return({type: 'warn', text: `${allowableQty} items were added to the cart, ${requestedQty - allowableQty} are not in stock`, item: cartItem });
+  else if(allowableQty < quantity) return({type: 'warn', text: `${allowableQty} items were added to the cart, ${quantity - allowableQty} are not in stock`, item: cartItem });
   else return({type: 'success', text:`${allowableQty} items were added to the cart`, item: cartItem});
 }
+ type MsgType = 'error' | 'warn' | 'success'
+export async function updateCartItem(
+  cartId: string,
+  productId: number,
+  quantity: number
+): Promise<{type: MsgType, text: string, item: CartItem}> {
+  // Fetch the product's stock
+  const product = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+    select: {
+      stock: true,
+    },
+  });
+  let qty = quantity
+  let msg = 'Item quantity updated'
+  let msgType: MsgType = 'success'
+  if(quantity && product && quantity > product.stock) {
+    qty = product.stock
+    msg = `Only ${product.stock} available`
+    msgType = 'warn'
+  }
+
+  const cartItem = await prisma.cartItem.update({
+      data: {qty: qty},
+      where: {
+        cartId_productId: {
+          cartId: cartId,
+          productId: productId,
+        },
+      }
+  })
+  
+  return {
+    type: msgType,
+    text: msg,
+    item: cartItem
+  }
+}
+
 
 
 

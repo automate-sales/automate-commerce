@@ -1,6 +1,6 @@
 "use client";
 
-import { updateCartItem } from "@/app/actions";
+import { addToCart } from "@/app/actions";
 import {  toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -23,7 +23,7 @@ export default function AddToCartButton({
   return (
     <form className="flex gap-3" onSubmit={ (ev) => {
       ev.preventDefault()
-      updateCartItem(cartId, productId, productPrice, qty).then( (msg: {type: 'error' | 'warn' | 'success', text: string}) => {
+      addToCart(cartId, productId, productPrice, qty).then( (msg: {type: 'error' | 'warn' | 'success', text: string}) => {
         toast[msg.type](msg.text)
         router.refresh();
       })
