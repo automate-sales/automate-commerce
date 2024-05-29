@@ -20,6 +20,10 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     }, {cacheAcrossSpecs: true})
   })
 
+  const outOfStockMsg = 'Item is out of stock'
+  const successMsg = 'items were added to the cart'
+  const warnMsg =(allowableQty: number, requestedQty: number) => `${allowableQty} items were added to the cart, ${requestedQty - allowableQty} are not in stock`
+  
   const expectedStock = {
     'chair-vergex-bl': 0,
     'monitor-lg-20mk400h-bl': 0,
@@ -61,35 +65,30 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     //cy.restoreLocalStorage()
     let productSku = 'chair-xtc-gr'
     cy.viewport(1300, 800)
-    cy.visit('localhost:3000/products?query=silla%20xtc')
+    cy.visit('localhost:3000/products?query=xtc')
     cy.get('#products').children().should('have.lengthOf', 1)
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    //confirm the success message
-    let success_msg = `Has agregado ${1} ${productSku} al carrito`
-    cy.contains(success_msg).should("be.visible")
+    cy.contains(`1 ${successMsg}`).should("be.visible")
+
     // try to add the product again
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    let warn_msg = `Nos quedan ${0} ${productSku}`
-    cy.contains(warn_msg).should("be.visible")
+    cy.contains(warnMsg(0, 1)).should("be.visible")
   })
+
   it('Adds an out-of-stock product from the index', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-vergex-bl'
     cy.viewport(1300, 800)
-    cy.visit('localhost:3000/products?query=sillas%20x')
+    cy.visit('localhost:3000/products?query=chair%20x')
     cy.get('#products').children().should('have.lengthOf.greaterThan', 1)
     cy.get(`#${productSku}-add-to-cart`).click()
-    //confirm the error message
-    let err_msg = `Se nos ha agotado el producto ${productSku}`
-    cy.contains(err_msg).should("be.visible")
+    cy.contains(outOfStockMsg).should("be.visible")
     let productSku2 = 'chair-stackx-bl'
     cy.get(`#${productSku2}-add-to-cart`).click()
     .wait(500)
-    //confirm the success message
-    let success_msg_2 = `Has agregado ${1} ${productSku2} al carrito`
-    cy.contains(success_msg_2).should("be.visible")
+    cy.contains(`1 ${successMsg}`).should("be.visible")
   })
   it('Adds a product from the product page', ()=> {
     //cy.restoreLocalStorage()
@@ -99,14 +98,12 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.visit(`localhost:3000/products/${productSku}`)
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    let success_msg = `Has agregado 1 ${productSku} al carrito`
-    cy.contains(success_msg).should("be.visible")
+    cy.contains(`1 ${successMsg}`).should("be.visible")
     qty = 2
     cy.get(`#${productSku}-qty`).type('{backspace}').type(String(qty))
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    success_msg = `Has agregado 2 ${productSku} al carrito`
-    cy.contains(success_msg).should("be.visible")
+    cy.contains(`2 ${successMsg}`).should("be.visible")
   })
   it('Adds an out-of-stock product from the product page', ()=> {
     //cy.restoreLocalStorage()
@@ -115,32 +112,29 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.visit(`localhost:3000/products/${productSku}`)
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    let err_msg = `Se nos ha agotado el producto ${productSku}`
-    cy.contains(err_msg).should("be.visible")
+    cy.contains(outOfStockMsg).should("be.visible")
   })
   it('Adds a product with available stock and qty > available stock', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-axis-wh'
     cy.viewport(1300, 800)
     cy.visit(`localhost:3000/products/${productSku}`)
-    let qty = 5
-    cy.get(`#${productSku}-qty`).type('{backspace}').type(String(qty))
+    let requestedQty = 5
+    cy.get(`#${productSku}-qty`).type('{backspace}').type(String(requestedQty))
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    let warn_msg = `Nos quedan ${3} ${productSku}`
-    cy.contains(warn_msg).should("be.visible")
+    cy.contains(warnMsg(3, requestedQty)).should("be.visible")
   })
   it('Adds a product with 0 available stock but stock > 0', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-xtc-gr'
     cy.viewport(1300, 800)
     cy.visit(`localhost:3000/products/${productSku}`)
-    let qty = 3
-    cy.get(`#${productSku}-qty`).type('{backspace}').type(String(qty))
+    let requestedQty = 3
+    cy.get(`#${productSku}-qty`).type('{backspace}').type(String(requestedQty))
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
-    let err_msg = `Nos quedan ${0} ${productSku}`
-    cy.contains(err_msg).should("be.visible")
+    cy.contains(warnMsg(0, requestedQty)).should("be.visible")
   })
   it('Browses through categories and adds a product', ()=> {
     cy.log('clicks on products link in the nav bar')
@@ -330,13 +324,3 @@ describe('A new lead enters the site and shops for a variety of items', () => {
 
 // Existing item is added to cart
   // it sums the qtys and update the current carf item
-
-
-
-// An existing lead claims a shopping cart without a lead Id
-    // his current shopping cart becomes inactive
-    // the new cart becomes their shopping cart
-
-// An existing lead claims a shopping cart that already has a lead Id (it isnt their current shopping cart)
-    // message that says: this cart already belongs to a user
-    // they are redirected to their shopping cart

@@ -1,7 +1,7 @@
 'use server'
  
 import { cookies } from 'next/headers'
-import { Order } from '@prisma/client'
+import { CartItem, Order } from '@prisma/client'
 import { CartWithItems, CheckoutOrder } from '@/types'
 import { validateCart, validateCheckout, validateUniqueCart } from '@/utils/validations'
 import { formatAddress } from '@/utils/calc'
@@ -43,28 +43,61 @@ export async function updateCartItem(
   productId: number,
   price: number,
   quantity?: number | null | undefined,
-) {
-  console.log('Updating cart item')
-    const cartItem = await prisma.cartItem.upsert({
-        where: {
-          cartId_productId: {
-            cartId: cartId,
-            productId: productId,
-          },
-        },
-        update: {
-          ...( quantity || quantity === 0 ? { qty: quantity } : { qty: { increment: 1 } })
-        },
-        create: {
-          cartId: cartId,
-          productId: productId,
-          qty: quantity || 1,
-          price: price
-        },
-    })
-    console.log('CART ITEM MUTATION RESULT: ', cartItem);
-    return cartItem
+): Promise<{type: 'error' | 'warn' | 'success', text: string, item: CartItem}>{
+  // Fetch the current cart item, if it exists
+  const existingCartItem = await prisma.cartItem.findUnique({
+    where: {
+      cartId_productId: {
+        cartId: cartId,
+        productId: productId,
+      },
+    },
+  });
+
+  // Fetch the product's stock
+  const product = await prisma.product.findUnique({
+    where: {
+      id: productId,
+    },
+    select: {
+      stock: true,
+    },
+  });
+
+  if (!product) {
+    throw new Error('Product not found');
+  }
+
+  // Calculate the current quantity and requested quantity
+  const currentQty = existingCartItem ? existingCartItem.qty : 0;
+  const requestedQty = quantity ?? 1;
+  const allowableQty = Math.min(requestedQty, product.stock - currentQty);
+
+  // Perform the upsert operation with the allowable quantity
+  const cartItem = await prisma.cartItem.upsert({
+    where: {
+      cartId_productId: {
+        cartId: cartId,
+        productId: productId,
+      },
+    },
+    update: {
+      qty: currentQty + allowableQty,
+    },
+    create: {
+      cartId: cartId,
+      productId: productId,
+      qty: allowableQty,
+      price: price,
+    },
+  });
+
+  if(product.stock <= 0) return({type: 'error', text: `Item is out of stock`, item: cartItem})
+  else if(allowableQty < requestedQty) return({type: 'warn', text: `${allowableQty} items were added to the cart, ${requestedQty - allowableQty} are not in stock`, item: cartItem });
+  else return({type: 'success', text:`${allowableQty} items were added to the cart`, item: cartItem});
 }
+
+
 
 export async function getCoupon(
   code: string
