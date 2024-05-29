@@ -22,6 +22,8 @@ describe('A new lead enters the site and shops for a variety of items', () => {
 
   const outOfStockMsg = 'Item is out of stock'
   const successMsg = 'items were added to the cart'
+  const updateQtyMsg = 'Item quantity updated'
+  const removeItemMsg = 'Item removed from cart'
   const warnMsg =(allowableQty: number, requestedQty: number) => `${allowableQty} items were added to the cart, ${requestedQty - allowableQty} are not in stock`
   
   const expectedStock = {
@@ -159,6 +161,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.get('#cart-items').children().should("have.length", 4)
     cy.get('#cart-items').children().each(elem => {
       let sku = elem.find('div.cart-item-sku').text()
+
       expect(Object.keys(expectedStock)).include(sku)
       cy.get(`#${sku}-qty`).should('have.value', String(expectedStock[sku]))
       cy.get(`#${sku}-price`).then(price => {
@@ -169,7 +172,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
         cartSubtotal += total
       })
     })
-    cy.get('#sub-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
   })
   it('Removes an item from the cart', ()=> {
     //cy.restoreLocalStorage()
@@ -182,14 +185,14 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cartSubtotal-=productTotal
       cy.get(`#${productSku}-remove`).click()
       .wait(100)
-      let success_msg = `Ha removido el producto ${productSku}`
-      cy.contains(success_msg).should("be.visible")
-      cy.get('#sub-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
+      cy.contains(removeItemMsg).should("be.visible")
+      cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
     })
+    cy.scrollTo('top')
   })
   it('Increases qty of an item', ()=> {
     //cy.restoreLocalStorage()
-    cy.log('added 2 of an item with inventory')
+    // ADD MISSING CODE
   })
   it('Decreases qty of an item', ()=> {
     //cy.restoreLocalStorage()
@@ -202,13 +205,10 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]))
       cy.get(`#${productSku}-qty`).type('{backspace}').type(String(expectedStock[productSku]-1))
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]-1))
-      cy.get(`#${productSku}-update`).should("be.visible")
-      cy.get(`#${productSku}-update`).click()
-      .wait(100)
-      let success_msg = `Ha cambiado la cantidad del producto ${productSku}`
-      cy.contains(success_msg).should("be.visible")
+      .wait(500)
+      cy.contains(updateQtyMsg).should("be.visible")
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]-1))
-      cy.get('#sub-total').then(elem =>
+      cy.get('#cart-total').then(elem =>
         expect(elem.text()).eq(`$${cartSubtotal}`)
       )
     })
@@ -224,13 +224,11 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]))
       cy.get(`#${productSku}-qty`).type('{backspace}').type(String(expectedStock[productSku]+3))
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]+3))
-      cy.get(`#${productSku}-update`).should("be.visible")
-      cy.get(`#${productSku}-update`).click()
-      .wait(100)
-      let warning_msg = `Solo nos quedan ${2} ${productSku}`
+      .wait(600)
+      let warning_msg = `Only ${2} available`
       cy.contains(warning_msg).should("be.visible")
       cy.get(`#${productSku}-qty`).should('have.value', 2)
-      cy.get('#sub-total').then(elem =>
+      cy.get('#cart-total').then(elem =>
         expect(elem.text()).eq(`$${cartSubtotal}`)
       )
     })
@@ -263,7 +261,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
         finalCartSubtotal += total
       })
     })
-    cy.get('#sub-total').then(elem => expect(elem.text()).eq(`$${finalCartSubtotal}`))
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${finalCartSubtotal}`))
   })
 })
 
