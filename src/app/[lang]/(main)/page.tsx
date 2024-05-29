@@ -10,7 +10,7 @@ import { getDictionary } from '@/app/dictionaries'
 import { getIntl } from '@/utils/utils'
 import { Breadcrumbs, Props, seoCompotnent } from '../components/seo'
 import type { Metadata, ResolvingMetadata } from 'next'
-const SITE_ROOT = 'https://ergonomicadesk.com';
+const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Home({ 
   params

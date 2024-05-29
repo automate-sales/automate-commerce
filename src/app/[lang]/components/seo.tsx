@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
-const SITE_ROOT = 'http://ergonomicadesk.com';
+const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 type BreadCrumb = {
     name: string,
