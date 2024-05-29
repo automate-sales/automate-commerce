@@ -103,6 +103,51 @@ async function seedData() {
   await seedProducts();
 }
 
+async function seedTestData() {
+  const qtys = {
+      //shop
+      'chair-vergex-bl': 0,
+      'monitor-lg-20mk400h-bl': 0,
+      'chair-xtc-gr': 1,
+      'chair-stackx-bl': 2,
+      'chair-axis-wh': 3,
+      'stand-arm-alum-single-bl': 20,
+      'stand-arm-alum-double-gr': 18,
+      'stand-laptop-adjus-sl': 30,
+      //order
+      'chair-gamer-prodigy-gr': 4,
+      'frame-3stage-wh': 5,
+      'footrest-1-wh': 3
+  };
+  const qtyPromises = Object.entries(qtys).map(async ([q, qty]) => {
+      console.log(q, qty);
+      await prisma.product.update({
+          where:{sku: q},
+          data: {stock: qty}
+      });
+  });
+  const prices = {
+      'footrest-1-wh': 0.72,
+  };
+  const pricePromises = Object.entries(prices).map(async ([p, price]) => {
+      console.log(p, price);
+      await prisma.product.update({
+          where:{sku: p},
+          data: {price: price}
+      });
+  });
+  const users = [
+      {
+        name: "John Doe",
+        email: "johndoe@doejohn.com"
+      }
+  ];
+  const userPromises = users.map(async (u) => {
+      await prisma.user.create({data: u});
+  });
+  await Promise.all([...qtyPromises, ...pricePromises, ...userPromises]);
+}
+
 async function main() {
   try{
     if (NODE_ENV !== 'production') {
@@ -110,6 +155,7 @@ async function main() {
     }
     await wipeData()
     await seedData()
+    await seedTestData()
   } catch(err) {
     console.error(err)
   }

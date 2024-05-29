@@ -27,6 +27,7 @@ describe('An existing user signs in from the login page', () => {
     const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
     const sign_in_success_msg = 'Ha iniciado sesión'
     const logout_success_msg = 'Ha cerrado su sesión'
+    const default_locale = 'en'
     it('Is succesfull', () => {
       cy.clearAllCookies()
       cy.visit('localhost:3000/login')
@@ -44,7 +45,7 @@ describe('An existing user signs in from the login page', () => {
         expect(url).to.not.be.empty
         cy.visit({url: url, method: 'POST'})
         .wait(1000)
-        cy.url().should('eq', 'http://localhost:3000/user/info?first_login=true')
+        cy.url().should('include', '/user/info?first_login=true')
         //cy.contains(sign_in_success_msg).should("be.visible")
         //fill out the user info
         //cy.get('#userMenuBtn').click()
