@@ -1,17 +1,37 @@
-// AN ADMIN CAN SHARE A CART WITH A USER
+// An admin creates a new cart and shares it with a lead
+// the lead navigates to a cart/[id] page
 
-// AN ADMIN CAN CREATE A CART WITHOUT A LEAD
+// the new cart doesnt exist
+    // should reroute to the cart page
+    // current cart should be the same as before
+    // should display an error message: the cart doesnt exist or is not active
 
-// A LEAD NAVIGATES TO A CART URL THAT CONTAINS AN ID
-    // THE CART DOESNT HAVE A LEAD
-        // SUCCESS MESSAGE
-        // SHOULD REFELCT THE NEW CART
-        // THE LEADS ACTIVE CART SHOULD HAVE THE ID OF THE NEW CART
-    // THE CART HAS A LEAD THAT MATCHES THE LEAD ID
-        // NO MESSAGE
-        // SHOULD BE REROUTED TO URL WITHOUT CART ID
-        // SHOULD REFLECT USERS CURRENT CART
-    // THE CART HAS A LEAD THAT MATCHES THE LEAD ID
-        // ERROR MESSAGE
-        // SHOULD BE REROUTED TO URL WITHOUT CART ID
-        // SHOULD REFLECT USERS CURRENT CART
+// the new cart belongs to another lead
+    // should reroute to the cart page
+    // current cart should be the same as before
+    // should display an error message: the cart is not available
+
+// the new cart belongs to the current lead
+    // should reroute to the cart page
+
+// the new cart doesnt belong to anybody
+
+    // the current cart is empty   
+        // current cart should be inactive
+        // new cart should belong to the current lead
+        // should reroute to the cart page
+        // should display a success message: the cart has been claimed
+
+    // the current cart is not empty
+        // should display a modal dialog asking for confirmation to swap carts
+        
+        // user confirms
+            // current cart should be inactive
+            // new cart should belong to the current lead
+            // should reroute to the cart page
+            // should display a success message: the cart has been claimed
+        
+        // user cancels
+            // should reroute to the cart page
+            // current cart should be the same as before
+

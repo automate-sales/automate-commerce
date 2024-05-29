@@ -97,6 +97,7 @@ model Lead {
 
 enum CartStatus {
   active
+  inactive
   purchased
   abandoned
 }

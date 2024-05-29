@@ -8,6 +8,8 @@ import { formatAddress } from '@/utils/calc'
 import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
+import { redirect } from 'next/navigation'
+import { FormEvent } from 'react'
 
 export async function createCookie(name: string, value: string) {
     cookies().set({
@@ -187,3 +189,27 @@ export const completeOrder = async (
   throw new Error('error')
 }
 };
+
+
+export const swapCarts = async (
+  currentCartId: string, 
+  newCartId: string, 
+  leadId: string
+) => {
+  // set current cart inactive
+  await prisma.cart.update({
+      where: { id: currentCartId },
+      data: { status: 'inactive' }
+  })
+  // set leadID on new cart
+  await prisma.cart.update({
+      where: { id: newCartId },
+      data: { leadId: leadId }
+  })
+  cookies().set({
+    name: 'ergo_cart_id',
+    value: newCartId,
+    httpOnly: true
+  })
+  redirect('/cart')
+}
