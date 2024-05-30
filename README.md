@@ -30,3 +30,40 @@ End to end tests are held in the `cypress/e2e/` directory.
 You can run the test suite without having to install any depencies manually by running `./test.sh`.
 
 If you want to run tests manually you can run `npx cypress open` while having another terminal running the dev server. Beware that performance tests will fail when running the test suite with the dev server; If you want to test performance run `npm run build && npm run start` to build and serve the app.
+
+
+
+# Admin
+
+the generator function will read your prisma schema and generate:
+ 1. an index json file with the format
+ ```
+ {
+    [model]: {
+        name: string
+        view: 'shoppingCart' | 'blog' | 'default'
+    }
+ }
+ ```
+
+2. for each modeel will create the follwoing dirs/files
+```
+- {model}/
+   - fields.json
+   - page.tsx
+   - [id]/
+      - page.tsx
+```
+
+the fields.json file created will have the following format:
+```
+{
+    name: string
+    type: FieldType
+    options?: SelectOption[]
+    ...
+}
+```
+
+the json files are created with the default fieldType corresponding to the prisma type and the fieldName. You can later modify this file as you wish.
+
