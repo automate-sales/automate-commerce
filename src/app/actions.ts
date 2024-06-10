@@ -283,13 +283,28 @@ export async function createOrder(
 
 const confirmOrder = (orderId: string, paymentId: string) => {
   return prisma.order.update({
-    where: {
-      id: orderId
-    },
-    data: {
-      status: 'complete_payment',
-      paymentId: paymentId
-    }
+      where: {
+          id: orderId
+      },
+      data: {
+          status: 'complete_payment',
+          paymentId: paymentId
+      },
+      include: {
+          cart: {
+              include: {
+                  cartItems: {
+                      include: { product: {
+                          select: { 
+                            sku: true,
+                            title: true,
+                            price: true,
+                          }
+                      } }
+                  }
+              }
+          }
+      }  
   })
 }
 
@@ -326,16 +341,19 @@ export const processOrder = async (
         data: { stock: { decrement: cartItem.qty } }
       })
       ),
-      confirmOrder(order.id, paymentId),
       confirmCart(order.cartId),
+      confirmOrder(order.id, paymentId),
       createNewCart(order.leadId || '')
-    ])
-    return result[result.length - 1].id
-  } catch (err: any) {
-    const msg = 'Error processing order'
-    console.error(msg, err)
-    throw new Error(msg)
+  ])
+  console.log('TRANSACTION RESULT ', result);
+  return {
+    "confirmedOrder": result[result.length-2], 
+    "newCartId": result[result.length-1].id
   }
+}catch(err: any){
+  console.error(err)
+  throw new Error('error')
+}
 };
 
 
@@ -360,4 +378,23 @@ export const swapCarts = async (
     httpOnly: true
   })
   redirect('/cart')
+}
+
+
+const fetchUrl = 'https://torus2.odoo.com/web/hook/b4d542d9-bba6-402b-b579-d933e2f9d50a'
+// use fetch to send a post request to a given url with a given payload
+export const createInvoice = async (payload: {[key: string] : any} ) => {
+  try{
+    const res = await fetch(fetchUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...payload, id: '11'})
+    })
+    console.log('INVOICE CREATED: ', res) 
+    return res.json()
+  }catch(err){
+    console.error('Error sending request to odoo: ', err)
+  }
 }
