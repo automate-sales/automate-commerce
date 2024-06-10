@@ -190,12 +190,18 @@ export async function createOrder(
     //process payment
     const paymentId = await processPayment({...paymentInfo, total: orderInfo.total, orderId: newOrder.id})
     //update product inventory, order status, paymentRef
-    const newCartId = await completeOrder(newOrder, cart, paymentId)
+    const {confirmedOrder, newCartId} = await completeOrder(newOrder, cart, paymentId)
+    
     cookies().set({
       name: 'ergo_cart_id',
       value: String(newCartId),
       httpOnly: true
     })
+
+    console.log('ORDER CREATED: ', JSON.stringify(confirmedOrder, null,2))
+    
+    await createInvoice(confirmedOrder)
+
     //send confirmation email
     await sendEmail(cart, newOrder)
     return {orderId: newOrder.id, newCartId: newCartId}
@@ -213,6 +219,21 @@ const confirmOrder =(orderId:string, paymentId:string)=>{
       data: {
           status: 'complete_payment',
           paymentId: paymentId
+      },
+      include: {
+          cart: {
+              include: {
+                  cartItems: {
+                      include: { product: {
+                          select: { 
+                            sku: true,
+                            title: true,
+                            price: true,
+                          }
+                      } }
+                  }
+              }
+          }
       }  
   })
 }
@@ -250,12 +271,15 @@ export const completeOrder = async (
               data: { stock: { decrement: cartItem.qty } }
           })
       ),
-      confirmOrder(order.id, paymentId),
       confirmCart(order.cartId),
+      confirmOrder(order.id, paymentId),
       createNewCart(order.leadId || '')
   ])
   console.log('TRANSACTION RESULT ', result);
-  return result[result.length-1].id
+  return {
+    "confirmedOrder": result[result.length-2], 
+    "newCartId": result[result.length-1].id
+  }
 }catch(err: any){
   console.error(err)
   throw new Error('error')
@@ -284,4 +308,23 @@ export const swapCarts = async (
     httpOnly: true
   })
   redirect('/cart')
+}
+
+
+const fetchUrl = 'https://torus2.odoo.com/web/hook/b4d542d9-bba6-402b-b579-d933e2f9d50a'
+// use fetch to send a post request to a given url with a given payload
+export const createInvoice = async (payload: {[key: string] : any} ) => {
+  try{
+    const res = await fetch(fetchUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...payload, id: '11'})
+    })
+    console.log('INVOICE CREATED: ', res) 
+    return res.json()
+  }catch(err){
+    console.error('Error sending request to odoo: ', err)
+  }
 }

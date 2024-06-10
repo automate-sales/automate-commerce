@@ -138,7 +138,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
         ev.preventDefault()
         // add the leadId and cartId to the order
         setSubmitting(true)
-        const {orderId, newCartId} = await createOrder({
+        const data = await createOrder({
             orderInfo: { 
                 ...order,
                 subtotal,
@@ -155,6 +155,12 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
             billingInfo: billing,
             paymentInfo: payment
         })
+        if (!data) {
+            console.log('Error creating order')
+            setSubmitting(false)
+            return
+        }
+        const { orderId, newCartId } = data
         if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
         setSubmitting(false)
         router.push(`/orders/confirmation?id=${orderId}`)
