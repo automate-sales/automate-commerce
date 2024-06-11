@@ -151,6 +151,7 @@ export async function createOrder(
   payload: CheckoutOrder
 ) {
   try{
+    console.log('SUP BISHHH')
     //get the cart by id
     const { orderInfo, customerInfo, shippingInfo, billingInfo, paymentInfo } = payload
     const cart = await prisma.cart.findUnique({
@@ -161,11 +162,14 @@ export async function createOrder(
         } 
       }
     })
+    console.log('FOUND CART ', cart)
     if(!cart) throw new Error('Invalid cart')
     validateCart(orderInfo.leadId, cart);
     await validateUniqueCart(cart);
     await validateCheckout(payload, cart.cartItems);
+    console.log('CREATING ORDER')
     //create order in database
+ 
     const newOrder = await prisma.order.create({data: {
       full_name: customerInfo.full_name,
       phone_number: customerInfo.phone_number,
@@ -187,8 +191,12 @@ export async function createOrder(
       cartId: orderInfo.cartId,
       leadId: orderInfo.leadId || undefined,
     }})
+    
+    
+    console.log('CREATIED MFG ORDER')
     //process payment
     const paymentId = await processPayment({...paymentInfo, total: orderInfo.total, orderId: newOrder.id})
+    console.log('SUCCESS BISH')
     //update product inventory, order status, paymentRef
     const newCartId = await completeOrder(newOrder, cart, paymentId)
     cookies().set({
@@ -201,7 +209,7 @@ export async function createOrder(
     return {orderId: newOrder.id, newCartId: newCartId}
   }catch(err: any){
     console.error(err)
-      throw new Error('error')
+    throw new Error('error ', err)
   }
 }
 

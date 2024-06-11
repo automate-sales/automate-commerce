@@ -207,7 +207,8 @@ export const FormGroup =({
             ...steps,
             [step]:{
                 ...steps[step],
-                done:true
+                done:true,
+                ...(step && step >= Object.keys(steps).length-1? {} : {hidden: true})
             }, 
             [step+1]:{
                 ...steps[step+1],
@@ -238,6 +239,7 @@ export const FormGroup =({
                 </div>
                 <button id={`${normalizeString(title)}-btn`} onClick={toggleHidden} className="p-2 border border-grey-300 bg-white disabled:bg-gray-200 md:w-1/3">Editar</button>
             </div>
+            {children}
             <div id={normalizeString(title)} hidden={steps[step].hidden}>
                 <fieldset className="pt-3">
                     <div className="grid grid-cols-2 gap-4 pb-3">
@@ -254,7 +256,7 @@ export const FormGroup =({
                             />
                         )}
                     </div>
-                    {children}
+                    
                 </fieldset>
             </div>
         </div>

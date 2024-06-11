@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Coupon from '../../components/checkout/coupon'
 import { useRouter } from 'next/navigation';
@@ -22,6 +22,7 @@ import {
 import { CartWithItems, CustomerInfo, OrderInfo, ShippingInfo } from '@/types';
 import OrderCostSummary from './costSummary';
 import { createOrder } from '@/app/actions';
+import { toast } from 'react-toastify';
 
 const addressFields: FormField[] = [
     { name: 'street_1', label: 'Dirección', inputType: 'text' },
@@ -108,6 +109,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     const tax = getTax(subtotal, discount, shippingFee, assemblyFee)
     const total = getTotal(subtotal, discount, shippingFee, assemblyFee, tax)
     const [submitting, setSubmitting] = useState(false)
+    const [checked, setChecked] = useState(false)
     const router = useRouter()
 
     const calcDiscount = async (couponCode: string) => {
@@ -117,13 +119,20 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     }
 
     const sameAsShipping = (ev: { target: { checked: boolean; }; }) => {
-        const optional: { [key: string]: boolean } = { street_2: true }
-        ev.target.checked && setBilling(shipping)
+        if(ev.target.checked){
+            setChecked(true)
+            const optional: { [key: string]: boolean } = { street_2: true }
+            ev.target.checked && setBilling(shipping)
             Object.entries(shipping).every(e => e[1] || optional[e[0]] ) && setSteps({
-            ...steps,
-            [3]:{...steps[3], done:true}, 
-            [4]:{...steps[4], hidden: false}
-        })
+                ...steps,
+                [3]:{...steps[3], done:true, hidden: true}, 
+                [4]:{...steps[4], hidden: false}
+            })
+        } else {
+            setChecked(false)
+            setBilling(emptyAddress)
+        }
+            
     }
 
     const [steps, setSteps] = useState({
@@ -134,11 +143,21 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
         5: {}
     })
 
+    const [sameAsShippingSet, setSameAsShippingSet] = useState(false);
+
+    useEffect(() => {
+        if (steps[2].done && !sameAsShippingSet) {
+            sameAsShipping({target: {checked: true }})
+            setSameAsShippingSet(true);
+        }
+    }, [steps, shipping, sameAsShippingSet]);
+
     const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
         // add the leadId and cartId to the order
+        console.log('SUBMITIIG')
         setSubmitting(true)
-        const {orderId, newCartId} = await createOrder({
+        const {orderId, newCartId} = await toast.promise(createOrder({
             orderInfo: { 
                 ...order,
                 subtotal,
@@ -154,6 +173,10 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
             shippingInfo: shipping,
             billingInfo: billing,
             paymentInfo: payment
+        }), {
+            pending: 'Submitting order',
+            success: 'Congratulations!',
+            error: 'Error on order'
         })
         if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
         setSubmitting(false)
@@ -205,7 +228,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                 >
                     <div className="inline">
                         <span className="pr-2 text-l">Igual a la dirección de envío?</span>
-                        <input id="same_as_shipping" type="checkbox" onChange={sameAsShipping} />
+                        <input id="same_as_shipping" type="checkbox" onChange={sameAsShipping} defaultChecked value={checked.toString()} />
                     </div>
                 </FormGroup>
                 <FormGroup
