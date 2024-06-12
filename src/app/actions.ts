@@ -2,7 +2,7 @@
  
 import { cookies } from 'next/headers'
 import { CartItem, Order } from '@prisma/client'
-import { CartWithItems, CheckoutOrder } from '@/types'
+import { CartWithItems, CheckoutOrder, CustomerInfo, OrderInfo, ShippingInfo } from '@/types'
 import { validateCart, validateCheckout, validateUniqueCart } from '@/utils/validations'
 import { formatAddress } from '@/utils/calc'
 import { processPayment } from '@/utils/payments/nmi'
@@ -11,12 +11,18 @@ import prisma from '@/db'
 import { redirect } from 'next/navigation'
 import { FormEvent } from 'react'
 
-export async function createCookie(name: string, value: string) {
+export async function setCookie(name: string, value: string) {
+  try{  
     cookies().set({
-        name: name,
-        value: value,
-        httpOnly: true
-      })
+      name: name,
+      value: value,
+      httpOnly: true
+    })
+    return true
+  } catch(err: any){
+    console.error('Error setting cookie', err)
+    return false
+  }
 }
 
 export async function createLeadAndCart(
@@ -147,69 +153,110 @@ export async function getCoupon(
   return res
 }
 
-export async function createOrder(
-  payload: CheckoutOrder
-) {
-  try{
-    console.log('SUP BISHHH')
-    //get the cart by id
-    const { orderInfo, customerInfo, shippingInfo, billingInfo, paymentInfo } = payload
-    const cart = await prisma.cart.findUnique({
-        where: { id: orderInfo.cartId },
+const getCart = async( orderInfo: OrderInfo)=> {
+  let cart: CartWithItems | null
+  try {
+    cart = await prisma.cart.findUnique({
+      where: { id: orderInfo.cartId },
         include: { cartItems: {
           where: { qty: { gt: 0 } },
           include: { product: true }
         } 
       }
     })
-    console.log('FOUND CART ', cart)
-    if(!cart) throw new Error('Invalid cart')
+  } catch(err: any){
+    const msg = 'Error getting cart'
+    console.error(msg, err)
+    throw new Error(msg)
+  }
+  if(!cart) throw new Error('Cart not found')
+  return cart
+}
+
+const submitOrder = async(
+  orderInfo: OrderInfo,
+  customerInfo: CustomerInfo,
+  shippingInfo: ShippingInfo,
+  billingInfo: ShippingInfo,
+) => {
+  try {
+    const order = await prisma.order.create({
+      data: {
+        full_name: customerInfo.full_name,
+        phone_number: customerInfo.phone_number,
+        email: customerInfo.email,
+        shippingAddress: formatAddress(shippingInfo),
+        billingAddress: formatAddress(billingInfo),
+        shipping: orderInfo.shipping,
+        assembly: orderInfo.assembly,
+        coupon: orderInfo.coupon || undefined,
+        subtotal: orderInfo.subtotal,
+        discount: orderInfo.discount || undefined,
+        shippingFee: orderInfo.shippingFee || undefined,
+        assemblyFee: orderInfo.assemblyFee || undefined,
+        tax: orderInfo.tax,
+        total: orderInfo.total,
+        loggedIn: orderInfo.loggedIn,
+        source: orderInfo.source,
+        paymentMethod: orderInfo.paymentMethod, // Assuming payment method is stored in name. Adjust as needed.
+        cartId: orderInfo.cartId,
+        leadId: orderInfo.leadId || undefined,
+      }
+    })
+    return order
+  } catch(err: any){
+    const msg = 'Error creating order'
+    console.error(msg, err)
+    throw new Error(msg)
+  }
+}
+
+const errorOrder = async(orderId: string, errorMsg?: string) => {
+  try {
+    return prisma.order.update({
+      where: { id: orderId },
+      data: { status: 'payment_error', ...(errorMsg && { errorMsg: String(errorMsg) }) }
+    })
+  } catch(err: any){
+    const msg = 'Error sedtting status to error'
+    console.error(msg, err)
+  }
+}
+
+const submitPayment = async (paymentInfo: any, total: number, orderId: string) => {
+  try {
+    return await processPayment({...paymentInfo, total: total, orderId: orderId})
+  } catch(err: any){
+    await errorOrder(orderId, err.message)
+    throw new Error(err.message)
+  }
+}
+
+
+export async function createOrder(
+  payload: CheckoutOrder
+) {
+  try{
+    //get the cart by id
+    const { orderInfo, customerInfo, shippingInfo, billingInfo, paymentInfo } = payload
+    const cart = await getCart(orderInfo)
     validateCart(orderInfo.leadId, cart);
     await validateUniqueCart(cart);
     await validateCheckout(payload, cart.cartItems);
-    console.log('CREATING ORDER')
-    //create order in database
- 
-    const newOrder = await prisma.order.create({data: {
-      full_name: customerInfo.full_name,
-      phone_number: customerInfo.phone_number,
-      email: customerInfo.email,
-      shippingAddress: formatAddress(shippingInfo),
-      billingAddress: formatAddress(billingInfo),
-      shipping: orderInfo.shipping,
-      assembly: orderInfo.assembly,
-      coupon: orderInfo.coupon || undefined,
-      subtotal: orderInfo.subtotal,
-      discount: orderInfo.discount || undefined,
-      shippingFee: orderInfo.shippingFee || undefined,
-      assemblyFee: orderInfo.assemblyFee || undefined,
-      tax: orderInfo.tax,
-      total: orderInfo.total,
-      loggedIn: orderInfo.loggedIn,
-      source: orderInfo.source,
-      paymentMethod: orderInfo.paymentMethod, // Assuming payment method is stored in name. Adjust as needed.
-      cartId: orderInfo.cartId,
-      leadId: orderInfo.leadId || undefined,
-    }})
+    const newOrder = await submitOrder(orderInfo, customerInfo, shippingInfo, billingInfo)
     
-    
-    console.log('CREATIED MFG ORDER')
-    //process payment
-    const paymentId = await processPayment({...paymentInfo, total: orderInfo.total, orderId: newOrder.id})
-    console.log('SUCCESS BISH')
-    //update product inventory, order status, paymentRef
-    const newCartId = await completeOrder(newOrder, cart, paymentId)
-    cookies().set({
-      name: 'ergo_cart_id',
-      value: String(newCartId),
-      httpOnly: true
-    })
-    //send confirmation email
-    await sendEmail(cart, newOrder)
-    return {orderId: newOrder.id, newCartId: newCartId}
+    // if payment errors out, set the order as inactive then return error
+    const paymentId = await submitPayment(paymentInfo, orderInfo.total, newOrder.id)
+   
+    const newCartId = await processOrder(newOrder, cart, paymentId)
+    setCookie('ergo_cart_id', String(newCartId))
+    const sentEmail = await sendEmail(cart, newOrder)
+    return {orderId: newOrder.id, newCartId: newCartId, sentEmail: sentEmail}
   }catch(err: any){
+    const msg = 'Error creating order'
+    console.error(msg, err.message)
     console.error(err)
-    throw new Error('error ', err)
+    throw new Error(`${msg}: ${err.message}`)
   }
 }
 
@@ -246,7 +293,7 @@ const createNewCart =(leadId:string)=>{
   })
 }
 
-export const completeOrder = async (
+export const processOrder = async (
   order: Order, 
   cart:CartWithItems,
   paymentId: string
@@ -262,11 +309,11 @@ export const completeOrder = async (
       confirmCart(order.cartId),
       createNewCart(order.leadId || '')
   ])
-  console.log('TRANSACTION RESULT ', result);
   return result[result.length-1].id
 }catch(err: any){
-  console.error(err)
-  throw new Error('error')
+  const msg = 'Error processing order'
+  console.error(msg, err)
+  throw new Error(msg)
 }
 };
 

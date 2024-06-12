@@ -1,6 +1,6 @@
 'use client'
 
-import { createCookie, createLeadAndCart } from "@/app/actions"
+import { setCookie, createLeadAndCart } from "@/app/actions"
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { useEffect } from "react";
@@ -33,8 +33,8 @@ const getOrCreateLead = async(
                 localStorage.setItem('ergo_lead_id', leadId)
                 localStorage.setItem('ergo_cart_id', cartId)
             }
-            createCookie('ergo_lead_id', leadId)
-            createCookie('ergo_cart_id', cartId || '')
+            setCookie('ergo_lead_id', leadId)
+            setCookie('ergo_cart_id', cartId || '')
         }
     }
     console.log('visitorId: ', visitorId)

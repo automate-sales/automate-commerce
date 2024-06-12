@@ -14,7 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import locales from "@/utils/locales";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { getIntl } from "@/utils/utils";
-import { createCookie } from "@/app/actions";
+import { setCookie } from "@/app/actions";
 
 type NavItem = {
   label: string;
@@ -114,7 +114,7 @@ const Navbar = ({
     
     const redirectLang = (lang: string) => {
       const newUrl = `/${lang}${currentPath}`;
-      createCookie("locale", lang).then(() => {
+      setCookie("locale", lang).then(() => {
         router.push(newUrl);
       });
     };

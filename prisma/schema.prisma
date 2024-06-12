@@ -108,7 +108,7 @@ model Cart {
   lead              Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
   cartItems      CartItem[]
   purchasedAt   DateTime?
-  order Order?
+  orders Order[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   String?
@@ -212,8 +212,9 @@ model Order {
   paymentMethod   PaymentMethod @default(unknown)
   paymentId        String?
   invoiceId        String?
+  errorMsg    String?
   //relations
-  cartId            String @unique
+  cartId            String
   cart              Cart @relation(fields: [cartId], references: [id])           
   leadId            String?
   lead              Lead?    @relation(fields: [leadId], references: [id])
