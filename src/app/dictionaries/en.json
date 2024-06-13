@@ -24,7 +24,23 @@
     "termsConditions": "Terms and Conditions",
     "followUs": "Follow us"
   },
+  "breadCrumbs": {
+    "home": "Home",
+    "categories": "Categories",
+    "subcategories": "Subcategories",
+    "products": "Products",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "login": "Login",
+    "policies": "Policies",
+    "cancellation": "Cancellations",
+    "delivery": "Delivery",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
   "home": {
+    "title": "Home",
+    "description": "Discover top-quality ergonomic office furniture for your home, medium, or corporate office. Shop standing desks, ergonomic chairs, and more for a comfortable workspace.",
     "heroSection": {
       "title": "Welcome to the Next.js E-commerce Store",
       "description": "This is a simple e-commerce store built with Next.js and Prisma.",
@@ -52,13 +68,46 @@
       }
     }
   },
+  "login": {
+    "title": "Login",
+    "description": "Access your account to manage orders, track shipments, and update your profile at our ergonomic office furniture store."
+  },
   "categories": {
-    "title": "Categories"
+    "title": "Categories",
+    "description": "Explore our wide range of ergonomic office furniture categories. Find the perfect standing desk, ergonomic chair, and office accessories for your needs."
   },
   "subcategories": {
-    "title": "Subcategories"
+    "title": "Subcategories",
+    "description": "Dive into our subcategories to find specialized ergonomic office furniture. From standing desks to ergonomic chairs, we have everything to outfit your workspace."
   },
   "products": {
-    "title": "Products"
+    "title": "Products",
+    "description": "Browse our extensive collection of ergonomic office furniture. Find the perfect standing desk, ergonomic chair, and more to create your ideal workspace."
+  },
+  "cart": {
+    "title": "Cart",
+    "description": "Review your selected ergonomic office furniture items in your cart. Proceed to checkout to complete your purchase and enhance your workspace."
+  },
+  "checkout": {
+    "title": "Checkout",
+    "description": "Complete your purchase of ergonomic office furniture. Secure checkout for standing desks, ergonomic chairs, and more to improve your office comfort."
+  },
+  "policies": {
+    "cancellation": {
+      "title": "Cancellations and Returns",
+      "description": "Learn about our cancellation and return policy. Understand how to cancel your order for ergonomic office furniture and our terms and conditions."
+    },
+    "delivery": {
+      "title": "Delivery Policy",
+      "description": "Read our delivery policy for ergonomic office furniture. Get information on shipping times, delivery options, and more."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Review our privacy policy to understand how we protect your personal information while shopping for ergonomic office furniture."
+    },
+    "terms": {
+      "title": "Terms and Conditions",
+      "description": "Understand the terms and conditions for purchasing ergonomic office furniture from our store. Learn about warranties, returns, and more."
+    }
   }
 }

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /user/
+Disallow: /api/
+Disallow: /orders/
+
+Sitemap: https://www.ergonomicadesk.com/sitemap.xml

@@ -29,6 +29,8 @@ const Pagination = ({
             href={`/${model}?page=${index}${queryParam}`}
             className={`relative inline-flex items-center justify-center font-semibold text-gray-900 rounded-full ${isCurrent ? 'bg-blue-200 text-white pointer-events-none' : 'hover:bg-gray-100'} ${isCurrent ? 'w-8 h-8' : ''}`}
             style={isCurrent ? { borderRadius: '50%' } : undefined}
+            scroll={false}
+            shallow={true}
         >
             {index + 1}
         </Link>
@@ -76,6 +78,8 @@ const Pagination = ({
                         tabIndex={pageNumber === 0 ? -1 : undefined}
                         href={`/${model}?page=${pageNumber - 1}${queryParam}`}
                         className={`relative inline-flex items-center text-gray-400 hover:text-blue-200 ${pageNumber === 0 ? 'pointer-events-none' : ''}`}
+                        scroll={false}
+                        shallow={true}
                     >
                         <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                         <span className="sr-only">Previous</span>
@@ -86,6 +90,8 @@ const Pagination = ({
                         tabIndex={pageNumber === totalPages - 1 ? -1 : undefined}
                         href={`/${model}?page=${pageNumber + 1}${queryParam}`}
                         className={`relative inline-flex items-center text-gray-400 hover:text-blue-200 ${pageNumber === totalPages - 1 ? 'pointer-events-none' : ''}`}
+                        scroll={false}
+                        shallow={true}
                     >
                         <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                         <span className="sr-only">Next</span>

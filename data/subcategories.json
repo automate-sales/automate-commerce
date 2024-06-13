@@ -130,7 +130,7 @@
     "slug": "monitor_arms",
     "title": {
       "es": "Brazos De Monitor",
-      "en": "Monitor's Arms"
+      "en": "Monitor Arms"
     },
     "description": {
       "es": "Los Brazos para monitores son esencial para tener las pantallas en la posición correcta.",
@@ -340,11 +340,11 @@
     "slug": "table_tops",
     "title": {
       "es": "Sobres",
-      "en": "Envelopes"
+      "en": "Table Tops"
     },
     "description": {
       "es": "Los sobres para tu standing desk.  Puedes escoger el tamaño, color y acabado.",
-      "en": "The envelopes for your standing desk. You can choose the size, color, and finish."
+      "en": "The table tops for your standing desk. You can choose the size, color, and finish."
     },
     "images": [
       "table_tops/top-mela-white-152-1.jpg"
@@ -823,7 +823,7 @@
     "slug": "monitor_risers",
     "title": {
       "es": "Alza Monitor",
-      "en": "Raise the monitor"
+      "en": "Monitor StandS"
     },
     "description": {
       "es": "Los alza monitor te permite poner las pantallas a una mayor altura.",
