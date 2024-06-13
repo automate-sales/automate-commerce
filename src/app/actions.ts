@@ -1,5 +1,5 @@
 'use server'
- 
+
 import { cookies } from 'next/headers'
 import { CartItem, Order } from '@prisma/client'
 import { CartWithItems, CheckoutOrder, CustomerInfo, OrderInfo, ShippingInfo } from '@/types'
@@ -9,17 +9,16 @@ import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
 import { redirect } from 'next/navigation'
-import { FormEvent } from 'react'
 
 export async function setCookie(name: string, value: string) {
-  try{  
+  try {
     cookies().set({
       name: name,
       value: value,
       httpOnly: true
     })
     return true
-  } catch(err: any){
+  } catch (err: any) {
     console.error('Error setting cookie', err)
     return false
   }
@@ -29,19 +28,19 @@ export async function createLeadAndCart(
   fingerprint: string,
   id?: string,
 ) {
-    const lead = await prisma.lead.create({
-        data: {
-          fingerprint: fingerprint,
-          ...(id && { id: id }),
-          carts: {
-            create: {},
-          },
-        },
-        include: {
-          carts: true,
-        },
-    })
-    return {leadId: lead.id, cartId: lead.carts[0].id}
+  const lead = await prisma.lead.create({
+    data: {
+      fingerprint: fingerprint,
+      ...(id && { id: id }),
+      carts: {
+        create: {},
+      },
+    },
+    include: {
+      carts: true,
+    },
+  })
+  return { leadId: lead.id, cartId: lead.carts[0].id }
 }
 
 export async function addToCart(
@@ -49,7 +48,7 @@ export async function addToCart(
   productId: number,
   price: number,
   quantity: number = 1,
-): Promise<{type: 'error' | 'warn' | 'success', text: string, item: CartItem}>{
+): Promise<{ type: 'error' | 'warn' | 'success', text: string, item: CartItem }> {
   // Fetch the current cart item, if it exists
   const existingCartItem = await prisma.cartItem.findUnique({
     where: {
@@ -96,16 +95,17 @@ export async function addToCart(
     },
   });
 
-  if(product.stock <= 0) return({type: 'error', text: `Item is out of stock`, item: cartItem})
-  else if(allowableQty < quantity) return({type: 'warn', text: `${allowableQty} items were added to the cart, ${quantity - allowableQty} are not in stock`, item: cartItem });
-  else return({type: 'success', text:`${allowableQty} items were added to the cart`, item: cartItem});
+  if (product.stock <= 0) return ({ type: 'error', text: `Item is out of stock`, item: cartItem })
+  else if (allowableQty < quantity) return ({ type: 'warn', text: `${allowableQty} items were added to the cart, ${quantity - allowableQty} are not in stock`, item: cartItem });
+  else return ({ type: 'success', text: `${allowableQty} items were added to the cart`, item: cartItem });
 }
- type MsgType = 'error' | 'warn' | 'success'
+
+type MsgType = 'error' | 'warn' | 'success'
 export async function updateCartItem(
   cartId: string,
   productId: number,
   quantity: number
-): Promise<{type: MsgType, text: string, item: CartItem}> {
+): Promise<{ type: MsgType, text: string, item: CartItem }> {
   // Fetch the product's stock
   const product = await prisma.product.findUnique({
     where: {
@@ -118,31 +118,26 @@ export async function updateCartItem(
   let qty = quantity
   let msg = 'Item quantity updated'
   let msgType: MsgType = 'success'
-  if(quantity && product && quantity > product.stock) {
+  if (quantity && product && quantity > product.stock) {
     qty = product.stock
     msg = `Only ${product.stock} available`
     msgType = 'warn'
   }
-
   const cartItem = await prisma.cartItem.update({
-      data: {qty: qty},
-      where: {
-        cartId_productId: {
-          cartId: cartId,
-          productId: productId,
-        },
-      }
+    data: { qty: qty },
+    where: {
+      cartId_productId: {
+        cartId: cartId,
+        productId: productId,
+      },
+    }
   })
-  
   return {
     type: msgType,
     text: msg,
     item: cartItem
   }
 }
-
-
-
 
 export async function getCoupon(
   code: string
@@ -153,27 +148,28 @@ export async function getCoupon(
   return res
 }
 
-const getCart = async( orderInfo: OrderInfo)=> {
+const getCart = async (orderInfo: OrderInfo) => {
   let cart: CartWithItems | null
   try {
     cart = await prisma.cart.findUnique({
       where: { id: orderInfo.cartId },
-        include: { cartItems: {
+      include: {
+        cartItems: {
           where: { qty: { gt: 0 } },
           include: { product: true }
-        } 
+        }
       }
     })
-  } catch(err: any){
+  } catch (err: any) {
     const msg = 'Error getting cart'
     console.error(msg, err)
     throw new Error(msg)
   }
-  if(!cart) throw new Error('Cart not found')
+  if (!cart) throw new Error('Cart not found')
   return cart
 }
 
-const submitOrder = async(
+const submitOrder = async (
   orderInfo: OrderInfo,
   customerInfo: CustomerInfo,
   shippingInfo: ShippingInfo,
@@ -204,29 +200,29 @@ const submitOrder = async(
       }
     })
     return order
-  } catch(err: any){
+  } catch (err: any) {
     const msg = 'Error creating order'
     console.error(msg, err)
     throw new Error(msg)
   }
 }
 
-const errorOrder = async(orderId: string, errorMsg?: string) => {
+const errorOrder = async (orderId: string, errorMsg?: string) => {
   try {
     return prisma.order.update({
       where: { id: orderId },
       data: { status: 'payment_error', ...(errorMsg && { errorMsg: String(errorMsg) }) }
     })
-  } catch(err: any){
-    const msg = 'Error sedtting status to error'
+  } catch (err: any) {
+    const msg = 'Error setting status to error'
     console.error(msg, err)
   }
 }
 
 const submitPayment = async (paymentInfo: any, total: number, orderId: string) => {
   try {
-    return await processPayment({...paymentInfo, total: total, orderId: orderId})
-  } catch(err: any){
+    return await processPayment({ ...paymentInfo, total: total, orderId: orderId })
+  } catch (err: any) {
     await errorOrder(orderId, err.message)
     throw new Error(err.message)
   }
@@ -236,7 +232,7 @@ const submitPayment = async (paymentInfo: any, total: number, orderId: string) =
 export async function createOrder(
   payload: CheckoutOrder
 ) {
-  try{
+  try {
     //get the cart by id
     const { orderInfo, customerInfo, shippingInfo, billingInfo, paymentInfo } = payload
     const cart = await getCart(orderInfo)
@@ -244,94 +240,93 @@ export async function createOrder(
     await validateUniqueCart(cart);
     await validateCheckout(payload, cart.cartItems);
     const newOrder = await submitOrder(orderInfo, customerInfo, shippingInfo, billingInfo)
-    
+
     // if payment errors out, set the order as inactive then return error
     const paymentId = await submitPayment(paymentInfo, orderInfo.total, newOrder.id)
-   
+
     const newCartId = await processOrder(newOrder, cart, paymentId)
     setCookie('ergo_cart_id', String(newCartId))
     const sentEmail = await sendEmail(cart, newOrder)
-    return {orderId: newOrder.id, newCartId: newCartId, sentEmail: sentEmail}
-  }catch(err: any){
+    return { orderId: newOrder.id, newCartId: newCartId, sentEmail: sentEmail }
+  } catch (err: any) {
     const msg = 'Error creating order'
-    console.error(msg, err.message)
-    console.error(err)
+    console.error(msg, err)
     throw new Error(`${msg}: ${err.message}`)
   }
 }
 
-const confirmOrder =(orderId:string, paymentId:string)=>{
+const confirmOrder = (orderId: string, paymentId: string) => {
   return prisma.order.update({
-      where: {
-          id: orderId
-      },
-      data: {
-          status: 'complete_payment',
-          paymentId: paymentId
-      }  
+    where: {
+      id: orderId
+    },
+    data: {
+      status: 'complete_payment',
+      paymentId: paymentId
+    }
   })
 }
 
-const confirmCart =(cartId:string)=>{
+const confirmCart = (cartId: string) => {
   return prisma.cart.update({
-      where: {
-          id: cartId
-      },
-      data: {
-          status: 'purchased',
-          purchasedAt: new Date()
-      }
+    where: {
+      id: cartId
+    },
+    data: {
+      status: 'purchased',
+      purchasedAt: new Date()
+    }
   })
 }
 
-const createNewCart =(leadId:string)=>{
+const createNewCart = (leadId: string) => {
   return prisma.cart.create({
-      data: {
-          leadId: leadId,
-          status: 'active'
-      }
+    data: {
+      leadId: leadId,
+      status: 'active'
+    }
   })
 }
 
 export const processOrder = async (
-  order: Order, 
-  cart:CartWithItems,
+  order: Order,
+  cart: CartWithItems,
   paymentId: string
 ) => {
-  try{
-  const result = await prisma.$transaction([
+  try {
+    const result = await prisma.$transaction([
       ...cart.cartItems.map(cartItem => prisma.product.update({
-              where: { id: cartItem.productId },
-              data: { stock: { decrement: cartItem.qty } }
-          })
+        where: { id: cartItem.productId },
+        data: { stock: { decrement: cartItem.qty } }
+      })
       ),
       confirmOrder(order.id, paymentId),
       confirmCart(order.cartId),
       createNewCart(order.leadId || '')
-  ])
-  return result[result.length-1].id
-}catch(err: any){
-  const msg = 'Error processing order'
-  console.error(msg, err)
-  throw new Error(msg)
-}
+    ])
+    return result[result.length - 1].id
+  } catch (err: any) {
+    const msg = 'Error processing order'
+    console.error(msg, err)
+    throw new Error(msg)
+  }
 };
 
 
 export const swapCarts = async (
-  currentCartId: string, 
-  newCartId: string, 
+  currentCartId: string,
+  newCartId: string,
   leadId: string
 ) => {
   // set current cart inactive
   await prisma.cart.update({
-      where: { id: currentCartId },
-      data: { status: 'inactive' }
+    where: { id: currentCartId },
+    data: { status: 'inactive' }
   })
   // set leadID on new cart
   await prisma.cart.update({
-      where: { id: newCartId },
-      data: { leadId: leadId }
+    where: { id: newCartId },
+    data: { leadId: leadId }
   })
   cookies().set({
     name: 'ergo_cart_id',
