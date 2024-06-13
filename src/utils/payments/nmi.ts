@@ -89,7 +89,7 @@ const mappings = {
     cvv: 'cvv',
     amount: 'total',
     orderid: 'orderId'
-}
+} as { [key: string ]: keyof PaymentInput }
 
 // submits a payment request to a given provider. In this case NMI
 const nmiPayment = async(gatewayInput: GatewayInput)=> {
@@ -121,7 +121,6 @@ const convertToJson = (input: string) => {
 // submits the payment
 // processes the success response or the error messages
 export async function processPayment(paymentInput: PaymentInput) {
-    console.log('Payment input: ', paymentInput)
     const gatewayInput: GatewayInput = {
         ...Object.entries(mappings).reduce((acc, [key, value]) => ({...acc, [key]: String(paymentInput[value]) || ''}), {}),
         type: 'sale',
@@ -129,10 +128,9 @@ export async function processPayment(paymentInput: PaymentInput) {
     } as GatewayInput
     try {
         const res = await nmiPayment(gatewayInput)
-        console.log('RESSSSS ', res)
         if(res.response == '1') return res.transactionid // when succesfull the payment request should return the transactionId
-        else throw new Error(`${generalResponseCodes[res.response]} ${res.cvvresponse? '- '+specificResponseCodes[res.cvvresponse]: ''}`)
+        else throw new Error(`${generalResponseCodes[res.response as keyof typeof generalResponseCodes]} ${res.cvvresponse? '- '+specificResponseCodes[Number(res.cvvresponse) as keyof typeof specificResponseCodes]: ''}`)
     } catch(err: any) {
-        throw new Error(err)
+        throw new Error(err.message)
     }
 }

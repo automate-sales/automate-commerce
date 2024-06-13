@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import Coupon from '../../components/checkout/coupon'
 import { useRouter } from 'next/navigation';
@@ -22,6 +22,7 @@ import {
 import { CartWithItems, CustomerInfo, OrderInfo, ShippingInfo } from '@/types';
 import OrderCostSummary from './costSummary';
 import { createOrder } from '@/app/actions';
+import { toast } from 'react-toastify';
 
 const addressFields: FormField[] = [
     { name: 'street_1', label: 'Dirección', inputType: 'text' },
@@ -108,22 +109,13 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     const tax = getTax(subtotal, discount, shippingFee, assemblyFee)
     const total = getTotal(subtotal, discount, shippingFee, assemblyFee, tax)
     const [submitting, setSubmitting] = useState(false)
+    const [checked, setChecked] = useState(false)
     const router = useRouter()
 
     const calcDiscount = async (couponCode: string) => {
         const discount = await getDiscount(Object.values(cart.cartItems), couponCode)
         setDiscount(discount)
         setOrder({ ...order, coupon: couponCode })
-    }
-
-    const sameAsShipping = (ev: { target: { checked: boolean; }; }) => {
-        const optional: { [key: string]: boolean } = { street_2: true }
-        ev.target.checked && setBilling(shipping)
-            Object.entries(shipping).every(e => e[1] || optional[e[0]] ) && setSteps({
-            ...steps,
-            [3]:{...steps[3], done:true}, 
-            [4]:{...steps[4], hidden: false}
-        })
     }
 
     const [steps, setSteps] = useState({
@@ -134,31 +126,74 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
         5: {}
     })
 
+    const [sameAsShippingSet, setSameAsShippingSet] = useState(false);
+
+    const sameAsShipping = useCallback((ev: { target: { checked: any; }; }) => {
+        if(ev.target.checked){
+            setChecked(true)
+            const optional = { street_2: true };
+            ev.target.checked && setBilling(shipping);
+            Object.entries(shipping).every(e => e[1] || e[0] in optional ) && setSteps({
+                ...steps,
+                [3]:{...steps[3], done:true, hidden: true}, 
+                [4]:{...steps[4], hidden: false}
+            });
+        } else {
+            setChecked(false);
+            setBilling(emptyAddress);
+        }
+    }, [shipping, steps]);
+    
+    
+    useEffect(() => {
+        if (steps[2].done && !sameAsShippingSet) {
+            sameAsShipping({ target: { checked: true } });
+            setSameAsShippingSet(true);
+        }
+    }, [steps, sameAsShippingSet, sameAsShipping]);
+
+
     const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
-        // add the leadId and cartId to the order
         setSubmitting(true)
-        const {orderId, newCartId} = await createOrder({
-            orderInfo: { 
-                ...order,
-                subtotal,
-                discount,
-                tax,
-                shippingFee,
-                assemblyFee,
-                total,
-                cartId, 
-                leadId 
-            },
-            customerInfo: customer,
-            shippingInfo: shipping,
-            billingInfo: billing,
-            paymentInfo: payment
-        })
-        if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
-        setSubmitting(false)
-        router.push(`/orders/confirmation?id=${orderId}`)
-        console.log('The order has been created succesfully with id: ', orderId)
+        try {
+            const {orderId, newCartId, sentEmail} = await toast.promise(createOrder({
+                orderInfo: { 
+                    ...order,
+                    subtotal,
+                    discount,
+                    tax,
+                    shippingFee,
+                    assemblyFee,
+                    total,
+                    cartId, 
+                    leadId 
+                },
+                customerInfo: customer,
+                shippingInfo: shipping,
+                billingInfo: billing,
+                paymentInfo: payment
+            }), {
+                pending: 'Submitting order',
+                success: 'Congratulations',
+                error: {
+                    render({data}: {data: Error}){
+                    // When the promise reject, data will contains the error
+                    return data.message
+                    }
+                }
+            })
+            if(!sentEmail) toast.warning('Failed to send confirmation email')
+            // set localstorage cart
+            if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
+            setSubmitting(false)
+            console.info('The order has been created succesfully with id: ', orderId)
+            router.push(`/orders/confirmation?id=${orderId}`)
+        } catch (error) {
+            setSubmitting(false)
+            console.error('Error creating order', error)
+        }
+        
     }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:pt-5">
@@ -205,7 +240,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                 >
                     <div className="inline">
                         <span className="pr-2 text-l">Igual a la dirección de envío?</span>
-                        <input id="same_as_shipping" type="checkbox" onChange={sameAsShipping} />
+                        <input id="same_as_shipping" type="checkbox" onChange={sameAsShipping} defaultChecked value={checked.toString()} />
                     </div>
                 </FormGroup>
                 <FormGroup

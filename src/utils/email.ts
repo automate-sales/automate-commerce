@@ -166,27 +166,34 @@ export const buildTextEmail = (order: Order) => {
 }
 
 export const sendEmail = async(cart: CartWithItems, order: Order)=> {
-  const server = process.env.EMAIL_HOST == 'gmail' ? {
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD
+  try{
+    const server = process.env.EMAIL_HOST == 'gmail' ? {
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    }: {
+      host: 'localhost',
+      port: 7777,
+      secure: false
     }
-  }: {
-    host: 'localhost',
-    port: 7777,
-    secure: false
+    const transport = createTransport(server);
+    const result = await transport.sendMail({
+      to: order.email,
+      from: process.env.EMAIL_USER,
+      subject: `Ergonomica - order success`,
+      text: buildTextEmail(order),
+      html: buildHtmlEmail(cart, order)
+    });
+    if(process.env.DEBUG) console.log('Email sent: ', result)
+    const failed = result.rejected.concat(result.pending).filter(Boolean)
+    if (failed.length) {
+      throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+    } else return true
+  } catch(err: any ){
+    const msg = 'Error sending email'
+    console.error(msg, err)
+    return false
   }
-  const transport = createTransport(server);
-  const result = await transport.sendMail({
-    to: order.email,
-    from: process.env.EMAIL_USER,
-    subject: `Ergonomica - order success`,
-    text: buildTextEmail(order),
-    html: buildHtmlEmail(cart, order)
-  });
-  const failed = result.rejected.concat(result.pending).filter(Boolean)
-  if (failed.length) {
-    throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
-  } else console.log('Sent a verification email')
 }
