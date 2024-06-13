@@ -1,8 +1,9 @@
+import prisma from "@/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer"
+import type { Adapter } from 'next-auth/adapters';
 
 export type UserObj = {
     name?: string | null;
@@ -14,12 +15,11 @@ export type UserObj = {
 export const getCurrentUser = async ()=> {
     const session = await getServerSession(authOptions)
     if(session && session.user) {
-        return session.user
-    } else return null
+        return session.user as UserObj
+    } else return undefined
 }
 
-const prisma = new PrismaClient()
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     debug: true,
     providers: [
         EmailProvider({
@@ -56,7 +56,7 @@ export const authOptions = {
           },
         })
     ],
-    adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma) as Adapter,
     callbacks: {
         async signIn({ user }: {user: UserObj}) {
             console.log('user signing in: ', user)

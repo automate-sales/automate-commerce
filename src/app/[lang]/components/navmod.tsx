@@ -2,6 +2,7 @@
 
 import { setCookie } from "@/app/actions";
 import { CartWithItems } from "@/types";
+import { UserObj } from "@/utils/auth";
 import locales from "@/utils/locales";
 import { Bars3Icon, ChevronDownIcon, MagnifyingGlassIcon, ShoppingBagIcon, UserIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { Cart, Category, Product, Subcategory } from "@prisma/client";
@@ -25,7 +26,7 @@ type Props = {
     categories?: CategoriesWithSubcategories;
     links: Link[];
     search?: boolean;
-    user?: User;
+    user?: UserObj;
     languages?: string[];
     cartLength: number;
 };
