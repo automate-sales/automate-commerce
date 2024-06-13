@@ -64,10 +64,10 @@ export const metadata: Metadata = {
   },
 }
 
-const orgRichSnippet = {
+/* const orgRichSnippet = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Ergonomica Desk",
+  "name": "Ergonomica Office",
   "url": `${SITE_ROOT}`,
   "logo": `${SITE_ROOT}/icons/logo/logo.png`,
   "contactPoint": {
@@ -82,18 +82,21 @@ const orgRichSnippet = {
     "https://www.twitter.com/ErgonomicaDesk",
     "https://www.instagram.com/ErgonomicaDesk"
   ]
-}
+};
 
 const websiteRichSnippet = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": `${SITE_ROOT}`,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": `${SITE_ROOT}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string"
-    }
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": SITE_ROOT,
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${SITE_ROOT}/products?query={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
   }
+} */
 
 export default function RootLayout({
   children,
@@ -105,14 +108,14 @@ export default function RootLayout({
     return (
       <html lang="en">
         <head>
-          <script
+          {/* <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(orgRichSnippet) }}
           />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteRichSnippet) }}
-          />
+          /> */}
         </head>
         <body className={inter.className}>
           <LeadGen visitorId={visitorId} />

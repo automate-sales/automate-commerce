@@ -28,10 +28,10 @@ export default async function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }}
       />
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(searchJsonLd(params.lang)) }}
-      /> */}
+      />
       <Breadcrumbs crumbs={[
         {name: dict.breadCrumbs.home, path: '/'},
       ]} hide/>
@@ -81,7 +81,7 @@ export async function generateMetadata(
   )
 }
 
-/* const searchJsonLd =(lang: string)=> {
+const searchJsonLd =(lang: string)=> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -90,20 +90,32 @@ export async function generateMetadata(
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `${SITE_ROOT}/${lang}/?query={search_term_string}`
+        "urlTemplate": `${SITE_ROOT}/${lang}/products?query={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }
   }
-} */
+}
 
 const storeJsonLd = {
   "@context": "https://schema.org",
   "@type": "Store",
-  "@id": SITE_ROOT,
   "name": "Ergonomica Office",
+  "url": `${SITE_ROOT}`,
+  "logo": `${SITE_ROOT}/icons/logo/logo.png`,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+50769477336",
+    "contactType": "customer service",
+    "areaServed": "PA",
+    "availableLanguage": ["English", "Spanish"]
+  },
+  "sameAs": [
+    "https://www.facebook.com/ErgonomicaDesk",
+    "https://www.twitter.com/ErgonomicaDesk",
+    "https://www.instagram.com/ErgonomicaDesk"
+  ],
   "description": "Everything you need for your home office",
-  "url": SITE_ROOT,
   "telephone": "+50769477336",
   "address": {
     "@type": "PostalAddress",
@@ -217,7 +229,6 @@ const storeJsonLd = {
     "https://ergonomicadesk.com/images/home/header-mobile.jpg",
     "https://ergonomicadesk.com/images/home/combinations-mobile.jpg"
   ],
-  "sameAs": ["https://www.ergonomicadesk.com"],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -236,5 +247,5 @@ const storeJsonLd = {
       "closes": "15:00"
     }
   ]
-}
+};
 

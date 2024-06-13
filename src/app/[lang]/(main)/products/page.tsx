@@ -67,10 +67,10 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(carouselJsonLd(products || [], params.lang)) }}
       />
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(searchJsonLd(params.lang)) }}
-      /> */}
+      />
       <Breadcrumbs crumbs={[
         {name: dict.breadCrumbs.home, path: '/'},
         {name: dict.breadCrumbs.products, path: '/products'}
@@ -114,7 +114,7 @@ export async function generateMetadata(
   )
 }
 
-/* const searchJsonLd =(lang: string)=> {
+const searchJsonLd =(lang: string)=> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -123,12 +123,12 @@ export async function generateMetadata(
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `${SITE_ROOT}/${lang}/?query={search_term_string}`
+        "urlTemplate": `${SITE_ROOT}/${lang}/products?query={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }
   }
-} */
+}
 
 const carouselJsonLd = (products: Product[], lang: string) => {
   return {
