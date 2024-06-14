@@ -1,6 +1,7 @@
 'use client'
 
 import { setCookie } from "@/app/actions";
+import { search } from "@/utils/analytics";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
 import { Bars3Icon, ChevronDownIcon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
@@ -139,8 +140,10 @@ export const SideMenu = ({ categories, links, languages, lang='en' }: { categori
 };
 
 export const SearchInput = ({
+    leadId,
     classNames
 }: {
+    leadId: string;
     classNames?: string;
 }) => {
     const [query, setQuery] = useState("");
@@ -149,7 +152,7 @@ export const SearchInput = ({
     const searchProducts = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         const urlQuery = query.replace(" ", "%20");
-        //searchEvent(urlQuery, leadId)
+        search(urlQuery, leadId)
         router.push(`/products?query=${urlQuery}`);
     };
 

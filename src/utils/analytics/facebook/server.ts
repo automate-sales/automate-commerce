@@ -1,17 +1,18 @@
 'use server'
 
-import type { NextApiRequest, NextApiResponse } from 'next';
 import crypto from 'crypto';
+import { headers } from 'next/headers';
+import { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers';
 
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
 const FB_ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
 const FB_API_VERSION = 'v13.0';
 
-export const hashUserData = (data: string): string => {
+export const hashUserData = async (data: string): Promise<string> => {
   return crypto.createHash('sha256').update(data).digest('hex');
 };
 
-export const hashEmail = (email: string): string => {
+export const hashEmail = async (email: string): Promise<string> => {
   const emailNormalized = email.trim().toLowerCase();
   return crypto
     .createHash('sha256')
@@ -19,12 +20,12 @@ export const hashEmail = (email: string): string => {
     .digest('hex');
 }
 
-export const getClientIp = (req: NextApiRequest): string | undefined => {
-  const forwardedFor = req.headers['x-forwarded-for'];
+export const getClientIp = async (headers: ReadonlyHeaders): Promise<string | undefined> => {
+  const forwardedFor = headers.get('x-forwarded-for');
   if (typeof forwardedFor === 'string') {
     return forwardedFor.split(',').shift();
   }
-  return req.socket?.remoteAddress;
+  return undefined;
 };
 
 export const sendApiEvent = async (
@@ -32,22 +33,26 @@ export const sendApiEvent = async (
   eventId: string,
   eventData: any,
   email?: string,
-  userAgent?: string,
-  ipAddress?: string
+  //userAgent?: string | null,
+  //ipAddress?: string
 ) => {
   try {
+    const reqHeaders = headers()
+    const userAgent = reqHeaders.get('user-agent');
+    const ipAddress = await getClientIp(reqHeaders);
     const event = {
       event_name: eventName,
       event_time: Math.floor(Date.now() / 1000),
       action_source: 'website',
       user_data: {
-        ...(email && { em: hashEmail(email) }),
+        ...(email && { em: await hashEmail(email) }),
         ...(userAgent && { client_user_agent: userAgent }),
         ...(ipAddress && { client_ip_address: ipAddress })
       },
       custom_data: eventData,
       event_id: eventId
     };
+    console.log('EVENTOO: ', event)
     const response = await fetch(
       `https://graph.facebook.com/${FB_API_VERSION}/${FB_PIXEL_ID}/events?access_token=${FB_ACCESS_TOKEN}`,
       {
@@ -57,11 +62,12 @@ export const sendApiEvent = async (
         },
         body: JSON.stringify({
           data: [event],
-          test_event_code: 'TEST6833'
+          test_event_code: 'TEST9816'
         }),
       }
     );
     const data = await response.json();
+    console.log('META CONVERSION API RESPONSE: ', data);
     return data;
   } catch (error) {
     console.error('Error sending event to Facebook Conversion API:', error);
