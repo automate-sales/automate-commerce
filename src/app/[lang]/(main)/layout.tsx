@@ -1,4 +1,4 @@
-import Navbar from '../components/nav'
+import Navbar from '../components/nav/nav'
 import { getCurrentUser } from '@/utils/auth'
 import Footer from '../components/footer'
 import prisma from '@/db'
@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { cookies } from "next/headers";
 import { getDictionary } from '@/app/dictionaries'
+import locales from '@/utils/locales';
 
 export default async function RootLayout({
   children,
@@ -45,11 +46,22 @@ export default async function RootLayout({
   return (
     <>
       <Navbar
-        cartItemsCount={itemCount}
+        search={true}
         user={user}
         categories={categories}
-        dict={dict}
+        links={[
+          {id: '1', label: 'Blog', type: 'link', url: '/blog'},
+          {id: '2', label: 'Soporte', type: 'dropdown', options: [
+            {id: '1', label: 'FAQ', url: '/faq'},
+            {id: '2', label: 'Entregas', url: '/policies/delivery'},
+            {id: '3', label: 'Devoluciones', url: '/policies/returns'},
+            {id: '4', label: 'Cancelaciones', url: '/policies/cancellation'},
+            {id: '5', label: 'Contacto', url: '/contact'},
+          ]}
+        ]}
+        languages={locales}
         lang={params.lang}
+        cartLength={itemCount}
       />
       <div className='pt-16'>{children}</div>
       <ToastContainer/>
