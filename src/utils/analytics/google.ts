@@ -4,12 +4,11 @@ import { CartItemWithProduct } from "@/types";
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID || "";
 
-export const pageview = (url: string, leadId?: string): void => {
+export const pageview = (leadId?: string): void => {
   if(isAnalyticsEnabled){
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('config', GA_TRACKING_ID, {
-        page_path: url,
-        ...(leadId && {lead_id: leadId})
+        ...(leadId && {user_id: leadId})
       });
     }
   }
