@@ -60,6 +60,7 @@ export default async function RootLayout({
           ]}
         ]}
         languages={locales}
+        lang={params.lang}
         cartLength={itemCount}
       />
       <div className='pt-16'>{children}</div>

@@ -3,7 +3,8 @@
 import { setCookie } from "@/app/actions";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
-import { Bars3Icon, ChevronDownIcon, ChevronRightIcon, MagnifyingGlassIcon, UserIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { Bars3Icon, ChevronDownIcon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { UserIcon } from "@heroicons/react/24/outline";
 import { Category, Subcategory } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -11,11 +12,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 
-export const DropDown =({label, items, fixed=false}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed: boolean})=> {
+export const DropDown =({label, items, fixed=false, classNames=''}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string})=> {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
     return (
-        <div className={`relative ${fixed && 'flex items-center'}`}>
+        <div className={`relative ${fixed && 'flex items-center'} ${classNames}`}>
         <div className="flex items-center cursor-pointer" onClick={toggleDropdown}>
           {label}
           <ChevronRightIcon
@@ -62,7 +63,7 @@ export const NavLinks = ({ links, fixed=false }: { links: NavElement[], fixed?: 
 }
 
 
-export const Hamburger = ({ categories, links }: { categories: CategoryWithSubcategories[], links: NavElement[] }) => {
+export const SideMenu = ({ categories, links, languages, lang='en' }: { categories: CategoryWithSubcategories[], links: NavElement[], languages?: string[], lang?: string }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState("-100%");
     const drawerRef = useRef<HTMLDivElement>(null);
@@ -119,8 +120,9 @@ export const Hamburger = ({ categories, links }: { categories: CategoryWithSubca
                 <div className="p-5 flex flex-col gap-3">
                     <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
                     <SearchInput />
-                    <ProductsMenu lang={'es'} categories={categories} />
+                    <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
+                    {languages && <LangSelector languages={languages} />}
                 </div>
             </div>
             {isMenuOpen && (
@@ -248,7 +250,7 @@ export const UserMenu = ({ user }: { user: any }) => {
 
 
 
-export const LangSelector = ({ languages }: { languages: string[] }) => {
+export const LangSelector = ({ languages, classNames='', fixed=false }: { languages: string[], classNames?: string, fixed?: boolean }) => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -266,32 +268,15 @@ export const LangSelector = ({ languages }: { languages: string[] }) => {
     };
 
     return (
-        <div className="relative inline-block text-left z-20 h-full">
-            <button onClick={toggleDropdown} className="flex items-center h-full">
-                <div className={`flex items-center py-5 px-3 hover:text-gray-900`}>
-                    <span className="pr-1">{currentLocale}</span>
-                    <ChevronDownIcon className="h-4 w-4" />
-                </div>
-            </button>
+        <DropDown classNames={classNames} fixed={fixed} label={currentLocale || 'en'} items={langs.map((l, index) => (
             <div
-                className={`origin-top-right absolute shadow-sm bg-gray-50 ${isOpen ? "block" : "hidden"
-                    }`}
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="menu-button"
-                tabIndex={-1}
+                key={index}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                role="menuitem"
             >
-                {langs.map((l, index) => (
-                    <div
-                        key={index}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        role="menuitem"
-                    >
-                        <button onClick={() => redirectLang(l)}>{l}</button>
-                    </div>
-                ))}
+                <button onClick={() => redirectLang(l)}>{l}</button>
             </div>
-        </div>
+        ))} />
     );
 };
 
@@ -364,9 +349,6 @@ const DesktopCat =({cat, lang}: {cat: CategoryWithSubcategories, lang: string})=
 }
 
 const MobileCat =({cat, lang}: {cat: CategoryWithSubcategories, lang: string})=> {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleDropdown = () => setIsOpen(!isOpen);
-
     return (
         <div className="lg:hidden">
             <DropDown 

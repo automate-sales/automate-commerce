@@ -1,5 +1,6 @@
 import { getIntl } from "@/utils/utils";
 import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/16/solid";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export const Brand = () => {
@@ -32,8 +33,8 @@ export const ShoppingCart = ({ cartLength }: { cartLength: number }) => {
     return (
         <div>
             <Link className="relative" href="/cart">
-                <ShoppingBagIcon className="h-6 w-6" />
-                <span className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-3 -end-3 dark:border-gray-900">
+                <ShoppingCartIcon className="h-6 w-6" />
+                <span className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 bg-opacity-90 rounded-full -top-2 -end-2 dark:border-gray-900">
                     {cartLength}
                 </span>
             </Link>
