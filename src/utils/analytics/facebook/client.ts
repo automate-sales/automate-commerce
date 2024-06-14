@@ -1,6 +1,8 @@
+'use client'
+
 import { CartItem, Order, Product } from '@prisma/client';
 import { v1 as uuidv1 } from 'uuid';
-import { OrderAny, getContentIds, getContents, getSubTotal, getTotalQty } from './utils';
+import { OrderAny, getContentIds, getContents, getSubTotal, getTotalQty } from '../utils';
 import { CartItemWithProduct } from '@/types';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
@@ -12,7 +14,7 @@ const sendApiEvent = async (
 ) => {
   if(isAnalyticsEnabled){
     try {
-      const response = await fetch('/api/fb-conversion', {
+      const response = await fetch('/api/metaConversion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
