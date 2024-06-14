@@ -17,7 +17,7 @@ import {
     checkout as fbCheckout,
     paymentInfo as fbPaymentInfo,
     purchase as fbPurchase 
-} from "./facebook"
+} from "./facebook/client"
 import { 
     pageview as phPageview,
     search as phSearch,
