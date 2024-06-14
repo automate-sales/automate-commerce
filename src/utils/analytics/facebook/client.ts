@@ -4,41 +4,10 @@ import { CartItem, Order, Product } from '@prisma/client';
 import { v1 as uuidv1 } from 'uuid';
 import { OrderAny, getContentIds, getContents, getSubTotal, getTotalQty } from '../utils';
 import { CartItemWithProduct } from '@/types';
+import { sendApiEvent } from './server';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
-
-const sendApiEvent = async (
-  eventName:string, 
-  eventId:string, 
-  eventData:any, 
-  email?:string
-) => {
-  if(isAnalyticsEnabled){
-    try {
-      const response = await fetch('/api/metaConversion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          eventName,
-          eventId,
-          eventData,
-          email,
-        }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Event sent to Facebook Conversion API:', data);
-      } else {
-        console.error('Error sending event to Facebook Conversion API:', response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error('Error sending event to Facebook Conversion API:', error);
-    }
-  }
-}
-
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
+
 
 export const pageview = (): void => {
   if(isAnalyticsEnabled){
