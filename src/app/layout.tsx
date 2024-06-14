@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
 import LeadGen from './[lang]/components/leadGen'
+import Analytics from './[lang]/components/analytics'
+import { init } from '@/utils/analytics/posthog'
 const inter = Inter({ subsets: ['latin'] })
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
@@ -119,6 +121,7 @@ export default function RootLayout({
         </head>
         <body className={inter.className}>
           <LeadGen visitorId={visitorId} />
+          <Analytics leadId={visitorId || ''} />
           {children}
         </body>
       </html>

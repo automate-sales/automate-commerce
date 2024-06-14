@@ -5,17 +5,21 @@ import { CartItemWithProduct } from '@/types';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
 export const init =()=> {
-  if (typeof window !== 'undefined') {
+  console.log('Posthog Init')
+  if (typeof window !== 'undefined' && isAnalyticsEnabled) {
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY || '', {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
-      // Disable in development
+      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+      person_profiles: 'identified_only',
+      // Enable debug mode in development
       loaded: (posthog) => {
-        if (!isAnalyticsEnabled) {
-          posthog.opt_out_capturing()
-        }
+        if (process.env.NODE_ENV === 'development') posthog.debug()
       }
     })
-  } return posthog
+  }
+}
+
+export const Identify =(leadId: string)=> {
+  posthog?.identify(leadId)
 }
 
 export const pageview = (): void => {
@@ -26,7 +30,7 @@ export const pageview = (): void => {
 
 export const phEvent = (name: string, data = {}): void => {
   if(isAnalyticsEnabled){
-    console.log('POSTHOG EVENTT!!')
+    console.log(`Posthog Event: ${name}`)
     posthog?.capture(name, data);
   }
 };

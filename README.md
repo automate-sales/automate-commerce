@@ -30,3 +30,24 @@ End to end tests are held in the `cypress/e2e/` directory.
 You can run the test suite without having to install any depencies manually by running `./test.sh`.
 
 If you want to run tests manually you can run `npx cypress open` while having another terminal running the dev server. Beware that performance tests will fail when running the test suite with the dev server; If you want to test performance run `npm run build && npm run start` to build and serve the app.
+
+
+# Analytics
+to use analytics you must set the following env variables
+```
+# toggle usage of analytics
+NEXT_PUBLIC_USE_ANALYTICS
+
+# post hog
+NEXT_PUBLIC_POSTHOG_HOST
+NEXT_PUBLIC_POSTHOG_KEY
+
+# google analytics
+NEXT_PUBLIC_GA_TRACKING_ID
+
+# metap pixel
+NEXT_PUBLIC_FB_PIXEL_ID
+
+# twitter
+NEXT_PUBLIC_TWITTER_BEARER_TOKEN
+```
