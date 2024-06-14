@@ -1,4 +1,4 @@
-import Navbar from '../components/navmod'
+import Navbar from '../components/nav/nav'
 import { getCurrentUser } from '@/utils/auth'
 import Footer from '../components/footer'
 import prisma from '@/db'
