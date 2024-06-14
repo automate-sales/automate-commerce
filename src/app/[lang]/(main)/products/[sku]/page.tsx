@@ -46,8 +46,6 @@ export default async function Page({
             <p className="mb-4">{getIntl(productData?.description, params.lang)}</p>
             <div className="flex items-center">
             <AddToCartButton cartId={cartId} productId={productData?.id} productPrice={productData?.price} productSku={productData.sku} displayQty/>
-              {/* <button onClick={() => toast.success("Item added to cart.")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to Cart</button> */}
-              <input type="number" className="ml-4 p-2 border rounded" defaultValue={1} />
             </div>
           </div>
         </div>
