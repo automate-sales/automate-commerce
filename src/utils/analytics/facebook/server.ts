@@ -62,7 +62,7 @@ export const sendApiEvent = async (
         },
         body: JSON.stringify({
           data: [event],
-          test_event_code: 'TEST9816'
+          ...(process.env.NODE_ENV === 'development' && { test_event_code: process.env.FB_TEST_CODE })
         }),
       }
     );
