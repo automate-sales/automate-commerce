@@ -26,7 +26,7 @@ export default function Nav({
     const leadId = cookieStore.get('ergo_lead_id')?.value || '';
     return (
         <nav className="h-16 bg-gray-50 z-40 fixed fixed-top w-full grid grid-cols-3 px-5">
-            <SideMenu categories={categories} links={links} languages={languages}/>
+            <SideMenu categories={categories} links={links} languages={languages} leadId={leadId}/>
             <Brand />
             <div className="hidden lg:flex justify-center items-center gap-2">
                 {categories && <ProductsMenu lang={lang} categories={categories}/>}

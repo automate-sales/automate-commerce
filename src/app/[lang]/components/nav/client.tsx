@@ -64,12 +64,24 @@ export const NavLinks = ({ links, fixed=false }: { links: NavElement[], fixed?: 
 }
 
 
-export const SideMenu = ({ categories, links, languages, lang='en' }: { categories: CategoryWithSubcategories[], links: NavElement[], languages?: string[], lang?: string }) => {
+export const SideMenu = ({ 
+    categories, 
+    leadId, 
+    links, 
+    languages, 
+    lang='en' 
+}: { 
+    categories: CategoryWithSubcategories[], 
+    leadId: string, 
+    links: NavElement[], 
+    languages?: string[], 
+    lang?: string 
+}) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState("-100%");
     const drawerRef = useRef<HTMLDivElement>(null);
     const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
+    
     const openDrawer = () => {
         setIsMenuOpen(true);
         setDrawerPosition("0");
@@ -120,7 +132,7 @@ export const SideMenu = ({ categories, links, languages, lang='en' }: { categori
             >
                 <div className="p-5 flex flex-col gap-3">
                     <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
-                    <SearchInput />
+                    <SearchInput leadId={leadId} />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
                     {languages && <LangSelector languages={languages} />}
