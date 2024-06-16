@@ -3,6 +3,7 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 //import { cookies } from 'next/headers'
 import locales from "./utils/locales";
+import { v4 } from "uuid";
 
 function getLocale(request: NextRequest): string {
   console.log(request.headers.get("accept-language"))
@@ -18,7 +19,20 @@ export function middleware(request: NextRequest) {
   const pathnameHasLocale = locales.some((locale) => {
     return pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`;
   });
-  if (pathnameHasLocale) return;
+
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-leadid', v4())
+
+  if (pathnameHasLocale) {
+    const response = NextResponse.next({
+      request: {
+        // New request headers
+        headers: requestHeaders,
+      },
+    })
+
+    return response
+  }
 
   let cookiesLocale = request.cookies.get('locale')?.value;
   console.log('cookiesLocale', cookiesLocale)
@@ -26,8 +40,10 @@ export function middleware(request: NextRequest) {
   request.nextUrl.pathname = `/${locale}${pathname}`;
   const response = NextResponse.redirect(request.nextUrl);
   response.cookies.set("locale", locale)
+  
   return response;
 }
+
 
 export const config = {
   matcher: [
