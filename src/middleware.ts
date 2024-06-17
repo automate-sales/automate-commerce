@@ -3,7 +3,7 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 //import { cookies } from 'next/headers'
 import locales from "./utils/locales";
-import { v4 } from "uuid";
+import { createId } from '@paralleldrive/cuid2';
 
 function getLocale(request: NextRequest): string {
   console.log(request.headers.get("accept-language"))
@@ -20,8 +20,17 @@ export function middleware(request: NextRequest) {
     return pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`;
   });
 
+  // i want to maintain the x-leadid throughout the users session once it has been set
   const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-leadid', v4())
+  !requestHeaders.get('x-leadid') && requestHeaders.set('x-leadid', createId() )
+
+  console.log('request Headersio', requestHeaders.forEach((value, key) => {
+    console.log(key, value)
+  } ))
+
+  
+
+  //console.log('requestHeaders', requestHeaders.get('x-leadid'))
 
   if (pathnameHasLocale) {
     const response = NextResponse.next({

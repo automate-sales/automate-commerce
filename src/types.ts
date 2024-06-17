@@ -1,6 +1,19 @@
 import { Cart, CartItem, PaymentMethod, Product } from '@prisma/client';
+import { JsonValue } from '@prisma/client/runtime/library';
 
-export type CartItemWithProduct = CartItem & { product: Product };
+export type CartItemWithProduct = CartItem & { 
+  product: Product | { 
+    id: number, 
+    title: JsonValue, 
+    price: number, 
+    stock: number,
+    images: string[],
+    description: JsonValue,
+    sku: string,
+    color?: string | null,
+    size?: string | null
+  } 
+};
 export type CartProps = {
     cartWithItems: Cart & { cartItems: CartItemWithProduct[]}
 };

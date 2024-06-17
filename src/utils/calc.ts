@@ -1,8 +1,7 @@
 import type { CartItem, Coupon, Product } from "@prisma/client"
 import { getCoupon } from "@/app/actions"
-import { ShippingInfo } from "@/types"
+import { CartItemWithProduct, ShippingInfo } from "@/types"
 
-type CartItemWithProduct = CartItem & { product: Product }
 
 const shippingRates = {
   'panama_ciudad':3.5,

@@ -113,7 +113,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
     const router = useRouter()
 
     const calcDiscount = async (couponCode: string) => {
-        const discount = await getDiscount(Object.values(cart.cartItems), couponCode)
+        const discount = await getDiscount(cart.cartItems, couponCode)
         setDiscount(discount)
         setOrder({ ...order, coupon: couponCode })
     }

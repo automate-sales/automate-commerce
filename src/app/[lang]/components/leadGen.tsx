@@ -1,13 +1,11 @@
 'use client'
 
 import { getOrCreateLead } from "@/utils/leads/client";
-
-
 import { useEffect } from "react";
 
-export default function LeadGen({visitorId}: {visitorId: string | null | undefined}){
+export default function LeadGen(){
     useEffect(() => {
-        getOrCreateLead(visitorId)
-    }, [visitorId]);
+        getOrCreateLead()
+    }, []);
     return <></>
 }
