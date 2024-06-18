@@ -73,7 +73,30 @@ NEXT_PUBLIC_TWITTER_BEARER_TOKEN
 3. Now you can monitor your pixels activity by accesing this URL business.facebook.com/events_manager2/list/dataset/<FB_PIXEL_ID> . All the activities carried out in the website should register in this page in the ovberviw. beware there is a 30 minute lag for events to register
 
 ### Conversion API
+1. After creating your pixel, follow instructions [here](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started) to setup the converiosn API
+2. click on the Test Events tab
+3. click on the tab that says `Confirm your server’s events are set up correctly`
+4. click on the Graph API Explorer button
+5. Submit the request. you sould get a success response like below
+```
+{
+  "events_received": 1,
+  "messages": [
+  ],
+  "fbtrace_id": "A5dI0gET-Do7zoc6hPQ_iHr"
+}
+```
+
+
+
 1. in the previous URL click on the Test Events tab
 2. click on the tab that says `Confirm your server’s events are set up correctly`
 3. click on the Graph API Explorer button
-4. lets make a GET request to `/me?fields=id,name`
+click on generate Access Token and add some permissions
+4. we will add the email and page_events permissions.
+5. click on generate token
+6. lets make a GET request to `/me?fields=id,name`
+7. should display user info
+8. now in the events manager page, go to datasets, select the dataset corresponding to your development pixel, click on people and lick on the user, usually COnversion API System User.
+9.  click on the square to open it in Users view. click on the dataset and click on assign assets.
+10. select datasets, check your pixels dataset and tick full control
