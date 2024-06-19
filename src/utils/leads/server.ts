@@ -5,25 +5,39 @@ import prisma from '@/db'
 import { LEAD_COOKIE, CART_COOKIE } from './constants'
 
 export const getCookie = (name: string) => {
+  try {
     return cookies().get(name)?.value || undefined
+  } catch (err) {
+    console.error('Error getting cookie', err)
+    return undefined
+  }
 }
 export async function setCookie(name: string, value: string) {
     try {
-      cookies().set({
+      return cookies().set({
         name: name,
         value: value,
         httpOnly: true
       })
-      return true
     } catch (err: any) {
       console.error('Error setting cookie', err)
-      return false
+      return undefined
+    }
+}
+export async function deleteCookie(name: string) {
+    try {
+      return cookies().delete(name)
+    } catch (err: any) {
+      console.error('Error deleting cookie', err)
+      return undefined
     }
 }
 
-export const setServerLead = (leadId: string) => {
+
+export const setServerLead = async (leadId: string) => {
     setCookie(LEAD_COOKIE, leadId)
 }
+
 export const getServerLead = async () => {
     const cookiesId = getCookie(LEAD_COOKIE)
     const headersId = headers().get('x-leadid') || undefined

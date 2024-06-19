@@ -15,38 +15,59 @@ function getLocale(request: NextRequest): string {
 
 export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
-  const { pathname, search } = request.nextUrl;
-  const pathnameHasLocale = locales.some((locale) => {
-    return pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`;
-  });
+  const { href, pathname, search } = request.nextUrl;
 
-  // i want to maintain the x-leadid throughout the users session once it has been set
+  // Get the current URL
+  const currentUrl = href
+
+  // Get the previous URL from the Referer header
+  const previousUrl = request.headers.get('referer');
+
+  console.log('PREVIOUS URL', previousUrl)
+  console.log('CURRENT URL', currentUrl)
+
   const requestHeaders = new Headers(request.headers)
   !requestHeaders.get('x-leadid') && requestHeaders.set('x-leadid', createId() )
 
-  console.log('request Headersio', requestHeaders.forEach((value, key) => {
-    console.log(key, value)
-  } ))
+  if (previousUrl) {
+      const previousUrlObj = new URL(previousUrl);
 
+      // Check if 'hid' is present in the previous URL query string
+      if (previousUrlObj.searchParams.has('hid')) {
+          const hidValue = previousUrlObj.searchParams.get('hid');
+          hidValue && request.nextUrl.searchParams.set('hid', hidValue);
+          hidValue && requestHeaders.set('x-leadid', createId() )
+          // Redirect to the updated URL
+
+          //return NextResponse.redirect(currentUrl.href);
+      }
+  }
   
-
+  const pathnameHasLocale = locales.some((locale) => {
+    return pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`;
+  });
+  // i want to maintain the x-leadid throughout the users session once it has been set
+  
+  /* console.log('request Headersio', requestHeaders.forEach((value, key) => {
+    console.log(key, value)
+  } )) */
   //console.log('requestHeaders', requestHeaders.get('x-leadid'))
-
+  
   if (pathnameHasLocale) {
     const response = NextResponse.next({
       request: {
-        // New request headers
         headers: requestHeaders,
       },
     })
-
     return response
   }
 
   let cookiesLocale = request.cookies.get('locale')?.value;
-  console.log('cookiesLocale', cookiesLocale)
+  //console.log('cookiesLocale', cookiesLocale)
   const locale = cookiesLocale ? cookiesLocale : getLocale(request);
   request.nextUrl.pathname = `/${locale}${pathname}`;
+
+
   const response = NextResponse.redirect(request.nextUrl);
   response.cookies.set("locale", locale)
   

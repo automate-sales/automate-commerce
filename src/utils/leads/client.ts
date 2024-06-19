@@ -1,16 +1,40 @@
 'use client'
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { createLeadAndCart, getCartId, getServerCartCookie, getServerLead, setServerCart, setServerLead } from './server';
+import { createLeadAndCart, deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, setCookie, setServerCart, setServerLead } from './server';
 import { LEAD_COOKIE } from './constants';
 
 export const getLocalStorageItem =(key: string) => {
-    if (typeof window !== 'undefined') return localStorage.getItem(key)
-    return undefined
+try {
+        if (typeof window !== 'undefined') return localStorage.getItem(key)
+        return undefined
+    } catch (err) {
+        console.error('Error getting local storage item', err)
+        return undefined
+    }
 }
 export const setLocalStorageItem = (key: string, value: string) => {
-    if (typeof window !== 'undefined') localStorage.setItem(key, value)
+    try {
+        if (typeof window !== 'undefined') return localStorage.setItem(key, value)
+    } catch (err) {
+        console.error('Error setting local storage item', err)
+        return false
+    }
 }
+export const isLocalStorageEnabled =()=> {
+    try {
+        localStorage.setItem('isEnabled', 'yes');
+        if (localStorage.getItem('isEnabled') === 'yes') {
+            localStorage.removeItem('isEnabled');
+            return true;
+        } else {
+            return false;
+        }
+    } catch (e) {
+        return false;
+    }
+}
+
 export const generateFingerprint = async () => {
     const fp = await FingerprintJS.load();
     const result = await fp.get();
@@ -20,7 +44,12 @@ export const generateFingerprint = async () => {
 
 
 export const setClientLead = (leadId: string) => {
-   return setLocalStorageItem(LEAD_COOKIE, leadId)
+    try {
+        return setLocalStorageItem(LEAD_COOKIE, leadId)
+    } catch (err) {
+        console.error('Error setting client lead', err)
+        return false
+    }
 }
 export const getClientLead = () => {
     return getLocalStorageItem(LEAD_COOKIE)
@@ -29,9 +58,9 @@ export const getLead = async () => {
     const [cookiesId, headersId] = await getServerLead()
     return cookiesId || getClientLead() || headersId
 }
-export const setLead = (leadId: string) => {
+export const setLead = async (leadId: string) => {
     setClientLead(leadId)
-    setServerLead(leadId)
+    await setServerLead(leadId)
 }
 
 export const getClientCart = () => {
@@ -48,34 +77,74 @@ export const getCart = async () => {
     const leadId = await getLead()
     return leadId && await getCartId(leadId)
 }
-
 export const setCart = (cartId: string) => {
     setClientCart(cartId)
     setServerCart(cartId)
 }
 
 
+export const getCookiSettings = async()=> {
+    if (typeof window !== 'undefined') {
+        const dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+        return {
+            doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
+            cookiesEnabled: navigator.cookieEnabled,
+            localStorageEnabled: isLocalStorageEnabled(),
+            sessionCookiesEnabled: await areCookiesEnabled()
+        }
+    }
+}
+
+export const areCookiesEnabled = async() => {
+    try {
+      await setCookie('isEnabled', 'yes')
+      if (await getCookie('isEnabled') === 'yes') {
+        await deleteCookie('isEnabled')
+        return true
+      } else {
+        return false
+      }
+    }
+    catch (e) {
+      return false
+    }
+}
+
 let mounted = false
 export const getOrCreateLead = async() => {
     try {
         const [cookiesId, headersId] = await getServerLead()
-        if(!mounted && !cookiesId){
+        const cookieSettings = await getCookiSettings()
+        const hid = new URLSearchParams(window.location.search).get('hid')
+        console.log('COOKIE SETTINGS', cookieSettings)
+        console.log('HID', hid)
+        if(!mounted && !await cookiesId && !hid){
             mounted = true
             // for user of an incognito browser, or browser with cookies blocked, it should use the fingerprint to 
             console.log('NO COOKIES ID')
             // in cdase the user has all cookies blocked
             const localStorageId = getClientLead()
             if (!localStorageId) {
+                console.log('NO LOCAL STORAGE ID')
                 const fingerprint = await generateFingerprint()
                 const response = await createLeadAndCart(fingerprint, headersId)
                 setLead(response.leadId)
                 setCart(response.cartId)
-                // in case setLead fails to set the lead on the server, it should return the leadId
+                console.log('LEAD COKIES ', await getCookie(LEAD_COOKIE))
+
+                if(!await getCookie(LEAD_COOKIE)){
+                    //const searchParams = useSearchParams()
+                    //console.log('SEARCH PARAMS ', searchParams)
+                    const params = new URLSearchParams()
+                    params.set('hid', headersId || '')
+                    window.history.pushState(null, '', `?${params.toString()}`)
+                }
+                
                 return response.leadId
             }
             return localStorageId
         }
-        console.log('COOKIES ID', cookiesId)
+        console.log('COOKIES ID', await getCookie(LEAD_COOKIE))
         return cookiesId
     } catch (err) {
         console.error('Error getting or creating lead', err)

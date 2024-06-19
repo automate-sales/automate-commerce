@@ -100,7 +100,7 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, l
                 key={idx}
                 style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
               >
-                <Link className="flex items-center justify-center h-full" href={`/${lang}/${item.link}` || '#'}>
+                <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
 
                   <Image
                     src={item.imageUrl}
