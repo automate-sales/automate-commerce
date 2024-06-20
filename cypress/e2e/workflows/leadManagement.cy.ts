@@ -1,5 +1,38 @@
 import { clearLocalStorage } from '../utils'
 
+
+// cookies enabled
+  // request not to track or visitor IP in europe?
+    // cookie consent banner
+// Third party cookies blocked
+   // enable cookies banner
+// all cookies blocked
+   // enable cookies banner
+
+   
+// visitor in europe
+
+
+// A person with cookies completely disabled should be able to use the site with all its functionalitites
+
+// should maintain the lead id in the URL and the headers
+// click on a product
+// click on a carousael item
+// click on a nav item
+// change language
+// search for a product
+// enter a new URL without a locale
+// enter a new URL with a locale
+// refresh a page
+
+//add an item to cart
+// visit the cart page
+// checkout succesfully
+
+
+
+
+
 before(() => {
   cy.log('CLEARING COOKIES ...')
   Cypress.session.clearAllSavedSessions()

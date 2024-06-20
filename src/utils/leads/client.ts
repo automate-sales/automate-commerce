@@ -1,8 +1,9 @@
 'use client'
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { createLeadAndCart, deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, setCookie, setServerCart, setServerLead } from './server';
+import { deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, setCookie, setServerCart, setServerLead } from './server';
 import { LEAD_COOKIE } from './constants';
+import { findOrCreateLeadWithCart } from '@/app/actions';
 
 export const getLocalStorageItem =(key: string) => {
 try {
@@ -127,7 +128,7 @@ export const getOrCreateLead = async() => {
             if (!localStorageId) {
                 console.log('NO LOCAL STORAGE ID')
                 const fingerprint = await generateFingerprint()
-                const response = await createLeadAndCart(fingerprint, headersId)
+                const response = await findOrCreateLeadWithCart(fingerprint)
                 setLead(response.leadId)
                 setCart(response.cartId)
                 console.log('LEAD COKIES ', await getCookie(LEAD_COOKIE))
@@ -136,7 +137,8 @@ export const getOrCreateLead = async() => {
                     //const searchParams = useSearchParams()
                     //console.log('SEARCH PARAMS ', searchParams)
                     const params = new URLSearchParams()
-                    params.set('hid', headersId || '')
+                    params.set('hid', response.leadId || '')
+                    
                     window.history.pushState(null, '', `?${params.toString()}`)
                 }
                 
