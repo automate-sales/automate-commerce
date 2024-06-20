@@ -44,6 +44,8 @@ export function middleware(request: NextRequest) {
       const previousUrlObj = new URL(previousUrl);
       if (previousUrlObj.searchParams.has('hid')) {
         const hidValue = previousUrlObj.searchParams.get('hid');
+        // set encrypted value in headers and search params
+        // const decryptedHid = await decryptUuid(hidValue);
         hidValue && request.nextUrl.searchParams.set('hid', hidValue);
         hidValue && requestHeaders.set('x-leadid', hidValue )
       }

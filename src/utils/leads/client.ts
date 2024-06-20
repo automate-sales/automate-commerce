@@ -137,6 +137,8 @@ export const getOrCreateLead = async() => {
                     //const searchParams = useSearchParams()
                     //console.log('SEARCH PARAMS ', searchParams)
                     const params = new URLSearchParams()
+                    // set encrypted value in the URL
+                    // const encryptedHid = await encryptUuid(response.leadId)
                     params.set('hid', response.leadId || '')
                     
                     window.history.pushState(null, '', `?${params.toString()}`)

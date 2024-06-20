@@ -4,6 +4,55 @@ import { cookies, headers } from 'next/headers'
 import prisma from '@/db'
 import { LEAD_COOKIE, CART_COOKIE } from './constants'
 
+/* import * as crypto from 'crypto';
+import base62 from 'base62/lib/ascii';
+
+// Set the secret key and salt directly for testing purposes
+const SECRET_KEY = process.env.SECRET_KEY || 'any_length_secret_key_you_want';
+const SALT = process.env.SALT || 'some_salt_value'; // Should be unique and securely generated
+const IV_LENGTH = 16; // AES block size
+const KEY_LENGTH = 32; // AES-256 key length
+
+// Derive a fixed-length key from the provided secret key
+function deriveKey(secretKey: string, salt: string, keyLength: number): Buffer {
+  return crypto.pbkdf2Sync(secretKey, salt, 100000, keyLength, 'sha256');
+}
+
+const derivedKey = deriveKey(SECRET_KEY, SALT, KEY_LENGTH);
+
+export async function encryptUuid(uuid: string) {
+  try {
+    const iv = crypto.randomBytes(IV_LENGTH);
+    const cipher = crypto.createCipheriv('aes-256-cbc', derivedKey, iv);
+    const encrypted = Buffer.concat([cipher.update(uuid, 'utf8'), cipher.final()]);
+    const encryptedHex = `${iv.toString('hex')}:${encrypted.toString('hex')}`;
+    return base62.encode(Buffer.from(encryptedHex, 'utf8'));
+  } catch (err) {
+    console.error('Error encrypting UUID:', err);
+    throw new Error(`Error encrypting UUID: ${err.message}`);
+  }
+}
+
+export async function decryptUuid(encoded: string) {
+  try {
+    const buffer = Buffer.from(base62.decode(encoded));
+    const encryptedHex = buffer.toString('utf8');
+    const [ivHex, encryptedTextHex] = encryptedHex.split(':');
+    if (!ivHex || !encryptedTextHex) {
+      throw new Error('Invalid encrypted data format');
+    }
+    const iv = Buffer.from(ivHex, 'hex');
+    const encryptedText = Buffer.from(encryptedTextHex, 'hex');
+    const decipher = crypto.createDecipheriv('aes-256-cbc', derivedKey, iv);
+    const decrypted = Buffer.concat([decipher.update(encryptedText), decipher.final()]);
+    return decrypted.toString('utf8');
+  } catch (err) {
+    console.error('Error decrypting UUID:', err);
+    throw new Error(`Error decrypting UUID: ${err.message}`);
+  }
+} */
+
+
 export const getCookie = (name: string) => {
   try {
     return cookies().get(name)?.value || undefined
@@ -33,13 +82,12 @@ export async function deleteCookie(name: string) {
     }
 }
 
-
 export const setServerLead = async (leadId: string) => {
     setCookie(LEAD_COOKIE, leadId)
 }
 
 export const getServerLead = async () => {
-    const cookiesId = getCookie(LEAD_COOKIE)
+    const cookiesId = await getCookie(LEAD_COOKIE)
     const headersId = headers().get('x-leadid') || undefined
     return [cookiesId, headersId]
 }
@@ -95,6 +143,7 @@ export async function getCartId(leadId: string) {
 
 export async function getCartWithItems(id?: string) {
     const cartId = id ? id : await getServerCart()
+    console.log('CARTO ID ', cartId)
     if(!cartId) return undefined   
     return await prisma.cart.findUnique({
       where: { id: cartId, status: 'active' },
