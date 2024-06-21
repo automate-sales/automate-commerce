@@ -18,10 +18,7 @@ export default async function Home({
 }: { 
   params: { lang:string } 
 }) {
-
-  console.log('LEAD HEADERS ', headers().get('x-leadid'))
-
-  const dict = await getDictionary(params.lang) // en
+  const dict = await getDictionary(params.lang)
   const mainProducts = await prisma.product.findMany({
     take: 30
   })
