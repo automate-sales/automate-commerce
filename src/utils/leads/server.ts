@@ -53,6 +53,27 @@ export async function decryptUuid(encoded: string) {
 } */
 
 
+const botUserAgents = [
+  'Googlebot',
+  'Bingbot',
+  'Slurp',        // Yahoo
+  'DuckDuckBot',  // DuckDuckGo
+  'Baiduspider',  // Baidu
+  'YandexBot',    // Yandex
+  'Sogou',
+  'Exabot',
+  'facebot',      // Facebook
+  'ia_archiver',  // Alexa
+];
+
+// Function to check if the user-agent belongs to a bot
+export const isBot =(): boolean => {
+  const userAgent = headers().get('user-agent')
+  if (!userAgent) return false;
+  return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase()));
+}
+
+
 export const getCookie = (name: string) => {
   try {
     return cookies().get(name)?.value || undefined

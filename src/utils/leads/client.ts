@@ -1,7 +1,7 @@
 'use client'
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, setCookie, setServerCart, setServerLead } from './server';
+import { deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, isBot, setCookie, setServerCart, setServerLead } from './server';
 import { LEAD_COOKIE } from './constants';
 import { findOrCreateLeadWithCart } from '@/app/actions';
 
@@ -84,16 +84,24 @@ export const setCart = (cartId: string) => {
 }
 
 
-export const getCookiSettings = async()=> {
+export const getCookiSettings = async(): Promise<{
+    doNotTrack: boolean,
+    cookiesEnabled: boolean,
+    localStorageEnabled: boolean,
+    sessionCookiesEnabled: boolean,
+    isBot: boolean 
+} | undefined>=> {
     if (typeof window !== 'undefined') {
         const dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
         return {
             doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
-            sessionCookiesEnabled: await areCookiesEnabled()
+            sessionCookiesEnabled: await areCookiesEnabled(),
+            isBot: await isBot()
         }
     }
+    return undefined
 }
 
 export const areCookiesEnabled = async() => {
@@ -125,13 +133,12 @@ export const getOrCreateLead = async() => {
             console.log('NO COOKIES ID')
             // in cdase the user has all cookies blocked
             const localStorageId = getClientLead()
-            if (!localStorageId) {
+            if (!localStorageId && !cookieSettings?.isBot) {
                 console.log('NO LOCAL STORAGE ID')
                 const fingerprint = await generateFingerprint()
                 const response = await findOrCreateLeadWithCart(fingerprint)
                 setLead(response.leadId)
                 setCart(response.cartId)
-                console.log('LEAD COKIES ', await getCookie(LEAD_COOKIE))
 
                 if(!await getCookie(LEAD_COOKIE)){
                     //const searchParams = useSearchParams()
@@ -143,13 +150,10 @@ export const getOrCreateLead = async() => {
                     
                     window.history.pushState(null, '', `?${params.toString()}`)
                 }
-                
-                return response.leadId
             }
-            return localStorageId
         }
-        console.log('COOKIES ID', await getCookie(LEAD_COOKIE))
-        return cookiesId
+        console.log('LEAD ID', await getLead())
+        return cookieSettings
     } catch (err) {
         console.error('Error getting or creating lead', err)
     }
