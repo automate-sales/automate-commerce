@@ -3,7 +3,7 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 //import { cookies } from 'next/headers'
 import locales from "./utils/locales";
-import { createId } from '@paralleldrive/cuid2';
+//import { createId } from '@paralleldrive/cuid2';
 
 const getLocale =(request: NextRequest): string=> {
   console.log(request.headers.get("accept-language"))
