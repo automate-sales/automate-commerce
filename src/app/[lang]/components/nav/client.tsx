@@ -193,7 +193,7 @@ export const UserMenu = ({ user }: { user: any }) => {
     };
 
     return (
-        <div className="">
+        <div>
             <button onClick={toggleDropdown} className="flex items-center h-full">
                 <UserIcon className="h-6 w-6" />
             </button>

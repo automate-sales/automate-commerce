@@ -10,6 +10,7 @@ import { getDictionary } from '@/app/dictionaries'
 import { getIntl } from '@/utils/utils'
 import { Breadcrumbs, Props, seoCompotnent } from '../components/seo'
 import type { Metadata, ResolvingMetadata } from 'next'
+import { headers } from 'next/headers'
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Home({ 
@@ -17,7 +18,7 @@ export default async function Home({
 }: { 
   params: { lang:string } 
 }) {
-  const dict = await getDictionary(params.lang) // en
+  const dict = await getDictionary(params.lang)
   const mainProducts = await prisma.product.findMany({
     take: 30
   })

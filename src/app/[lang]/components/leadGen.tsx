@@ -1,48 +1,24 @@
 'use client'
 
-import { setCookie, createLeadAndCart } from "@/app/actions"
+import { getOrCreateLead } from "@/utils/leads/client";
+import { useEffect, useState } from "react";
 
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { useEffect } from "react";
-
-const generateFingerprint = async () => {
-    const fp = await FingerprintJS.load();
-    const result = await fp.get();
-    console.log("Fingerprint:", result);
-    return result.visitorId
-};
-
-let mounted = false
-const getOrCreateLead = async(
-    visitorId: string | null | undefined
-) => {
-    if(!visitorId && !mounted) {
-        mounted = true
-        if (typeof window !== 'undefined') {
-            let leadId = localStorage.getItem('ergo_lead_id')
-            let cartId = localStorage.getItem('ergo_cart_id')
-            console.log('leadId: ', leadId)
-            console.log('cartId: ', cartId)
-            if(!leadId) {
-                const fingerprint = await generateFingerprint()
-                console.log('fingerprint: ', fingerprint)
-                const response = await createLeadAndCart(fingerprint)
-                console.log('response: ', response)
-                leadId = response.leadId
-                cartId = response.cartId
-                localStorage.setItem('ergo_lead_id', leadId)
-                localStorage.setItem('ergo_cart_id', cartId)
-            }
-            setCookie('ergo_lead_id', leadId)
-            setCookie('ergo_cart_id', cartId || '')
-        }
-    }
-    console.log('visitorId: ', visitorId)
-}
-
-export default function LeadGen({visitorId}: {visitorId: string | null | undefined}){
+export default function LeadGen(){
+    const [cookieSettings, setCookieSettings] = useState({
+        doNotTrack: false,
+        cookiesEnabled: false,
+        localStorageEnabled: false,
+        sessionCookiesEnabled: false,
+        isBot: false
+    })
     useEffect(() => {
-        getOrCreateLead(visitorId)
-    }, [visitorId]);
+        const doLeadGen = async()=> {
+            const settings = await getOrCreateLead()
+            settings && setCookieSettings(settings)
+            const enableCookiesMsg = 'Enable cookies in your browser for a better exeprience in this site'
+            if( !settings?.cookiesEnabled || !settings?.sessionCookiesEnabled || !settings?.localStorageEnabled ) console.log(enableCookiesMsg)
+        }
+        doLeadGen()
+    }, []);
     return <></>
 }

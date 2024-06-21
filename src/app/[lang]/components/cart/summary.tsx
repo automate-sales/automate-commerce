@@ -1,19 +1,34 @@
-import React, { useContext } from 'react';
+'use client'
+
 import Link from 'next/link';
 import Image from 'next/image';
 import UpdateCartButton from './update';
 import { CartItemWithProduct, CartWithItems } from '@/types';
 import { getIntl } from '@/utils/utils';
+import { useEffect, useState } from 'react';
+import { getCart } from '@/utils/leads/client';
+import { getCartWithItems } from '@/utils/leads/server';
 
 type CartProps = {
-    cartWithItems: CartWithItems
+    cartWithItems: CartWithItems | undefined
     lang?: string
 };
 
 const bucketUrl = process.env.NEXT_PUBLIC_IMAGE_HOST;
 
 const Cart: React.FC<CartProps> = ({ cartWithItems, lang='en' }) => {
-  const cartId = cartWithItems.id;
+  const [cart, setCart] = useState(cartWithItems)
+  const cartId = cart?.id
+  useEffect(() => {
+    if(!cart){
+      getCart().then((id) => {
+        getCartWithItems(id).then((cart) => {
+          setCart(cart)
+        })
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -28,7 +43,7 @@ const Cart: React.FC<CartProps> = ({ cartWithItems, lang='en' }) => {
 
       <div id="cart-items">
 
-        {cartWithItems.cartItems.map((cartItem: CartItemWithProduct, index:number) => (
+        {cartWithItems?.cartItems.map((cartItem) => (
           <div key={cartItem.id} className="flex w-full justify-between items-center border-b border-gray-200 p-2">
             <div className="flex items-center w-2/3">
               <Image src={`${bucketUrl}/products/${cartItem.product.images[0]}`} alt={getIntl(cartItem.product.title, lang)} width={200} height={200} className="object-cover" />
@@ -48,13 +63,9 @@ const Cart: React.FC<CartProps> = ({ cartWithItems, lang='en' }) => {
                 <UpdateCartButton cartId={cartId} cartItem={cartItem}/>
               </div>
             </div>
-              
-
           </div>
         ))}
-
       </div>
-
     </>
   );
 };

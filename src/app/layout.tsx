@@ -118,7 +118,7 @@ export default function RootLayout({
           /> */}
         </head>
         <body className={inter.className}>
-          <LeadGen visitorId={visitorId} />
+          <LeadGen />
           {children}
         </body>
       </html>

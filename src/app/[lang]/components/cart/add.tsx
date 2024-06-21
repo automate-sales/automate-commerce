@@ -4,6 +4,7 @@ import { addToCart } from "@/app/actions";
 import {  toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getCart } from "@/utils/leads/client";
 
 export default function AddToCartButton({
   cartId,
@@ -12,7 +13,7 @@ export default function AddToCartButton({
   productSku,
   displayQty
 }: {
-  cartId: string;
+  cartId: string | undefined;
   productId: number;
   productPrice: number;
   productSku?: string;
@@ -21,12 +22,13 @@ export default function AddToCartButton({
   const router = useRouter();
   const [qty, setQty] = useState(1);
   return (
-    <form className="flex gap-3" onSubmit={ (ev) => {
+    <form className="flex gap-3" onSubmit={ async(ev) => {
       ev.preventDefault()
-      addToCart(cartId, productId, productPrice, qty).then( (msg: {type: 'error' | 'warn' | 'success', text: string}) => {
-        toast[msg.type](msg.text)
-        router.refresh();
-      })
+      let cart = cartId ? cartId : await getCart()
+      if(!cart) return toast.error('Cart not found')
+      const msg = await addToCart(cart, productId, productPrice, qty)
+      toast[msg.type](msg.text)
+      router.refresh();
     } 
     }>
       <button

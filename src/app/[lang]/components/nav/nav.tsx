@@ -1,9 +1,9 @@
 import { UserObj } from "@/utils/auth";
-import { CategoryWithSubcategories, LangSelector, NavElement, NavLinks, ProductsMenu, SearchInput, SideMenu, UserMenu } from "./client";
+import { LangSelector, NavElement, NavLinks, ProductsMenu, SearchInput, SideMenu, UserMenu } from "./client";
 import { Brand, ShoppingCart } from "./server";
+import prisma from '@/db'
 
 type Props = {
-    categories: CategoryWithSubcategories[];
     links: NavElement[];
     search?: boolean;
     user?: UserObj;
@@ -12,15 +12,21 @@ type Props = {
     lang?: string;
 };
 
-export default function Nav({
-    categories,
+export default async function Nav({
     links,
     search,
     user,
     languages,
-    cartLength,
     lang='en'
 }: Props) {
+    const categories = await prisma.category.findMany({
+        include: {
+          subcategories: true,
+        },
+        orderBy: {
+          priority: "asc",
+        },
+    });
     return (
         <nav className="h-16 bg-gray-50 z-40 fixed fixed-top w-full grid grid-cols-3 px-5">
             <SideMenu categories={categories} links={links} languages={languages}/>
@@ -32,7 +38,7 @@ export default function Nav({
             <div className="flex items-center justify-end gap-2">
                 {search && <SearchInput classNames="hidden lg:flex" />}
                 <UserMenu user={user}/>
-                <ShoppingCart cartLength={cartLength}/>
+                <ShoppingCart />
                 {languages && <LangSelector fixed languages={languages} classNames="hidden lg:flex pl-4"/>}
             </div>
 

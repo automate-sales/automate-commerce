@@ -4,10 +4,10 @@ import ImageDipslay from '@/app/[lang]/components/item/imageDisplay';
 import { Product } from '@prisma/client'
 import prisma from '@/db'
 import { getIntl } from '@/utils/utils';
-import { cookies } from 'next/headers';
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
 import { getDictionary } from '@/app/dictionaries';
+import { getServerCart } from '@/utils/leads/server';
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Page({
@@ -20,10 +20,7 @@ export default async function Page({
       sku: params.sku
     }
   }) as Product
-  const cookieStore = cookies()
-  const visitorId = cookieStore.get('ergo_lead_id')?.value
-  const cartId = cookieStore.get('ergo_cart_id')?.value || ''
-
+  const cartId = await getServerCart()
   const dict = await getDictionary(params.lang)
   return (
     <>

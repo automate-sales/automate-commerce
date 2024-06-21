@@ -4,27 +4,27 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { updateCartItem } from '@/app/actions';
-import { CartItem, Product } from "@prisma/client";
+import { CartItemWithProduct } from '@/types';
 
-type CartItemWithProduct = CartItem & { product: Product };
-
-export default function UpdateCartButton({cartId, cartItem}:{cartId: string, cartItem: CartItemWithProduct}) {
+export default function UpdateCartButton({cartId, cartItem}:{cartId?: string, cartItem: CartItemWithProduct}) {
     const router = useRouter();
     const [inputValue, setInputValue] = useState(String(cartItem.qty));
     const debounceRef = useRef(null as NodeJS.Timeout | null);
     const [userHasInteracted, setUserHasInteracted] = useState(false); // State to track user interaction
   
     const removeItemFromCart = async () => {
+      if(!cartId) return toast.error('Cart not found');
       await updateCartItem(cartId, cartItem.product.id, 0);
       toast.success(`Item removed from cart`);
-      router.refresh();
+      return router.refresh();
     };
   
     const updateItemQty = async (newQty: number) => {
+      if(!cartId) return toast.error('Cart not found');
       const obj = await updateCartItem(cartId, cartItem.product.id, newQty)
       toast[obj.type](obj.text);
       setInputValue(obj.item.qty.toString());
-      router.refresh();
+      return router.refresh();
     };
   
     useEffect(() => {

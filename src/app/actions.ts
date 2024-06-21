@@ -24,7 +24,27 @@ export async function setCookie(name: string, value: string) {
   }
 }
 
-export async function createLeadAndCart(
+export async function findLeadByFingerprint(fingerprint: string) {
+  return await prisma.lead.findFirst({
+    where: {
+      fingerprint: fingerprint,
+      createdAt: {
+        gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30),
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      carts: {
+        where: {status: 'active'},
+        orderBy: {createdAt: 'desc'},
+      }
+    },
+  })
+}
+
+export async function createLeadWithCart(
   fingerprint: string,
   id?: string,
 ) {
@@ -41,6 +61,12 @@ export async function createLeadAndCart(
     },
   })
   return { leadId: lead.id, cartId: lead.carts[0].id }
+}
+
+export async function findOrCreateLeadWithCart(fingerprint: string, id?: string) {
+  const lead = await findLeadByFingerprint(fingerprint)
+  if (lead) return { leadId: lead.id, cartId: lead.carts[0].id }
+  else return createLeadWithCart(fingerprint, id)
 }
 
 export async function addToCart(

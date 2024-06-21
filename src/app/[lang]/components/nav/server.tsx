@@ -1,5 +1,4 @@
-import { getIntl } from "@/utils/utils";
-import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/16/solid";
+import { getCartLength } from "@/utils/leads/server";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -29,15 +28,16 @@ export const Brand = () => {
 }
 
 
-export const ShoppingCart = ({ cartLength }: { cartLength: number }) => {
+export const ShoppingCart = async () => {
+    const cartLength = await getCartLength();
     return (
-        <div>
-            <Link className="relative" href="/cart">
+        <div className="relative flex items-center">
+            <Link href="/cart" className="relative inline-block">
                 <ShoppingCartIcon className="h-6 w-6" />
-                <span className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 bg-opacity-90 rounded-full -top-2 -end-2 dark:border-gray-900">
+                <span className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 bg-opacity-90 rounded-full -top-2 -right-2 dark:border-gray-900 border border-transparent">
                     {cartLength}
                 </span>
             </Link>
         </div>
-    )
-}
+    );
+};

@@ -1,0 +1,2 @@
+export const LEAD_COOKIE = process.env.NEXT_PUBLIC_LEAD_COOKIE || process.env.NEXT_PULIC_PROJECT_NAME && `${process.env.NEXT_PULIC_PROJECT_NAME}_lead_id` || 'lidia_lead_id'
+export const CART_COOKIE = process.env.NEXT_PUBLIC_CART_COOKIE || process.env.NEXT_PULIC_PROJECT_NAME && `${process.env.NEXT_PULIC_PROJECT_NAME}_cart_id` || 'lidia_cart_id'
