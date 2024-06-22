@@ -3,7 +3,7 @@
 import { CartItem, Order, Product } from '@prisma/client';
 import { v1 as uuidv1 } from 'uuid';
 import { OrderAny, getContentIds, getContents, getSubTotal, getTotalQty } from '../utils';
-import { CartItemWithProduct } from '@/types';
+import { BasicProduct, CartItemWithProduct } from '@/types';
 import { sendApiEvent } from './server';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID;
@@ -46,7 +46,7 @@ export const signUp = (leadId: string, email?: string): void => {
   sendApiEvent(eventName, eventId, eventData, email)
 }
 
-export const addToCart = (product:Product, qty:number, leadId: string): void => {
+export const addToCart = (product:BasicProduct, qty:number, leadId?: string): void => {
   const eventName = 'AddToCart'
   const eventId = uuidv1()
   const eventData = {
@@ -62,7 +62,7 @@ export const addToCart = (product:Product, qty:number, leadId: string): void => 
   sendApiEvent(eventName, eventId, eventData)
 }
 
-export const checkout = (cartItems:CartItemWithProduct[]|CartItem[], leadId: string): void => {
+export const checkout = (cartItems:CartItemWithProduct[]|CartItem[], leadId?: string): void => {
   const eventName = 'InitiateCheckout'
   const eventId = uuidv1()
   const eventData = {
@@ -78,7 +78,7 @@ export const checkout = (cartItems:CartItemWithProduct[]|CartItem[], leadId: str
   sendApiEvent(eventName, eventId, eventData)
 }
 
-export const paymentInfo = (paymentType:string, leadId: string, coupon?: string): void => {
+export const paymentInfo = (paymentType:string, leadId?: string, coupon?: string): void => {
   const eventName = 'AddPaymentInfo'
   const eventId = uuidv1()
   const eventData = {
@@ -92,7 +92,7 @@ export const paymentInfo = (paymentType:string, leadId: string, coupon?: string)
   sendApiEvent(eventName, eventId, eventData)
 }
 
-export const purchase = (order: OrderAny, cartItems:CartItemWithProduct[] | CartItem[]) => {
+export const purchase = async (order: OrderAny, cartItems:CartItemWithProduct[] | CartItem[]) => {
   const eventName = 'Purchase'
   const eventId = uuidv1()
   const eventData = {
@@ -106,5 +106,5 @@ export const purchase = (order: OrderAny, cartItems:CartItemWithProduct[] | Cart
     lead_id: order.leadId
   }
   pixelEvent(eventName, eventId, eventData)
-  sendApiEvent(eventName, eventId, eventData, order.email)
+  return await sendApiEvent(eventName, eventId, eventData, order.email)
 }

@@ -31,7 +31,14 @@ export default async function Item({
                 {description && <p className="text-sm text-gray-600">{description}</p>}
                 {price && <p className="text-lg font-bold">$ {price}.00</p>}
             </Link>
-            {id && price && <AddToCartButton cartId={cartId} productId={id} productSku={link.split('/').pop()} productPrice={price}/>}
+            {id && price && <AddToCartButton 
+                cartId={cartId} 
+                productId={id}
+                productSku={link.split('/').pop() as string} 
+                productPrice={price}
+                productTitle={title}
+                // add product stock
+            />}
         </div>
     );
 };

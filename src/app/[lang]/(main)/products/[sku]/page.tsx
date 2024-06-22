@@ -22,6 +22,7 @@ export default async function Page({
   }) as Product
   const cartId = await getServerCart()
   const dict = await getDictionary(params.lang)
+  const productTitle = getIntl(productData?.title, params.lang)
   return (
     <>
       <script
@@ -38,11 +39,19 @@ export default async function Page({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <ImageDipslay product={productData} />
           <div>
-            <h1 className="text-3xl font-bold">{getIntl(productData?.title, params.lang)}</h1>
+            <h1 className="text-3xl font-bold">{productTitle}</h1>
             <p className="text-xl my-2">{productData?.price}</p>
             <p className="mb-4">{getIntl(productData?.description, params.lang)}</p>
             <div className="flex items-center">
-            <AddToCartButton cartId={cartId} productId={productData?.id} productPrice={productData?.price} productSku={productData.sku} displayQty/>
+            <AddToCartButton
+              cartId={cartId} 
+              productId={productData?.id} 
+              productSku={productData.sku}
+              productPrice={productData?.price}
+              productTitle={productTitle}
+              productStock={productData?.stock}
+              displayQty
+            />
             </div>
           </div>
         </div>

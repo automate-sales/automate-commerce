@@ -1,10 +1,10 @@
 'use client'
 
 import { setCookie } from "@/app/actions";
-import { search } from "@/utils/analytics";
+import { searchEvent } from "@/utils/analytics";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
-import { Bars3Icon, ChevronDownIcon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { Bars3Icon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { Category, Subcategory } from "@prisma/client";
 import { signOut } from "next-auth/react";
@@ -164,7 +164,7 @@ export const SearchInput = ({
     const searchProducts = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         const urlQuery = query.replace(" ", "%20");
-        search(urlQuery, leadId)
+        searchEvent(urlQuery, leadId)
         router.push(`/products?query=${urlQuery}`);
     };
 

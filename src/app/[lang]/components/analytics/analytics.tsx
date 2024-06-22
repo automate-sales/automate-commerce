@@ -1,24 +1,27 @@
 'use client'
 
 import { pageview } from "@/utils/analytics"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { Identify, init } from "@/utils/analytics/posthog"
 import Script from "next/script"
+import { getLead } from "@/utils/leads/client"
 
 init()
 
-export default function Analytics({leadId}:{leadId: string}) {
-    console.log('LEAD ID IN ANALYTICS ', leadId)
+export default function Analytics() {
+    const [leadId, setLeadId] = useState(null as null | string)
     const path = usePathname()
     useEffect(() => {
-        Identify(leadId)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+      getLead().then((id) => {
+        console.log('CLIENTT IDDD ', id)
+        id && setLeadId(id)
+        id && Identify(id)
+      })
     }, [])
     useEffect(() => {
-        pageview(leadId)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [path])
+      leadId && pageview(leadId)
+      }, [path, leadId])
     return (<>
     <Script
         strategy='lazyOnload'

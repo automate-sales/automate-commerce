@@ -30,17 +30,18 @@ import {
     purchase as phPurchase 
 } from "./posthog"
 
-import {
+/* import {
     pageview as twPageview,
     search as twSearch,
     signUp as twSignUp,
     addToCart as twAddToCart,
     checkout as twCheckout,
     purchase as twPurchase
-} from "./twitter"
+} from "./twitter" */
 
 import { CartItem, Order, Product } from "@prisma/client"
 import { OrderAny } from "./utils"
+import { BasicProduct } from "@/types"
 
 export const pageview = (leadId?: string): void => {
     gaPageview(leadId)
@@ -49,53 +50,56 @@ export const pageview = (leadId?: string): void => {
     //twPageview()
 }
 
-export const search = (query: string, leadId: string): void => {
+export const searchEvent = (query: string, leadId: string): void => {
     gaSearch(query, leadId)
     fbSearch(query, leadId)
     phSearch(query, leadId)
     //twSearch(query, leadId)
 }
 
-export const signUp =(leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
+// missing implementation
+export const signUpEvent = (leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
     gaSignUp(leadId, method)
     fbSignUp(leadId, method)
     phSignUp(leadId, method)
     //twSignUp(leadId, method)
 }
 
-export const login =(leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
+// missing implementation
+export const loginEvent = (leadId: string, method:'email'|'google'|'facebook'='email'): void=> {
     gaLogin(leadId, method)
     phLogin(leadId, method)
 }
 
-export const addToCart = (product:Product, qty:number, path:string, leadId: string): void => {
+export const addToCartEvent = (product:BasicProduct, qty:number, path:string, leadId?: string): void => {
     gaAddToCart(product, qty, path, leadId)
     fbAddToCart(product, qty, leadId)
     phAddToCart(product, qty, path, leadId)
     //twAddToCart(product.id, qty, leadId)
 }
 
-export const viewCart =(cartItems:CartItem[], leadId: string): void=> {
+export const viewCartEvent = (cartItems:CartItem[], leadId?: string): void=> {
     gaViewCart(cartItems, leadId)
     phViewCart(cartItems, leadId)
 }
 
-export const checkout =(cart:CartItem[], leadId: string): void=> {
+export const checkoutEvent = (cart:CartItem[], leadId?: string): void=> {
     gaCheckout(cart, leadId)
     fbCheckout(cart, leadId)
     phCheckout(cart, leadId)
     //twCheckout(cart, leadId)
 }
 
-export const paymentInfo =(paymentType: string, leadId: string): void=> {
+
+export const paymentInfoEvent = (paymentType: string, leadId?: string): void=> {
     gaPaymentInfo(paymentType, leadId)
     fbPaymentInfo(paymentType, leadId)
     phPaymentInfo(paymentType, leadId)
 }
 
-export const purchase =(order:OrderAny, cartItems: CartItem[]): void=> {
+export const purchaseEvent = async (order:OrderAny, cartItems: CartItem[]): Promise<void>=> {
     gaPurchase(order, cartItems)
-    fbPurchase(order, cartItems)
     phPurchase(order, cartItems)
+    return await fbPurchase(order, cartItems)
     //twPurchase(order.id, order.total, order.leadId)
 }

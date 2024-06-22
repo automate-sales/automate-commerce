@@ -1,6 +1,6 @@
 import { Product, CartItem, Order } from "@prisma/client";
 import { OrderAny, getItems, getSubTotal } from "./utils";
-import { CartItemWithProduct } from "@/types";
+import { BasicProduct, CartItemWithProduct } from "@/types";
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID || "";
 
@@ -40,7 +40,7 @@ export const login =(leadId: string, method:'email'|'google'|'facebook'='email')
   gaEvent(eventName, eventData);
 }
 
-export const addToCart = (product:Product, qty:number, path:string, leadId: string): void => {
+export const addToCart = (product:BasicProduct, qty:number, path:string, leadId?: string): void => {
   const eventName = "add_to_cart";
   const eventData = {
     currency: "USD",
@@ -61,7 +61,7 @@ export const addToCart = (product:Product, qty:number, path:string, leadId: stri
   gaEvent(eventName, eventData);
 }
 
-export const viewCart =(cartItems:CartItemWithProduct[] | CartItem[], leadId: string): void=> {
+export const viewCart =(cartItems:CartItemWithProduct[] | CartItem[], leadId?: string): void=> {
   const eventName = "view_cart";
   const eventData = {
     currency: "USD",
@@ -72,7 +72,7 @@ export const viewCart =(cartItems:CartItemWithProduct[] | CartItem[], leadId: st
   gaEvent(eventName, eventData);
 }
 
-export const checkout =(cart:CartItemWithProduct[] | CartItem[], leadId: string): void=> {
+export const checkout =(cart:CartItemWithProduct[] | CartItem[], leadId?: string): void=> {
   const eventName = "begin_checkout";
   const eventData = {
     currency: "USD",
@@ -83,7 +83,7 @@ export const checkout =(cart:CartItemWithProduct[] | CartItem[], leadId: string)
   gaEvent(eventName, eventData);
 }
 
-export const shippingInfo =(shippingState:string, leadId: string): void=> {
+export const shippingInfo =(shippingState:string, leadId?: string): void=> {
   const eventName = "add_shipping_info";
   const eventData = {
     currency: "USD",
@@ -93,7 +93,7 @@ export const shippingInfo =(shippingState:string, leadId: string): void=> {
   gaEvent(eventName, eventData);
 }
 
-export const paymentInfo =(paymentType:string, leadId: string, coupon?:string)=> {
+export const paymentInfo =(paymentType:string, leadId?: string, coupon?:string)=> {
   const eventName = "add_payment_info";
   const eventData = {
     currency: "USD",

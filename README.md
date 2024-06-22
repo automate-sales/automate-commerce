@@ -41,7 +41,7 @@ to use analytics you must set the following env variables. The analytics package
 
 The analytics package is built in a way where the main methods exported will trigger events in all of the selected providers; for example if google analytics, posthog and meta are selected; a pageview event will trigger a pagheview in all of these platfoirms simultaneously. This makes it very easy to add new providers without having to go to different places in the code.
 
-To get started you must set the follwoing environment variables:
+To get everything working make sure you follow the steps bellow and setup the follwoing environment variables:
 
 ```
 # toggle usage of analytics
@@ -61,23 +61,52 @@ NEXT_PUBLIC_FB_PIXEL_ID
 NEXT_PUBLIC_TWITTER_BEARER_TOKEN
 ```
 
+To test events in google analytics and meta while in development you must be using some kind of ip tunnel like [ngrok](https://ngrok.com/)
+
+
 ## Setting up posthog
+1. create a free account in posthog
+2. go to your [project settings](https://us.posthog.com/settings/project)
+3. copy your project API Key and set an environment variable `NEXT_PUBLIC_POSTHOG_KEY=<YOUR_PROJECT API_KEY>`
+4. set an environment variable `NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com`
+5. View [realtime events in posthog](https://us.posthog.com/activity/explore)
 
 ## Setting up Googl Analytics (GA4)
+1. Follow [these instructions](https://support.google.com/analytics/answer/9304153?hl=en) to setup google analytics 4 (GA4)
+2. Create a Property
+3. Add a datastream to the property
+4. In your property setting click on Data collection and modification > Data Streams
+5. click on your datastream and edit the Stream details, add your ngrok URL as the website URL and call your data stream development
+6. copy your measurement ID and set the environment vairable `NEXT_PUBLIC_GA_TRACKING_ID=<YOUR_MEASUREMENT_ID>`
+7. To view realtime test analytics, go to https://analytics.google.com/analytics/web/?authuser=1#/p<GA_PROJECT_ID>/realtime
 
 ## Setting up Meta
 
 ### Pixel
 1. create a new pixel
 2. add the id of the new meta pixel in your env viariable
-3. Now you can monitor your pixels activity by accesing this URL business.facebook.com/events_manager2/list/dataset/<FB_PIXEL_ID> . All the activities carried out in the website should register in this page in the ovberviw. beware there is a 30 minute lag for events to register
+3. Now you can monitor your pixels activity by accesing this URL: https://business.facebook.com/events_manager2/list/dataset/<FB_PIXEL_ID>
+4. All the activities carried out in the website should register in this page in the ovberviw. beware there is a 30 minute lag for events to register
 
 ### Conversion API
 1. After creating your pixel, follow instructions [here](https://developers.facebook.com/docs/marketing-api/conversions-api/get-started) to setup the converiosn API
-2. click on the Test Events tab
-3. click on the tab that says `Confirm your server’s events are set up correctly`
-4. click on the Graph API Explorer button
-5. Submit the request. you sould get a success response like below
+3. go to the [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
+click on generate Access Token and add some permissions
+4. we will add the email and page_events permissions.
+5. click on generate token
+6. add this token in your environment variable `FB_ACCESS_TOKEN`
+6. lets make a GET request to `/me?fields=id,name`
+7. should display user info
+8. now in the [events manager page](https://www.facebook.com/events_manager2/list/dataset/), go to datasets, select the dataset corresponding to your development pixel, click on the settings tab and scroll down to Sharing, then click on [Business Manager Settings](https://business.facebook.com/settings/events-dataset-news) 
+9. On the people tab, click on the user associated to the conversion API, usually Conversion API System User.
+10.  When the tab opens up, click on the square icon on the uper right side of the tab to open it in Users view. click on the dataset and click on assign assets.
+11. select datasets, check your pixels dataset and tick full control
+12. now go back to the [fb events manager](https://business.facebook.com/events_manager2/list/dataset/)
+13. click on the Test Events tab
+14. click on `Confirm your server’s events are set up correctly`
+15. copy the test event code and set up the enviornment vairable `FB_TEST_CODE=<YOUR_TEST_EVENT_CODE>`
+16. click on the Graph API Explorer button
+17. Submit the request. you sould get a success response like below
 ```
 {
   "events_received": 1,
@@ -87,16 +116,11 @@ NEXT_PUBLIC_TWITTER_BEARER_TOKEN
 }
 ```
 
+### Test Events
+1. To test meta events in realtime you must be using some kind of ip tunnel like [ngrok](https://ngrok.com/)
+2. go to the meta events manager test events page: https://business.facebook.com/events_manager2/list/dataset/<NEXT_PUBLIC_FB_PIXEL_ID>/test_events
+3. click on `Confirm your websites events are set up correctly`
+4. enter the URL of your ngrok ip tunnel (in your ngrok terminal window the adress next to Forwarding)
+5. Click on open URL and make some events on the page i.e. visit a product page and the product to cart
+6. initially it will take a few minutes but you should start seeing the events log in the test events page
 
-
-1. in the previous URL click on the Test Events tab
-2. click on the tab that says `Confirm your server’s events are set up correctly`
-3. click on the Graph API Explorer button
-click on generate Access Token and add some permissions
-4. we will add the email and page_events permissions.
-5. click on generate token
-6. lets make a GET request to `/me?fields=id,name`
-7. should display user info
-8. now in the events manager page, go to datasets, select the dataset corresponding to your development pixel, click on people and lick on the user, usually COnversion API System User.
-9.  click on the square to open it in Users view. click on the dataset and click on assign assets.
-10. select datasets, check your pixels dataset and tick full control
