@@ -1,8 +1,6 @@
 import Navbar from '../components/nav/nav'
 import { getCurrentUser } from '@/utils/auth'
 import Footer from '../components/footer'
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { getDictionary } from '@/app/dictionaries'
 import locales from '@/utils/locales';
 
@@ -36,7 +34,6 @@ export default async function RootLayout({
         cartLength={itemCount}
       />
       <div className='pt-16'>{children}</div>
-      <ToastContainer/>
       <Footer params={params}/>
     </>
   );

@@ -1,7 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
-import { CartItem, Order } from '@prisma/client'
+import { CartItem, Lead, Order } from '@prisma/client'
 import { CartWithItems, CheckoutOrder, CustomerInfo, OrderInfo, ShippingInfo } from '@/types'
 import { validateCart, validateCheckout, validateUniqueCart } from '@/utils/validations'
 import { formatAddress } from '@/utils/calc'
@@ -9,6 +9,7 @@ import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
 import { redirect } from 'next/navigation'
+import { setServerCart } from '@/utils/leads/server'
 
 export async function setCookie(name: string, value: string) {
   try {
@@ -61,6 +62,20 @@ export async function createLeadWithCart(
     },
   })
   return { leadId: lead.id, cartId: lead.carts[0].id }
+}
+
+type UpdateLeadInput = {
+  [P in keyof Lead]?: Lead[P];
+};
+export async function updateLead(leadId: string, data: UpdateLeadInput ) {
+  if(data && 'username' in data) await prisma.user.update({
+    where: { id: leadId },
+    data: { username: data.email?.split('@')[0] || data.name?.split('').join('_') }
+  })
+  return await prisma.lead.update({
+    where: { id: leadId },
+    data: data
+  })
 }
 
 export async function findOrCreateLeadWithCart(fingerprint: string, id?: string) {
@@ -342,7 +357,8 @@ export const processOrder = async (
 export const swapCarts = async (
   currentCartId: string,
   newCartId: string,
-  leadId: string
+  leadId: string,
+  reroute: boolean = true
 ) => {
   // set current cart inactive
   await prisma.cart.update({
@@ -352,12 +368,8 @@ export const swapCarts = async (
   // set leadID on new cart
   await prisma.cart.update({
     where: { id: newCartId },
-    data: { leadId: leadId }
+    data: { leadId: leadId, status: 'active'}
   })
-  cookies().set({
-    name: 'ergo_cart_id',
-    value: newCartId,
-    httpOnly: true
-  })
-  redirect('/cart')
+  setServerCart(newCartId)
+  reroute && redirect('/cart')
 }

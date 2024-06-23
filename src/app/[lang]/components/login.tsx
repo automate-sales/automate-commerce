@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { signIn } from "next-auth/react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { loginEvent } from "@/utils/analytics";
+import { getLead } from "@/utils/leads/client";
 export default function LoginForm() {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,6 +13,9 @@ export default function LoginForm() {
       const form = e.target as HTMLFormElement;
       const input = form.elements[0] as HTMLInputElement;
       const res = await signIn("email", { email: input.value, redirect: false });
+      console.log('login RESSSS ', res?.status == 200)
+      const lead = await getLead() || ''
+      loginEvent(lead, "email")
       res && res.status && res.status == 200
         ? toast.success("Te hemos enviado un correo. Confirmalo para iniciar sesión.")
         : toast.error("Error enviando el correo de autenticacion");
