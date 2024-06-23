@@ -1,17 +1,17 @@
 import CheckoutForm from "@/app/[lang]/components/checkout/form";
 import { CartWithItems } from "@/types";
 import { getCurrentUser } from "@/utils/auth";
-import { cookies } from "next/headers";
 import prisma from '@/db';
 
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
 import { getDictionary } from "@/app/dictionaries";
+import CheckoutEvent from "../../components/analytics/checkout";
+import { getServerCart, getServerLead } from "@/utils/leads/server";
 
 export default async function Page({ params }: { params: { lang: string } }) {
-    const cookieStore = cookies()
-    const leadId = cookieStore.get('ergo_lead_id')?.value || ''
-    const cartId = cookieStore.get('ergo_cart_id')?.value || ''
+    const [leadId] = await getServerLead()
+    const cartId = await getServerCart()
     const user = await getCurrentUser()
     const cart = await prisma.cart.findUnique({
         where: { id: cartId },
@@ -25,6 +25,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     const dict = await getDictionary(params.lang)                                                                  
     return(
         <>
+        <CheckoutEvent />
         <Breadcrumbs crumbs={[
             {name: dict.breadCrumbs.home, path: '/'},
             {name: dict.cart.title, path: '/cart'},

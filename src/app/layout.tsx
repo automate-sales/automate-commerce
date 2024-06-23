@@ -1,13 +1,14 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { cookies } from 'next/headers'
 import LeadGen from './[lang]/components/leadGen'
+import Analytics from './[lang]/components/analytics/analytics'
+import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ['latin'] })
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export const metadata: Metadata = {
-  // shared by all files
   generator: 'Torus Commerce',
   applicationName: 'Ergonomica Ecommerce',
   referrer: 'origin-when-cross-origin',
@@ -103,8 +104,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-    const cookieStore = cookies()
-    const visitorId = cookieStore.get('ergo_lead_id')?.value
     return (
       <html lang="en">
         <head>
@@ -119,8 +118,11 @@ export default function RootLayout({
         </head>
         <body className={inter.className}>
           <LeadGen />
+          <Analytics />
           {children}
+          <ToastContainer/>
         </body>
+        
       </html>
   )
 }

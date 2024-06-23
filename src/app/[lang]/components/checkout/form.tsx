@@ -19,10 +19,12 @@ import {
     //getDiscount
 } from '@/utils/calc'
 
-import { CartWithItems, CustomerInfo, OrderInfo, ShippingInfo } from '@/types';
+import { CartWithItems, CustomerInfo, OrderInfo, PaymentInfo, ShippingInfo } from '@/types';
 import OrderCostSummary from './costSummary';
 import { createOrder } from '@/app/actions';
 import { toast } from 'react-toastify';
+import { paymentInfoEvent, purchaseEvent } from '@/utils/analytics';
+import { setCart } from '@/utils/leads/client';
 
 const addressFields: FormField[] = [
     { name: 'street_1', label: 'Dirección', inputType: 'text' },
@@ -70,7 +72,7 @@ const emptyPayment = {
     ccNumber: "",
     ccExp: "",
     cvv: ""
-}
+} as PaymentInfo
 const emptyOrder = {
     subtotal: 0,
     discount: 0,
@@ -92,8 +94,8 @@ const emptyOrder = {
 export default function CheckoutForm({ user, cart, cartId, leadId }: {
     user: any,
     cart: CartWithItems,
-    cartId: string,
-    leadId: string
+    cartId?: string,
+    leadId?: string
 }) {
     const newCustomer = user ? { ...emptyCustomer, email: user?.email, full_name: user?.name } : emptyCustomer
     const [customer, setCustomer] = useState(newCustomer)
@@ -155,20 +157,22 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
 
     const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault()
+        paymentInfoEvent(getCardType(payment.ccNumber), leadId)
         setSubmitting(true)
         try {
+            const orderInfo = { 
+                ...order,
+                subtotal,
+                discount,
+                tax,
+                shippingFee,
+                assemblyFee,
+                total,
+                cartId: cartId || '', 
+                leadId: leadId || '' 
+            }
             const {orderId, newCartId, sentEmail} = await toast.promise(createOrder({
-                orderInfo: { 
-                    ...order,
-                    subtotal,
-                    discount,
-                    tax,
-                    shippingFee,
-                    assemblyFee,
-                    total,
-                    cartId, 
-                    leadId 
-                },
+                orderInfo: orderInfo,
                 customerInfo: customer,
                 shippingInfo: shipping,
                 billingInfo: billing,
@@ -184,8 +188,12 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                 }
             })
             if(!sentEmail) toast.warning('Failed to send confirmation email')
-            // set localstorage cart
-            if (typeof window !== 'undefined') localStorage.setItem('ergo_cart_id', String(newCartId))
+            setCart(String(newCartId))
+            await purchaseEvent({
+                id: orderId,
+                email: customer.email,
+                ...order
+            }, cart.cartItems)
             setSubmitting(false)
             console.info('The order has been created succesfully with id: ', orderId)
             router.push(`/orders/confirmation?id=${orderId}`)
@@ -193,7 +201,6 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
             setSubmitting(false)
             console.error('Error creating order', error)
         }
-        
     }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:pt-5">

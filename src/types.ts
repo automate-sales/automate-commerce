@@ -19,6 +19,13 @@ export type CartProps = {
 };
 export type CartWithItems = Cart & { cartItems: CartItemWithProduct[]}
 
+export type BasicProduct = {
+  id: number;
+  sku: string;
+  title: string;
+  price: number;
+  stock?: number;
+} & { [key: string]: any  }
 
 type htmlInputType = "text" | "password" | "radio" | "checkbox" | "submit" | "reset" | "button" | "hidden" | "image" | "file" | "date" | "month" | "week" | "time" | "datetime-local" | "number" | "range" | "search" | "email" | "tel" | "url" | "color"
 type customInputType = "select" | "ccNum" | "ccExp"

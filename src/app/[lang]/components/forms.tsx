@@ -325,3 +325,71 @@ const FormItem =({
             )
     }
 }
+
+
+type ListInputProps = {
+  name: string,
+  label?: string,
+  placeholder?: string,
+  required?: boolean,
+  disabled?: boolean
+  value: string[];
+  onChange: (phoneNumbers: string[]) => void;
+}
+
+
+export function ListInput({ 
+  name, 
+  value, 
+  label,   
+  onChange,
+  required=false, 
+  placeholder=label,
+  disabled=false
+}: ListInputProps) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      onChange([...value, inputValue.trim()]);
+      setInputValue('');
+      e.preventDefault();
+    }
+  };
+
+  const handleRemove = (index: number) => {
+    const newValue = value.filter((_, i) => i !== index);
+    onChange(newValue);
+  };
+
+  return (
+    <div>
+      <label className="block text-main text-sm">{label}</label>
+      <div className="flex flex-wrap items-center border w-full text-gray-700 focus:outline-none focus:bg-white focus:border-blue-500">
+        {value.map((number, index) => (
+          <div key={index} className="flex items-center bg-gray-200 rounded-full px-3 py-1 m-1">
+            <span>{number}</span>
+            <button
+              type="button"
+              className="ml-2 text-red-500 focus:outline-none"
+              onClick={() => handleRemove(index)}
+            >
+              &times;
+            </button>
+          </div>
+        ))}
+        <input
+          name={name}
+          type="text"
+          className="flex-grow py-2 px-3 text-gray-700 focus:outline-none"
+          placeholder={placeholder}
+          value={inputValue}
+          required={required}
+          disabled={disabled}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+    </div>
+  );
+}

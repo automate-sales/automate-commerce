@@ -1,9 +1,10 @@
 'use client'
 
 import { setCookie } from "@/app/actions";
+import { searchEvent } from "@/utils/analytics";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
-import { Bars3Icon, ChevronDownIcon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import { Bars3Icon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { Category, Subcategory } from "@prisma/client";
 import { signOut } from "next-auth/react";
@@ -63,12 +64,24 @@ export const NavLinks = ({ links, fixed=false }: { links: NavElement[], fixed?: 
 }
 
 
-export const SideMenu = ({ categories, links, languages, lang='en' }: { categories: CategoryWithSubcategories[], links: NavElement[], languages?: string[], lang?: string }) => {
+export const SideMenu = ({ 
+    categories, 
+    leadId, 
+    links, 
+    languages, 
+    lang='en' 
+}: { 
+    categories: CategoryWithSubcategories[], 
+    leadId: string, 
+    links: NavElement[], 
+    languages?: string[], 
+    lang?: string 
+}) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState("-100%");
     const drawerRef = useRef<HTMLDivElement>(null);
     const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
+    
     const openDrawer = () => {
         setIsMenuOpen(true);
         setDrawerPosition("0");
@@ -119,7 +132,7 @@ export const SideMenu = ({ categories, links, languages, lang='en' }: { categori
             >
                 <div className="p-5 flex flex-col gap-3">
                     <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
-                    <SearchInput />
+                    <SearchInput leadId={leadId} />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
                     {languages && <LangSelector languages={languages} />}
@@ -139,8 +152,10 @@ export const SideMenu = ({ categories, links, languages, lang='en' }: { categori
 };
 
 export const SearchInput = ({
+    leadId,
     classNames
 }: {
+    leadId: string;
     classNames?: string;
 }) => {
     const [query, setQuery] = useState("");
@@ -149,7 +164,7 @@ export const SearchInput = ({
     const searchProducts = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         const urlQuery = query.replace(" ", "%20");
-        //searchEvent(urlQuery, leadId)
+        searchEvent(urlQuery, leadId)
         router.push(`/products?query=${urlQuery}`);
     };
 
