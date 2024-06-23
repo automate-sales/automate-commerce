@@ -4,6 +4,8 @@ import { NextAuthOptions, getServerSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer"
 import type { Adapter } from 'next-auth/adapters';
+import { updateLead } from "@/app/actions";
+import { getServerLead } from "./leads/server";
 
 export type UserObj = {
     name?: string | null;
@@ -59,11 +61,16 @@ export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma) as Adapter,
     callbacks: {
         async signIn({ user }: {user: UserObj}) {
-            console.log('user signing in: ', user)
-            
-            return true
-         
-        }
+          console.log('user signing in: ', user)
+          return true
+        },
+        async session({ session, token, user }) {
+          const leads = await getServerLead()
+          const leadId = leads[0] || leads[1] 
+          leadId && await updateLead(leadId, { userId: user.id })
+          session.user = user as any;
+          return session;
+        },
     },
 }
 
