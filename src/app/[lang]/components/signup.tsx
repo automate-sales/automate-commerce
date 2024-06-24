@@ -17,11 +17,11 @@ interface FormData {
   birth_date: string;
 }
 
-export default function CustomForm({user}:{user: UserObj}) {
+export default function CustomForm({user}:{user?: UserObj}) {
     const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     name: '',
-    email: user.email || '',
+    email: user?.email || '',
     phone_numbers: [],
     address: '',
     birth_date: '',
@@ -46,7 +46,7 @@ export default function CustomForm({user}:{user: UserObj}) {
     e.preventDefault();
     const leadId = await getLead()
     console.log('Form submitted:', leadId, formData);
-    leadId && await updateLead(leadId, formData);
+    leadId && await updateLead(leadId, formData, user?.id );
     toast.success('You have signed up succesfully!');
     router.push('/');
   };

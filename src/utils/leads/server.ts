@@ -225,6 +225,8 @@ export const joinLeads = async (currentLeadId: string, otherLeadId: string): Pro
       }
     });
 
+    // prisma transaction
+
     // Save the updated currentLead back to the database
     const updatedLead = await prisma.lead.update({
       where: { id: currentLeadId },

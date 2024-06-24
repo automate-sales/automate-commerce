@@ -6,18 +6,19 @@ import { permanentRedirect, redirect } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from 'next'
 import { getDictionary } from "@/app/dictionaries";
 import { Breadcrumbs, Props, seoCompotnent } from "../../components/seo";
-import { loginEvent } from "@/utils/analytics";
+import { toast } from "react-toastify";
+
 
 export default async function SignIn({ params }: { params: { redirect?: string, lang: string } }) {
   //const cookieStore = cookies()
   //const visitorId = cookieStore.get('ergo_lead_id')?.value
-  console.log('LOGGING INNN')
   const dict = await getDictionary(params.lang)
   const redirectPath = params.redirect ? params.redirect : '/'
   const user = await getCurrentUser()
-  console.log('USERRRR ', user)
+  console.log('USUERIOOO ', user)
   if (user) {
-    if (user.name) {
+    if (user.username) {
+      toast.success(`Welcome back ${user.username}`)
       redirect(redirectPath)
     } else {
       permanentRedirect(`/user/info?first_login=true${params.redirect ? `&redirect=${params.redirect}` : ''}`)
@@ -26,7 +27,10 @@ export default async function SignIn({ params }: { params: { redirect?: string, 
 
   return (
     <>
-
+      <Breadcrumbs crumbs={[
+        {name: dict.breadCrumbs.home, path: '/'},
+        {name: dict.login.title, path: '/login'},
+      ]} />
       <div className="flex flex-col items-center justify-center h-screen">
 
         <div className="p-10 block border w-96">
