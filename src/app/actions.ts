@@ -67,9 +67,9 @@ export async function createLeadWithCart(
 type UpdateLeadInput = {
   [P in keyof Lead]?: Lead[P];
 };
-export async function updateLead(leadId: string, data: UpdateLeadInput ) {
-  if(data && 'username' in data) await prisma.user.update({
-    where: { id: leadId },
+export async function updateLead(leadId: string, data: UpdateLeadInput, userId?: string | null ) {
+  userId && await prisma.user.update({
+    where: { id: userId },
     data: { username: data.email?.split('@')[0] || data.name?.split('').join('_') }
   })
   return await prisma.lead.update({
@@ -372,4 +372,5 @@ export const swapCarts = async (
   })
   setServerCart(newCartId)
   reroute && redirect('/cart')
+  return 
 }
