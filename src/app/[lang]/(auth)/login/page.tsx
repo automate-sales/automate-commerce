@@ -14,11 +14,13 @@ export default async function SignIn({ params }: { params: { redirect?: string, 
   //const visitorId = cookieStore.get('ergo_lead_id')?.value
   const dict = await getDictionary(params.lang)
   const redirectPath = params.redirect ? params.redirect : '/'
+  console.log('REDIRECT PATHHIOOO ', redirectPath)
   const user = await getCurrentUser()
   console.log('USUERIOOO ', user)
   if (user) {
     if (user.username) {
-      toast.success(`Welcome back ${user.username}`)
+      //toast.success(`Welcome back ${user.username}`)
+      // redirect to a client side page that will trigger a success notification and redirect via clientside
       redirect(redirectPath)
     } else {
       permanentRedirect(`/user/info?first_login=true${params.redirect ? `&redirect=${params.redirect}` : ''}`)

@@ -10,6 +10,7 @@ import CartEvent from '../../components/analytics/cart';
 
 export default async function Page({ params }: { params: { lang: string } }) {
   const cart = await getCartWithItems()
+  console.log('CARRITOOOOOOOOOP', cart)
   if (!cart) {
     return <div>No cart found</div>;
   }

@@ -116,6 +116,7 @@ export const getServerLead = async () => {
 }
 
 export const setServerCart = (cartId: string) => {
+  console.log('SETTING SERVER CART: ', cartId)
     setCookie( CART_COOKIE , cartId)
 }
 
@@ -129,6 +130,16 @@ export const getServerCart = async()=> {
     return leadId[0] ? await getCartId(leadId[0]) : leadId[1] ? await getCartId(leadId[1]) : undefined
 }
 
+
+export const isLeadActive = async (leadId: string) => {
+    try {
+        const lead = await prisma.lead.findUnique({ where: { id: leadId }, select: {status: true} })
+        return lead && lead.status !== 'inactive' ? true : false
+    } catch (err) {
+        console.error('Error checking if lead is active', err)
+        return false
+    }
+}
 
 export async function createLeadAndCart(
     fingerprint: string,
@@ -166,7 +177,9 @@ export async function getCartId(leadId: string) {
 
 export async function getCartWithItems(id?: string) {
     const cartId = id ? id : await getServerCart()
+    const leadID = await getServerLead()
     console.log('CARTO ID ', cartId)
+    console.log('LEADIO ID ', leadID)
     if(!cartId) return undefined   
     return await prisma.cart.findUnique({
       where: { id: cartId, status: 'active' },
