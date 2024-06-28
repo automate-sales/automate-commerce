@@ -4,8 +4,10 @@ import { NextAuthOptions, getServerSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer"
 import type { Adapter } from 'next-auth/adapters';
-import { getCartWithItems, getServerLead } from "./leads/server";
+import { getCartWithItems, getServerLead, joinLeads } from "./leads/server";
 import { User } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { swapCarts } from "@/app/actions";
 
 export type UserObj = {
     name?: string | null;
@@ -69,12 +71,13 @@ export const authOptions: NextAuthOptions = {
           try {
             const leads = await getServerLead()
             const currentLeadId = leads[0] || leads[1]
-            console.log('current lead id: ', currentLeadId)
             const currentCart = await getCartWithItems()
+            console.log('current lead id: ', currentLeadId)
+            console.log('current cart id: ', currentCart)
             if(!currentLeadId || !currentCart) return session
             console.log('current session user: ', user)
             
-            /* const userWithLeadAndCart = await prisma.user.findUnique({
+            const userWithLeadAndCart = await prisma.user.findUnique({
               where: { id: user.id },
               include : { leads: {
                 where: { status: { not: 'inactive'} },
@@ -93,7 +96,12 @@ export const authOptions: NextAuthOptions = {
             const userLead = userWithLeadAndCart?.leads[0]
             const userCart = userLead?.carts[0]
 
-            
+            session.user = {
+              ...user, 
+              leadId: currentLeadId, 
+              username: userWithLeadAndCart?.username 
+            } as any;
+
             if(!userLead || userLead && userLead.id !== currentLeadId) {
               
               await prisma.lead.update({
@@ -113,9 +121,9 @@ export const authOptions: NextAuthOptions = {
                 }
 
               }
-            }  */         
+            }          
 
-            session.user = {...user, leadId: currentLeadId } as any;
+            
             return session;
           } catch (err) {
             console.error('Error getting session', err)

@@ -9,7 +9,7 @@ import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
 import { redirect } from 'next/navigation'
-import { setServerCart } from '@/utils/leads/server'
+import { setServerCart  } from '@/utils/leads/server'
 
 export async function setCookie(name: string, value: string) {
   try {
@@ -32,6 +32,9 @@ export async function findLeadByFingerprint(fingerprint: string) {
       createdAt: {
         gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30),
       },
+      status: {
+        not: 'inactive',
+      }
     },
     orderBy: {
       createdAt: 'desc',
@@ -81,7 +84,10 @@ export async function updateLead(leadId: string, data: UpdateLeadInput, userId?:
 export async function findOrCreateLeadWithCart(fingerprint: string, id?: string) {
   const lead = await findLeadByFingerprint(fingerprint)
   if (lead) return { leadId: lead.id, cartId: lead.carts[0].id }
-  else return createLeadWithCart(fingerprint, id)
+  else {
+    console.log('CREATING LEAD WITH CART ', id)
+    return createLeadWithCart(fingerprint, id)
+  }
 }
 
 export async function addToCart(
@@ -370,7 +376,7 @@ export const swapCarts = async (
     where: { id: newCartId },
     data: { leadId: leadId, status: 'active'}
   })
-  setServerCart(newCartId)
+  await setServerCart(newCartId)
   reroute && redirect('/cart')
   return 
 }
