@@ -5,6 +5,7 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
 import { getDictionary } from '@/app/dictionaries'
 import { getCartWithItems } from '@/utils/leads/server'
+import CartEvent from '../../components/analytics/cart';
 
 
 export default async function Page({ params }: { params: { lang: string } }) {
@@ -15,6 +16,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
   const dict = await getDictionary(params.lang)
   return (
     <>
+    <CartEvent />
     <Breadcrumbs crumbs={[
       {name: dict.breadCrumbs.home, path: '/'},
       {name: dict.cart.title, path: '/cart'},
