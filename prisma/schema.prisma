@@ -74,7 +74,7 @@ enum LeadStatus {
   prospect
   customer
   loyalty
-  duplicate
+  inactive
 }
 
 model Lead {
@@ -82,7 +82,6 @@ model Lead {
   fingerprint String
   status LeadStatus @default(lead)
   name String?
-  username String?
   email String?
   phone_numbers String[] @default([])
   address String?
@@ -93,6 +92,8 @@ model Lead {
   updatedAt     DateTime      @updatedAt
   createdBy     String?
   updatedBy     String?
+  userId           String?
+  user           User?    @relation(fields: [userId], references: [id])
 }
 
 enum CartStatus {
@@ -174,6 +175,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  username      String?
+  migrated      Boolean @default(false)
+  leads Lead[]
 }
 
 model VerificationToken {

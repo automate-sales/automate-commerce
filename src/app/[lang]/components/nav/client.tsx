@@ -11,6 +11,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 
 export const DropDown =({label, items, fixed=false, classNames=''}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string})=> {
@@ -202,9 +203,13 @@ export const UserMenu = ({ user }: { user: any }) => {
     const urlPath = usePathname();
 
     const logOut = async () => {
-        await signOut();
+        await toast.promise(signOut(), {
+            pending: "Cerrando sesión",
+            success: "Sesión cerrada",
+            error: "Error cerrando sesión",
+          });
         console.log("User signed out");
-        router.push(urlPath);
+        //router.push(urlPath);
     };
 
     return (

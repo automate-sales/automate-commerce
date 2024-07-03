@@ -1,7 +1,7 @@
 'use client'
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, isBot, setCookie, setServerCart, setServerLead } from './server';
+import { deleteCookie, getCartId, getCookie, getServerCartCookie, getServerLead, isBot, isLeadActive, setCookie, setServerCart, setServerLead } from './server';
 import { LEAD_COOKIE } from './constants';
 import { findOrCreateLeadWithCart } from '@/app/actions';
 
@@ -123,23 +123,28 @@ let mounted = false
 export const getOrCreateLead = async() => {
     try {
         const [cookiesId, headersId] = await getServerLead()
+        const isActiveCookies = cookiesId && await isLeadActive(cookiesId)
+        
+        if(isActiveCookies) setCart(await getCartId(cookiesId))
+        
         const cookieSettings = await getCookiSettings()
         const hid = new URLSearchParams(window.location.search).get('hid')
         console.log('COOKIE SETTINGS', cookieSettings)
         console.log('HID', hid)
-        if(!mounted && !await cookiesId && !hid){
+        if(!mounted && !isActiveCookies && !hid){
             mounted = true
             // for user of an incognito browser, or browser with cookies blocked, it should use the fingerprint to 
-            console.log('NO COOKIES ID')
+            console.log('NO ACTIVE LEAD ID IN COOKIES')
             // in cdase the user has all cookies blocked
             const localStorageId = getClientLead()
-            if (!localStorageId && !cookieSettings?.isBot) {
+            if (!localStorageId && !cookieSettings?.isBot || !isActiveCookies) {
                 console.log('NO LOCAL STORAGE ID')
                 const fingerprint = await generateFingerprint()
                 const response = await findOrCreateLeadWithCart(fingerprint)
                 setLead(response.leadId)
                 setCart(response.cartId)
 
+                // checks if all cookies disabled
                 if(!await getCookie(LEAD_COOKIE)){
                     //const searchParams = useSearchParams()
                     //console.log('SEARCH PARAMS ', searchParams)

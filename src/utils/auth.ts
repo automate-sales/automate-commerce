@@ -4,6 +4,10 @@ import { NextAuthOptions, getServerSession } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer"
 import type { Adapter } from 'next-auth/adapters';
+import { getCartWithItems, getServerLead, joinLeads } from "./leads/server";
+import { User } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { swapCarts } from "@/app/actions";
 
 export type UserObj = {
     name?: string | null;
@@ -14,8 +18,9 @@ export type UserObj = {
 
 export const getCurrentUser = async ()=> {
     const session = await getServerSession(authOptions)
+    console.log('current session: ', session)
     if(session && session.user) {
-        return session.user as UserObj
+        return session.user as User
     } else return undefined
 }
 
@@ -59,10 +64,71 @@ export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma) as Adapter,
     callbacks: {
         async signIn({ user }: {user: UserObj}) {
-            console.log('user signing in: ', user)
+          console.log('user signing in: ', user)
+          return true
+        },
+        async session({ session, token, user }) {
+          try {
+            const leads = await getServerLead()
+            const currentLeadId = leads[0] || leads[1]
+            const currentCart = await getCartWithItems()
+            console.log('current lead id: ', currentLeadId)
+            console.log('current cart id: ', currentCart)
+            if(!currentLeadId || !currentCart) return session
+            console.log('current session user: ', user)
             
-            return true
-         
+            const userWithLeadAndCart = await prisma.user.findUnique({
+              where: { id: user.id },
+              include : { leads: {
+                where: { status: { not: 'inactive'} },
+                orderBy: { createdAt: 'desc' },
+                take: 1,
+                include: { carts: {
+                  where: { status: 'active' },
+                  orderBy: { createdAt: 'desc' },
+                  include: { cartItems: {
+                    select: { id: true, qty: true, productId: true } }
+                  },
+                  take: 1
+                }}
+              } }
+            })
+            const userLead = userWithLeadAndCart?.leads[0]
+            const userCart = userLead?.carts[0]
+
+            session.user = {
+              ...user, 
+              leadId: currentLeadId, 
+              username: userWithLeadAndCart?.username 
+            } as any;
+
+            if(!userLead || userLead && userLead.id !== currentLeadId) {
+              
+              await prisma.lead.update({
+                where: { id: currentLeadId },
+                data: { user: { connect: { id: user.id } } }
+              })
+
+              if(userLead){
+                await joinLeads(currentLeadId, userLead.id)
+                if(userCart?.cartItems.length && userCart?.cartItems.length > 0) {
+                  if(currentCart.cartItems.length > 0) {
+                    // reroute the user to a pop up asking if they want to keep the current cart
+                    redirect(`/user/cart/${userCart.id}`)
+                  } else {
+                    swapCarts(currentCart.id, userCart.id, currentLeadId)
+                  }
+                }
+
+              }
+            }          
+
+            
+            return session;
+          } catch (err) {
+            console.error('Error getting session', err)
+            return session;
+          }
         }
     },
 }

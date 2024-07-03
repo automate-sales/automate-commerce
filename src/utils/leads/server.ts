@@ -3,6 +3,8 @@
 import { cookies, headers } from 'next/headers'
 import prisma from '@/db'
 import { LEAD_COOKIE, CART_COOKIE } from './constants'
+import { Cart, Lead } from '@prisma/client';
+//import { Lead } from '@prisma/client';
 
 /* import * as crypto from 'crypto';
 import base62 from 'base62/lib/ascii';
@@ -114,6 +116,7 @@ export const getServerLead = async () => {
 }
 
 export const setServerCart = (cartId: string) => {
+  console.log('SETTING SERVER CART: ', cartId)
     setCookie( CART_COOKIE , cartId)
 }
 
@@ -127,6 +130,16 @@ export const getServerCart = async()=> {
     return leadId[0] ? await getCartId(leadId[0]) : leadId[1] ? await getCartId(leadId[1]) : undefined
 }
 
+
+export const isLeadActive = async (leadId: string) => {
+    try {
+        const lead = await prisma.lead.findUnique({ where: { id: leadId }, select: {status: true} })
+        return lead && lead.status !== 'inactive' ? true : false
+    } catch (err) {
+        console.error('Error checking if lead is active', err)
+        return false
+    }
+}
 
 export async function createLeadAndCart(
     fingerprint: string,
@@ -164,7 +177,9 @@ export async function getCartId(leadId: string) {
 
 export async function getCartWithItems(id?: string) {
     const cartId = id ? id : await getServerCart()
+    const leadID = await getServerLead()
     console.log('CARTO ID ', cartId)
+    console.log('LEADIO ID ', leadID)
     if(!cartId) return undefined   
     return await prisma.cart.findUnique({
       where: { id: cartId, status: 'active' },
@@ -205,3 +220,50 @@ export async function getCartLength() {
     })
     return cart?.cartItems.reduce((acc, curr) => acc + curr.qty, 0) || 0
 }
+
+
+export const joinLeads = async (currentLeadId: string, otherLeadId: string): Promise<Lead> => {
+  try {
+    let currentLead = await prisma.lead.findUnique({ where: { id: currentLeadId } }) as any;
+    const otherLead = await prisma.lead.findUnique({ 
+      where: { id: otherLeadId },
+      include: { carts: true },
+    }) as Lead & { carts: Cart[] };
+    if (!currentLead || !otherLead) { throw new Error('Lead not found'); }
+    const excludeFields = ['id', 'fingerprint', 'carts'];
+    
+    Object.keys(otherLead).forEach((key) => {
+      if (!excludeFields.includes(key) && otherLead[key as keyof Lead] && !currentLead[key]) {
+        currentLead[key] = otherLead[key as keyof Lead];
+      }
+    });
+
+    // prisma transaction
+
+    // Save the updated currentLead back to the database
+    const updatedLead = await prisma.lead.update({
+      where: { id: currentLeadId },
+      data: currentLead,
+    });
+
+    // disable the other lead
+    await prisma.lead.update({
+      where: { id: otherLeadId },
+      data: { status: 'inactive' },
+    });
+
+    // Move the other lead's cart to the current lead
+    otherLead.carts.forEach(async (cart: Cart) => {
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: { leadId: currentLeadId, status: 'inactive' },
+      });
+    });
+    
+    return updatedLead;
+
+  } catch (err) {
+    console.error('Error joining leads', err);
+    throw new Error('Error joining leads');
+  }
+};
