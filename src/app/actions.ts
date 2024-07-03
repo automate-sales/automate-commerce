@@ -9,6 +9,7 @@ import { processPayment } from '@/utils/payments/nmi'
 import { sendEmail } from '@/utils/email'
 import prisma from '@/db'
 import { redirect } from 'next/navigation'
+<<<<<<< HEAD
 import { setServerCart  } from '@/utils/leads/server'
 
 export async function navigate(path: string) {
@@ -16,6 +17,9 @@ export async function navigate(path: string) {
   redirect(path)
   console.log('NAVIGATED BRO')
 }
+=======
+import { CART_COOKIE } from '@/utils/leads/constants'
+>>>>>>> eddce2e (fixes rebasing)
 
 export async function setCookie(name: string, value: string) {
   try {
@@ -290,13 +294,17 @@ export async function createOrder(
     await validateUniqueCart(cart);
     await validateCheckout(payload, cart.cartItems);
     const newOrder = await submitOrder(orderInfo, customerInfo, shippingInfo, billingInfo)
-
     // if payment errors out, set the order as inactive then return error
     const paymentId = await submitPayment(paymentInfo, orderInfo.total, newOrder.id)
-
-    const newCartId = await processOrder(newOrder, cart, paymentId)
-    setCookie('ergo_cart_id', String(newCartId))
+    //update product inventory, order status, paymentRef
+    const {confirmedOrder, newCartId} = await completeOrder(newOrder, cart, paymentId)
+    
+    setCookie(CART_COOKIE, String(newCartId))
+    console.log('ORDER CREATED: ', JSON.stringify(confirmedOrder, null,2))
+    
+    await createInvoice(confirmedOrder)
     const sentEmail = await sendEmail(cart, newOrder)
+    
     return { orderId: newOrder.id, newCartId: newCartId, sentEmail: sentEmail }
   } catch (err: any) {
     const msg = 'Error creating order'
@@ -304,6 +312,7 @@ export async function createOrder(
     throw new Error(`${msg}: ${err.message}`)
   }
 }
+
 
 const confirmOrder = (orderId: string, paymentId: string) => {
   return prisma.order.update({
@@ -353,7 +362,7 @@ const createNewCart = (leadId: string) => {
   })
 }
 
-export const processOrder = async (
+export const completeOrder = async (
   order: Order,
   cart: CartWithItems,
   paymentId: string
