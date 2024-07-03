@@ -11,6 +11,12 @@ import prisma from '@/db'
 import { redirect } from 'next/navigation'
 import { setServerCart  } from '@/utils/leads/server'
 
+export async function navigate(path: string) {
+  console.log('Navigating to ', path)
+  redirect(path)
+  console.log('NAVIGATED BRO')
+}
+
 export async function setCookie(name: string, value: string) {
   try {
     cookies().set({

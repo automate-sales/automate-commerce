@@ -1,4 +1,3 @@
-//import { cookies } from "next/headers";
 import Link from "next/link";
 import { getCurrentUser } from "@/utils/auth";
 import LoginForm from "@/app/[lang]/components/login";
@@ -6,7 +5,7 @@ import { permanentRedirect, redirect } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from 'next'
 import { getDictionary } from "@/app/dictionaries";
 import { Breadcrumbs, Props, seoCompotnent } from "../../components/seo";
-import { toast } from "react-toastify";
+//import Session from "../../components/session";
 
 
 export default async function SignIn({ params }: { params: { redirect?: string, lang: string } }) {
@@ -14,11 +13,12 @@ export default async function SignIn({ params }: { params: { redirect?: string, 
   //const visitorId = cookieStore.get('ergo_lead_id')?.value
   const dict = await getDictionary(params.lang)
   const redirectPath = params.redirect ? params.redirect : '/'
-  console.log('REDIRECT PATHHIOOO ', redirectPath)
+  console.log('REDIRECT PATsH ', redirectPath)
   const user = await getCurrentUser()
-  console.log('USUERIOOO ', user)
+  console.log('USER IO ', user)
   if (user) {
     if (user.username) {
+      console.log('USITOO ', user)
       //toast.success(`Welcome back ${user.username}`)
       // redirect to a client side page that will trigger a success notification and redirect via clientside
       redirect(redirectPath)
@@ -33,6 +33,7 @@ export default async function SignIn({ params }: { params: { redirect?: string, 
         {name: dict.breadCrumbs.home, path: '/'},
         {name: dict.login.title, path: '/login'},
       ]} />
+      {/* <Session username={user?.username} redirectPath={redirectPath} /> */}
       <div className="flex flex-col items-center justify-center h-screen">
 
         <div className="p-10 block border w-96">
