@@ -1,4 +1,4 @@
-/* describe('Home Page Loads with Acceptable Performance', () => {
+ describe('Home Page Loads with Acceptable Performance', () => {
     it('loads succesfully', () => {
       cy.visit('localhost:3000')
     })
@@ -43,4 +43,4 @@ describe('Search functionality works as expected', () => {
         cy.get('#chair-phaser-bl').click()
         cy.url().should('include', '/products/chair-phaser-bl')
     })
-  }) */
+  }) 
