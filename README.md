@@ -1,5 +1,7 @@
 # AUTOMATE COMMERCE
 
+# Setup
+
 ## Requirements
 1. You must have docker desktop, or docker and docker-compose
 2. Node Js and NPM
@@ -10,6 +12,28 @@
 2. Open a new terminal window and Run `npm install && npx prisma generate` to install dependencies and generate the prisma client
 3. Run `npx prisma db push && npx prisma db seed` to create tables and seed the development db
 4. Run `npm run dev` to run the development server.
+
+.env.development
+```
+NODE_ENV="development"
+DEBUG=true
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ergonomica"
+NEXTAUTH_SECRET=someRandomString
+NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_IMAGE_HOST=http://localhost:9000/ergonomica-media
+NEXT_PUBLIC_WEB_HOST=http://localhost:3000
+NEXTAUTH_SECRET=secret24742
+GOOGLE_CLIENT_ID=1000000000000-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+MINIO_ENDPOINT=http://localhost:9000
+NMI_SECURITY_KEY=6457Thfj624V5r7WUwc5v6a68Zsd6YEm
+PROJECT_NAME=ergonomica
+AWS_REGION=us-east-1
+AWS_DEFAULT_REGION=us-east-1
+FB_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxx
+FB_TEST_CODE=TEST75581
+SECRET_KEY=someRandomString
+```
 
 ## Seeding the database
 - to seed the database you can run `npx prisma db seed`. this command will clear and re-seed the DB
@@ -24,13 +48,29 @@ make sure you have the pg_trgm extension enabled in your postgres database. To d
 3. if no extension is found run `CREATE EXTENSION IF NOT EXISTS pg_trgm;`
 4. run `exit` to exit psql shell
 
-## Testing
+# Testing
 End to end tests are held in the `cypress/e2e/` directory.
 
 You can run the test suite without having to install any depencies manually by running `./test.sh`.
 
 If you want to run tests manually you can run `npx cypress open` while having another terminal running the dev server. Beware that performance tests will fail when running the test suite with the dev server; If you want to test performance run `npm run build && npm run start` to build and serve the app.
 
+
+- Modular architecture
+- opensource
+- solid and friendly tech stack
+- easy to use: deploy in 5 minutes
+- Fast: our performance is tested
+
+# Features
+- SEO
+- Analytics
+- i18n
+- Lead Management
+- Cart Management
+- Checkout
+- Authentication
+- Security
 
 # Analytics
 to use analytics you must set the following env variables. The analytics package has modules for the following analytics providers:
@@ -129,9 +169,84 @@ click on generate Access Token and add some permissions
 
 # Lead management
 
+This ecommerce is inetded to unfiy the customer experience both digitaly and phisically. and the ecommerce features several tools to help generate, track and convert leads. It also features advanced functionality to help you unify in-person and digital leads, being able to track a leads entire customer jurney, from the digital side to the physical side without any gaps
+
 This ecommerce creates a unique leadId for users.
 
 It uses a combination of server side actions through middleware and client side actions in the main layout file with a client side component to track the lead and their ID throughout the app
+
+This works through middleware <-> serverside functions <-> clint side 
+
+
+This is an experimental 
+
+middleware:
+lead ID is received from search params in the referer (previous URL) and its added the search params of the URL of the next request.
+
+
+
+## Lead Utils
+lead utilities are distributed into 2 main packages, one for the server and one for the client:
+- src/utils/leads/server.ts
+- src/utils/leads/client.ts
+- src/utils/leads/constants.ts
+
+1. middleware
+2. app/layout.tsx
+  1. LeadGen component -> app/[lang]/components/leadGen.tsx
+    1. getOrCreateLead -> utils/leads/client
+3. app/[lang]/(main)/layout.tsx or app/[lang]/(auth)/layout.tsx
+  1. getCurrentUser -> utils/auth
+  2. nav -> app/[lang]/components/nav/nav.tsx
+    1. getServerLead -> utils/leads/server.ts: gets a serverside lead cookie
+4. specific page
+
+
+## Middleware
+Inside the middleware there is a condition that checks for a previous URL, if the previous URL has an hid (hidden ID) searchParam in the URL, this will set the hid param in the next request as well. This is useful for visitors that have all cookies blocked, attaching their initial session leadID in the URL allows them to still use most of the functionality in the website.
+
+## leadGen component
+the leadgen component is a client side react component that uses come of the clientside lead utilities with useEffect, so basically this function will execute everytime a page renders
+
+## getOrCreateLead
+1. getServerLead
+2. isLeadActive
+3. fetch and set cart
+4. getCookieSettings
+5. get hid from url
+6. check if (!mounted && !isActiveCookies && !hid)
+  1. getClientLead
+  2. check if (!localStorageId && !cookieSettings?.isBot || !isActiveCookies)
+    1. generateFingerprint
+    2. findOrCreateLeadWithCart
+    3. setLead and setCart
+    4. check if(!await getCookie(LEAD_COOKIE))
+      1. set hid searchParam in url
+      2. window.history.pushState(null, '', `?${params.toString()}`)
+return cookieSettings
+
+
+
+
+## Cart Management
+this ecommerce creates shopping carts inside a database. It uses local leads to relate and fetch shopping carts.
+
+1. middleware
+2. app/layout.tsx
+  1. LeadGen component -> app/[lang]/components/leadGen.tsx
+    1. getOrCreateLead -> utils/leads/client
+3. app/[lang]/(main)/layout.tsx or app/[lang]/(auth)/layout.tsx
+  1. getCurrentUser -> utils/auth
+  2. nav -> app/[lang]/components/nav/nav.tsx
+    1. getServerLead -> utils/leads/server.ts: gets a serverside lead cookie
+4. cart page
+  1. compares the cartId passed from parameters with the cartId in the cookies. The cart Id in the cookies has been passed from the previous layout component. Here there is an issue if the user has cookies disabled completely. it should also try to get the cart from the leadId in the searchParams. -> make a getLead function that gets cookies -> searchParams
+
+
+
+
+
+
 
 ## leads_fix
 uses a condition on mounted to only generate 1 lead

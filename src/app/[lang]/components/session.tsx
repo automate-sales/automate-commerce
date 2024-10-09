@@ -1,4 +1,4 @@
-'use client'
+/* 'use client'
 
 import { navigate } from "@/app/actions"
 import { useEffect } from "react"
@@ -13,4 +13,4 @@ export default function Session({username, redirectPath='/'}: {username?: string
         }
     }, [])
     return <></>
-}
+} */

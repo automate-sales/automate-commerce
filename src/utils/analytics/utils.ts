@@ -19,7 +19,7 @@ export const getTotalQty = (cartItems: CartItem[]) => {
 }
 
 export const getSubTotal = (cartItems: CartItem[]) => {
-    return cartItems.reduce((a: number, b: CartItem) => a + b.total, 0)
+    return cartItems.reduce((a: number, b: CartItem) => a + b.qty*b.price, 0)
 }
 
 export const getItems = (cart: CartItemWithProduct[]| CartItem[]) => {

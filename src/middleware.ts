@@ -32,9 +32,6 @@ export function middleware(request: NextRequest) {
 
   const currentUrl = href
   const previousUrl = request.headers.get('referer');
-  console.log('PREVIOUS URL', previousUrl, ' ', previousUrl && hasHid(previousUrl) )
-  console.log('CURRENT URL', currentUrl, ' ', currentUrl && hasHid(currentUrl) )
-
 
   const requestHeaders = new Headers(request.headers)
   //!requestHeaders.get('x-leadid') && requestHeaders.set('x-leadid', createId() )

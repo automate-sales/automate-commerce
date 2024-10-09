@@ -2,6 +2,7 @@
 
 import { setCookie } from "@/app/actions";
 import { searchEvent } from "@/utils/analytics";
+import { getClientLead, getLead } from "@/utils/leads/client";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
 import { Bars3Icon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
@@ -67,13 +68,11 @@ export const NavLinks = ({ links, fixed=false }: { links: NavElement[], fixed?: 
 
 export const SideMenu = ({ 
     categories, 
-    leadId, 
     links, 
     languages, 
     lang='en' 
-}: { 
+}: {
     categories: CategoryWithSubcategories[], 
-    leadId: string, 
     links: NavElement[], 
     languages?: string[], 
     lang?: string 
@@ -133,7 +132,7 @@ export const SideMenu = ({
             >
                 <div className="p-5 flex flex-col gap-3">
                     <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
-                    <SearchInput leadId={leadId} />
+                    <SearchInput />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
                     {languages && <LangSelector languages={languages} />}
@@ -153,19 +152,18 @@ export const SideMenu = ({
 };
 
 export const SearchInput = ({
-    leadId,
     classNames
 }: {
-    leadId: string;
     classNames?: string;
 }) => {
     const [query, setQuery] = useState("");
     const router = useRouter();
-
     const searchProducts = (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         const urlQuery = query.replace(" ", "%20");
-        searchEvent(urlQuery, leadId)
+        getLead().then(leadId=> {
+            searchEvent(urlQuery, leadId||'');
+        })
         router.push(`/products?query=${urlQuery}`);
     };
 

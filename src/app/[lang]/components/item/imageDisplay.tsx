@@ -12,7 +12,7 @@ export default function ImageDisplay({ product }: ImageDisplayProps) {
     const [selectedImage, setSelectedImage] = useState(0);
     const [transitionClass, setTransitionClass] = useState('');
 
-    const handleThumbnailClick = (index) => { 
+    const handleThumbnailClick = (index: number) => { 
       const midpoint = product.images.length / 2; 
       if (index < midpoint) {
           setTransitionClass('slide-in-left');

@@ -38,9 +38,10 @@ describe('An existing user signs in from the login page', () => {
       .type('{enter}')
       //cy.contains(email_confirmation_msg).should("be.visible")
       .wait(3000)
-      cy.task('getLastEmail', 'user@testuser.com').then((email:{body:string, html:string})=> {
-        cy.log('EMAIl FOUND: ', email)
-        let body = email.body.toString()
+      cy.task('getLastEmail', 'user@testuser.com').then((email)=> {
+        const typedEmail = email as { body: string; html: string };
+        cy.log('EMAIl FOUND: ', typedEmail)
+        let body = typedEmail.body.toString()
         let url = body.slice(body.indexOf('http'))
         expect(url).to.not.be.empty
         cy.visit({url: url, method: 'POST'})

@@ -11,9 +11,7 @@ import { clearLocalStorage } from '../utils'
 
    
 // visitor in europe
-
-
-// A person with cookies completely disabled should be able to use the site with all its functionalitites
+// A person with cookies completely disabled should be able to use the site with all its functionalitites (diusable all cookies)
 
 // should maintain the lead id in the URL and the headers
 // click on a product
@@ -45,8 +43,10 @@ beforeEach(() => {
     cy.visit('localhost:3000')
     .wait(500)
     cy.getCookie('leadId').then(leadId => {
-      cy.log('LEAD ID ****** ', leadId.value)
-      cy.setCookie('leadId', leadId.value, {httpOnly: true})
+      if(leadId && leadId.value){
+        cy.log('LEAD ID ****** ', leadId.value)
+        cy.setCookie('leadId', leadId.value, {httpOnly: true})
+      }
     })
   }, {cacheAcrossSpecs: true})
 })
