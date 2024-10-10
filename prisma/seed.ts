@@ -35,6 +35,7 @@ async function wipeProductsSubcategoriesAndCategories() {
   return true
 }
 interface BaseModel {
+  id?: string | number;
   title?: Prisma.InputJsonValue;
   description?: Prisma.InputJsonValue;
   createdAt?: string | Date;
@@ -56,6 +57,7 @@ function convertToCreateInput<T extends BaseModel>(data: T): T {
   if (data.updatedAt && typeof data.updatedAt === 'string') {
     data.updatedAt = new Date(data.updatedAt);
   }
+  if(data.id) delete data.id;
   //if(data.category) delete data.category;
   //if(data.subcategory) delete data.subcategory;
   return data;
@@ -86,10 +88,11 @@ async function seedCategories() {
 
 async function seedSubcategories() {
   const createSubcategoryPromises = subcategories.map(async (subcategory) => {
+    const { categorySlug, ...subcat } = subcategory;
     const data: Prisma.SubcategoryCreateInput = {
-      ...convertToCreateInput(subcategory),
+      ...convertToCreateInput(subcat),
       category: {
-        connect: { id: subcategory.categoryId }, // Connect by `id`
+        connect: { slug: categorySlug }, // Connect by `id`
       },
     };
     await prisma.subcategory.create({ data });
@@ -113,10 +116,11 @@ async function seedSubcategories() {
 
 async function seedProducts() {
   const createProductPromises = products.map(async (product) => {
+    const { subcategorySlug, ...prod } = product;
     const data: Prisma.ProductCreateInput = {
-      ...convertToCreateInput(product),
+      ...convertToCreateInput(prod),
       subcategory: {
-        connect: { id: product.subcategoryId }, // Connect by `id`
+        connect: { slug: product.subcategorySlug }, // Connect by `id`
       },
     };
     await prisma.product.create({ data });
@@ -190,6 +194,7 @@ async function seedTestData() {
   const users = [
       {
         name: "John Doe",
+        username: "johndoe@doejohn.com",
         email: "johndoe@doejohn.com"
       }
   ];

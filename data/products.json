@@ -11,7 +11,6 @@
       "es": "Silla ergonómica de home office con un diseño moderno,  respladar dinámico que se ajusta a tus movimientos y asiento de espuma moldeada de alta densidad. Brinda una comodidad extrema y un excelente soporte para toda la espalda. Diseñado especialmente para profesionales que pasan muchas horas al día sentados frente a una computadora.",
       "en": "Ergonomic home office chair with a modern design, dynamic backrest that adjusts to your movements, and high-density molded foam seat. Provides extreme comfort and excellent support for the entire back. Specifically designed for professionals who spend many hours a day sitting in front of a computer."
     },
-    "subcategoryId": 19,
     "price": 550,
     "stock": 0,
     "color": "wh",
@@ -52,7 +51,8 @@
     "createdAt": "2022-08-31T18:59:08.000Z",
     "updatedAt": "2022-10-05T20:57:29.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 2,
@@ -66,7 +66,6 @@
       "es": "Experimenta una comodidad y soporte sin igual con la silla gamer Apex Elite. Su diseño ergonómico con soporte lumbar ajustable es especial para proteger tu columna durante horas de juego intensas. Tiene acabado de cuero eco con suede para mantenerte fresco en todo momento.  No solo es perfecta para jugar, sino que también cuenta con un diseño elegante y moderno, ideal para usar en tu oficina o en cualquier espacio de trabajo. Incluye almohadas magnéticas. ",
       "en": "Experience unparalleled comfort and support with the Apex Elite gaming chair. Its ergonomic design with adjustable lumbar support is specially designed to protect your spine during intense gaming sessions. It has an eco-leather finish with suede to keep you cool at all times. It's not only perfect for gaming but also features an elegant and modern design, ideal for use in your office or any workspace. Includes magnetic pillows."
     },
-    "subcategoryId": 4,
     "price": 450,
     "stock": 4,
     "color": "bl",
@@ -106,7 +105,8 @@
     "createdAt": "2023-01-19T05:56:35.000Z",
     "updatedAt": "2023-01-19T05:56:36.882Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "Gamer"
   },
   {
     "id": 4,
@@ -120,7 +120,6 @@
       "es": "Silla ergonómica altamente avanzada para el home office.  Tiene dos aspectos que la distinguen; El respaldar se puede inclinar 16 grados hacia el frente y el asiento se también se puede inclinar hacia el frente.  Cuenta con acabado de malla de lujo (asiento y respaldar), soporte lumbar y respladar de altura ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Highly advanced ergonomic chair for home office. It has two distinctive features; the backrest can be tilted 16 degrees forward and the seat can also be tilted forward. It features a luxury mesh finish (seat and backrest), lumbar support, and an adjustable and super comfortable backrest height. Specifically designed for people who spend long hours working at the computer. It provides excellent support for the entire back, helping you maintain good posture. It reduces leg strain with a design that allows for better circulation. Built with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 550,
     "stock": 5,
     "color": "bl",
@@ -161,7 +160,8 @@
     "createdAt": "2022-08-31T19:59:22.000Z",
     "updatedAt": "2023-02-06T21:44:49.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 1,
@@ -175,7 +175,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 4,
     "color": "white",
@@ -232,7 +231,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-26T02:59:23.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 7,
@@ -246,7 +246,6 @@
       "es": "Silla ergonómica de home office super avanzada con marco de aluminio y un respaldar 100% dinámico que se ajusta a tu espalda.  La única silla con soporte lumbar y soporte para la parte alta de la espalda que se adapta a tu cuerpo.  Brinda excelente soporte sin puntos de presión.  Es de malla premium completa (asiento y respaldar).  Diseñado para los profesionales más exigentes y ocupados que pasan más de 8 horas al día frente a la computadora. Su diseño centrado en el ser humano te ayuda a mantener una postura adecuada. Esta silla se siente igual de bien como se ve.  Construido solo con los mejores materiales disponible para que te dure un largo tiempo.",
       "en": "Super advanced ergonomic home office chair with an aluminum frame and a 100% dynamic backrest that adjusts to your back. The only chair with lumbar support and high back support that adapts to your body. Provides excellent support without pressure points. It is made of full premium mesh (seat and backrest). Designed for the most demanding and busy professionals who spend more than 8 hours a day in front of the computer. Its human-centered design helps you maintain proper posture. This chair feels as good as it looks. Built only with the best materials available to last you a long time."
     },
-    "subcategoryId": 19,
     "price": 649.99,
     "stock": 5,
     "color": "bl",
@@ -286,7 +285,8 @@
     "createdAt": "2022-08-14T18:47:27.000Z",
     "updatedAt": "2022-10-05T17:41:06.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 3,
@@ -300,7 +300,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 1,
     "color": "onyx",
@@ -357,7 +356,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-06-09T18:36:02.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 6,
@@ -371,7 +371,6 @@
       "es": "Silla ergonómica premium para el home office con acabado de malla completa (asiento y respaldar), soporte lumbar, altamente ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Premium ergonomic chair for the home office with full mesh finish (seat and backrest), lumbar support, highly adjustable, and super comfortable. Specifically designed for people who spend many hours working in front of the computer. Provides excellent support for the entire back, helping you maintain good posture. Reduces leg strain with a design that allows for better circulation. Built with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 590,
     "stock": 5,
     "color": "bl",
@@ -424,7 +423,8 @@
     "createdAt": "2022-08-14T00:34:58.000Z",
     "updatedAt": "2022-10-05T17:39:55.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 8,
@@ -438,7 +438,6 @@
       "es": "Silla ergonómica de home office para el profesional más exigente. Con su soporte lumbar dinámico, alta capacidad de ajuste / funcionalidad y su diseño centrado en el ser humano; la XTC proporciona un excelente soporte para toda la espalda ayudándote a mantener una mejor postura y un cuerpo más saludable. Construida con un marco trasero de aleación de aluminio sólido, materiales de la más alta calidad y una malla transpirable altamente resistente, esta silla te va a durar bastante tiempo. La mejor configuración de oficina no está completa sin la mejor silla.",
       "en": "Ergonomic home office chair for the most demanding professional. With its dynamic lumbar support, high adjustability/functionality, and human-centered design; the XTC provides excellent support for the entire back, helping you maintain a better posture and a healthier body. Built with a solid aluminum alloy back frame, highest-quality materials, and highly resistant breathable mesh, this chair will last you a long time. The best office setup is not complete without the best chair."
     },
-    "subcategoryId": 19,
     "price": 655,
     "stock": 2,
     "color": "gr",
@@ -495,7 +494,8 @@
     "createdAt": "2022-08-14T01:34:01.000Z",
     "updatedAt": "2022-12-29T22:57:48.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 9,
@@ -509,7 +509,6 @@
       "es": "Una elegante silla de oficina ergonómica de malla completa con soporte lumbar dinámico. La silla se adapta a su espalda proporcionando un gran apoyo para su espalda.",
       "en": "An elegant ergonomic office chair with full mesh and dynamic lumbar support. The chair conforms to your back, providing great support for your spine."
     },
-    "subcategoryId": 19,
     "price": 355,
     "stock": 30,
     "color": "gr",
@@ -567,7 +566,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2023-01-16T22:32:14.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 10,
@@ -581,7 +581,6 @@
       "es": "Soporte de aluminio sólido para tus tabletas, celulares y consolas de videojuegos portátiles.   Mantén tu espacio de trabajo organizado con tus dispositivos a disposición listos para usar. ",
       "en": "Solid aluminum support for your tablets, cell phones, and portable video game consoles. Keep your workspace organized with your devices readily available and ready to use."
     },
-    "subcategoryId": 33,
     "price": 18,
     "stock": 33,
     "color": "sl",
@@ -633,7 +632,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "tablet_stands"
   },
   {
     "id": 12,
@@ -647,7 +647,6 @@
       "es": "  Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), soporte lumbar ajustable y un diseño moderno. Brinda buen soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable y elástica que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with a full mesh finish (seat and backrest), adjustable lumbar support, and a modern design. It provides good support for your entire back, helping you maintain good posture. It reduces leg tension with a design that allows better circulation. Constructed with high-quality materials and a special breathable and elastic mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 450,
     "stock": 5,
     "color": "bl",
@@ -687,7 +686,8 @@
     "createdAt": "2022-08-31T18:35:36.000Z",
     "updatedAt": "2022-10-05T17:20:38.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 11,
@@ -701,7 +701,6 @@
       "es": "El soporte de PC te permite colocar la PC debajo del escritorio sujetado al sobre de la mesa.  Ideal para espacios de trabajos reducidos y para mantener el lugar de trabajo más organizado.  ",
       "en": "The PC support allows you to place the PC under the desk attached to the tabletop. Ideal for small workspaces and to keep the workplace more organized."
     },
-    "subcategoryId": 37,
     "price": 37,
     "stock": 18,
     "color": "bl",
@@ -756,7 +755,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cpu_stands"
   },
   {
     "id": 17,
@@ -770,7 +770,6 @@
       "es": "  Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), soporte lumbar ajustable y un diseño ergonomico. Brinda buen soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable y elástica que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh finish (seat and backrest), adjustable lumbar support, and an ergonomic design. Provides good support for the entire back, helping you maintain a good posture. Reduces leg tension with a design that allows better circulation. Constructed with high-quality materials and a special breathable and elastic mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 450,
     "stock": 5,
     "color": "gr",
@@ -811,7 +810,8 @@
     "createdAt": "2023-01-16T23:18:16.000Z",
     "updatedAt": "2023-01-16T23:18:17.491Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "chairs"
   },
   {
     "id": 15,
@@ -825,7 +825,6 @@
       "es": "Esta pistola de masaje compacta de tejido profundo es el arma secreta en la lucha contra el dolor de cuello y espalda. Una vez que lo pruebes, entenderás de qué estamos hablando.",
       "en": "This compact deep tissue massage gun is the secret weapon in the fight against neck and back pain. Once you try it, you'll understand what we're talking about."
     },
-    "subcategoryId": 32,
     "price": 33,
     "stock": 10,
     "color": "bl",
@@ -879,7 +878,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "body"
   },
   {
     "id": 14,
@@ -893,7 +893,6 @@
       "es": "Mouse de alta precisión y sensibilidad hasta 7200 DPI especial para los gamers. Con su diseño ergonómico y de honeycomb, el mouse se siente muy bien al usarse. ",
       "en": "High precision and sensitivity mouse up to 7200 DPI specially designed for gamers. With its ergonomic and honeycomb design, the mouse feels very comfortable to use."
     },
-    "subcategoryId": 26,
     "price": 23,
     "stock": 24,
     "color": "bl",
@@ -937,7 +936,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-30T22:25:03.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "mouse"
   },
   {
     "id": 16,
@@ -951,7 +951,6 @@
       "es": "Cargador de alta velocidad con 10 puertos USB de 10A cada uno.  ",
       "en": "High-speed charger with 10 USB ports of 10A each."
     },
-    "subcategoryId": 40,
     "price": 29,
     "stock": 19,
     "color": "bl",
@@ -1009,7 +1008,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usb_chargers"
   },
   {
     "id": 13,
@@ -1023,7 +1023,6 @@
       "es": "La base de altura ajustable de doble motor es ideal para una configuración de standing desk con sobre grande de hasta 220cm de largo o sobre pesado de madera sólida.  La base es rápida con una velocidad de 32 mm/s y silenciosa con ruido menor a <48 db.  Se adapta a cualquier sobre de mesa que tenga un largo entre 100-220 cm y un ancho entre 58-90 cm.  Incluye una pantalla con 3 memorias, tecnología anticolisión y 5 años de garantía. Ideal para tu home office of cualquier espacio de trabajo.  Es la mejor inversión que puedes hacer para tu salud y productividad.",
       "en": "The double motor height-adjustable base is ideal for a standing desk setup with a large tabletop up to 220 cm long or a heavy solid wood top. The base is fast with a speed of 32 mm/s and quiet with noise lower than <48 db. It adapts to any tabletop that is between 100-220 cm in length and 58-90 cm in width. It includes a screen with 3 memories, anti-collision technology, and a 5-year warranty. Ideal for your home office or any workspace. It is the best investment you can make for your health and productivity."
     },
-    "subcategoryId": 15,
     "price": 450,
     "stock": 20,
     "color": "wh",
@@ -1095,7 +1094,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:34:26.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 19,
@@ -1109,7 +1109,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 3,
     "color": "pecan",
@@ -1166,7 +1165,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-07-21T17:58:42.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 20,
@@ -1180,7 +1180,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 3,
     "color": "ash",
@@ -1237,7 +1236,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 22,
@@ -1251,7 +1251,6 @@
       "es": "El ojal de 50 mm es ideal para organizar sus cables. Le ayuda con la gestión de sus cables.",
       "en": "The 50 mm grommet is ideal for organizing your cables. It helps with cable management."
     },
-    "subcategoryId": 5,
     "price": 6,
     "stock": 50,
     "color": "bl",
@@ -1298,7 +1297,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 18,
@@ -1312,7 +1312,6 @@
       "es": "Headphones inalámbricos con cancelación de ruido activos.  Estos auriculares tienen un sonido de alta calidad y son muy cómodos al usarlos.",
       "en": "Wireless headphones with active noise cancellation. These headphones have high-quality sound and are very comfortable to use."
     },
-    "subcategoryId": 25,
     "price": 32,
     "stock": 0,
     "color": "bl",
@@ -1382,7 +1381,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "headphones"
   },
   {
     "id": 24,
@@ -1396,7 +1396,6 @@
       "es": "Silla ergonómica para el home office con soporte lumbar dinámico, de malla completa (silla y asiento) y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales incluyendo una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for home office with dynamic lumbar support, fully mesh (chair and seat), and highly adjustable. Designed to provide the best support for your back during long hours of work. Built with the best materials including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 475,
     "stock": 5,
     "color": "bl",
@@ -1437,7 +1436,8 @@
     "createdAt": "2023-01-16T23:06:35.000Z",
     "updatedAt": "2023-01-18T22:37:12.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 21,
@@ -1451,7 +1451,6 @@
       "es": "Silla ergonómica de home office con un diseño moderno,  altamente ajustable y súper cómodo con un asiento de espuma moldeada de alta densidad. Brinda una comodidad extrema y un excelente soporte para toda la espalda. Diseñado especialmente para profesionales que pasan muchas horas al día sentados frente a una computadora.",
       "en": "Ergonomic home office chair with a modern design, highly adjustable and super comfortable with a high-density molded foam seat. It provides extreme comfort and excellent support for the entire back. Specially designed for professionals who spend many hours a day sitting in front of a computer."
     },
-    "subcategoryId": 19,
     "price": 440,
     "stock": 0,
     "color": "bl",
@@ -1522,7 +1521,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-17T16:31:05.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 26,
@@ -1536,7 +1536,6 @@
       "es": "Silla ergonómica de home office de alta calidad con marco de aluminio y mecanismo de bloqueo avanzado, altamente ajustable con soporte lumbar ajustable y un acabado de malla especial (asiento y respaldar).  Diseñado para los profesionales más exigentes que pasan varias horas al día trabajando.  Su diseño centrado en el ser humano brinda un excelente soporte para toda la espalda ayudándote a mantener una postura adecuada. Esta silla se siente igual de bien como se ve.  Construido solo con los mejores materiales disponible para que te dure un largo tiempo.",
       "en": "High-quality ergonomic home office chair with an aluminum frame and advanced locking mechanism, highly adjustable with adjustable lumbar support and a special mesh finish (seat and backrest). Designed for the most demanding professionals who spend several hours a day working. Its human-centered design provides excellent support for the entire back, helping you maintain proper posture. This chair feels as good as it looks. Built only with the best materials available to last you a long time."
     },
-    "subcategoryId": 19,
     "price": 650,
     "stock": 5,
     "color": "gr",
@@ -1578,7 +1577,8 @@
     "createdAt": "2022-08-31T17:00:12.000Z",
     "updatedAt": "2022-10-05T17:38:01.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 23,
@@ -1592,7 +1592,6 @@
       "es": "El USBC 6 en 1 funciona con todas las macbooks, ipads y todos los otros dispositivos más recientes. Expande tu computador con conexiones adicionales. Cuenta con las siguientes entradas: 3 x USB 3.0 / 1 x 4k HDMI / 2 x SD Card",
       "en": "The USBC 6 in 1 works with all MacBooks, iPads, and all other newer devices. Expand your computer with additional connections. It has the following ports: 3 x USB 3.0 / 1 x 4K HDMI / 2 x SD Card."
     },
-    "subcategoryId": 14,
     "price": 21,
     "stock": 17,
     "color": "gr",
@@ -1646,7 +1645,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usbc_hubs"
   },
   {
     "id": 28,
@@ -1660,7 +1660,6 @@
       "es": "Silla ejecutiva de cuero PU de alta calidad.  Diseño moderno y altamente cómoda.",
       "en": "High-quality PU leather executive chair. Modern design and highly comfortable."
     },
-    "subcategoryId": 1,
     "price": 350,
     "stock": 5,
     "color": "gr",
@@ -1698,7 +1697,8 @@
     "createdAt": "2023-01-18T22:35:52.000Z",
     "updatedAt": "2023-01-18T22:35:54.363Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "Executive"
   },
   {
     "id": 27,
@@ -1712,7 +1712,6 @@
       "es": "El wobble stool es una solución especial para personas con problemas de espalda.  El diseño sin respaldar mantiene todos los músculos de tu cuerpo involucrados sobre todo el core ayudándote a corregir tu postura.  Es recomendable para una configuración ergonómica de tu home office.  ",
       "en": "The wobble stool is a special solution for people with back problems. The backless design keeps all the muscles of your body engaged, especially the core, helping you correct your posture. It is recommended for an ergonomic setup of your home office."
     },
-    "subcategoryId": 9,
     "price": 135,
     "stock": 8,
     "color": "bl",
@@ -1768,7 +1767,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-26T02:51:31.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "stools"
   },
   {
     "id": 30,
@@ -1782,7 +1782,6 @@
       "es": "Sobre de mesa de vidrio templado de 10mm de grosor.  Es una solución moderna, fina y práctica. Viene con agujeros listos para adaptarse a las bases de standing desks de Ergonomica.  Pedido especial, por favor contactarnos al whatsapp par poner una orden",
       "en": "Tempered glass tabletop with a thickness of 10mm. It is a modern, fine, and practical solution. It comes with pre-drilled holes to fit Ergonomica standing desk bases. Special order, please contact us on WhatsApp to place an order."
     },
-    "subcategoryId": 43,
     "price": 195,
     "stock": 0,
     "color": null,
@@ -1825,7 +1824,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 25,
@@ -1839,7 +1839,6 @@
       "es": "La base de altura ajustable doble motor X es la solución más potente y rápida con un diseño de patas triple etapa que le da mayor funcionalidad. Tiene un rango de movimiento de altura de 60-125 cm, capacidad de peso de hasta 140 kgs y una velocidad de 38 mm/s. Ideal para personas de estatura más baja o alta, para poner sobres grandes de hasta 220cm de largo y sobres pesados de madera sólida.",
       "en": "The X dual motor height-adjustable base is the most powerful and fastest solution with a triple-stage leg design that provides greater functionality. It has a height adjustment range of 60-125 cm, a weight capacity of up to 140 kg, and a speed of 38 mm/s. Ideal for shorter or taller individuals, to accommodate large desktops up to 220 cm in length and heavy solid wood desktops."
     },
-    "subcategoryId": 15,
     "price": 465,
     "stock": 8,
     "color": "bl",
@@ -1909,7 +1908,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:34:01.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 31,
@@ -1923,7 +1923,6 @@
       "es": "Un soporte de cargador inalámbrico para su teléfono. Mejore tu ergonomía mientras carga su teléfono al mismo tiempo.",
       "en": "A wireless charger stand for your phone. Improve your ergonomics while charging your phone at the same time."
     },
-    "subcategoryId": 12,
     "price": 9,
     "stock": 17,
     "color": "bl",
@@ -1968,7 +1967,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "wireless_chargers"
   },
   {
     "id": 29,
@@ -1982,7 +1982,6 @@
       "es": "Funciona muy bien para cualquier configuración de espacio de trabajo. Tiene una fuente de luz de alta calidad para ayudar a proteger los ojos.  El brazo es largo y flexible para que puedas colocarlo en el ángulo ideal para que alumbre desde arriba.  ",
       "en": "It works very well for any workspace setup. It has a high-quality light source to help protect your eyes. The arm is long and flexible so you can position it at the ideal angle to shine from above."
     },
-    "subcategoryId": 18,
     "price": 27,
     "stock": 29,
     "color": "bl",
@@ -2042,7 +2041,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:35:04.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "lighting"
   },
   {
     "id": 32,
@@ -2056,7 +2056,6 @@
       "es": "Sobre de mesa hecho de madera sólida Tigerwood, Goncalo Alves, de Panamá con un acabado semi-mate. Las vetas de esta madera son realmente increíbles. Transforma tu standing desk en una obra de arte única. Esta madera es dura, densa y muy duradera.",
       "en": "Desktop made of solid Tigerwood, Goncalo Alves, from Panama with a semi-matte finish. The grain of this wood is truly incredible. Transform your standing desk into a unique work of art. This wood is hard, dense, and very durable."
     },
-    "subcategoryId": 43,
     "price": 220,
     "stock": 0,
     "color": "tiger",
@@ -2105,7 +2104,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-31T20:58:31.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 33,
@@ -2119,7 +2119,6 @@
       "es": "El soporte vertical para laptops permite colocar tu laptop cerrada en posición vertical sobre el escritorio. Ayuda a mantener tu escritorio organizado y a maximizar el espacio de trabajo. Es perfecto para configuraciones con pantalla grande, múltiple pantallas o para espacios reducidos.",
       "en": "The vertical laptop stand allows you to place your closed laptop in a vertical position on the desk. It helps keep your desk organized and maximizes workspace. It is perfect for large screen setups, multiple screens, or small spaces."
     },
-    "subcategoryId": 27,
     "price": 29,
     "stock": 28,
     "color": "gr",
@@ -2173,7 +2172,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 34,
@@ -2187,7 +2187,6 @@
       "es": "El soporte ajustable para laptop te permite ajustar la altura y el ángulo. Ayuda a mantener tu escritorio organizado y maximizar tu espacio de trabajo. Es el complemento perfecto para la configuración de tu standing desk permitiendote trabajar fluidamente con otros monitores.  ",
       "en": "The adjustable laptop stand allows you to adjust the height and angle. It helps keep your desk organized and maximizes your workspace. It is the perfect complement to your standing desk setup, allowing you to work seamlessly with other monitors."
     },
-    "subcategoryId": 27,
     "price": 35,
     "stock": 0,
     "color": "sl",
@@ -2241,7 +2240,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:51:54.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 36,
@@ -2255,7 +2255,6 @@
       "es": "Adaptador tipo C a HDMI con puertos de carga USB y PD adicionales. Contiene los siguientes puertos: 1x HDMI 1x USB 3.0 1x USB C",
       "en": "Type C to HDMI adapter with additional USB and PD charging ports. Contains the following ports: 1x HDMI 1x USB 3.0 1x USB C"
     },
-    "subcategoryId": 22,
     "price": 12,
     "stock": 18,
     "color": "bl",
@@ -2302,7 +2301,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "adapters"
   },
   {
     "id": 35,
@@ -2316,7 +2316,6 @@
       "es": "El archivador de 3 cajones tiene el tamaño perfecto para caber debajo de tu escritorio para incorporarlo con tu flujo de trabajo. Los dos primeros cajones están hechos para todos sus suministros de oficina. El último armario es para almacenar los archivos.",
       "en": "The 3-drawer file cabinet is the perfect size to fit under your desk to integrate it with your workflow. The first two drawers are made for all your office supplies. The last drawer is for storing files."
     },
-    "subcategoryId": 39,
     "price": 170,
     "stock": 10,
     "color": "wh",
@@ -2372,7 +2371,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:35:24.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "cabinets"
   },
   {
     "id": 37,
@@ -2386,7 +2386,6 @@
       "es": "Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), moderna, altamente ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh finish (seat and backrest), modern, highly adjustable, and super comfortable. Specifically designed for people who spend many hours working in front of the computer. Provides excellent support for the entire back, helping you maintain good posture. Reduces leg strain with a design that allows for better circulation. Constructed with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 495,
     "stock": 0,
     "color": "gr",
@@ -2439,7 +2438,8 @@
     "createdAt": "2022-08-14T00:50:49.000Z",
     "updatedAt": "2022-12-29T22:56:15.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 41,
@@ -2453,7 +2453,6 @@
       "es": "Sobre de mesa de vidrio templado de 10mm de grosor.  Es una solución moderna, fina y práctica. Viene con agujeros listos para adaptarse a las bases de standing desks de Ergonomica.  Pedido especial, por favor contactarnos al whatsapp par poner una orden",
       "en": "Tempered glass tabletop with a thickness of 10mm. It is a modern, fine, and practical solution. It comes with pre-drilled holes to fit Ergonomica standing desk bases. Special order, please contact us on WhatsApp to place an order."
     },
-    "subcategoryId": 43,
     "price": 230,
     "stock": 0,
     "color": null,
@@ -2496,7 +2495,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 40,
@@ -2510,7 +2510,6 @@
       "es": "La lámpara de ambiente con bombilla de tungsteno crea un ambiente acogedor para su entorno de trabajo.",
       "en": "The ambient lamp with tungsten bulb creates a cozy atmosphere for your workspace."
     },
-    "subcategoryId": 18,
     "price": 27,
     "stock": 18,
     "color": "ch",
@@ -2569,7 +2568,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "lighting"
   },
   {
     "id": 43,
@@ -2583,7 +2583,6 @@
       "es": "Brazo de aluminio ajustable para tablets o celulares.   Es altamente ajustable y puede rotar en 360 grados. Funciona con tSe adapta a cualquier sobre de mesa con su sistema de clamp on.  ",
       "en": "Adjustable aluminum arm for tablets or cellphones. It is highly adjustable and can rotate 360 degrees. It works with tIt adapts to any tabletop with its clamp-on system."
     },
-    "subcategoryId": 33,
     "price": 35,
     "stock": 14,
     "color": "sl",
@@ -2624,7 +2623,8 @@
     "createdAt": "2022-09-17T20:32:47.000Z",
     "updatedAt": "2022-09-17T20:46:08.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "tablet_stands"
   },
   {
     "id": 42,
@@ -2638,7 +2638,6 @@
       "es": "Sobre de mesa hecho de madera sólida de Nazareno panameño con un acabado semi-mate de poliuretano.   El Nazareno Peltogyne purpure Pittier es una madera dura, densa y pesada de color morado. Es un sobre que te va a durar toda la vida.",
       "en": "Tabletop made of solid Nazareno wood from Panama with a semi-matte polyurethane finish. The Nazareno Peltogyne purpure Pittier is a hard, dense, and heavy purple wood. It's a tabletop that will last you a lifetime."
     },
-    "subcategoryId": 43,
     "price": 275,
     "stock": 0,
     "color": "purple",
@@ -2687,7 +2686,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-31T20:59:02.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 39,
@@ -2701,7 +2701,6 @@
       "es": "El monitor LG con la tecnología IPS destaca el rendimiento de las pantallas de cristal líquido. Los tiempos de respuesta se acortan, se mejora la reproducción del color y los usuarios pueden ver la pantalla en ángulos amplios.",
       "en": "The LG monitor with IPS technology stands out for the performance of liquid crystal displays. Response times are shortened, color reproduction is improved, and users can view the screen from wide angles."
     },
-    "subcategoryId": 23,
     "price": 215,
     "stock": 0,
     "color": "bl",
@@ -2772,7 +2771,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "flat"
   },
   {
     "id": 45,
@@ -2786,7 +2786,6 @@
       "es": "Silla ergonómica de home office con un diseño moderno, respaldar de malla y asiento de espuma moldeada de alta densidad de 8cm de grueso. Esta silla brinda una comodidad extrema y un excelente soporte para toda la espalda. Diseñado especialmente para profesionales que pasan muchas horas al día sentados frente a una computadora.",
       "en": "Ergonomic home office chair with a modern design, mesh backrest, and 8cm thick high-density molded foam seat. This chair provides extreme comfort and excellent support for the entire back. Specially designed for professionals who spend many hours a day sitting in front of a computer."
     },
-    "subcategoryId": 19,
     "price": 230,
     "stock": 20,
     "color": "bl",
@@ -2827,7 +2826,8 @@
     "createdAt": "2023-01-18T23:26:16.000Z",
     "updatedAt": "2023-02-28T20:27:52.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 46,
@@ -2841,7 +2841,6 @@
       "es": "Un masajeador de espalda compacto pero potente. Úsalo para liberar esos puntos de presión y nudos difíciles de alcanzar.",
       "en": "A compact yet powerful back massager. Use it to release those pressure points and hard-to-reach knots."
     },
-    "subcategoryId": 32,
     "price": 22,
     "stock": 9,
     "color": "br",
@@ -2888,7 +2887,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "body"
   },
   {
     "id": 44,
@@ -2902,7 +2902,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 3,
     "color": "ash",
@@ -2959,7 +2958,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 38,
@@ -2973,7 +2973,6 @@
       "es": "El brazo de aluminio para dos monitores te permite ajustar tus pantallas a la altura, profundidad y ángulo de visión correctos reduciendo la tensión de tu cuello.   El brazo es altamente ajustable y utiliza un mecanismo de resorte neumático de contrapeso dándote la sensación que el monitor estuviera flotando. Solo mueves la pantalla y se queda en el lugar donde lo dejastes. Es el complemento perfecto para la configuración de tu standing desk en el home office. ",
       "en": "The aluminum arm for two monitors allows you to adjust your screens to the correct height, depth, and viewing angle, reducing neck strain. The arm is highly adjustable and uses a counterbalance pneumatic spring mechanism, giving you the sensation that the monitor is floating. You simply move the screen and it stays in the place where you left it. It is the perfect complement to your standing desk setup in the home office."
     },
-    "subcategoryId": 2,
     "price": 87,
     "stock": 34,
     "color": "gr",
@@ -3049,7 +3048,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "monitor_arms"
   },
   {
     "id": 47,
@@ -3063,7 +3063,6 @@
       "es": "Lampara led con touchscreen para el escritorio.  ",
       "en": "LED lamp with touchscreen for the desk."
     },
-    "subcategoryId": 18,
     "price": 45,
     "stock": 7,
     "color": "gr",
@@ -3102,7 +3101,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "lighting"
   },
   {
     "id": 48,
@@ -3116,7 +3116,6 @@
       "es": "El yoga mat está hecho de corcho natural ecológico y caucho natural libre de sustancias nocivas. Es ideal tener uno en su lugar de trabajo o home office para tus estiramientos diarios. Recomendamos estirar al menos dos veces al día durante 10 minutos.  Vas a ver que te sentirás mucho mejor y junto con un standing desk podrás despedirte de todos esos dolores de espalda y cuello.",
       "en": "The yoga mat is made from ecological natural cork and natural rubber free of harmful substances. It is ideal to have one in your workplace or home office for your daily stretches. We recommend stretching at least twice a day for 10 minutes. You'll see that you will feel much better, and along with a standing desk, you can say goodbye to all those back and neck pains."
     },
-    "subcategoryId": 32,
     "price": 45,
     "stock": 10,
     "color": "co",
@@ -3166,7 +3165,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "body"
   },
   {
     "id": 52,
@@ -3180,7 +3180,6 @@
       "es": "La alfombra antifatiga es esencial para trabajar parado de pie en tu standing desk. Te proporciona un inmenso alivio de presión para las articulaciones al ponerte de pie. Sentirás la diferencia de inmediato al usarlo. Tiene un diseño ergonómico con diferentes puntos de alivio de presión.",
       "en": "The anti-fatigue mat is essential for standing while working at your standing desk. It provides immense pressure relief for your joints when you stand. You will feel the difference immediately when using it. It has an ergonomic design with different pressure relief points."
     },
-    "subcategoryId": 20,
     "price": 55,
     "stock": 44,
     "color": "bl",
@@ -3232,7 +3231,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "anti_fatigue_mats"
   },
   {
     "id": 50,
@@ -3246,7 +3246,6 @@
       "es": "El screenbar de Ergonomica crea un ambiente de trabajo productivo y te protege la vista de la exposición de muchas horas de pantalla al complementar la fuente de luz de tu monitor. Usa LEDs especiales de alta reproducción de color CRI >95 que son anti-glare y anti-flicker.",
       "en": "The Ergonomica screenbar creates a productive work environment and protects your eyes from prolonged screen exposure by complementing the light source of your monitor. It uses special high color rendering index LEDs CRI >95 that are anti-glare and anti-flicker."
     },
-    "subcategoryId": 18,
     "price": 47,
     "stock": 48,
     "color": "bl",
@@ -3305,7 +3304,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "lighting"
   },
   {
     "id": 53,
@@ -3319,7 +3319,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 9,
     "color": "ash",
@@ -3376,7 +3375,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:04:24.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 54,
@@ -3390,7 +3390,6 @@
       "es": "El cable sleeve es una solución fácil y práctica para la gestión de cables. Mantiene todos sus cables organizados y protegidos.",
       "en": "The cable sleeve is an easy and practical solution for cable management. It keeps all your cables organized and protected."
     },
-    "subcategoryId": 5,
     "price": 7,
     "stock": 0,
     "color": "bl",
@@ -3431,7 +3430,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 51,
@@ -3445,7 +3445,6 @@
       "es": "Headphones inalámbricos con cancelación de ruido activos.  Estos auriculares tienen un sonido de alta calidad y son muy cómodos al usarlos.",
       "en": "Wireless headphones with active noise cancellation. These headphones have high-quality sound and are very comfortable to use."
     },
-    "subcategoryId": 25,
     "price": 35,
     "stock": 3,
     "color": "bl",
@@ -3516,7 +3515,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-04-29T01:27:12.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "headphones"
   },
   {
     "id": 49,
@@ -3530,7 +3530,6 @@
       "es": "El brazo de aluminio para un monitor de te permite ajustar sin problemas la pantalla a la altura, profundidad y ángulo de visión correctos reduciendo la tensión de tu cuello. El brazo es altamente ajustable y utiliza un mecanismo de resorte neumático de contrapeso dándote una sensación que el monitor estuviera flotando. Es el complemento perfecto para la configuración de tu standing desk en el home office. ",
       "en": "The aluminum monitor arm allows you to seamlessly adjust the screen to the correct height, depth, and viewing angle, reducing neck strain. The arm is highly adjustable and uses a pneumatic counterbalance spring mechanism, giving you the sensation that the monitor is floating. It is the perfect complement to your standing desk setup in the home office."
     },
-    "subcategoryId": 2,
     "price": 55,
     "stock": 23,
     "color": "bl",
@@ -3606,7 +3605,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "monitor_arms"
   },
   {
     "id": 57,
@@ -3620,7 +3620,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 5,
     "color": "black",
@@ -3677,7 +3676,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2023-01-18T20:31:23.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 59,
@@ -3691,7 +3691,6 @@
       "es": "El mouse vertical está diseñado ergonómicamente para adaptarse a las posiciones naturales de su muñeca en una posición vertical. Simplemente se siente más cómodo y reduce cualquier tensión o daño a largo plazo en sus muñecas durante períodos prolongados de uso del mouse.",
       "en": "The vertical mouse is ergonomically designed to fit the natural positions of your wrist in a vertical position. It simply feels more comfortable and reduces any strain or long-term damage to your wrists during extended periods of mouse use."
     },
-    "subcategoryId": 26,
     "price": 24,
     "stock": 10,
     "color": "bl",
@@ -3747,7 +3746,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:51:03.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "mouse"
   },
   {
     "id": 58,
@@ -3761,7 +3761,6 @@
       "es": "El HUB modular Tipo C 10 en 1 le brinda toda la flexibilidad de 2 conectores diferentes en 1. Funciona con los últimos modelos de macbooks, ipads y cualquier dispositivo con entrada Tipo C. Cuenta con: 2 x PD / 3 x puertos USB 3.0 / 2 x entradas HDMI de 4k / 1 x slot SD / 1 x slot TF 3.0 / 1 x puerto USB C",
       "en": "The modular HUB Type C 10 in 1 provides you with the flexibility of 2 different connectors in one. It works with the latest models of MacBooks, iPads, and any device with a Type C port. It features: 2 x PD / 3 x USB 3.0 ports / 2 x 4k HDMI inputs / 1 x SD slot / 1 x TF 3.0 slot / 1 x USB C port."
     },
-    "subcategoryId": 14,
     "price": 39,
     "stock": 19,
     "color": "gr",
@@ -3817,7 +3816,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usbc_hubs"
   },
   {
     "id": 55,
@@ -3831,7 +3831,6 @@
       "es": "El brazo para un monitor te permite ajustar sin problemas la pantalla a la altura, profundidad y ángulo de visión correctos reduciendo la tensión de tu cuello. El brazo es altamente ajustable y utiliza un mecanismo de resorte neumático de contrapeso dándote una sensación que el monitor estuviera flotando. Es el complemento perfecto para la configuración de tu standing desk en el home office. ",
       "en": "The monitor arm allows you to smoothly adjust the screen to the correct height, depth, and viewing angle, reducing neck strain. The arm is highly adjustable and uses a pneumatic counterbalance spring mechanism, giving you the feeling that the monitor is floating. It is the perfect complement to your standing desk setup in the home office."
     },
-    "subcategoryId": 2,
     "price": 38,
     "stock": 0,
     "color": "bl",
@@ -3907,7 +3906,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:49:56.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "monitor_arms"
   },
   {
     "id": 60,
@@ -3921,7 +3921,6 @@
       "es": "Un cargador de pared USB y PD con tecnología de carga rápida.",
       "en": "A USB and PD wall charger with fast charging technology."
     },
-    "subcategoryId": 40,
     "price": 7,
     "stock": 0,
     "color": "bl",
@@ -3970,7 +3969,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usb_chargers"
   },
   {
     "id": 61,
@@ -3984,7 +3984,6 @@
       "es": "Sobre de mesa hecho de madera sólida de palo de rosa, Dalbergia, panameño con un acabado semi-mate. Transforma tu standing desk o escritorio en una obra de arte.",
       "en": "Solid rosewood tabletop made from Dalbergia, Panamanian, with a semi-matte finish. Transform your standing desk or desk into a work of art."
     },
-    "subcategoryId": 43,
     "price": 220,
     "stock": 0,
     "color": "rose",
@@ -4033,7 +4032,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-31T20:59:18.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 56,
@@ -4047,7 +4047,6 @@
       "es": "Con la base de altura ajustable en forma de L puedes aprovechar al máximo la esquina de tu home office o espacio de trabajo. La base se puede convertir horizontal en 180 grados permitiendo poner un sobre de hasta 360 cm de largo.",
       "en": "With the adjustable height L-shaped base, you can make the most of the corner of your home office or workspace. The base can be converted horizontally at 180 degrees, allowing you to place a top up to 360 cm long."
     },
-    "subcategoryId": 15,
     "price": 660,
     "stock": 12,
     "color": "wh",
@@ -4119,7 +4118,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2023-01-16T22:39:18.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 63,
@@ -4133,7 +4133,6 @@
       "es": "Este divisor le permite conectar dos HDMI a una entrada HDMI.  ",
       "en": "This splitter allows you to connect two HDMI to one HDMI input."
     },
-    "subcategoryId": 13,
     "price": 11,
     "stock": 14,
     "color": "bl",
@@ -4182,7 +4181,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-17T00:17:49.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "splitters"
   },
   {
     "id": 62,
@@ -4196,7 +4196,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 10,
     "color": "onyx",
@@ -4253,7 +4252,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:03:58.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 64,
@@ -4267,7 +4267,6 @@
       "es": "El archivador de 3 cajones tiene el tamaño perfecto para caber debajo de tu escritorio para incorporarlo con tu flujo de trabajo. Los dos primeros cajones están hechos para todos sus suministros de oficina. El último armario es para almacenar los archivos.",
       "en": "The 3-drawer file cabinet is the perfect size to fit under your desk and integrate into your workflow. The first two drawers are made for all your office supplies. The last cabinet is for storing files."
     },
-    "subcategoryId": 39,
     "price": 170,
     "stock": 10,
     "color": "bl",
@@ -4320,7 +4319,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:35:32.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "cabinets"
   },
   {
     "id": 67,
@@ -4334,7 +4334,6 @@
       "es": "Sobre de mesa hecho de madera Teca Panameña con un acabado ecológico a base de agua semi mate.  La teca es un madera bien fuerte y liviana. Es un sobre que te va a durar toda la vida.",
       "en": "Tabletop made of Panamanian teak wood with an eco-friendly water-based semi-matte finish. Teak is a very strong and lightweight wood. It is a tabletop that will last you a lifetime."
     },
-    "subcategoryId": 43,
     "price": 310,
     "stock": 3,
     "color": "teak",
@@ -4371,7 +4370,8 @@
     "createdAt": "2022-08-24T22:43:54.000Z",
     "updatedAt": "2022-08-24T22:45:37.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 66,
@@ -4385,7 +4385,6 @@
       "es": "Sobre de mesa hecho de madera Teca Panameña con acabado de poliuretano semi mate.  La teca es un madera bien fuerte y liviana. Es un sobre que te va a durar toda la vida.",
       "en": "Tabletop made of Panamanian teak wood with a semi-matte polyurethane finish. Teak is a very strong and lightweight wood. It's a tabletop that will last you a lifetime."
     },
-    "subcategoryId": 43,
     "price": 275,
     "stock": 2,
     "color": "teak",
@@ -4434,7 +4433,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:03:45.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 71,
@@ -4448,7 +4448,6 @@
       "es": "Cable HDMI 4k 2M de alta velocidad con conectores chapados en oro.",
       "en": "4k HDMI Cable 2M high speed with gold-plated connectors."
     },
-    "subcategoryId": 6,
     "price": 6,
     "stock": 30,
     "color": "bl",
@@ -4492,7 +4491,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cables"
   },
   {
     "id": 68,
@@ -4506,7 +4506,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 10,
     "color": "white",
@@ -4563,7 +4562,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:03:33.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 70,
@@ -4577,7 +4577,6 @@
       "es": "La alfombra antifatiga es esencial para trabajar parado de pie en tu standing desk. Te proporciona un inmenso alivio de presión para las articulaciones al ponerte de pie. Sentirás la diferencia de inmediato al usarlo.  Es 100% recomendable para la configuración de tu home office.",
       "en": "The anti-fatigue mat is essential for working standing up at your standing desk. It provides immense pressure relief for your joints when you stand up. You will feel the difference immediately when using it. It is 100% recommended for your home office setup."
     },
-    "subcategoryId": 20,
     "price": 35,
     "stock": 46,
     "color": "bl",
@@ -4630,7 +4629,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "anti_fatigue_mats"
   },
   {
     "id": 69,
@@ -4644,7 +4644,6 @@
       "es": "Difusor ultrasónico para aceites esenciales recargable y compacto ideal para tu escritorio.  Las investigaciones han demostrado que los aromas pueden influir en nuestro estado de ánimo y productividad. Prueba una mezcla de romero y limón si necesita más energía o una mezcla de lavanda y menta para un estado más calmado pero alerta.",
       "en": "Ultrasonic diffuser for essential oils, rechargeable and compact, ideal for your desk. Research has shown that scents can influence our mood and productivity. Try a blend of rosemary and lemon if you need more energy or a blend of lavender and mint for a calmer yet alert state."
     },
-    "subcategoryId": 11,
     "price": 15,
     "stock": 13,
     "color": "wo",
@@ -4695,7 +4694,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "air"
   },
   {
     "id": 65,
@@ -4709,7 +4709,6 @@
       "es": "Silla ergonómica de home office de primera calidad para el profesional más exigente. Con su alta capacidad de ajuste / funcionalidad y su diseño centrado en el ser humano; la Ajax proporciona un excelente soporte para toda la espalda ayudándote a mantener una mejor postura, reduce la tensión de tu cuerpo y permite una mejor circulación.  Construida con un marco trasero de aleación de aluminio sólido, materiales ecológicos y una malla transpirable altamente resistente, esta silla te va a durar bastante tiempo. La mejor configuración de oficina no está completa sin la mejor silla.",
       "en": "Ergonomic home office chair of the highest quality for the most demanding professional. With its high adjustability/functionality and human-centered design, the Ajax provides excellent support for the entire back, helping you maintain a better posture, reduces body strain, and allows for better circulation. Built with a solid aluminum alloy rear frame, eco-friendly materials, and a highly durable breathable mesh, this chair will last you a long time. The best office setup is not complete without the best chair."
     },
-    "subcategoryId": 19,
     "price": 620,
     "stock": 0,
     "color": "bl",
@@ -4786,7 +4785,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-17T22:46:37.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 74,
@@ -4800,7 +4800,6 @@
       "es": "El archivador de 3 cajones slim tiene el tamaño perfecto para caber debajo de tu escritorio. Los dos primeros cajones están hechos para todos sus suministros de oficina. El último armario es para almacenar los archivos.",
       "en": "The 3-drawer slim file cabinet is the perfect size to fit under your desk. The first two drawers are made for all your office supplies. The last drawer is for storing files."
     },
-    "subcategoryId": 39,
     "price": 155,
     "stock": 7,
     "color": "bl",
@@ -4837,7 +4836,8 @@
     "createdAt": "2022-09-28T23:07:17.000Z",
     "updatedAt": "2022-09-28T23:07:18.298Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cabinets"
   },
   {
     "id": 72,
@@ -4851,7 +4851,6 @@
       "es": "Ejercitate y quema calorías mientras trabajas.  La máquina elíptica compacta va debajo de tu escritorio para que puedas estar en movimiento mientras estás sentado. ",
       "en": "Exercise and burn calories while you work. The compact elliptical machine goes under your desk so you can stay active while sitting."
     },
-    "subcategoryId": 32,
     "price": 145,
     "stock": 0,
     "color": "bl",
@@ -4890,7 +4889,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "body"
   },
   {
     "id": 75,
@@ -4904,7 +4904,6 @@
       "es": "Silla ergonómica para el home office con soporte lumbar dinámico, malla completa, sólida y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales, incluida una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with dynamic lumbar support, full mesh, solid and highly adjustable. Designed to provide the best support for your back during long hours of work. Built with the best materials, including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 299,
     "stock": 0,
     "color": "bl",
@@ -4943,7 +4942,8 @@
     "createdAt": "2022-08-31T17:49:26.000Z",
     "updatedAt": "2022-12-29T22:53:02.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 73,
@@ -4957,7 +4957,6 @@
       "es": "Experimenta una comodidad y soporte sin igual con la silla gamer Prodigy. Su diseño ergonómico te proteger tu columna durante horas de juego intensas. Tiene un tapizado de tela transpirable para mantenerte fresco en todo momento. No solo es perfecta para gaming, sino que también cuenta con un diseño elegante y moderno, ideal para usar en tu oficina o en cualquier espacio de trabajo. Incluye almohadas para la cabeza y lumbar.",
       "en": "Experience unmatched comfort and support with the Prodigy gaming chair. Its ergonomic design protects your spine during hours of intense gaming. It features breathable fabric upholstery to keep you cool at all times. Not only is it perfect for gaming, but it also has a stylish and modern design, ideal for use in your office or any workspace. Includes head and lumbar pillows."
     },
-    "subcategoryId": 4,
     "price": 395,
     "stock": 5,
     "color": "gr",
@@ -4997,7 +4996,8 @@
     "createdAt": "2023-01-19T06:09:36.000Z",
     "updatedAt": "2023-01-19T06:09:36.887Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "Gamer"
   },
   {
     "id": 79,
@@ -5011,7 +5011,6 @@
       "es": "El clip para cables te ayuda a mantener hasta 7 cables organizados.",
       "en": "The cable clip helps you keep up to 7 cables organized."
     },
-    "subcategoryId": 5,
     "price": 4,
     "stock": 85,
     "color": "bl",
@@ -5054,7 +5053,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 80,
@@ -5068,7 +5068,6 @@
       "es": "Silla ergonómica para el home office con soporte lumbar dinámico, de malla completa (silla y asiento) y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales incluyendo una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for home office with dynamic lumbar support, fully mesh (chair and seat), and highly adjustable. Designed to provide the best support for your back during long hours of work. Built with the best materials including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 425,
     "stock": 20,
     "color": "gr",
@@ -5108,7 +5107,8 @@
     "createdAt": "2022-08-14T19:01:51.000Z",
     "updatedAt": "2023-01-16T22:23:43.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 78,
@@ -5122,7 +5122,6 @@
       "es": "Sobre de mesa hecho de madera sólida de Nazareno panameño con un acabado semi-mate de poliuretano. El Nazareno o Peltogyne purpure Pittier es una madera dura, densa y pesada de color morado. Es un sobre que te va a durar toda la vida.",
       "en": "Tabletop made of solid Nazareno Panamanian wood with a semi-matte polyurethane finish. The Nazareno or Peltogyne purpure Pittier is a hard, dense, and heavy wood of purple color. It's a tabletop that will last you a lifetime."
     },
-    "subcategoryId": 43,
     "price": 220,
     "stock": 1,
     "color": "purple",
@@ -5171,7 +5170,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-26T03:01:27.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 76,
@@ -5185,7 +5185,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 0,
     "color": "black",
@@ -5242,7 +5241,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-20T17:01:07.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 77,
@@ -5256,7 +5256,6 @@
       "es": "El hub tipoc C 6en1 funciona con todas las macbooks, ipads y todos los dispositivos más recientes. Expande tu computador con otras conexiones.Cuenta con las siguientes entradas: 1 x 87 W PD cargador /  2 x USB 3.0 / 1 x 4K HDMI / 2 x SD y TF 3.0",
       "en": "The 6-in-1 Type-C hub works with all MacBooks, iPads, and all the latest devices. Expand your computer with additional connections. It features the following ports: 1 x 87 W PD charger / 2 x USB 3.0 / 1 x 4K HDMI / 2 x SD and TF 3.0"
     },
-    "subcategoryId": 14,
     "price": 22,
     "stock": 17,
     "color": "gr",
@@ -5312,7 +5311,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usbc_hubs"
   },
   {
     "id": 82,
@@ -5326,7 +5326,6 @@
       "es": "Este Roller está especialmente diseñado para alcanzar los tejidos profundos y aliviar el dolor de espalda. Es un gran complemento para tu estiramientos, rutinas de yoga o pilates.",
       "en": "This Roller is specially designed to reach deep tissues and relieve back pain. It is a great addition to your stretching, yoga, or pilates routines."
     },
-    "subcategoryId": 32,
     "price": 24,
     "stock": 8,
     "color": "bl",
@@ -5371,7 +5370,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "body"
   },
   {
     "id": 81,
@@ -5385,7 +5385,6 @@
       "es": "Una estación de carga inalámbrica para tu celular, reloj y audífonos. Mantén organizados y cargados al mismo tiempo tu iPhone, Airpods y iWatch. ",
       "en": "A wireless charging station for your phone, watch, and headphones. Keep your iPhone, AirPods, and iWatch organized and charged at the same time."
     },
-    "subcategoryId": 12,
     "price": 39,
     "stock": 18,
     "color": "bl",
@@ -5450,7 +5449,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "wireless_chargers"
   },
   {
     "id": 84,
@@ -5464,7 +5464,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 10,
     "color": "pecan",
@@ -5521,7 +5520,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:03:05.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 83,
@@ -5535,7 +5535,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 9,
     "color": "savan",
@@ -5592,7 +5591,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:03:12.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 85,
@@ -5606,7 +5606,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 10,
     "color": "walnut",
@@ -5663,7 +5662,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:02:56.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 87,
@@ -5677,7 +5677,6 @@
       "es": "Conector de Ethernet RJ45 a Tipo C con velocidad de internet hasta de 1GB.  Te permite tener una conexión al internet más rápida y estable a través del puerto tipo c ya que las mayoría de las laptops nuevas no vienen con entrada ethernet.  ",
       "en": "RJ45 Ethernet to Type C Connector with internet speeds up to 1GB. It allows you to have a faster and more stable internet connection through the Type C port, as most new laptops do not come with an ethernet port."
     },
-    "subcategoryId": 22,
     "price": 15,
     "stock": 20,
     "color": "sl",
@@ -5729,7 +5728,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "adapters"
   },
   {
     "id": 88,
@@ -5743,7 +5743,6 @@
       "es": "Silla ergonómica de home office de malla especial (asiento y respaldar), Respladar dinámico que se ajusta a tus movimientos de la espalda. Es muy cómoda y brinda un excelente soporte para toda la espalda. Diseñado especialmente para los profesionales más exigentes. ",
       "en": "Ergonomic home office chair with special mesh (seat and backrest), dynamic backrest that adjusts to your back movements. It is very comfortable and provides excellent support for the entire back. Specially designed for the most demanding professionals."
     },
-    "subcategoryId": 19,
     "price": 440,
     "stock": 5,
     "color": "gr",
@@ -5784,7 +5783,8 @@
     "createdAt": "2022-08-31T19:34:21.000Z",
     "updatedAt": "2022-10-05T17:41:58.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 86,
@@ -5798,7 +5798,6 @@
       "es": "El monitor LG de 20 pulgadas es un monitor compacto con muy buena resolución.  Vienen con modo de lectura para proteger tu vista, ofrece estabilidad de imagen.\" ",
       "en": "The 20-inch LG monitor is a compact monitor with very good resolution. It comes with a reading mode to protect your eyesight and offers image stability."
     },
-    "subcategoryId": 23,
     "price": 129.5,
     "stock": 0,
     "color": "bl",
@@ -5869,7 +5868,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "flat"
   },
   {
     "id": 89,
@@ -5883,7 +5883,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 10,
     "color": "walnut",
@@ -5940,7 +5939,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:02:44.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 90,
@@ -5954,7 +5954,6 @@
       "es": "Una elegante silla de oficina ergonómica de malla completa que le brinda un excelente soporte para toda su espalda. Le ayuda a mantener una buena postura mientras está sentado.",
       "en": "An elegant full mesh ergonomic office chair that provides excellent support for your entire back. It helps you maintain good posture while sitting."
     },
-    "subcategoryId": 19,
     "price": 350,
     "stock": 0,
     "color": "bl",
@@ -6008,7 +6007,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-17T22:49:45.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 91,
@@ -6022,7 +6022,6 @@
       "es": "Conector de Ethernet RJ45 a USB de alta velocidad.  Te permite tener una conexión al internet más rápida y estable a través del puerto USB ya que las mayoría de las laptops nuevas no vienen con entrada ethernet. ",
       "en": "High-speed RJ45 Ethernet to USB adapter. It allows you to have a faster and more stable internet connection through the USB port since most new laptops do not come with an Ethernet port."
     },
-    "subcategoryId": 22,
     "price": 15,
     "stock": 20,
     "color": "gr",
@@ -6073,7 +6072,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "adapters"
   },
   {
     "id": 92,
@@ -6087,7 +6087,6 @@
       "es": "Organiza todos tus cables con una bandeja debajo del escritorio. Se puede instalar en cualquier sobre de mesa que se pueda atornillar.  Compatible con todos nuestros standing desks.",
       "en": "Organize all your cables with an under-desk tray. It can be installed on any tabletop that can be screwed. Compatible with all our standing desks."
     },
-    "subcategoryId": 5,
     "price": 25,
     "stock": 40,
     "color": "wh",
@@ -6130,7 +6129,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2023-01-16T22:46:44.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 93,
@@ -6144,7 +6144,6 @@
       "es": "El desk pad de cuero ecológico con costuras protege tu escritorio de arañazos y proporciona una superficie más agradable para escribir y usar el mouse. Tiene el tamaño ideal de 80x40cm para que puedas colocar el teclado y mouse.",
       "en": "The eco-friendly leather desk pad with stitching protects your desk from scratches and provides a more pleasant surface for writing and using the mouse. It has the ideal size of 80x40cm so you can place the keyboard and mouse."
     },
-    "subcategoryId": 31,
     "price": 23,
     "stock": 50,
     "color": "gr",
@@ -6200,7 +6199,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T21:59:58.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "pads"
   },
   {
     "id": 95,
@@ -6214,7 +6214,6 @@
       "es": "Sobre de mesa hecho de madera sólida de palo de rosa, Dalbergia, panameño con un acabado semi-mate. Transforma tu standing desk o escritorio en una obra de arte.",
       "en": "Solid rosewood tabletop made from Dalbergia, Panamanian, with a semi-matte finish. Transform your standing desk or desk into a work of art."
     },
-    "subcategoryId": 43,
     "price": 275,
     "stock": 0,
     "color": "rose",
@@ -6263,7 +6262,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-31T21:00:12.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 94,
@@ -6277,7 +6277,6 @@
       "es": "Un purificador de aire compacto para el escritorio, potente y silencioso. Mantiene el aire a tu alrededor fresco y limpio eliminando el 99.95% de todas las partículas del aire incluyendo el polvo, ácaros, virus y bacterias. Funciona muy bien para personas con alergias o para mantenerte protegido del Covid. ",
       "en": "A compact desktop air purifier, powerful and silent. It keeps the air around you fresh and clean by eliminating 99.95% of all airborne particles, including dust, mites, viruses, and bacteria. It works very well for people with allergies or to keep you protected from Covid."
     },
-    "subcategoryId": 11,
     "price": 39,
     "stock": 16,
     "color": "bl",
@@ -6345,7 +6344,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "air"
   },
   {
     "id": 96,
@@ -6359,7 +6359,6 @@
       "es": "El desk pad de cuero ecológico con costuras protege tu escritorio de arañazos y proporciona una superficie más agradable para escribir y usar el mouse. Tiene el tamaño ideal de 80x40cm para que puedas colocar el teclado y mouse.",
       "en": "The eco-friendly leather desk pad with stitching protects your desk from scratches and provides a more pleasant surface for writing and using the mouse. It has the ideal size of 80x40cm so you can place the keyboard and mouse."
     },
-    "subcategoryId": 31,
     "price": 23,
     "stock": 33,
     "color": "br",
@@ -6415,7 +6414,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-06-09T15:52:49.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "pads"
   },
   {
     "id": 98,
@@ -6429,7 +6429,6 @@
       "es": "Soporte de aluminio sólido para tus audífonos.  Exhibe y protege tus headphones con un soporte especial para ellos y al mismo tiempo mantén tu espacio de trabajo organizado.   ",
       "en": "Solid aluminum support for your headphones. Display and protect your headphones with a special stand and at the same time keep your workspace organized."
     },
-    "subcategoryId": 3,
     "price": 19,
     "stock": 14,
     "color": "sl",
@@ -6478,7 +6477,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-25T23:26:48.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "headphone_stands"
   },
   {
     "id": 97,
@@ -6492,7 +6492,6 @@
       "es": "Los altavoces de barra de 28\"  te dan un sonido completo y lleno como el de un sistema de cine.  Su diseño compacto te permite ponerlo abajo de tu pantalla o en cualquier lugar con espacio reducido.",
       "en": "The 28\" bar speakers provide a full and rich sound, similar to a home theater system. Their compact design allows you to place them under your screen or in any small space."
     },
-    "subcategoryId": 21,
     "price": 60,
     "stock": 12,
     "color": "bl",
@@ -6558,7 +6557,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-10-05T21:02:55.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "soundbars"
   },
   {
     "id": 99,
@@ -6572,7 +6572,6 @@
       "es": "El desk pad de cuero ecológico con costuras protege tu escritorio de arañazos y proporciona una superficie más agradable para escribir y usar el mouse. Tiene el tamaño ideal de 80x40cm para que puedas colocar el teclado y mouse.",
       "en": "The eco-friendly leather desk pad with stitching protects your desk from scratches and provides a more pleasant surface for writing and using the mouse. It has the ideal size of 80x40cm so you can place the keyboard and mouse."
     },
-    "subcategoryId": 31,
     "price": 23,
     "stock": 45,
     "color": "bl",
@@ -6628,7 +6627,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T21:59:45.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "pads"
   },
   {
     "id": 101,
@@ -6642,7 +6642,6 @@
       "es": "Un adaptador tipo C hembra a USB macho. Te permite conectar cualquier periférico como celulares, tablets, discos duros, hubs o cualquier dispositivo con salida typo c a tus laptops, PCs y cargadores USB.  Este adaptador funciona para cargar, sincronizar y transferir data.  No soporta señal de video. ",
       "en": "A female type C to male USB adapter. It allows you to connect any peripheral such as cell phones, tablets, hard drives, hubs, or any device with a type C output to your laptops, PCs, and USB chargers. This adapter works for charging, syncing, and data transfer. It does not support video signal."
     },
-    "subcategoryId": 22,
     "price": 5,
     "stock": 50,
     "color": "gr",
@@ -6694,7 +6693,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "adapters"
   },
   {
     "id": 100,
@@ -6708,7 +6708,6 @@
       "es": "Conecte su iphone a cualquier monitor con el adaptador de teléfono a HDMI.",
       "en": "Connect your iPhone to any monitor with the phone to HDMI adapter."
     },
-    "subcategoryId": 10,
     "price": 18,
     "stock": 20,
     "color": "wh",
@@ -6759,7 +6758,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "iphone_hubs"
   },
   {
     "id": 103,
@@ -6773,7 +6773,6 @@
       "es": "Un atomizador automático para mantener tus manos limpias y libres de grasa.",
       "en": "An automatic atomizer to keep your hands clean and grease-free."
     },
-    "subcategoryId": 30,
     "price": 14,
     "stock": 10,
     "color": "bl",
@@ -6820,7 +6819,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-04T16:14:34.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "sanitizers"
   },
   {
     "id": 104,
@@ -6834,7 +6834,6 @@
       "es": "Cable HDMI 4K de alta calidad con conectores chapados en oro.",
       "en": "High-quality 4K HDMI cable with gold-plated connectors."
     },
-    "subcategoryId": 6,
     "price": 9,
     "stock": 20,
     "color": "go",
@@ -6879,7 +6878,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cables"
   },
   {
     "id": 106,
@@ -6893,7 +6893,6 @@
       "es": "Organiza todos tus cables con una bandeja debajo del escritorio. Es especial para los standing desks de Ergonomica.  También se puede instalar en cualquier sobre de mesa que se pueda atornillar. ",
       "en": "Organize all your cables with a tray under the desk. It's special for Ergonomica standing desks. It can also be installed on any tabletop that can be screwed in."
     },
-    "subcategoryId": 5,
     "price": 25,
     "stock": 39,
     "color": "bl",
@@ -6938,7 +6937,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2023-01-16T22:44:21.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 108,
@@ -6952,7 +6952,6 @@
       "es": "El desk pad de felpa con costuras protege tu escritorio de arañazos y proporciona una superficie más agradable para escribir y usar el mouse. Tiene el tamaño ideal de 80x40cm para que puedas colocar el teclado y mouse.",
       "en": "The felt desk pad with stitching protects your desk from scratches and provides a more pleasant surface for writing and using the mouse. It has the ideal size of 80x40cm so you can place the keyboard and mouse."
     },
-    "subcategoryId": 31,
     "price": 21,
     "stock": 49,
     "color": "gr",
@@ -6995,7 +6994,8 @@
     "createdAt": "2022-08-24T21:52:06.000Z",
     "updatedAt": "2022-08-24T21:52:06.372Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "pads"
   },
   {
     "id": 105,
@@ -7009,7 +7009,6 @@
       "es": "Cargador inalámbrico rápido (15 W) de sobremesa para celulares.  Se ve muy bien con un acabado de aluminio con vidrio templado y una luz led indicadora de carga. Funciona con celulares con fundas protectoras. ",
       "en": "Fast wireless desktop charger (15 W) for cell phones. It looks great with an aluminum finish, tempered glass, and a charging indicator LED light. Works with cell phones with protective cases."
     },
-    "subcategoryId": 12,
     "price": 12,
     "stock": 15,
     "color": "wh",
@@ -7056,7 +7055,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "wireless_chargers"
   },
   {
     "id": 107,
@@ -7070,7 +7070,6 @@
       "es": "Marco de madera con vidrio para fotos, pinturas, posters, impresiones y cualquier tipo de arte.  Incluye ganchos para colgar el arte de manera vertical o horizontal.  Decora tu espacio de trabajo o home office con tus artes favoritos.\" ",
       "en": "Wooden frame with glass for photos, paintings, posters, prints, and any type of art. Includes hooks to hang the art vertically or horizontally. Decorate your workspace or home office with your favorite art pieces."
     },
-    "subcategoryId": 29,
     "price": 35,
     "stock": 35,
     "color": "bl",
@@ -7120,7 +7119,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "art"
   },
   {
     "id": 110,
@@ -7134,7 +7134,6 @@
       "es": "Silla ergonómica con acabado de malla especial (asiento y respaldar), moderna, ajustable y súper cómoda. Brinda buen soporte a la espalda. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla transpirable especial que te mantiene fresco todo el día.",
       "en": "Ergonomic chair with special mesh finish (seat and backrest), modern, adjustable, and super comfortable. Provides good back support. Reduces leg strain with a design that allows for better circulation. Constructed with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 399,
     "stock": 5,
     "color": "gr",
@@ -7174,7 +7173,8 @@
     "createdAt": "2022-08-31T18:02:28.000Z",
     "updatedAt": "2022-10-05T17:43:34.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 102,
@@ -7188,7 +7188,6 @@
       "es": "Silla ergonómica de home office de primera calidad con marco de aluminio y mecanismo de bloqueo avanzado, altamente ajustable con soporte lumbar dinámico que se adapta a tu espalda y acabado de malla completa (asiento y respaldar).  Diseñado para los profesionales más exigentes y ocupados que pasan más de 8 horas al día frente a la computadora. Su diseño centrado en el ser humano brinda un excelente soporte para toda la espalda ayudándote a mantener una postura adecuada. Esta silla se siente igual de bien como se ve.  Construido solo con los mejores materiales disponible para que te dure un largo tiempo.",
       "en": "High-quality ergonomic home office chair with an aluminum frame and advanced locking mechanism, highly adjustable with dynamic lumbar support that adapts to your back and a full mesh finish (seat and backrest). Designed for the most demanding and busy professionals who spend more than 8 hours a day in front of the computer. Its human-centered design provides excellent back support helping you maintain proper posture. This chair feels just as good as it looks. Built only with the best materials available to last you a long time."
     },
-    "subcategoryId": 19,
     "price": 670,
     "stock": 5,
     "color": "gr",
@@ -7267,7 +7266,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-16T21:19:22.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 114,
@@ -7281,7 +7281,6 @@
       "es": "Una elegante silla de oficina ergonómica de malla completa con soporte lumbar y respaldar ajustable. La silla se adapta a tu espalda para ayudarte a mejorar la postura y reducir la tensión mientras trabajas largas horas.  ",
       "en": "An elegant ergonomic office chair with full mesh, lumbar support, and adjustable backrest. The chair adapts to your back to help improve posture and reduce tension while you work long hours."
     },
-    "subcategoryId": 19,
     "price": 399,
     "stock": 18,
     "color": "bl",
@@ -7322,7 +7321,8 @@
     "createdAt": "2022-08-14T19:41:34.000Z",
     "updatedAt": "2023-01-16T22:32:51.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 113,
@@ -7336,7 +7336,6 @@
       "es": "Este desk pad de escritorio está hecho de cuero de vaca de alta calidad. Ayuda a proteger su escritorio de arañazos y proporciona una superficie lisa para el mouse, lo que hace que sea más agradable trabajar.",
       "en": "This desk pad is made of high-quality cow leather. It helps protect your desk from scratches and provides a smooth surface for the mouse, making it more enjoyable to work."
     },
-    "subcategoryId": 31,
     "price": 35,
     "stock": 3,
     "color": "bl",
@@ -7385,7 +7384,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "pads"
   },
   {
     "id": 112,
@@ -7399,7 +7399,6 @@
       "es": "Coloca tu laptop en un ángulo inclinado para que se más cómodo el teclado de la laptop.   Agregale ergonomía a tu configuración de trabajo.",
       "en": "Place your laptop at an inclined angle to make the laptop keyboard more comfortable. Add ergonomics to your work setup."
     },
-    "subcategoryId": 27,
     "price": 19,
     "stock": 13,
     "color": "sl",
@@ -7449,7 +7448,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 109,
@@ -7463,7 +7463,6 @@
       "es": "La resolución 21:9 UltraWide™ IPS  (2560 x 1080) ofrece 33% más espacio en pantalla comparado a pantallas con resolución Full HD y con precisión de colores reales en ángulos amplio. Compatible con NVidia G-sync",
       "en": "The 21:9 UltraWide™ IPS resolution (2560 x 1080) offers 33% more screen space compared to screens with Full HD resolution and with real color accuracy at wide angles. Compatible with NVidia G-sync."
     },
-    "subcategoryId": 23,
     "price": 406,
     "stock": 0,
     "color": "wh",
@@ -7530,7 +7529,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "flat"
   },
   {
     "id": 111,
@@ -7544,7 +7544,6 @@
       "es": "Esta base de para escritorios de altura ajustable de una sola columna es ideal para personas con espacios limitados.",
       "en": "This single-column height-adjustable desk base is ideal for people with limited space."
     },
-    "subcategoryId": 15,
     "price": 299,
     "stock": 0,
     "color": "wh",
@@ -7610,7 +7609,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 115,
@@ -7624,7 +7624,6 @@
       "es": "El soporte de laptop eleva tu laptop a la altura y el ángulo ideal. Ayuda a mantener tu escritorio organizado y maximizar su espacio de trabajo. Es el complemento perfecto para la configuración de tu standing desk permitiendote trabajar fluidamente con otros monitores. ",
       "en": "The laptop stand raises your laptop to the ideal height and angle. It helps keep your desk organized and maximizes your workspace. It is the perfect complement to your standing desk setup, allowing you to work seamlessly with other monitors."
     },
-    "subcategoryId": 27,
     "price": 26,
     "stock": 26,
     "color": "gr",
@@ -7681,7 +7680,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 118,
@@ -7695,7 +7695,6 @@
       "es": "Conecte dos monitores diferentes HDMI a tu laptop o tableta a una entrada tipo C.",
       "en": "Connect two different HDMI monitors to your laptop or tablet with a Type-C input."
     },
-    "subcategoryId": 13,
     "price": 28,
     "stock": 20,
     "color": "bl",
@@ -7740,7 +7739,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-30T22:46:39.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "splitters"
   },
   {
     "id": 116,
@@ -7754,7 +7754,6 @@
       "es": "Sobre de mesa hecho de madera sólida Tigerwood, Goncalo Alves, de Panamá con un acabado semi-mate. Las vetas de esta madera son realmente increíbles. Transforma tu standing desk en una obra de arte única. Esta madera es dura, densa y muy duradera.",
       "en": "Desktop made of solid Tigerwood, Goncalo Alves, from Panama with a semi-matte finish. The grain of this wood is truly incredible. Transform your standing desk into a unique work of art. This wood is hard, dense, and very durable."
     },
-    "subcategoryId": 43,
     "price": 275,
     "stock": 0,
     "color": "tiger",
@@ -7803,7 +7802,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-31T21:00:31.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 119,
@@ -7817,7 +7817,6 @@
       "es": "El desk pad de felpa con costuras protege tu escritorio de arañazos y proporciona una superficie más agradable para escribir y usar el mouse. Tiene el tamaño ideal de 90x30cm para que puedas colocar el teclado y mouse y te sobre espacio. ",
       "en": "The felt desk pad with stitching protects your desk from scratches and provides a more pleasant surface for writing and using the mouse. It has the ideal size of 90x30cm so you can place the keyboard and mouse and still have extra space."
     },
-    "subcategoryId": 31,
     "price": 21,
     "stock": 48,
     "color": "gr",
@@ -7860,7 +7859,8 @@
     "createdAt": "2022-08-24T21:43:10.000Z",
     "updatedAt": "2022-08-24T21:48:31.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "pads"
   },
   {
     "id": 117,
@@ -7874,7 +7874,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 10,
     "color": "savan",
@@ -7931,7 +7930,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:58:59.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 122,
@@ -7945,7 +7945,6 @@
       "es": "Cargador inalámbrico rápido (15 W) de sobremesa para celulares.  Se ve muy bien con un acabado de aluminio con vidrio templado y una luz led indicadora de carga. Funciona con celulares con fundas protectoras. ",
       "en": "Fast wireless desktop charger (15 W) for cell phones. It looks great with an aluminum finish, tempered glass, and a charging indicator LED light. Works with cell phones with protective cases."
     },
-    "subcategoryId": 12,
     "price": 12,
     "stock": 15,
     "color": "bl",
@@ -7995,7 +7994,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "wireless_chargers"
   },
   {
     "id": 120,
@@ -8009,7 +8009,6 @@
       "es": "Silla ergonómica para el home office de malla completa, sólida y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales, incluida una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh, solid and highly adjustable. Designed to provide you with the best support for your back during long hours of work. Built with the best materials, including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 390,
     "stock": 0,
     "color": "bl",
@@ -8064,7 +8063,8 @@
     "createdAt": "2022-08-14T00:20:20.000Z",
     "updatedAt": "2022-12-29T22:56:32.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 124,
@@ -8078,7 +8078,6 @@
       "es": "Este desk pad de escritorio está hecho de cuero de vaca de alta calidad. Ayuda a proteger su escritorio de arañazos y proporciona una superficie lisa para el mouse, lo que hace que sea más agradable trabajar.",
       "en": "This desk pad is made of high-quality cow leather. It helps protect your desk from scratches and provides a smooth surface for the mouse, making it more enjoyable to work."
     },
-    "subcategoryId": 31,
     "price": 35,
     "stock": 4,
     "color": "br",
@@ -8127,7 +8126,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "pads"
   },
   {
     "id": 121,
@@ -8141,7 +8141,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 2,
     "color": "onyx",
@@ -8198,7 +8197,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-10T21:51:51.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 125,
@@ -8212,7 +8212,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 1,
     "color": "savan",
@@ -8269,7 +8268,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-10T21:51:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 126,
@@ -8283,7 +8283,6 @@
       "es": "El hub USB de aluminio cuenta con cuatro puertos USB 3.0. Simplemente conéctelo y disfrute. Es compatible con todos los MacBooks, Ipad y otros dispositivos. Contiene: 4 x USB 3.0.",
       "en": "The aluminum USB hub features four USB 3.0 ports. Simply plug it in and enjoy. It is compatible with all MacBooks, iPads, and other devices. Contains: 4 x USB 3.0."
     },
-    "subcategoryId": 41,
     "price": 15,
     "stock": 19,
     "color": "bl",
@@ -8341,7 +8340,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usb_hubs"
   },
   {
     "id": 123,
@@ -8355,7 +8355,6 @@
       "es": "El brazo para dos monitores te permite ajustar tus pantallas a la altura, profundidad y ángulo de visión correctos reduciendo la tensión de tu cuello.   El brazo es altamente ajustable y utiliza un mecanismo de resorte neumático de contrapeso dándote la sensación que el monitor estuviera flotando. Solo mueves la pantalla y se queda en el lugar donde lo dejastes. Es el complemento perfecto para la configuración de tu standing desk en el home office. ",
       "en": "The dual monitor arm allows you to adjust your screens to the correct height, depth, and viewing angle, reducing neck strain. The arm is highly adjustable and uses a pneumatic counterbalance spring mechanism, giving you the sensation that the monitor is floating. You simply move the screen, and it stays in the position where you left it. It's the perfect addition to your standing desk setup in the home office."
     },
-    "subcategoryId": 2,
     "price": 59,
     "stock": 0,
     "color": "bl",
@@ -8429,7 +8428,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:50:17.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "monitor_arms"
   },
   {
     "id": 130,
@@ -8443,7 +8443,6 @@
       "es": "  Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), soporte lumbar ajustable y un diseño moderno. Brinda buen soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable y elástica que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with a full mesh finish (seat and backrest), adjustable lumbar support, and a modern design. It provides good support for your entire back, helping you maintain good posture. It reduces leg tension with a design that allows better circulation. Constructed with high-quality materials and a special breathable and elastic mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 385,
     "stock": 0,
     "color": "gr",
@@ -8483,7 +8482,8 @@
     "createdAt": "2022-09-28T22:22:49.000Z",
     "updatedAt": "2023-01-18T20:29:53.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 129,
@@ -8497,7 +8497,6 @@
       "es": "El kit de cámara de Iphone contiene los siguientes puertos: 1x SD Card / 1x TF / 1x Lightning / 1x USB 3.0 / 1x 3.5mm Audio",
       "en": "The iPhone camera kit contains the following ports: 1x SD Card / 1x TF / 1x Lightning / 1x USB 3.0 / 1x 3.5mm Audio"
     },
-    "subcategoryId": 10,
     "price": 19,
     "stock": 19,
     "color": "wh",
@@ -8548,7 +8547,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "iphone_hubs"
   },
   {
     "id": 127,
@@ -8562,7 +8562,6 @@
       "es": "La base de altura ajustable de un motor es una solución confiable y poderosa para tu escritorio. Te permite trabajar sentado y parado de manera simultánea incrementando tu productividad y reduciendo los dolores de espalda. La base se adapta a cualquier sobre de mesa que tenga un largo entre 100-190 cm y un ancho de 58-90 cm. Cuenta con una pantalla de 3 memorias, tecnología anticolisión, gran capacidad de peso y 5 años de garantía. Es la mejor inversión que puede hacer para tu salud y el trabajo.",
       "en": "The adjustable height base of a motor is a reliable and powerful solution for your desk. It allows you to work sitting and standing simultaneously, increasing your productivity and reducing back pain. The base adapts to any tabletop that is between 100-190 cm in length and 58-90 cm in width. It features a 3-memory screen, anti-collision technology, high weight capacity, and a 5-year warranty. It is the best investment you can make for your health and work."
     },
-    "subcategoryId": 15,
     "price": 330,
     "stock": 24,
     "color": "bl",
@@ -8632,7 +8631,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-10-18T22:19:27.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 131,
@@ -8646,7 +8646,6 @@
       "es": "Soporte de aluminio sólido para tu Iphone o Android. Mantén tu espacio de trabajo organizado y el celular a disposición listo para usar. ",
       "en": "Solid aluminum stand for your iPhone or Android. Keep your workspace organized and the phone readily available for use."
     },
-    "subcategoryId": 28,
     "price": 14,
     "stock": 30,
     "color": "gr",
@@ -8699,7 +8698,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "phone_stands"
   },
   {
     "id": 128,
@@ -8713,7 +8713,6 @@
       "es": "Silla ergonómica de home office de primera calidad con marco de aluminio y mecanismo de bloqueo avanzado , altamente ajustable con soporte lumbar dinámico que se adapta a tu espalda y acabado de malla completa (asiento y respaldar). Diseñado para los profesionales más exigentes y ocupados que pasan más de 8 horas al día trabajando. Su diseño centrado en el ser humano brinda un excelente soporte para toda la espalda, te ayuda a mantener una postura adecuada, a reducir la tensión en tu cuerpo y te mantiene con energía durante todo el día. Esta silla se siente igual de bien como se ve. ",
       "en": "Premium ergonomic home office chair with aluminum frame and advanced locking mechanism, highly adjustable with dynamic lumbar support that adapts to your back and full mesh finish (seat and backrest). Designed for the most demanding and busy professionals who spend more than 8 hours a day working. Its human-centered design provides excellent support for your entire back, helps you maintain proper posture, reduces strain on your body, and keeps you energized throughout the day. This chair feels as good as it looks."
     },
-    "subcategoryId": 19,
     "price": 550,
     "stock": 0,
     "color": "bl",
@@ -8794,7 +8793,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-17T22:46:09.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 134,
@@ -8808,7 +8808,6 @@
       "es": "El ojal de 50 mm es ideal para organizar sus cables. Le ayuda con la gestión de sus cables.",
       "en": "The 50 mm grommet is ideal for organizing your cables. It helps with cable management."
     },
-    "subcategoryId": 5,
     "price": 6,
     "stock": 46,
     "color": "sl",
@@ -8855,7 +8854,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cable_management"
   },
   {
     "id": 132,
@@ -8869,7 +8869,6 @@
       "es": "Un adaptador de USB hembra a tipo C macho.  Conecta cualquier periférico o dispositivo con salida de USB como USB hubs, discos duros externos, mouses, teclados, printers, consolas, y otros. Soporta señal de video.",
       "en": "A female USB to male Type-C adapter. Connect any peripheral or device with a USB output such as USB hubs, external hard drives, mice, keyboards, printers, consoles, and others. Supports video signal."
     },
-    "subcategoryId": 22,
     "price": 5,
     "stock": 49,
     "color": "gr",
@@ -8921,7 +8920,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "adapters"
   },
   {
     "id": 133,
@@ -8935,7 +8935,6 @@
       "es": "Silla ergonómica de home office de primera calidad para el profesional más exigente. Con su alta capacidad de ajuste / funcionalidad y su diseño centrado en el ser humano; la Ajax proporciona un excelente soporte para toda la espalda ayudándote a mantener una mejor postura, reduce la tensión de tu cuerpo y permite una mejor circulación.  Construida con un marco trasero de aleación de aluminio sólido, materiales ecológicos y una malla transpirable altamente resistente, esta silla te va a durar bastante tiempo. La mejor configuración de oficina no está completa sin la mejor silla.  ",
       "en": "Ergonomic home office chair of the highest quality for the most demanding professional. With its high adjustability/functionality and human-centered design, the Ajax provides excellent support for the entire back, helping you maintain a better posture, reducing body strain, and allowing better circulation. Constructed with a solid aluminum alloy back frame, eco-friendly materials, and a highly durable breathable mesh, this chair will last you a long time. The best office setup is not complete without the best chair."
     },
-    "subcategoryId": 19,
     "price": 620,
     "stock": 0,
     "color": "gr",
@@ -9010,7 +9009,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-03-28T17:21:48.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "admin@test-admin.com"
+    "updatedBy": "admin@test-admin.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 137,
@@ -9024,7 +9024,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 1,
     "color": "white",
@@ -9081,7 +9080,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 135,
@@ -9095,7 +9095,6 @@
       "es": "Headphones inalámbricos con cancelación de ruido activos.  Estos auriculares tienen un sonido de alta calidad y son muy cómodos al usarlos.",
       "en": "Wireless headphones with active noise cancellation. These headphones have high-quality sound and are very comfortable to use."
     },
-    "subcategoryId": 25,
     "price": 33,
     "stock": 0,
     "color": "bl",
@@ -9164,7 +9163,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "headphones"
   },
   {
     "id": 136,
@@ -9178,7 +9178,6 @@
       "es": "Silla ergonómica premium para el home office con acabado de malla completa (asiento y respaldar), altamente ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable y elástica que te mantiene fresco todo el día.",
       "en": "Premium ergonomic chair for the home office with full mesh finish (seat and backrest), highly adjustable and super comfortable. Specially designed for people who spend many hours working in front of the computer. Provides excellent support for the entire back, helping you maintain good posture. Reduces leg strain with a design that allows better circulation. Built with high-quality materials and a special breathable and elastic mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 530,
     "stock": 0,
     "color": "bl",
@@ -9251,7 +9250,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:57:26.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 138,
@@ -9265,7 +9265,6 @@
       "es": "Silla ergonómica para el home office de malla completa, sólida y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales, incluida una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh, solid and highly adjustable. Designed to provide you with the best support for your back during long hours of work. Built with the best materials, including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 390,
     "stock": 0,
     "color": "gr",
@@ -9338,7 +9337,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-17T22:50:29.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 139,
@@ -9352,7 +9352,6 @@
       "es": "El soporte ajustable para celulares te permite ajustar la altura y el ángulo de visión de tu celular. Mantén tu espacio de trabajo organizado y el celular a disposición listo para usar. ",
       "en": "The adjustable cell phone stand allows you to adjust the height and viewing angle of your phone. Keep your workspace organized and your phone readily available for use."
     },
-    "subcategoryId": 28,
     "price": 15,
     "stock": 29,
     "color": "bl",
@@ -9406,7 +9405,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "phone_stands"
   },
   {
     "id": 142,
@@ -9420,7 +9420,6 @@
       "es": "El reposapiés ergonomico tiene una forma especial con llantas para que se balancee y tus pies puedan reposar en un ángulo natural.  Se puede ajustar la altura y ángulo de inclinación.  ",
       "en": "The ergonomic footrest has a special shape with wheels for rocking, allowing your feet to rest at a natural angle. The height and tilt angle can be adjusted."
     },
-    "subcategoryId": 35,
     "price": 30,
     "stock": 0,
     "color": "bl",
@@ -9429,12 +9428,16 @@
     "warranty": "1",
     "specs": {
       "es": {
-        "details": [""],
+        "details": [
+          ""
+        ],
         "dimensions": "48.5x26.5x19cm",
         "specifications": {}
       },
       "en": {
-        "details": [""],
+        "details": [
+          ""
+        ],
         "dimensions": "48.5x26.5x19cm",
         "specifications": {}
       }
@@ -9454,7 +9457,8 @@
     "createdAt": "2022-08-14T20:14:59.000Z",
     "updatedAt": "2022-12-29T22:54:32.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "foot_rest"
   },
   {
     "id": 141,
@@ -9468,7 +9472,6 @@
       "es": "Marco de madera con vidrio para fotos, pinturas, posters, impresiones y cualquier tipo de arte.  Incluye ganchos para colgar el arte de manera vertical o horizontal.  Decora tu espacio de trabajo o home office con tus artes favoritos.\" ",
       "en": "Wooden frame with glass for photos, paintings, posters, prints, and any type of art. Includes hooks to hang the art vertically or horizontally. Decorate your workspace or home office with your favorite art pieces."
     },
-    "subcategoryId": 29,
     "price": 12,
     "stock": 30,
     "color": "bl",
@@ -9518,7 +9521,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "art"
   },
   {
     "id": 144,
@@ -9532,7 +9536,6 @@
       "es": "Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), moderna, altamente ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una mall transpirable especial que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh finish (seat and backrest), modern, highly adjustable, and super comfortable. Specially designed for people who spend many hours working in front of the computer. Provides excellent support for the entire back, helping you maintain good posture. Reduces leg strain with a design that allows for better circulation. Constructed with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 390,
     "stock": 0,
     "color": "bl",
@@ -9572,7 +9575,8 @@
     "createdAt": "2022-08-14T19:09:55.000Z",
     "updatedAt": "2022-12-29T22:55:59.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 143,
@@ -9586,7 +9590,6 @@
       "es": "Regleta de aluminio heavy duty de alta resistencia con 12 tomacorrientes. Los enchufes están en posición vertical para que tengas más espacio para los cargadore grandes.  Cuenta con protección de sobretensiones, sobrecargas y fluctuaciones para que todos tus dispositivos estén protegidos. Tiene un diseño de montaje que te permite instalarlo en las paredes o en la parte de abajo de tu escritorio para mantener todos tus cables organizados.",
       "en": "Heavy duty high resistance aluminum power strip with 12 outlets. The plugs are in a vertical position to give you more space for large chargers. It has surge, overload, and fluctuation protection to keep all your devices safe. It features a mounting design that allows you to install it on walls or under your desk to keep all your cables organized."
     },
-    "subcategoryId": 34,
     "price": 37,
     "stock": 18,
     "color": "bl",
@@ -9637,7 +9640,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "power_strips"
   },
   {
     "id": 145,
@@ -9651,7 +9655,6 @@
       "es": "La base de altura ajustable doble motor X es la solución más potente y rápida con un diseño de patas triple etapa que le da mayor funcionalidad. Tiene un rango de movimiento de altura de 60-125 cm, capacidad de peso de hasta 140 kgs y una velocidad de 38 mm/s. Ideal para personas de estatura más baja o alta, para poner sobres grandes de hasta 220cm de largo y sobres pesados de madera sólida.",
       "en": "The X dual motor height-adjustable base is the most powerful and fastest solution with a triple-stage leg design that provides greater functionality. It has a height adjustment range of 60-125 cm, a weight capacity of up to 140 kg, and a speed of 38 mm/s. Ideal for shorter or taller individuals, to accommodate large desktops up to 220 cm long and heavy solid wood desktops."
     },
-    "subcategoryId": 15,
     "price": 465,
     "stock": 10,
     "color": "wh",
@@ -9692,7 +9695,8 @@
     "createdAt": "2022-05-16T20:33:48.000Z",
     "updatedAt": "2022-05-16T20:33:49.401Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 140,
@@ -9706,7 +9710,6 @@
       "es": "Los altavoces bookshelf de Ergonomica tienen un sonido envolvente y super nitido con un bajo poderoso.  No te imaginas que unas bocinas de 4\" pueden sonar tan alto manteniendo su calidad de sonido.  Tienen el tamaño perfecto para caber en tu escritorio y un diseño vintage elegante que se ve bien en cualquier lugar.",
       "en": "Ergonomica's bookshelf speakers have a surround sound and super clear quality with powerful bass. You can't imagine that 4\" speakers can sound so loud while maintaining their sound quality. They are the perfect size to fit on your desk and have an elegant vintage design that looks good anywhere."
     },
-    "subcategoryId": 38,
     "price": 110,
     "stock": 12,
     "color": "bl",
@@ -9771,7 +9774,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "bookshelf_speakers"
   },
   {
     "id": 146,
@@ -9785,7 +9789,6 @@
       "es": "El soporte vertical para laptops permite colocar tu laptop cerrada verticalmente maximizando el espacio de trabajo. Es ideal para configuraciones con pantalla grande, múltiple pantallas o para espacios reducidos.",
       "en": "The vertical laptop stand allows you to place your closed laptop vertically, maximizing workspace. It is ideal for setups with a large screen, multiple screens, or tight spaces."
     },
-    "subcategoryId": 27,
     "price": 24,
     "stock": 38,
     "color": "gr",
@@ -9834,7 +9837,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 147,
@@ -9848,7 +9852,6 @@
       "es": "Esta gaveta de metal con candado se puede instalar fácilmente a cualquier escritorio.  Es la adición perfecta para standing desk con un tamaño de 70x25x5cm para que puedas guardar tu laptop y te sobre espacio para todas tus otras pertenencias.",
       "en": "This lockable metal drawer can be easily installed on any desk. It is the perfect addition for a standing desk with a size of 70x25x5cm, so you can store your laptop and still have space for all your other belongings."
     },
-    "subcategoryId": 7,
     "price": 53,
     "stock": 14,
     "color": "bl",
@@ -9887,7 +9890,8 @@
     "createdAt": "2022-08-14T21:42:32.000Z",
     "updatedAt": "2022-08-19T01:17:23.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "under_desk_drawer"
   },
   {
     "id": 152,
@@ -9901,7 +9905,6 @@
       "es": "Silla ergonómica de home office con un diseño moderno, respaldar de malla y asiento de espuma moldeada de alta densidad.  Esta silla brinda una comodidad extrema y un excelente soporte para toda la espalda. Diseñado especialmente para profesionales que pasan muchas horas al día sentados frente a una computadora.",
       "en": "Home office ergonomic chair with a modern design, mesh backrest, and high-density molded foam seat. This chair provides extreme comfort and excellent support for the entire back. Specifically designed for professionals who spend many hours a day sitting in front of a computer."
     },
-    "subcategoryId": 19,
     "price": 200,
     "stock": 5,
     "color": "gr",
@@ -9941,7 +9944,8 @@
     "createdAt": "2023-01-18T23:04:05.000Z",
     "updatedAt": "2023-01-18T23:04:05.631Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "chairs"
   },
   {
     "id": 151,
@@ -9955,7 +9959,6 @@
       "es": "La alfombrilla de aluminio para mouse o mouse pad se ve y se siente bien con tu mouse. Ayuda a proteger tu sobre del escritorio.",
       "en": "The aluminum mouse pad looks and feels good with your mouse. It helps protect your desktop surface."
     },
-    "subcategoryId": 31,
     "price": 11,
     "stock": 16,
     "color": "si",
@@ -10005,7 +10008,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "pads"
   },
   {
     "id": 149,
@@ -10019,7 +10023,6 @@
       "es": "La tabla de equilibrio para oficina es una solución muy buena para mejorar la postura, aliviar los dolores de espalda, reducir la tensión de los pies y fortalecer el core mientras trabajas de pie.",
       "en": "The office balance board is a very good solution to improve posture, relieve back pain, reduce foot tension, and strengthen the core while working standing up."
     },
-    "subcategoryId": 17,
     "price": 55,
     "stock": 0,
     "color": "bl",
@@ -10072,7 +10075,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-07T03:13:22.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "balance_boards"
   },
   {
     "id": 150,
@@ -10086,7 +10090,6 @@
       "es": "El mouse de oficina de aluminio es inalámbrico, recargable y tiene un diseño delgado y cómodo. Funciona muy bien en cualquier espacio de trabajo.",
       "en": "The aluminum office mouse is wireless, rechargeable, and has a slim and comfortable design. It works great in any workspace."
     },
-    "subcategoryId": 26,
     "price": 15,
     "stock": 18,
     "color": "bl",
@@ -10140,7 +10143,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "mouse"
   },
   {
     "id": 154,
@@ -10154,7 +10158,6 @@
       "es": "Soporte de aluminio sólido para tus audífonos.  Exhibe y protege tus headphones con un soporte especial para ellos y al mismo tiempo mantén tu espacio de trabajo organizado.   ",
       "en": "Solid aluminum support for your headphones. Display and protect your headphones with a special stand and at the same time keep your workspace organized."
     },
-    "subcategoryId": 3,
     "price": 19,
     "stock": 14,
     "color": "bl",
@@ -10202,7 +10205,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-10-21T00:54:24.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "headphone_stands"
   },
   {
     "id": 155,
@@ -10216,7 +10220,6 @@
       "es": "Silla ergonómica avanzada de home office con marco de aluminio y mecanismo de bloqueo avanzado, altamente ajustable con soporte lumbar dinámico que se adapta a tu espalda y acabado de una malla especial (asiento y respaldar).  Diseñado para los profesionales más exigentes y ocupados que pasan más de 8 horas al día frente a la computadora. Su diseño centrado en el ser humano brinda un excelente soporte para toda la espalda ayudándote a mantener una postura adecuada. Esta silla se siente igual de bien como se ve.  Construido solo con los mejores materiales disponible para que te dure un largo tiempo.",
       "en": "Advanced ergonomic home office chair with aluminum frame and advanced locking mechanism, highly adjustable with dynamic lumbar support that adapts to your back and finished with a special mesh (seat and backrest). Designed for the most demanding and busy professionals who spend more than 8 hours a day in front of the computer. Its human-centered design provides excellent support for the entire back, helping you maintain proper posture. This chair feels as good as it looks. Built only with the best materials available to last you a long time."
     },
-    "subcategoryId": 19,
     "price": 650,
     "stock": 1,
     "color": "bl",
@@ -10259,7 +10262,8 @@
     "createdAt": "2022-08-31T16:44:33.000Z",
     "updatedAt": "2022-12-29T22:53:55.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 153,
@@ -10273,7 +10277,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 95,
     "stock": 4,
     "color": "pecan",
@@ -10330,7 +10333,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:57:49.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 148,
@@ -10344,7 +10348,6 @@
       "es": "Silla ergonómica para el home office con acabado de malla completa (asiento y respaldar), moderna, altamente ajustable y súper cómoda. Diseñado especialmente para personas que pasan muchas horas trabajando frente a la computadora. Brinda un excelente soporte para toda la espalda ayudándote a mantener una buena postura. Reduce la tensión de las piernas con un diseño que permite una mejor circulación. Construido con materiales de alta calidad y una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for the home office with full mesh finish (seat and backrest), modern, highly adjustable, and super comfortable. Specially designed for people who spend many hours working in front of the computer. Provides excellent support for the entire back, helping you maintain good posture. Reduces leg strain with a design that allows for better circulation. Built with high-quality materials and a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 430,
     "stock": 0,
     "color": "gr",
@@ -10415,7 +10418,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:36:38.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "chairs"
   },
   {
     "id": 156,
@@ -10429,7 +10433,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 115,
     "stock": 1,
     "color": "walnut",
@@ -10486,7 +10489,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 159,
@@ -10500,7 +10504,6 @@
       "es": "Sobre de mesa de vidrio templado de 10mm de grosor.  Es una solución moderna, fina y práctica. Viene con agujeros listos para adaptarse a las bases de standing desks de Ergonomica.  Pedido especial, por favor contactarnos al whatsapp par poner una orden",
       "en": "Tempered glass tabletop with a thickness of 10mm. It is a modern, fine, and practical solution. It comes with pre-drilled holes to fit Ergonomica standing desk bases. Special order, please contact us on WhatsApp to place an order."
     },
-    "subcategoryId": 43,
     "price": 150,
     "stock": 0,
     "color": null,
@@ -10543,7 +10546,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 161,
@@ -10557,7 +10561,6 @@
       "es": "Maximiza el espacio de trabajo colgando los headphones abajo del escritorio. También se puede usar para colgar maletines, carteras o cualquier artefacto que gustes.  ",
       "en": "Maximize the workspace by hanging the headphones under the desk. It can also be used to hang briefcases, purses, or any other items you like."
     },
-    "subcategoryId": 3,
     "price": 14,
     "stock": 39,
     "color": "bl",
@@ -10608,7 +10611,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "headphone_stands"
   },
   {
     "id": 158,
@@ -10622,7 +10626,6 @@
       "es": "Regleta de aluminio heavy duty de alta resistencia con 6 tomacorrientes y 2 cargadores USB. Los enchufes están en posición vertical para que tengas más espacio para los cargadore grandes.  Cuenta con protección de sobretensiones, sobrecargas y fluctuaciones para que todos tus dispositivos estén protegidos. Tiene un diseño de montaje que te permite instalarlo en las paredes o en la parte de abajo de tu escritorio para mantener todos tus cables organizados.",
       "en": "Heavy duty aluminum power strip with 6 outlets and 2 USB chargers. The outlets are in a vertical position so you have more space for large chargers. It features surge, overload, and fluctuation protection to keep all your devices safe. It has a mounting design that allows you to install it on walls or under your desk to keep all your cables organized."
     },
-    "subcategoryId": 34,
     "price": 28,
     "stock": 13,
     "color": "bl",
@@ -10677,7 +10680,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-04T16:13:50.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "power_strips"
   },
   {
     "id": 163,
@@ -10691,7 +10695,6 @@
       "es": "Cable HDMI 4k a thunderbolt de 1.8 m de largo.  Para todos los dispositivos más viejos que vienen con entradas thunderbolt.  ",
       "en": "HDMI 4k cable to Thunderbolt, 1.8 m long. For all older devices that come with Thunderbolt ports."
     },
-    "subcategoryId": 6,
     "price": 7,
     "stock": 19,
     "color": "bl",
@@ -10727,7 +10730,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cables"
   },
   {
     "id": 157,
@@ -10741,7 +10745,6 @@
       "es": "La base de altura ajustable de doble motor es ideal para una configuración de standing desk con sobre grande de hasta 220cm de largo o sobre pesado de madera sólida.  La base es rápida con una velocidad de 32 mm/s y silenciosa con ruido menor a <48 db.  Se adapta a cualquier sobre de mesa que tenga un largo entre 100-220 cm y un ancho entre 58-90 cm.  Incluye una pantalla con 3 memorias, tecnología anticolisión y 5 años de garantía. Ideal para tu home office of cualquier espacio de trabajo.  Es la mejor inversión que puedes hacer para tu salud y productividad.",
       "en": "The double motor height-adjustable base is ideal for a standing desk setup with a large tabletop up to 220 cm long or a heavy solid wood top. The base is fast with a speed of 32 mm/s and quiet with noise lower than <48 db. It adapts to any tabletop that is between 100-220 cm long and 58-90 cm wide. It includes a screen with 3 memories, anti-collision technology, and a 5-year warranty. Ideal for your home office or any workspace. It is the best investment you can make for your health and productivity."
     },
-    "subcategoryId": 15,
     "price": 450,
     "stock": 19,
     "color": "bl",
@@ -10810,7 +10813,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-16T20:16:09.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 160,
@@ -10824,7 +10828,6 @@
       "es": "La resolución Full HD UltraWide™ (2560x1080) ofrece un 33% más de espacio de pantalla a lo ancho que el monitor con resolución FHD (1920x1080). El IPS  ofrece una precisión impecable de color. Con un ángulo de visión más amplio, el monitor IPS cuenta con una cobertura del 99% del espectro de colores sRGB.",
       "en": "The Full HD UltraWide™ resolution (2560x1080) offers 33% more screen space width-wise than the monitor with FHD resolution (1920x1080). IPS provides impeccable color accuracy. With a wider viewing angle, the IPS monitor covers 99% of the sRGB color spectrum."
     },
-    "subcategoryId": 23,
     "price": 252,
     "stock": 0,
     "color": "bl",
@@ -10893,7 +10896,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "flat"
   },
   {
     "id": 166,
@@ -10907,7 +10911,6 @@
       "es": "El archivador de 3 cajones slim de 30x60x52cm  tiene el tamaño perfecto para caber debajo de tu escritorio. Los dos primeros cajones están hechos para todos sus suministros de oficina. El último armario es para almacenar los archivos.",
       "en": "The 3-drawer slim file cabinet measuring 30x60x52cm has the perfect size to fit under your desk. The first two drawers are made for all your office supplies. The last drawer is for storing files."
     },
-    "subcategoryId": 39,
     "price": 155,
     "stock": 7,
     "color": "wh",
@@ -10944,7 +10947,8 @@
     "createdAt": "2022-09-28T22:55:56.000Z",
     "updatedAt": "2022-10-14T16:33:39.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "cabinets"
   },
   {
     "id": 164,
@@ -10958,7 +10962,6 @@
       "es": "El soporte de monitor de aluminio eleva tu monitor a la altura ideal. Ayuda a mantener tu escritorio organizado y a maximizar el espacio de trabajo. ",
       "en": "The aluminum monitor stand raises your monitor to the ideal height. It helps keep your desk organized and maximizes your workspace."
     },
-    "subcategoryId": 42,
     "price": 35,
     "stock": 14,
     "color": "sl",
@@ -11011,7 +11014,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "monitor_risers"
   },
   {
     "id": 165,
@@ -11025,7 +11029,6 @@
       "es": "Marco de madera con vidrio para fotos, pinturas, posters, impresiones y cualquier tipo de arte.  Incluye ganchos para colgar el arte de manera vertical o horizontal.  Decora tu espacio de trabajo o home office con tus artes favoritos.\" ",
       "en": "Wooden frame with glass for photos, paintings, posters, prints, and any type of art. Includes hooks to hang the art vertically or horizontally. Decorate your workspace or home office with your favorite art pieces."
     },
-    "subcategoryId": 29,
     "price": 19,
     "stock": 35,
     "color": "bl",
@@ -11075,7 +11078,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "art"
   },
   {
     "id": 169,
@@ -11089,7 +11093,6 @@
       "es": "Sobre de mesa hecho de madera Teca Panameña con acabado de poliuretano semi mate.  La teca es un madera bien fuerte y liviana. Es un sobre que te va a durar toda la vida.",
       "en": "Tabletop made of Panamanian teak wood with a semi-matte polyurethane finish. Teak is a very strong and lightweight wood. It's a tabletop that will last you a lifetime."
     },
-    "subcategoryId": 43,
     "price": 220,
     "stock": 4,
     "color": "teak",
@@ -11138,7 +11141,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:59:27.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 168,
@@ -11152,7 +11156,6 @@
       "es": "El teclado de aluminio multidispositivo le permite conectar hasta 2 dispositivos BT diferentes al mismo tiempo. Es ideal para conectar una laptop, iphone, ipad o cualquier dispositivo que uses para trabajar. El teclado está construido de forma sólida y proporciona una agradable experiencia al escribir. ",
       "en": "The multi-device aluminum keyboard allows you to connect up to 2 different BT devices at the same time. It is ideal for connecting a laptop, iPhone, iPad, or any device you use for work. The keyboard is solidly constructed and provides a pleasant typing experience."
     },
-    "subcategoryId": 16,
     "price": 39,
     "stock": 0,
     "color": "gr",
@@ -11209,7 +11212,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-06-06T21:37:20.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "keyboards"
   },
   {
     "id": 172,
@@ -11223,7 +11227,6 @@
       "es": "Al reposapiés se le puede ajustar la altura y ángulo de inclinación.  ",
       "en": "The height and tilt angle of the footrest can be adjusted."
     },
-    "subcategoryId": 35,
     "price": 27,
     "stock": 23,
     "color": "wh",
@@ -11260,7 +11263,8 @@
     "createdAt": "2022-08-31T00:47:22.000Z",
     "updatedAt": "2022-08-31T00:47:22.954Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "foot_rest"
   },
   {
     "id": 170,
@@ -11274,7 +11278,6 @@
       "es": "La tabla de equilibrio para oficina es una solución muy buena para mejorar la postura, aliviar los dolores de espalda, reducir la tensión de los pies y fortalecer el core mientras trabajas de pie.",
       "en": "The office balance board is a very good solution to improve posture, relieve back pain, reduce foot tension, and strengthen the core while working standing up."
     },
-    "subcategoryId": 17,
     "price": 55,
     "stock": 100,
     "color": "bl",
@@ -11329,7 +11332,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-10-05T21:06:31.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "balance_boards"
   },
   {
     "id": 174,
@@ -11343,7 +11347,6 @@
       "es": "Ruedas especiales para la base de standing desks.  Fácil de instalar, solo tienes que atornillaras a la patas de la base.  ",
       "en": "Special wheels for standing desk bases. Easy to install, just screw them onto the base legs."
     },
-    "subcategoryId": 24,
     "price": 21.99,
     "stock": 30,
     "color": "bl",
@@ -11382,7 +11385,8 @@
     "createdAt": "2022-08-24T23:14:16.000Z",
     "updatedAt": "2022-08-24T23:14:16.973Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "desk_casters"
   },
   {
     "id": 162,
@@ -11396,7 +11400,6 @@
       "es": "El soporte de laptop eleva tu laptop a la altura y el ángulo ideal. Ayuda a mantener su escritorio organizado y maximizar su espacio de trabajo. Es el complemento perfecto para la configuración de tu standing desk permitiendote trabajar fluidamente con otros monitores. ",
       "en": "The laptop stand raises your laptop to the ideal height and angle. It helps keep your desk organized and maximizes your workspace. It is the perfect complement to your standing desk setup, allowing you to work seamlessly with other monitors."
     },
-    "subcategoryId": 27,
     "price": 26,
     "stock": 0,
     "color": "sl",
@@ -11453,7 +11456,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-12-29T22:52:25.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "josemiguel@ergonomicadesk.com"
+    "updatedBy": "josemiguel@ergonomicadesk.com",
+    "subcategorySlug": "laptop_stands"
   },
   {
     "id": 167,
@@ -11467,7 +11471,6 @@
       "es": "La base de altura ajustable de un motor es una solución confiable y poderosa para tu escritorio. Te permite trabajar sentado y parado de manera simultánea incrementando tu productividad y reduciendo los dolores de espalda. La base se adapta a cualquier sobre de mesa que tenga un largo entre 100-190 cm y un ancho de 58-90 cm. Cuenta con una pantalla de 3 memorias, tecnología anticolisión, gran capacidad de peso y 5 años de garantía. Es la mejor inversión que puede hacer para tu salud y el trabajo.",
       "en": "The adjustable height base of a motor is a reliable and powerful solution for your desk. It allows you to work sitting and standing simultaneously, increasing your productivity and reducing back pain. The base adapts to any tabletop that is between 100-190 cm in length and 58-90 cm in width. It features a 3-memory screen, anti-collision technology, high weight capacity, and a 5-year warranty. It is the best investment you can make for your health and work."
     },
-    "subcategoryId": 15,
     "price": 330,
     "stock": 24,
     "color": "wh",
@@ -11536,7 +11539,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-05-16T20:14:56.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "desk_frames"
   },
   {
     "id": 171,
@@ -11550,7 +11554,6 @@
       "es": "El brazo de aluminio heavy duty para un monitor tiene una capacidad de peso de 15kgs para monitores de hasta 46\".   El brazo te permite ajustar sin problemas la pantalla a la altura, profundidad y ángulo de visión correctos reduciendo la tensión de tu cuello. El brazo es altamente ajustable y utiliza un mecanismo neumático de contrapeso dándote una sensación que el monitor estuviera flotando. Es el complemento perfecto para la configuración de tu standing desk en el home office. ",
       "en": "The heavy-duty aluminum arm for a monitor has a weight capacity of 15kgs for monitors up to 46\". The arm allows you to smoothly adjust the screen to the correct height, depth, and viewing angle, reducing neck strain. The arm is highly adjustable and uses a pneumatic counterbalance mechanism, giving you the feeling that the monitor is floating. It is the perfect complement for your standing desk setup in the home office."
     },
-    "subcategoryId": 2,
     "price": 99,
     "stock": 71,
     "color": "bl",
@@ -11602,7 +11605,8 @@
     "createdAt": "2022-08-14T20:52:25.000Z",
     "updatedAt": "2022-08-31T22:06:48.000Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "monitor_arms"
   },
   {
     "id": 173,
@@ -11616,7 +11620,6 @@
       "es": "Amplíe las capacidades de tus dispositivos con puertos adicionales. El hub 10 en 1 viene completo con todos los puertos que puedas necesitar. Contiene los siguientes puertos: 1 x HDMI 4K / 1 x VGA Port - Full HD /  3 x puertos USB 3.0 /1 x SD Card Slot / 1 x TF Card  / 1 x RJ45 Gigabit Ethernet port / 1 x 3.5mm Audio Mic / 1 x PD - Max power output 100W",
       "en": "Expand the capabilities of your devices with additional ports. The 10-in-1 hub comes complete with all the ports you may need. It contains the following ports: 1 x HDMI 4K / 1 x VGA Port - Full HD / 3 x USB 3.0 ports / 1 x SD Card Slot / 1 x TF Card / 1 x RJ45 Gigabit Ethernet port / 1 x 3.5mm Audio Mic / 1 x PD - Max power output 100W"
     },
-    "subcategoryId": 14,
     "price": 49,
     "stock": 18,
     "color": "gr",
@@ -11666,7 +11669,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usbc_hubs"
   },
   {
     "id": 175,
@@ -11680,7 +11684,6 @@
       "es": "Silla ergonómica para el home office con soporte lumbar dinámico, de malla completa (silla y asiento) y altamente ajustable. Diseñado para brindarte el mejor soporte para tu espalda durante largas horas de trabajo. Construido con los mejores materiales incluyendo una malla especial transpirable que te mantiene fresco todo el día.",
       "en": "Ergonomic chair for home office with dynamic lumbar support, fully mesh (chair and seat), and highly adjustable. Designed to provide the best support for your back during long hours of work. Built with the best materials including a special breathable mesh that keeps you cool all day."
     },
-    "subcategoryId": 19,
     "price": 425,
     "stock": 20,
     "color": "bl",
@@ -11719,7 +11722,8 @@
     "createdAt": "2023-01-16T22:30:00.000Z",
     "updatedAt": "2023-01-16T22:30:01.060Z",
     "createdBy": "tester@user-tester.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "chairs"
   },
   {
     "id": 177,
@@ -11733,7 +11737,6 @@
       "es": "Soporte de aluminio sólido para tus tabletas, celulares y consolas de videojuegos portátiles.   Mantén tu espacio de trabajo organizado con tus dispositivos a disposición listos para usar. ",
       "en": "Solid aluminum support for your tablets, cell phones, and portable video game consoles. Keep your workspace organized with your devices readily available and ready to use."
     },
-    "subcategoryId": 33,
     "price": 19,
     "stock": 33,
     "color": "gr",
@@ -11785,7 +11788,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "tablet_stands"
   },
   {
     "id": 178,
@@ -11799,7 +11803,6 @@
       "es": "El reposamuñecas para teclado y mouse de memory foam con forma ergonómica hace que sea más cómodo trabajar y protege tu muñecas del desgaste.",
       "en": "The memory foam keyboard and mouse wrist rest with ergonomic shape makes working more comfortable and protects your wrists from wear."
     },
-    "subcategoryId": 8,
     "price": 14,
     "stock": 28,
     "color": "bl",
@@ -11850,7 +11853,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-08-14T22:12:25.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "wrist_rests"
   },
   {
     "id": 176,
@@ -11864,7 +11868,6 @@
       "es": "El mouse de oficina de aluminio se conecta con Bluetooth, es recargable y tiene un diseño delgado y cómodo. Funciona muy bien en cualquier espacio de trabajo.",
       "en": "The aluminum office mouse connects with Bluetooth, is rechargeable, and has a slim and comfortable design. It works very well in any workspace."
     },
-    "subcategoryId": 26,
     "price": 16,
     "stock": 17,
     "color": "bl",
@@ -11922,7 +11925,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "mouse"
   },
   {
     "id": 180,
@@ -11936,7 +11940,6 @@
       "es": "Conecta tus monitores a tu laptop o macbooks que tienen puertos tipo C.",
       "en": "Connect your monitors to your laptop or MacBooks that have Type C ports."
     },
-    "subcategoryId": 6,
     "price": 12.5,
     "stock": 19,
     "color": "bl",
@@ -11986,7 +11989,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "cables"
   },
   {
     "id": 179,
@@ -12000,7 +12004,6 @@
       "es": "Un Hub para USB  de siete puertos USB 3.0 de alta velocidad.  Adicionalmente puedes conectarle un cargador 5V 4A (no incluido) si necesita más potencia para ciertos dispositivos.    ",
       "en": "A USB hub with seven high-speed USB 3.0 ports. Additionally, you can connect a 5V 4A charger (not included) if more power is needed for certain devices."
     },
-    "subcategoryId": 41,
     "price": 19,
     "stock": 20,
     "color": "gr",
@@ -12056,7 +12059,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "usb_hubs"
   },
   {
     "id": 181,
@@ -12070,7 +12074,6 @@
       "es": "El sobre de mesa para tu standing desk. Hecho de MDF hidrófugo de 1 pulgada de grueso con un laminado de melamina de alta calidad.",
       "en": "The tabletop for your standing desk. Made of 1-inch thick water-repellent MDF with high-quality melamine laminate."
     },
-    "subcategoryId": 43,
     "price": 65,
     "stock": 5,
     "color": "black",
@@ -12127,7 +12130,8 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-11-29T16:37:16.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": "tester@user-tester.com"
+    "updatedBy": "tester@user-tester.com",
+    "subcategorySlug": "table_tops"
   },
   {
     "id": 182,
@@ -12141,7 +12145,6 @@
       "es": "El monitor LG de 24 pulgadas tiene una alta definición con color preciso.  La resolución 1080p Full HD con IPS ofrece imágenes brillantes que resaltan con detalles vibrantes desde cualquier ángulo de visión. La tecnología AMD FreeSync™ y una frecuencia de actualización dinámica de 75Hz prácticamente evita las imágenes cortadas o que se vean cuadro por cuadro para brindarte un movimiento continuo y fluido durante los juegos de alta resolución y ritmo rápido.",
       "en": "The 24-inch LG monitor has high definition with accurate color. The 1080p Full HD resolution with IPS offers bright images that stand out with vibrant details from any viewing angle. AMD FreeSync™ technology and a dynamic refresh rate of 75Hz virtually eliminate screen tearing or frame-by-frame viewing to provide seamless and fluid motion during high-resolution and fast-paced games."
     },
-    "subcategoryId": 23,
     "price": 175,
     "stock": 0,
     "color": "bl",
@@ -12212,6 +12215,7 @@
     "createdAt": "2022-02-07T06:04:35.000Z",
     "updatedAt": "2022-02-07T06:04:35.000Z",
     "createdBy": "admin@test-admin.com",
-    "updatedBy": null
+    "updatedBy": null,
+    "subcategorySlug": "flat"
   }
 ]
