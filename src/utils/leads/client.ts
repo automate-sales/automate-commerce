@@ -22,6 +22,26 @@ export const setLocalStorageItem = (key: string, value: string) => {
         return false
     }
 }
+
+export const getSessionStorageItem = (key: string) => {
+    try {
+        if (typeof window !== 'undefined') return sessionStorage.getItem(key)
+        return undefined
+    } catch (err) {
+        console.error('Error getting session storage item', err)
+        return undefined
+    }
+}
+
+export const setSessionStorageItem = (key: string, value: string) => {
+    try {
+        if (typeof window !== 'undefined') return sessionStorage.setItem(key, value)
+    } catch (err) {
+        console.error('Error setting session storage item', err)
+        return false
+    }
+}
+
 export const isLocalStorageEnabled =()=> {
     try {
         localStorage.setItem('isEnabled', 'yes');
@@ -46,16 +66,19 @@ export const generateFingerprint = async () => {
 
 export const setClientLead = (leadId: string) => {
     try {
-        return setLocalStorageItem(LEAD_COOKIE, leadId)
+        setLocalStorageItem(LEAD_COOKIE, leadId)
+        setSessionStorageItem(LEAD_COOKIE, leadId)
+        return true
     } catch (err) {
         console.error('Error setting client lead', err)
         return false
     }
 }
 export const getClientLead = () => {
-    return getLocalStorageItem(LEAD_COOKIE)
+    return getLocalStorageItem(LEAD_COOKIE) || getSessionStorageItem(LEAD_COOKIE)
 }
 export const getLead = async () => {
+    // perhaps header Ids are not necessary..
     const [cookiesId, headersId] = await getServerLead()
     return cookiesId || getClientLead() || headersId
 }
@@ -82,13 +105,14 @@ export const setCart = (cartId: string) => {
     setClientCart(cartId)
     setServerCart(cartId)
 }
-
+ 
 
 export const getCookiSettings = async(): Promise<{
     doNotTrack: boolean,
     cookiesEnabled: boolean,
     localStorageEnabled: boolean,
     sessionCookiesEnabled: boolean,
+    allCookiesDisabled: boolean,
     isBot: boolean 
 } | undefined>=> {
     if (typeof window !== 'undefined') {
@@ -98,6 +122,7 @@ export const getCookiSettings = async(): Promise<{
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
             sessionCookiesEnabled: await areCookiesEnabled(),
+            allCookiesDisabled: false,
             isBot: await isBot()
         }
     }
@@ -122,37 +147,40 @@ export const areCookiesEnabled = async() => {
 let mounted = false
 export const getOrCreateLead = async() => {
     try {
-        const [cookiesId, headersId] = await getServerLead()
-        const isActiveCookies = cookiesId && await isLeadActive(cookiesId)
+        // RETREIVE ULI
+        // 1. get the lead id from server or client
+        const leadId = await getLead() || new URLSearchParams(window.location.search).get('hid')
         
-        if(isActiveCookies) setCart(await getCartId(cookiesId))
-        
+        // do this only once per session?
+        // 2. check if the lead is active and get the active cart id (only has to be don once per session)  
+        const activeLeadId = leadId && await isLeadActive(leadId) ? leadId : undefined
+        // if the lead is inactive the should change the leadID to the active leadId... this needs to be added to the swapLeads function 
+        // perhaps cart can be fecthed dynamically with lead id ..
+        activeLeadId && setCart(await getCartId(activeLeadId))
+        // 3. get the users cookie settings
         const cookieSettings = await getCookiSettings()
-        const hid = new URLSearchParams(window.location.search).get('hid')
-        console.log('COOKIE SETTINGS', cookieSettings)
-        console.log('HID', hid)
-        if(!mounted && !isActiveCookies && !hid){
-            mounted = true
-            // for user of an incognito browser, or browser with cookies blocked, it should use the fingerprint to 
-            console.log('NO ACTIVE LEAD ID IN COOKIES')
-            // in cdase the user has all cookies blocked
-            const localStorageId = getClientLead()
-            if (!localStorageId && !cookieSettings?.isBot || !isActiveCookies) {
-                console.log('NO LOCAL STORAGE ID')
-                const fingerprint = await generateFingerprint()
-                const response = await findOrCreateLeadWithCart(fingerprint)
-                setLead(response.leadId)
-                setCart(response.cartId)
+        // Make sure the visitor without a lead ID is not a bot 
+        if (!activeLeadId && !cookieSettings?.isBot) {
+            // create a new browser fingerprint
+            const fingerprint = await generateFingerprint()
+            // perhaps only join by fingerprint if cookie settings match
+            const response = await findOrCreateLeadWithCart(fingerprint)
+            setLead(response.leadId)
+            setCart(response.cartId)
 
-                // checks if all cookies disabled
-                if(!await getCookie(LEAD_COOKIE)){
-                    const params = new URLSearchParams()
-                    // set encrypted value in the URL
-                    // const encryptedHid = await encryptUuid(response.leadId)
-                    params.set('hid', response.leadId || '')
-                    
-                    window.history.pushState(null, '', `?${params.toString()}`)
-                }
+            // checks if all cookies disabled
+            if(!await getCookie(LEAD_COOKIE)){
+                // add cookiesBlocked in the leads cookie settings 
+                console.log('ALL COOKIES DISABLED')
+                console.log('LEAD ID', await getLead())
+                if(cookieSettings) cookieSettings.allCookiesDisabled = true
+                
+                // perhaps ignore this route and simply use sessionStorage?
+                const params = new URLSearchParams()
+                // set encrypted value in the URL
+                // const encryptedHid = await encryptUuid(response.leadId)
+                params.set('hid', response.leadId || '')
+                window.history.pushState(null, '', `?${params.toString()}`)
             }
         }
         console.log('LEAD ID', await getLead())

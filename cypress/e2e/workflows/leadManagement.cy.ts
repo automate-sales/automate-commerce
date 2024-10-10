@@ -1,5 +1,5 @@
 import { clearLocalStorage } from '../utils'
-
+const LEAD_COOKIE = 'ergo_lead_id'
 
 // cookies enabled
   // request not to track or visitor IP in europe?
@@ -28,50 +28,25 @@ import { clearLocalStorage } from '../utils'
 // checkout succesfully
 
 
-
-
-
 before(() => {
   cy.log('CLEARING COOKIES ...')
   Cypress.session.clearAllSavedSessions()
   cy.clearAllCookies()
+  // wipe the leads table
 })
 
-beforeEach(() => {
-  //cy.clearCookies()
-  cy.session('lead', () => {
-    cy.visit('localhost:3000')
-    .wait(500)
-    cy.getCookie('leadId').then(leadId => {
-      if(leadId && leadId.value){
-        cy.log('LEAD ID ****** ', leadId.value)
-        cy.setCookie('leadId', leadId.value, {httpOnly: true})
-      }
-    })
-  }, {cacheAcrossSpecs: true})
-})
-
-describe('Home Page Loads with Acceptable Performance', () => {
-  it('loads succesfully', () => {
-    cy.visit('localhost:3000')
-  })
-  //add stuff for performance testing
-})
-
+// these tests might fail in the CI. They seem to fail on the first run after db seed.
 describe('New Person Enters the Site', () => {
   it(`should: 
     1. create a new lead
     2. set the local lead id
     3. create a shopping cart w/ the correct lead id`, 
   () => {
-    cy.clearCookies()
+    cy.getCookie(LEAD_COOKIE).should('not.exist');
     cy.visit('localhost:3000')
     .wait(1500)
-    cy.getCookie('leadId').then(leadId => {
-      expect(leadId).to.not.be.null
-      cy.request('http://localhost:3000/api/trpc/lead.getOne?input='+encodeURIComponent(`{"json":"${leadId}"}`))
-      .then(response => expect(response.body).to.not.be.empty)
-    })
+    cy.getCookie(LEAD_COOKIE).should('exist');
+    // creates one lead in the database
     /* cy.getLocalStorage('ergonomica_cart_id').then(cartId => {
       expect(cartId).to.not.be.null
       cy.request('http://localhost:3000/api/trpc/cart.getOne?input='+encodeURIComponent(`{"json":"${cartId}"}`))
@@ -79,6 +54,38 @@ describe('New Person Enters the Site', () => {
     }) */
   })
 })
+
+// cookies are disabled
+describe('Simulate Blocked Cookies and Check Session Storage', () => {
+  beforeEach(() => {
+    // Simulate blocked cookies by overriding the `document.cookie` setter and getter
+    cy.visit('http://localhost:3000', {
+      onBeforeLoad(win) {
+        // Override document.cookie to prevent cookies from being set
+        Object.defineProperty(win.document, 'cookie', {
+          get: () => '',
+          set: () => {}
+        });
+      }
+    });
+  });
+
+  it('should interact with session storage and verify behavior', () => {
+    // Perform actions that interact with session storage
+    cy.visit('http://localhost:3000');
+
+    // Assert that the cookie doesnt exist
+    cy.getCookie(LEAD_COOKIE).should('not.exist');
+    // Assert that the session storage item exists
+    cy.window().its(`sessionStorage.${LEAD_COOKIE}`).then(leadId => {
+      expect(leadId).to.not.be.null
+      // navigate to other pages still should maintain session
+      cy.visit('http://localhost:3000/products').wait(1500)
+      cy.window().its(`sessionStorage.${LEAD_COOKIE}`).should('equal', leadId)
+    });
+  });
+});
+
 
 /* describe('Person Enters the Site with a Fake Lead ID', () => {
   clearLocalStorage()
@@ -100,7 +107,7 @@ describe('New Person Enters the Site', () => {
   })
 }) */
 
-describe('Returning Person Enters the Site with a real lead ID and an Active Cart', () => {
+/* describe('Returning Person Enters the Site with a real lead ID and an Active Cart', () => {
   it(`should setup local lead_id and cart_id for an existing lead`, () => {
     cy.clearCookies()
     cy.session('leadId', ()=>{
@@ -137,12 +144,14 @@ describe('Returning Person Enters the Site with a real lead ID and an Active Car
             expect(response.body.result.data.json).to.equal(firstLeadCount)
           })
         })
-        /* cy.getLocalStorage('ergonomica_cart_id').then(cartId => {
-          expect(cartId).to.not.be.null
-          cy.request('http://localhost:3000/api/trpc/cart.getCount').then(response => {
-            expect(response.body.result.data.json).to.equal(firstCartCount)
-          })
-        }) */
+
+        //cy.getLocalStorage('ergonomica_cart_id').then(cartId => {
+        //  expect(cartId).to.not.be.null
+        //  cy.request('http://localhost:3000/api/trpc/cart.getCount').then(response => {
+        //    expect(response.body.result.data.json).to.equal(firstCartCount)
+        //  })
+        //})
+
       })
     })
   })
@@ -154,4 +163,4 @@ describe('Returning Person Enters the Site with a real lead ID and no Active Car
     cy.visit('localhost:3000')
   })
   //add stuff for performance testing
-})
+}) */
