@@ -57,6 +57,26 @@ describe('An existing user signs in from the login page', () => {
   })
 
 
+// TEST CASES
+// sign up (first login)
+// click on the lkogin button from a given product page -> reroute to login page, then reroute back to the given page
+// enter the login page url and sign in -> reroute to home
+  // the user doesnt have any leads -> add userId in lead
+  // the user has only one active lead and it is equal to the current leadId
+  // the user has another active lead with an empty cart
+    // add the userId in the current lead
+    // set the other lead as inactive
+    // join leads -> adds nonempty fields
+  // the user has another lead that has an active, non-empty cart
+    // add the userId in the current lead
+    // ask the user if they want to keep the current cart
+    // if yes,
+    // if no, set the current cart as inactive and add the leadId in the other cart
+    // set the other lead as inactive
+    // join leads -> adds nonempty fields
+
+
+
 // ** The correct lead_id must always be stored in memory
 //lead creates cart and then signs in for the first time
     // new lead accesses the index

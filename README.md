@@ -124,3 +124,53 @@ click on generate Access Token and add some permissions
 5. Click on open URL and make some events on the page i.e. visit a product page and the product to cart
 6. initially it will take a few minutes but you should start seeing the events log in the test events page
 
+
+
+
+# Lead management
+
+This ecommerce creates a unique leadId for users.
+
+It uses a combination of server side actions through middleware and client side actions in the main layout file with a client side component to track the lead and their ID throughout the app
+
+## leads_fix
+uses a condition on mounted to only generate 1 lead
+
+```
+let mounted = false
+const getOrCreateLead = async(
+    visitorId: string | null | undefined
+) => {
+    if(!visitorId && !mounted) {
+        mounted = true
+        if (typeof window !== 'undefined') {
+            let leadId = localStorage.getItem('ergo_lead_id')
+            let cartId = localStorage.getItem('ergo_cart_id')
+            if(!leadId) {
+                const fingerprint = await generateFingerprint()
+                const response = await createLeadAndCart(fingerprint)
+                leadId = response.leadId
+                cartId = response.cartId
+                localStorage.setItem('ergo_lead_id', leadId)
+```
+
+
+## Leadgen
+1. adds lead utils and sets custom headers for x-leadid
+2. adds lead and cart utils
+3. adds condition to get the visitors cookie settings and to manage visitor that have all of their cookies blocked
+4. adds logic to identify cookieless leads by fingerprint
+5. adds fix for detecting cart correctly in cookieless mode
+6. adds utility to check if the incoming visitor is a bot
+7. fix the cart icon in safari browser
+8. remove unecessary cuid dependency
+9. ignore cypress generated files
+
+## userauth
+1. adds login flow that sets lead
+2. added promise in singup and fixed reroute logic
+3. adds stuff to make lead inactive and to fetch and set the current lea… 
+4. tries to add notifications on login and logout
+
+
+## cart sharing

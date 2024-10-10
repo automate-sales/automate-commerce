@@ -1,7 +1,16 @@
 // add signUp action on submit
 
-export default function Page(){
+import SignupEvent from "@/app/[lang]/components/analytics/signup";
+import SignupForm from "@/app/[lang]/components/signup";
+import { getCurrentUser } from "@/utils/auth";
+
+export default async function Page(){
+    const user = await getCurrentUser()
     return(
-        <h1 className="text-xl pt-5">Hello new User!</h1>
+        <>
+            <SignupEvent />
+            <SignupForm user={user}/>
+        </>
+        
     )
 }

@@ -166,6 +166,8 @@ describe('A new lead makes a succesful order', () => {
       expect(orderId).to.not.equal('undefined')
     })
   })
+
+  // it refreshes the cart count after the order is placed
 })
 
 //ERRORS
