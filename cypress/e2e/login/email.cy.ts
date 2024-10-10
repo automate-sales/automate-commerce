@@ -6,6 +6,7 @@
     // clearcookies
     // wipe users
 
+// SIGNUP
 //new user sign in from a random page
     // navigate to random page
     // click on login button
@@ -18,12 +19,76 @@
         // the user is rerouted to the random page
     // user signout
 
+// SIGN OUT
+
+// SIGN IN
+describe('An existing user signs in from the login page', () => {
+    const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
+    const sign_in_success_msg = 'Ha iniciado sesión'
+    const logout_success_msg = 'Ha cerrado su sesión'
+    const default_locale = 'en'
+    const existing_user_email = 'johndoe@doejohn.com'
+    it('Is succesfull', () => {
+      cy.clearAllCookies()
+      cy.visit('localhost:3000/login')
+      .wait(1000)
+      cy.get('#email')
+      .type(existing_user_email)
+      .should('have.value', existing_user_email)
+      .type('{enter}')
+      //cy.contains(email_confirmation_msg).should("be.visible")
+      .wait(1000)
+      cy.task('getLastEmail', existing_user_email).then((email)=> {
+        const typedEmail = email as { body: string; html: string };
+        cy.log('EMAIl FOUND: ', typedEmail)
+        let body = typedEmail.body.toString()
+        let url = body.slice(body.indexOf('http'))
+        expect(url).to.not.be.empty
+        cy.visit({url: url, method: 'POST'})
+        .wait(1000)
+        cy.url().should('not.include', '/user/info?first_login=true')
+      })
+    })
+  })
+
+
+  describe('An existing user signs in from a random page', () => {
+    const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
+    const sign_in_success_msg = 'Ha iniciado sesión'
+    const logout_success_msg = 'Ha cerrado su sesión'
+    const default_locale = 'en'
+    const existing_user_email = 'johndoe@doejohn.com'
+    it('Is succesfull', () => {
+      cy.clearAllCookies()
+      cy.visit('localhost:3000/products/chair-stackx-bl')
+      cy.get('#userIconBtn').click().wait(100)
+      cy.get('#startSessionBtn').click().wait(1000)
+      cy.url().should('include', '/login')
+      cy.get('#email')
+      .type(existing_user_email)
+      .should('have.value', existing_user_email)
+      .type('{enter}')
+      //cy.contains(email_confirmation_msg).should("be.visible")
+      .wait(1000)
+      cy.task('getLastEmail', existing_user_email).then((email)=> {
+        const typedEmail = email as { body: string; html: string };
+        cy.log('EMAIl FOUND: ', typedEmail)
+        let body = typedEmail.body.toString()
+        let url = body.slice(body.indexOf('http'))
+        expect(url).to.not.be.empty
+        cy.visit({url: url, method: 'POST'})
+        .wait(1000)
+        cy.url().should('include', '/products/chair-stackx-bl')
+      })
+    })
+  })
+
 //existing user sign in from a random page
     // the user is rerouted to the user/info page
     // a react toast success displays sign in success message
 
 //existing user sign in from a login page
-describe('An existing user signs in from the login page', () => {
+describe('A new user signs up', () => {
     const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
     const sign_in_success_msg = 'Ha iniciado sesión'
     const logout_success_msg = 'Ha cerrado su sesión'
@@ -37,7 +102,7 @@ describe('An existing user signs in from the login page', () => {
       .should('have.value', 'user@testuser.com')
       .type('{enter}')
       //cy.contains(email_confirmation_msg).should("be.visible")
-      .wait(3000)
+      .wait(1000)
       cy.task('getLastEmail', 'user@testuser.com').then((email)=> {
         const typedEmail = email as { body: string; html: string };
         cy.log('EMAIl FOUND: ', typedEmail)
@@ -47,15 +112,22 @@ describe('An existing user signs in from the login page', () => {
         cy.visit({url: url, method: 'POST'})
         .wait(1000)
         cy.url().should('include', '/user/info?first_login=true')
+        
         //cy.contains(sign_in_success_msg).should("be.visible")
         //fill out the user info
         //cy.get('#userMenuBtn').click()
         //cy.get('#signOutBtn').click()
         //.wait(1000)
         //cy.contains(logout_success_msg).should("be.visible")
+
+        // LOG BACK IN -> shouldnt contain first_login=true
       })
     })
   })
+
+// MAKE USER SIGN UP
+// MAKE USER LOG BACK IN -> it shouldnt contain first_login=true
+
 
 
 // TEST CASES

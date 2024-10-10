@@ -212,7 +212,7 @@ export const UserMenu = ({ user }: { user: any }) => {
 
     return (
         <div>
-            <button onClick={toggleDropdown} className="flex items-center h-full">
+            <button id='userIconBtn' onClick={toggleDropdown} className="flex items-center h-full">
                 <UserIcon className="h-6 w-6" />
             </button>
             {isOpen && (
@@ -247,7 +247,7 @@ export const UserMenu = ({ user }: { user: any }) => {
                     ) : (
                         <ul>
                             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <Link scroll={false} passHref href={`/login?redirect=${urlPath}`}>
+                                <Link id='startSessionBtn' scroll={false} passHref href={`/login?redirect=${urlPath}`}>
                                     Iniciar sesión
                                 </Link>
                             </li>
