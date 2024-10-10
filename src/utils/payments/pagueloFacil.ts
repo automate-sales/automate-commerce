@@ -58,7 +58,7 @@ async function submitPayment(input: PaymentInput) {
       console.log('PAYMENT COMPLETE ', data);
       return data;
     } else throw new Error(`Status: ${data.Status}`);
-  } catch (err) {
-    throw new Error(err);
+  } catch (err: any) {
+    throw new Error(String(err));
   }
 }

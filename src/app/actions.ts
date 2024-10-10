@@ -79,7 +79,7 @@ type UpdateLeadInput = {
 export async function updateLead(leadId: string, data: UpdateLeadInput, userId?: string | null ) {
   userId && await prisma.user.update({
     where: { id: userId },
-    data: { username: data.email?.split('@')[0] || data.name?.split('').join('_') }
+    data: { username: data.email?.split('@')[0] || data.name?.split(' ').join('_') }
   })
   return await prisma.lead.update({
     where: { id: leadId },

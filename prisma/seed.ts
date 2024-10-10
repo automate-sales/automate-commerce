@@ -2,13 +2,14 @@ import dotenv from 'dotenv';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${NODE_ENV}`});
 
-import { Category, PrismaClient, Product, Subcategory } from "@prisma/client"
+import { Category, PrismaClient, Prisma, Product, Subcategory } from "@prisma/client"
 import categories from "../data/categories.json"
 import subcategories from "../data/subcategories.json"
 import products from "../data/products.json";
 
 import { createPublicBucket, uploadImageFromURL, wipeS3Bucket } from "../src/utils/s3";
 const prisma = new PrismaClient()
+
 
 const bucketName = `${process.env.PROJECT_NAME}-media`
 console.log('bucketName', bucketName)
@@ -33,60 +34,114 @@ async function wipeProductsSubcategoriesAndCategories() {
   await prisma.category.deleteMany();
   return true
 }
+interface BaseModel {
+  id?: string | number;
+  title?: Prisma.InputJsonValue;
+  description?: Prisma.InputJsonValue;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
+  category?: Category;
+  subcategory?: Subcategory;
+}
 
-function datify(arr: {createdAt: string, updatedAt: string, [key: string]: any }[]) {
-  return arr.map(obj => {
-      return {
-          ...obj,
-          createdAt: new Date(obj.createdAt),
-          updatedAt: new Date(obj.updatedAt)
-      };
-  });
+function convertToCreateInput<T extends BaseModel>(data: T): T {
+  if (data.title) {
+    data.title = data.title as Prisma.InputJsonValue;
+  }
+  if (data.description) {
+    data.description = data.description as Prisma.InputJsonValue;
+  }
+  if (data.createdAt && typeof data.createdAt === 'string') {
+    data.createdAt = new Date(data.createdAt);
+  }
+  if (data.updatedAt && typeof data.updatedAt === 'string') {
+    data.updatedAt = new Date(data.updatedAt);
+  }
+  if(data.id) delete data.id;
+  //if(data.category) delete data.category;
+  //if(data.subcategory) delete data.subcategory;
+  return data;
 }
 
 async function seedCategories() {
-  const createCategoryPromises = datify(categories).map(async (c: Category ) => {
-    //c.subcategories && delete c.subcategories;
-    await prisma.category.create({ data: c });
-    return Promise.all(c.images.map((i: string) => {
-      return uploadImageFromURL(
-        bucketName,
-        `${oldImgHost}/categories/${i}`,
-        `categories/${i}`
+  const createCategoryPromises = categories.map(async (category) => {
+    const data: Prisma.CategoryCreateInput = convertToCreateInput(category);
+    
+    await prisma.category.create({ data });
+    
+    if (Array.isArray(data.images)) {
+      return Promise.all(
+        data.images.map((image: string) => {
+          return uploadImageFromURL(
+            bucketName,
+            `${oldImgHost}/categories/${image}`,
+            `categories/${image}`
+          );
+        })
       );
-    }));
+    }
+    return null;
   });
+
   return await Promise.all(createCategoryPromises);
 }
 
 async function seedSubcategories() {
-  const createSubcategoryPromises = datify(subcategories).map(async (s: Subcategory ) => {
-    //s.category && delete s.category;
-    await prisma.subcategory.create({ data: s });
-    return Promise.all(s.images.map((i: string) => {
-      return uploadImageFromURL(
-        bucketName,
-        `${oldImgHost}/subcategories/${i}`,
-        `subcategories/${i}`
+  const createSubcategoryPromises = subcategories.map(async (subcategory) => {
+    const { categorySlug, ...subcat } = subcategory;
+    const data: Prisma.SubcategoryCreateInput = {
+      ...convertToCreateInput(subcat),
+      category: {
+        connect: { slug: categorySlug }, // Connect by `id`
+      },
+    };
+    await prisma.subcategory.create({ data });
+    
+    if (Array.isArray(data.images)) {
+      return Promise.all(
+        data.images.map((image: string) => {
+          return uploadImageFromURL(
+            bucketName,
+            `${oldImgHost}/subcategories/${image}`,
+            `subcategories/${image}`
+          );
+        })
       );
-    }));
+    }
+    return null;
   });
+
   return await Promise.all(createSubcategoryPromises);
 }
 
 async function seedProducts() {
-  const createProductPromises = datify(products).map(async (p: Product ) => {
-    await prisma.product.create({ data: p });
-    return Promise.all(p.images.map((i: string) => {
-      return uploadImageFromURL(
-        bucketName,
-        `${oldImgHost}/products/${i}`,
-        `products/${i}`
+  const createProductPromises = products.map(async (product) => {
+    const { subcategorySlug, ...prod } = product;
+    const data: Prisma.ProductCreateInput = {
+      ...convertToCreateInput(prod),
+      subcategory: {
+        connect: { slug: product.subcategorySlug }, // Connect by `id`
+      },
+    };
+    await prisma.product.create({ data });
+    
+    if (Array.isArray(data.images)) {
+      return Promise.all(
+        data.images.map((image: string) => {
+          return uploadImageFromURL(
+            bucketName,
+            `${oldImgHost}/products/${image}`,
+            `products/${image}`
+          );
+        })
       );
-    }));
+    }
+    return null;
   });
+
   return await Promise.all(createProductPromises);
 }
+
 
 async function wipeData() {
   //await prisma.cartItem.deleteMany();
@@ -139,6 +194,7 @@ async function seedTestData() {
   const users = [
       {
         name: "John Doe",
+        username: "johndoe@doejohn.com",
         email: "johndoe@doejohn.com"
       }
   ];

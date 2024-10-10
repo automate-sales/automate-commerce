@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import ms from 'smtp-tester'
+import ms, { EmailInfo } from 'smtp-tester'
 
 //type Device = 'desktop' | 'mobile'
 
@@ -13,11 +13,11 @@ export default defineConfig({
       const mailServer = ms.init(port)
       console.log('mail server at port %d', port)
       let lastEmail: { [key:string]: any} = {}
-      mailServer.bind((
-        addr, 
-        id, 
-        email
-      ) => {
+      const handler = function(
+        recipient: string | null,
+        id: number,
+        email: EmailInfo
+      ) {
         console.log('--- email to %s ---', email.headers.to)
         console.log(email.body)
         console.log('--- end ---')
@@ -25,7 +25,8 @@ export default defineConfig({
             body: email.body,
             html: email.html,
         }
-      })
+      };
+      mailServer.bind(handler);
       on('task', {
         /* async lighthouse(device:Device='mobile'){
           const chrome = await launch({chromeFlags: ['--headless', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage']})
@@ -65,8 +66,8 @@ export default defineConfig({
           }
           return null
         },
-        getLastEmail(email) {
-          return lastEmail[email] || null
+        getLastEmail(email): EmailInfo {
+          return lastEmail[email]
         },
       })
       return config;

@@ -14,8 +14,10 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cy.visit('localhost:3000')
       .wait(1000)
       cy.getCookie('ergo_lead_id').then(leadId => {
-        cy.log('LEAD ID ****** ', leadId.value)
-        cy.setCookie('leadId', leadId.value, {httpOnly: true})
+        if(leadId && leadId.value){
+          cy.log('LEAD ID ****** ', leadId.value)
+          cy.setCookie('leadId', leadId.value, {httpOnly: true})
+        }
       })
     }, {cacheAcrossSpecs: true})
   })
@@ -43,10 +45,12 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     //cy.visit('localhost:3000')
     //.wait(1500)
     cy.getCookie('leadId').then(leadId => {
-      cy.log('LEAD ID ****** ', leadId.value)
-      /* expect(leadId).to.not.be.null
-      cy.request('http://localhost:3000/api/trpc/lead.getOne?input='+encodeURIComponent(`{"json":"${leadId}"}`))
-      .then(response => expect(response.body).to.not.be.empty) */
+      if(leadId && leadId.value){
+        cy.log('LEAD ID ****** ', leadId.value)
+        /* expect(leadId).to.not.be.null
+        cy.request('http://localhost:3000/api/trpc/lead.getOne?input='+encodeURIComponent(`{"json":"${leadId}"}`))
+        .then(response => expect(response.body).to.not.be.empty) */
+      }
     })
   })
   /* it('Searches for a product', ()=> {
@@ -160,7 +164,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     //has the correct number of items and items have the correct values
     cy.get('#cart-items').children().should("have.length", 4)
     cy.get('#cart-items').children().each(elem => {
-      let sku = elem.find('div.cart-item-sku').text()
+      let sku = elem.find('div.cart-item-sku').text() as keyof typeof expectedStock
 
       expect(Object.keys(expectedStock)).include(sku)
       cy.get(`#${sku}-qty`).should('have.value', String(expectedStock[sku]))
@@ -176,7 +180,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Removes an item from the cart', ()=> {
     //cy.restoreLocalStorage()
-    let productSku = 'chair-axis-wh'
+    let productSku = 'chair-axis-wh' as keyof typeof expectedStock
     cy.viewport(1300, 800)
     cy.visit('localhost:3000/cart')
     .wait(100)
@@ -196,7 +200,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Decreases qty of an item', ()=> {
     //cy.restoreLocalStorage()
-    let productSku = 'stand-arm-alum-single-bl'
+    let productSku = 'stand-arm-alum-single-bl' as keyof typeof expectedStock
     cy.viewport(1300, 800)
     cy.visit('localhost:3000/cart')
     cy.get(`#${productSku}-price`).then(price => {
@@ -215,7 +219,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Increases qty of an item to a qty > stock', ()=> {
     //cy.restoreLocalStorage()
-    let productSku = 'chair-stackx-bl'
+    let productSku = 'chair-stackx-bl' as keyof typeof expectedStock
     cy.viewport(1300, 800)
     cy.visit('localhost:3000/cart')
     cy.get(`#${productSku}-price`).then(price => {
@@ -250,7 +254,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.get('#cart-items').children().should("have.length", 3)
     let finalCartSubtotal = 0
     cy.get('#cart-items').children().each(elem => {
-      let sku = elem.find('div.cart-item-sku').text()
+      let sku = elem.find('div.cart-item-sku').text() as keyof typeof finalExpectedStock
       expect(Object.keys(finalExpectedStock)).include(sku)
       cy.get(`#${sku}-qty`).should('have.value', String(finalExpectedStock[sku]))
       cy.get(`#${sku}-price`).then(price => {

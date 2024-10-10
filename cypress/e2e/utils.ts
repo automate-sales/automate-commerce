@@ -1,10 +1,11 @@
-export const clearLocalStorage =()=> {
-    it('should clear local storage', () => {
-      cy.clearLocalStorage()
-      cy.getLocalStorage('ergonomica_lead_id').should('be.null')
-      cy.getLocalStorage('ergonomica_cart_id').should('be.null')
+export const clearLocalStorage = () => {
+  it('should clear local storage', () => {
+    cy.clearLocalStorage();
+    cy.getAllLocalStorage().then((result) => {
+      expect(result).to.be.empty;
     })
-}
+  });
+};
 
 export const checkCart =(expectedLength:number, expectedStock: {[key:string]: number}, subtotal=0)=> {
   cy.get('#cart-items').children().should("have.length", expectedLength)
@@ -63,9 +64,10 @@ export const existingUserEmailLogin =(email:string, reroute:string)=> {
   cy.log('Email sent, checking inbox . . . ', email)
   cy.contains(email_confirmation_msg).should("be.visible")
   .wait(3000)
-  cy.task('getLastEmail', email).then((email:{body:string, html:string})=> {
-    cy.log('EMAIl FOUND: ', email)
-    let body = email.body.toString()
+  cy.task('getLastEmail', email).then((email)=> {
+    const typedEmail = email as { body: string; html: string };
+    cy.log('EMAIl FOUND: ', typedEmail)
+    let body = typedEmail.body.toString()
     let url = body.slice(body.indexOf('http'))
     expect(url).to.not.be.empty
     cy.visit({url: url, method: 'POST'})

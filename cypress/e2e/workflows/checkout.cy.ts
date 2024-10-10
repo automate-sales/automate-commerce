@@ -53,7 +53,7 @@ describe('A lead tests the functionality of the checkout process', () => {
       cy.visit('localhost:3000')
       .wait(500)
       cy.getCookie('leadId').then(leadId => {
-        cy.setCookie('leadId', leadId.value, {httpOnly: true})
+        leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
       })
     }, {cacheAcrossSpecs: true})
   })
@@ -89,9 +89,9 @@ describe('A lead tests the functionality of the checkout process', () => {
     fillForm(steps[0], address1, ['state'])
     cy.get(`#${steps[1]}`).should('be.visible')
     cy.get(`#same_as_shipping`).click()
-    Object.keys(address1).map(k => {
-      cy.get(`#${steps[1]} input[name="${k}"]`).should('have.value', address1[k])
-    })
+    Object.entries(address1).forEach(([key, value]) => {
+      cy.get(`#${steps[1]} input[name="${key}"]`).should('have.value', value);
+    });
     // the payment form should be visible after ticking the checkbox
     //cy.get(`#${steps[2]}`).should('be.visible')
   })
@@ -108,7 +108,7 @@ describe('A new lead makes a succesful order', () => {
       cy.visit('localhost:3000')
       .wait(500)
       cy.getCookie('leadId').then(leadId => {
-        cy.setCookie('leadId', leadId.value, {httpOnly: true})
+        leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
       })
     }, {cacheAcrossSpecs: true})
   })
@@ -158,9 +158,10 @@ describe('A new lead makes a succesful order', () => {
     //const success_msg = '¡Gracias por tu compra!'
     //cy.contains(success_msg).should("be.visible")
     cy.url().should('include', '/order_confirmation?order=')
-    cy.task('getLastEmail', customer1.email).then((email:{body:string, html:string})=> {
-      cy.log('EMAIl ', email)
-      const body = email.body.toString()
+    cy.task('getLastEmail', customer1.email).then((email)=> {
+      const typedEmail = email as { body: string; html: string };
+      cy.log('EMAIl ', typedEmail)
+      const body = typedEmail.body.toString()
       const orderId = body.split('identificador unico de tu orden es: ')[1]
       expect(orderId).to.not.be.empty
       expect(orderId).to.not.equal('undefined')

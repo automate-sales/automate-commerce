@@ -146,8 +146,6 @@ export const getOrCreateLead = async() => {
 
                 // checks if all cookies disabled
                 if(!await getCookie(LEAD_COOKIE)){
-                    //const searchParams = useSearchParams()
-                    //console.log('SEARCH PARAMS ', searchParams)
                     const params = new URLSearchParams()
                     // set encrypted value in the URL
                     // const encryptedHid = await encryptUuid(response.leadId)

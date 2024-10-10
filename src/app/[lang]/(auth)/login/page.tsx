@@ -8,11 +8,11 @@ import { Breadcrumbs, Props, seoCompotnent } from "../../components/seo";
 //import Session from "../../components/session";
 
 
-export default async function SignIn({ params }: { params: { redirect?: string, lang: string } }) {
+export default async function SignIn({ params, searchParams }: { params: { lang: string }, searchParams: { redirect: string} }) {
   //const cookieStore = cookies()
   //const visitorId = cookieStore.get('ergo_lead_id')?.value
   const dict = await getDictionary(params.lang)
-  const redirectPath = params.redirect ? params.redirect : '/'
+  const redirectPath = searchParams.redirect ? searchParams.redirect : '/'
   console.log('REDIRECT PATsH ', redirectPath)
   const user = await getCurrentUser()
   console.log('USER IO ', user)
