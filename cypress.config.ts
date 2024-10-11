@@ -80,6 +80,7 @@ export default defineConfig({
             console.log('Wiping tables');
             console.log(process.env.DATABASE_URL)
             await prisma.$transaction([
+              prisma.order.deleteMany({}),
               prisma.cartItem.deleteMany({}),
               prisma.cart.deleteMany({}),
               prisma.lead.deleteMany({}),

@@ -127,7 +127,7 @@ const useCheckoutForm = (initialData: any) => {
             setSteps((prevSteps: any) => ({
                 ...prevSteps,
                 // if step is not last step
-                [step]: { ...prevSteps[step], done: true, hidden: step == Object.keys(steps).length ? true : false},
+                [step]: { ...prevSteps[step], done: true, hidden: step == Object.keys(steps).length ? false : true},
                 [step + 1]: { ...prevSteps[step + 1], hidden: false },
             }));
         }
@@ -267,7 +267,7 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                     onBlur={() => handleBlur(4)}
                 />
                 <div className='pt-5 flex justify-end'>
-                    <button disabled={formData.submitting} type='submit' className="w-full md:w-auto md:px-12 text-2xl uppercase text-white py-2 bg-gray-400">
+                    <button id='checkout-btn' disabled={formData.submitting} type='submit' className="w-full md:w-auto md:px-12 text-2xl uppercase text-white py-2 bg-gray-400">
                         Checkout
                     </button>
                 </div>

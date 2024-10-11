@@ -227,7 +227,7 @@ export const FormGroup = ({
                   </div>
                   <span>{title}</span>
               </div>
-              <button id={`step-${step}-btn`} onClick={toggleHidden} className="p-2 border border-grey-300 bg-white">
+              <button type='button' id={`step-${step}-btn`} onClick={toggleHidden} className="p-2 border border-grey-300 bg-white">
                   {steps[step].hidden ? "Editar" : "Colapsar"}
               </button>
           </div>

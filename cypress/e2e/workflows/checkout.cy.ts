@@ -83,7 +83,7 @@ describe('A lead tests the functionality of the checkout process', () => {
   }) */
   it('tests the billing is same as shipping checkbox', () => {
     cy.viewport('macbook-15')
-    cy.visit('localhost:3000/checkout')
+    cy.visit('localhost:3000/checkout').wait(1000)
     cy.get(`#step-2-btn`).click()
     cy.get(`#step-2`).scrollIntoView().should('be.visible')
     fillForm('step-2', address1, ['state'])
@@ -164,7 +164,7 @@ describe('A new lead makes a succesful order', () => {
     cy.get('#checkout-btn').click()
     //const success_msg = '¡Gracias por tu compra!'
     //cy.contains(success_msg).should("be.visible")
-    cy.url().should('include', '/order_confirmation?order=')
+    cy.url().should('include', '/orders/confirmation?id=')
     cy.task('getLastEmail', customer1.email).then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl ', typedEmail)
@@ -173,9 +173,16 @@ describe('A new lead makes a succesful order', () => {
       expect(orderId).to.not.be.empty
       expect(orderId).to.not.equal('undefined')
     })
-  })
+    // cart is refreshed after the order is placed
+    .wait(5000)
+    cy.get('#cartBtn').click()
+    cy.url().should('include', '/cart')
+    // cart-items should not have any children
+    cy.get('#cart-items').should('be.empty');
+    // cart total value should be 0
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq('$0'))
 
-  // it refreshes the cart count after the order is placed
+  })
 })
 
 //ERRORS

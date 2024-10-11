@@ -12,6 +12,8 @@ import { getCartId, getServerCart, getServerLead } from "@/utils/leads/server";
 export default async function Page({ params }: { params: { lang: string } }) {
     const [leadId] = await getServerLead()
     const cartId = leadId && await getCartId(leadId)
+    console.log('SERVER LEAD ID: ', leadId)
+    console.log('LEAD CART ID: ', cartId)
     const user = await getCurrentUser()
     const cart = await prisma.cart.findUnique({
         where: { id: cartId },
