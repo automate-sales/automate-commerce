@@ -1,27 +1,10 @@
-// before each test:
-    // seed users
 
-// after each test case
-    // logout
-    // clearcookies
-    // wipe users
+// SEED DATA
+// 1. create a user without any leads
+// 2. create a user with an existing lead equal to the current lead
+// 3. create a user with an existing lead different to the current lead with an empty cart
+// 4. create a user with an existing lead different to the current lead with a nonempty cart
 
-// SIGNUP
-//new user sign in from a random page
-    // navigate to random page
-    // click on login button
-    // reroute to sign in
-    // sign in with google
-    // sign in success
-    // the user is rerouted to the user/info page
-    // a react toast success displays sign in success message
-    // the user presses enter
-        // the user is rerouted to the random page
-    // user signout
-
-// SIGN OUT
-
-// SIGN IN
 describe('An existing user signs in from the login page', () => {
     const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
     const sign_in_success_msg = 'Ha iniciado sesión'
@@ -50,7 +33,6 @@ describe('An existing user signs in from the login page', () => {
       })
     })
   })
-
 
   describe('An existing user signs in from a random page', () => {
     const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
@@ -83,12 +65,8 @@ describe('An existing user signs in from the login page', () => {
     })
   })
 
-//existing user sign in from a random page
-    // the user is rerouted to the user/info page
-    // a react toast success displays sign in success message
 
-//existing user sign in from a login page
-describe('A new user signs up', () => {
+describe('A new user signs up with an empty cart', () => {
     const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
     const sign_in_success_msg = 'Ha iniciado sesión'
     const logout_success_msg = 'Ha cerrado su sesión'
@@ -125,33 +103,8 @@ describe('A new user signs up', () => {
     })
   })
 
-// MAKE USER SIGN UP
-// MAKE USER LOG BACK IN -> it shouldnt contain first_login=true
 
-
-
-// TEST CASES
-// sign up (first login)
-// click on the lkogin button from a given product page -> reroute to login page, then reroute back to the given page
-// enter the login page url and sign in -> reroute to home
-  // the user doesnt have any leads -> add userId in lead
-  // the user has only one active lead and it is equal to the current leadId
-  // the user has another active lead with an empty cart
-    // add the userId in the current lead
-    // set the other lead as inactive
-    // join leads -> adds nonempty fields
-  // the user has another lead that has an active, non-empty cart
-    // add the userId in the current lead
-    // ask the user if they want to keep the current cart
-    // if yes,
-    // if no, set the current cart as inactive and add the leadId in the other cart
-    // set the other lead as inactive
-    // join leads -> adds nonempty fields
-
-
-
-// ** The correct lead_id must always be stored in memory
-//lead creates cart and then signs in for the first time
+// A new user signs up with a non empty cart
     // new lead accesses the index
     // leadId and cartId are stored in memory
     // lead adds 2 items to shopping cart
@@ -162,6 +115,22 @@ describe('A new user signs up', () => {
     // cart contains 2 items X & Y
     // user navigates to the user/info page
     // correct leadId is displayed
+
+
+// WORKFLOWS
+// 1. Existing user without any leads signs in -> add userId in lead
+// 2. Existing user with one active lead that is equal to the current leadId
+// 3. Existing user with another active lead with an empty cart
+  // add the userId in the current lead
+  // set the other lead as inactive
+  // join leads -> adds nonempty fields
+// 4. Existing user with another lead that has an active, non-empty cart
+  // add the userId in the current lead
+  // ask the user if they want to keep the current cart
+  // if yes,
+  // if no, set the current cart as inactive and add the leadId in the other cart
+  // set the other lead as inactive
+  // join leads -> adds nonempty fields
 
 
 // ** a factory must create a lead with a cart that has items and assign it to an email user
