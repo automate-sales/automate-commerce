@@ -118,11 +118,12 @@ export const SideMenu = ({
     return (
         <>
             <div className="lg:hidden flex items-center">
-                <button onClick={openDrawer}>
+                <button id='hamburgerMenu' onClick={openDrawer}>
                     {!isMenuOpen && <Bars3Icon className="h-6 w-6" />}
                 </button>
             </div>
             <div
+                id='sideMenu'
                 ref={drawerRef}
                 className={`fixed top-0 left-0 w-80 h-full bg-gray-50 bg-opacity-90 z-40 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}
                 style={{ transform: `translateX(${drawerPosition})` }}
@@ -131,7 +132,7 @@ export const SideMenu = ({
                 onTouchEnd={handleTouchEnd}
             >
                 <div className="p-5 flex flex-col gap-3">
-                    <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
+                    <XMarkIcon id='closeDrawerBtn' className="h-6 w-6 mb-4" onClick={closeDrawer} />
                     <SearchInput />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
@@ -168,13 +169,15 @@ export const SearchInput = ({
     };
 
     return (
+        <div className="relative z-80">
+        
         <form
             className={`flex items-center px-1 lg:px-2 lg:border-b-2 lg:border-blue-200 ${classNames}`}
             onSubmit={(ev) => searchProducts(ev)}
         >
             <MagnifyingGlassIcon className="h-6 w-6 lg:hidden" />
             <input
-                id="search"
+                id='search'
                 type="text"
                 className="w-36 p-1 bg-transparent text-gray-700 focus:outline-none"
                 required
@@ -184,12 +187,14 @@ export const SearchInput = ({
                 placeholder="search"
             />
             <button
+                id='searchBtn'
                 type="submit"
                 className="focus:outline-none items-center justify-center hidden lg:flex"
             >
                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
             </button>
         </form>
+        </div>
     );
 };
 
