@@ -1,4 +1,9 @@
 import { defineConfig } from "cypress";
+
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.test' })
+
+import prisma from "./src/db";
 import ms, { EmailInfo } from 'smtp-tester'
 
 //type Device = 'desktop' | 'mobile'
@@ -69,6 +74,34 @@ export default defineConfig({
         getLastEmail(email): EmailInfo {
           return lastEmail[email]
         },
+
+        async wipeTables() {
+          try {
+            console.log('Wiping tables');
+            console.log(process.env.DATABASE_URL)
+            await prisma.$transaction([
+              prisma.cartItem.deleteMany({}),
+              prisma.cart.deleteMany({}),
+              prisma.lead.deleteMany({}),
+            ]);
+            console.log('Lead and Cart tables wiped');
+            return null;
+          } catch (error) {
+            console.error('Error wiping tables:', error);
+            throw new Error('Failed to wipe tables');
+          }
+        },
+
+        async getLeads() {
+          try {
+            const leads = await prisma.lead.findMany();
+            return leads;
+          } catch (error) {
+            console.error('Error getting leads:', error);
+            throw new Error('Failed to get leads');
+          }
+        }
+
       })
       return config;
     },

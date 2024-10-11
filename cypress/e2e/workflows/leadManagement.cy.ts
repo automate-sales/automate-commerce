@@ -1,67 +1,42 @@
 import { clearLocalStorage } from '../utils'
 const LEAD_COOKIE = 'ergo_lead_id'
-
-// cookies enabled
-  // request not to track or visitor IP in europe?
-    // cookie consent banner
-// Third party cookies blocked
-   // enable cookies banner
-// all cookies blocked
-   // enable cookies banner
-
    
-// visitor in europe
-// A person with cookies completely disabled should be able to use the site with all its functionalitites (diusable all cookies)
-
-// should maintain the lead id in the URL and the headers
-// click on a product
-// click on a carousael item
-// click on a nav item
-// change language
-// search for a product
-// enter a new URL without a locale
-// enter a new URL with a locale
-// refresh a page
-
-//add an item to cart
-// visit the cart page
-// checkout succesfully
-
-
-before(() => {
-  cy.log('CLEARING COOKIES ...')
+beforeEach(() => {
   Cypress.session.clearAllSavedSessions()
   cy.clearAllCookies()
-  // wipe the leads table
+  cy.task('wipeTables')
 })
 
-// these tests might fail in the CI. They seem to fail on the first run after db seed.
 describe('New Person Enters the Site', () => {
-  it(`should: 
-    1. create a new lead
-    2. set the local lead id
-    3. create a shopping cart w/ the correct lead id`, 
+  it(`should create a lead in the DB and store the lead ID in a cookie`, 
   () => {
+    // Verify there are no existing cookies or leads in the DB 
     cy.getCookie(LEAD_COOKIE).should('not.exist');
-    cy.visit('localhost:3000')
-    .wait(1500)
+    cy.task('getLeads').then((leads: {[key: string]:any}[]) => {
+      expect(leads).to.be.empty
+    })
+    // visit the home page
+    cy.visit('localhost:3000').wait(1000)
+    // verify the lead cookie was created and set in server/client and 1 lead was created in the DB
     cy.getCookie(LEAD_COOKIE).should('exist');
-    // creates one lead in the database
-    /* cy.getLocalStorage('ergonomica_cart_id').then(cartId => {
-      expect(cartId).to.not.be.null
-      cy.request('http://localhost:3000/api/trpc/cart.getOne?input='+encodeURIComponent(`{"json":"${cartId}"}`))
-      .then(response => expect(response.body).to.not.be.empty)
-    }) */
+    cy.window().its(`localStorage.${LEAD_COOKIE}`).then(leadId => {
+      expect(leadId).to.not.be.null
+    });
+    cy.window().its(`sessionStorage.${LEAD_COOKIE}`).then(leadId => {
+      expect(leadId).to.not.be.null
+    });
+    cy.task('getLeads').then((leads: {[key: string]:any}[]) => {
+      expect(leads).to.not.be.empty
+      expect(leads.length).to.equal(1)
+    })
   })
 })
 
-// cookies are disabled
-describe('Simulate Blocked Cookies and Check Session Storage', () => {
+describe('New Person Enters the Site with cookies disabled', () => {
   beforeEach(() => {
     // Simulate blocked cookies by overriding the `document.cookie` setter and getter
-    cy.visit('http://localhost:3000', {
+    cy.visit('localhost:3000', {
       onBeforeLoad(win) {
-        // Override document.cookie to prevent cookies from being set
         Object.defineProperty(win.document, 'cookie', {
           get: () => '',
           set: () => {}
@@ -70,23 +45,35 @@ describe('Simulate Blocked Cookies and Check Session Storage', () => {
     });
   });
 
-  it('should interact with session storage and verify behavior', () => {
-    // Perform actions that interact with session storage
-    cy.visit('http://localhost:3000');
-
-    // Assert that the cookie doesnt exist
+  it('should create a lead in the DB and store the lead ID in session storage', () => {
+    // Verify there are no existing cookies or leads in the DB 
     cy.getCookie(LEAD_COOKIE).should('not.exist');
-    // Assert that the session storage item exists
+    cy.task('getLeads').then((leads: {[key: string]:any}[]) => {
+      expect(leads).to.be.empty
+    })
+    // visit the home page
+    cy.visit('localhost:3000').wait(1000).clearAllCookies()
+    cy.getCookie(LEAD_COOKIE).should('not.exist');
     cy.window().its(`sessionStorage.${LEAD_COOKIE}`).then(leadId => {
       expect(leadId).to.not.be.null
       // navigate to other pages still should maintain session
-      cy.visit('http://localhost:3000/products').wait(1500)
+      cy.visit('http://localhost:3000/products').wait(1000).clearAllCookies()
       cy.window().its(`sessionStorage.${LEAD_COOKIE}`).should('equal', leadId)
     });
+    // make sure only 1 lead was created in the DB
+    cy.task('getLeads').then((leads: {[key: string]:any}[]) => {
+      expect(leads).to.not.be.empty
+      expect(leads.length).to.equal(1)
+    })
   });
 });
 
+// visitor in europe
 
+
+
+
+//
 /* describe('Person Enters the Site with a Fake Lead ID', () => {
   clearLocalStorage()
   localStorage.setItem('ergonomica_lead_id', 'random_lead_id')

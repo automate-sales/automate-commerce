@@ -4,6 +4,7 @@ import { cookies, headers } from 'next/headers'
 import prisma from '@/db'
 import { LEAD_COOKIE, CART_COOKIE } from './constants'
 import { Cart, Lead } from '@prisma/client';
+
 //import { Lead } from '@prisma/client';
 
 /* import * as crypto from 'crypto';
@@ -75,7 +76,6 @@ export const isBot =(): boolean => {
   return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase()));
 }
 
-
 export const getCookie = (name: string) => {
   try {
     return cookies().get(name)?.value || undefined
@@ -84,6 +84,7 @@ export const getCookie = (name: string) => {
     return undefined
   }
 }
+
 export async function setCookie(name: string, value: string) {
     try {
       return cookies().set({
@@ -96,6 +97,7 @@ export async function setCookie(name: string, value: string) {
       return undefined
     }
 }
+
 export async function deleteCookie(name: string) {
     try {
       return cookies().delete(name)
@@ -123,13 +125,13 @@ export const setServerCart = (cartId: string) => {
 export const getServerCartCookie = async () => {
     return getCookie(CART_COOKIE)
 }
+
 export const getServerCart = async()=> {
     const cookiesId = await getServerCartCookie()
     if(cookiesId) return cookiesId
     const leadId = await getServerLead()
     return leadId[0] ? await getCartId(leadId[0]) : leadId[1] ? await getCartId(leadId[1]) : undefined
 }
-
 
 export const isLeadActive = async (leadId: string) => {
     try {
@@ -220,7 +222,6 @@ export async function getCartLength() {
     })
     return cart?.cartItems.reduce((acc, curr) => acc + curr.qty, 0) || 0
 }
-
 
 export const joinLeads = async (currentLeadId: string, otherLeadId: string): Promise<Lead> => {
   try {

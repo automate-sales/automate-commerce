@@ -1,23 +1,18 @@
-//import { clearLocalStorage } from "../utils"
+const LEAD_COOKIE = 'ergo_lead_id'
 
 describe('A new lead enters the site and shops for a variety of items', () => {
   
   before(() => {
-    cy.log('CLEARING COOKIES ...')
     Cypress.session.clearAllSavedSessions()
     cy.clearAllCookies()
+    cy.task('wipeTables')
   })
 
   beforeEach(() => {
-    //cy.clearCookies()
     cy.session('lead', () => {
-      cy.visit('localhost:3000')
-      .wait(1000)
-      cy.getCookie('ergo_lead_id').then(leadId => {
-        if(leadId && leadId.value){
-          cy.log('LEAD ID ****** ', leadId.value)
-          cy.setCookie('leadId', leadId.value, {httpOnly: true})
-        }
+      cy.visit('localhost:3000').wait(500)
+      cy.getCookie(LEAD_COOKIE).then(leadId => {
+        leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
       })
     }, {cacheAcrossSpecs: true})
   })
