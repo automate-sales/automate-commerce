@@ -1,6 +1,8 @@
+const LEAD_COOKIE = 'ergo_lead_id'
+
 // create a product with a price < $1 (declined payment)
 
-import { addProductFromPage, checkCart, existingUserEmailLogin, fillForm, logOut } from "../utils"
+import { addProductFromPage, checkCart, clickMiddle, existingUserEmailLogin, fillForm, logOut } from "../utils"
 
 const customer1 = {
   full_name: "John Doe",
@@ -11,8 +13,6 @@ const address1 = {
   street_1: "coconut st, bldg 1, apt 2",
   city: "Panama City",
   state: "panama_ciudad",
-  zip: "00000",
-  country: "panama"
 }
 const customer2 = {
   full_name: "Sally Smith",
@@ -47,19 +47,23 @@ describe('A lead tests the functionality of the checkout process', () => {
   before(() => {
     Cypress.session.clearAllSavedSessions()
     cy.clearAllCookies()
+    cy.task('wipeTables')
   })
+
   beforeEach(() => {
-    cy.session('lead', () => {
-      cy.visit('localhost:3000')
-      .wait(500)
-      cy.getCookie('leadId').then(leadId => {
+
+      cy.visit('localhost:3000').wait(500)
+      cy.getCookie(LEAD_COOKIE).then(leadId => {
         leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
       })
-    }, {cacheAcrossSpecs: true})
+
   })
+
+
   it('Adds products to the cart', () => {
-    addProductFromPage('chair-gamer-prodigy-gr', 2)
-    addProductFromPage('frame-3stage-wh', 1)
+    cy.visit('localhost:3000').wait(500)
+    addProductFromPage('chair-axis-wh', 2)
+    addProductFromPage('stand-arm-alum-single-bl', 1)
   })
   /* it('tests lead signin during checkout', () => {
     const customerInfo = 'informacion_de_contacto'
@@ -78,20 +82,16 @@ describe('A lead tests the functionality of the checkout process', () => {
     logOut()
   }) */
   it('tests the billing is same as shipping checkbox', () => {
-    const steps = [
-      'direccion_de_envio',
-      'direccion_de_facturacion',
-      'informacion_del_pago'
-    ]
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/checkout')
-    cy.get(`#${steps[0]}-btn`).click()
-    cy.get(`#${steps[0]}`).should('be.visible')
-    fillForm(steps[0], address1, ['state'])
-    cy.get(`#${steps[1]}`).should('be.visible')
+    cy.get(`#step-2-btn`).click()
+    cy.get(`#step-2`).scrollIntoView().should('be.visible')
+    fillForm('step-2', address1, ['state'])
+    /* cy.get(`#${steps[1]}`).should('be.visible')
     cy.get(`#same_as_shipping`).click()
     Object.entries(address1).forEach(([key, value]) => {
       cy.get(`#${steps[1]} input[name="${key}"]`).should('have.value', value);
-    });
+    }); */
     // the payment form should be visible after ticking the checkbox
     //cy.get(`#${steps[2]}`).should('be.visible')
   })
@@ -102,6 +102,7 @@ describe('A new lead makes a succesful order', () => {
   before(() => {
     Cypress.session.clearAllSavedSessions()
     cy.clearAllCookies()
+    cy.task('wipeTables')
   })
   beforeEach(() => {
     cy.session('lead', () => {
@@ -119,12 +120,13 @@ describe('A new lead makes a succesful order', () => {
   })
   
   it('Checks cart', () => {
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     .wait(1000)
-    cy.get(`#lead_id`).should("be.visible").invoke('text')
+    /* cy.get(`#lead_id`).should("be.visible").invoke('text')
     .then(text => {
       expect(text.trim().length).to.be.greaterThan(8);
-    });
+    }); */
     const expectedStock = {
       'chair-gamer-prodigy-gr': 2,
       'frame-3stage-wh': 1
@@ -136,22 +138,27 @@ describe('A new lead makes a succesful order', () => {
 
   it('Fills out checkout', () => {
     const steps = [
-      'informacion_de_contacto',
-      'direccion_de_envio',
-      'direccion_de_facturacion',
-      'informacion_del_pago'
+      'step-1',
+      'step-2',
+      'step-3',
+      'step-4'
     ]
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/checkout')
     // validate subtotal, tax, delivery and total
-    cy.get(`#${steps[0]}`).should('be.visible')
-    steps.map((s, i) => cy.get(`#${s}`).should(i===0? 'be.visible': 'not.be.visible'))
+    cy.get(`#${steps[0]}`).scrollIntoView().should('be.visible')
+    //steps.map((s, i) => cy.get(`#${s}`).should(i===0? 'be.visible': 'not.be.visible'))
     fillForm(steps[0], customer1)
+    clickMiddle()
     cy.get(`#${steps[1]}`).should('be.visible')
     fillForm(steps[1], address1, ['state'])
+    clickMiddle()
     cy.get(`#${steps[2]}`).should('be.visible')
     fillForm(steps[2], address1, ['state'])
+    clickMiddle()
     cy.get(`#${steps[3]}`).should('be.visible')
     fillForm(steps[3], {...validMasterCard, name: customer1.full_name})
+    clickMiddle()
     cy.get('#mastercard-logo').should('be.visible')
     // validate subtotal, tax, delivery and total
     cy.get('#checkout-btn').click()

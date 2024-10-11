@@ -51,6 +51,7 @@ export function TextInput({
       <input
         type={inputType}
         name={name}
+        id={name}
         minLength={minLength}
         className="appearance-none border w-full py-2 px-3 text-gray-700 focus:outline-none focus:bg-white focus:border-blue-500"
         placeholder={placeholder}
@@ -80,6 +81,7 @@ export function CcNumInput({
       <input
         type="text"
         name={name}
+        id={name}
         className="appearance-none border w-full py-2 px-3 text-gray-700 focus:outline-none focus:bg-white focus:border-blue-500"
         placeholder="XXXXXXXXXXXXX"
         value={value}
@@ -117,6 +119,7 @@ export function CcExpInput({
       <input
         type="text"
         name={name}
+        id={name}
         className="appearance-none border w-full py-2 px-3 text-gray-700 focus:outline-none focus:bg-white focus:border-blue-500"
         placeholder="MM/YY"
         value={value}
@@ -175,93 +178,86 @@ export type FormField = {
     required?: boolean
 }
 
-export const FormGroup =({
-    title,
-    step,
-    item,
-    setItem,
-    steps,
-    setSteps,
-    fields,
-    subset,
-    options={},
-    children=null,
-    optional={}
-}:{
-    title:string,
-    step:number,
-    item: any,
-    setItem: any,
-    steps: any,
-    setSteps:any,
-    fields: Array<FormField>,
-    subset?:string[], 
-    options?: { [key: string]: { [key: string]: any }[] },
-    children?: ReactNode,
-    optional?: { [key: string]: boolean }
+export const FormGroup = ({
+  title,
+  step,
+  item,
+  setItem,
+  steps,
+  setSteps,
+  fields,
+  optional = {},
+  children = null,
+  onBlur
+}: {
+  title: string,
+  step: number,
+  item: any,
+  setItem: (newItem: any) => void,
+  steps: any,
+  setSteps: any,
+  fields: FormField[],
+  optional?: { [key: string]: boolean },
+  children?: React.ReactNode,
+  onBlur?: () => void
 }) => {
-    const handleChange =(ev: { target: { name: any; value: any } }, newItem: {[key:string]: any}|null=null )=> {
-        newItem = newItem? newItem : {...item, [ev.target.name]: ev.target.value}
-        setItem(newItem)
-        if(newItem) Object.entries(newItem).every(e => e[1] || optional[e[0]] ) && setSteps({
-            ...steps,
-            [step]:{
-                ...steps[step],
-                done:true,
-                ...(step && step >= Object.keys(steps).length-1? {} : {hidden: true})
-            }, 
-            [step+1]:{
-                ...steps[step+1],
-                hidden: false
-            }
-        })
-    }
-    const toggleHidden =()=> {
-        console.log(step, !steps[step].hidden)
-        setSteps({
-            ...steps,
-            [step]:{...steps[step], hidden: !steps[step].hidden}
-        })
-        console.log(steps, 'STEPS')
-    }
 
-    return(
-        <div className="border-b border-gray-200 p-3">
-            <div className="flex justify-between">
-                <div className="flex text-l font-bold md:text-xl">
-                    <div className="text-xl pr-2">
-                    {steps[step].done?
-                        <CheckCircleIcon className="text-green-700 h-8"/>:
-                        `${step}.`
-                    }
-                    </div>
-                    <span>{title}</span>
-                </div>
-                <button id={`${normalizeString(title)}-btn`} onClick={toggleHidden} className="p-2 border border-grey-300 bg-white disabled:bg-gray-200 md:w-1/3">Editar</button>
-            </div>
-            {children}
-            <div id={normalizeString(title)} hidden={steps[step].hidden}>
-                <fieldset className="pt-3">
-                    <div className="grid grid-cols-2 gap-4 pb-3">
-                        {
-                            fields.map((field, index) => <FormItem 
-                                key={index}
-                                name={field.name}
-                                inputType={field.inputType}
-                                value={item[field.name]}
-                                onChange={handleChange}
-                                label={field.label}
-                                options={field.options}
-                                required={field.required} 
-                            />
-                        )}
-                    </div>
-                    
-                </fieldset>
-            </div>
-        </div>
-    )
-}
+  // Handle field change for each form input
+  const handleChange = (ev: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = ev.target;
+      const updatedItem = { ...item, [name]: value };
+      setItem(updatedItem);
+  };
+
+  const toggleHidden = () => {
+      setSteps({
+          ...steps,
+          [step]: { ...steps[step], hidden: !steps[step].hidden }
+      });
+  };
+
+  return (
+      <div className="border-b border-gray-200 p-3">
+          <div className="flex justify-between">
+              <div className="flex text-l font-bold md:text-xl">
+                  <div className="text-xl pr-2">
+                      {steps[step].done ? (
+                          <CheckCircleIcon className="text-green-700 h-8" />
+                      ) : `${step}.`}
+                  </div>
+                  <span>{title}</span>
+              </div>
+              <button id={`step-${step}-btn`} onClick={toggleHidden} className="p-2 border border-grey-300 bg-white">
+                  {steps[step].hidden ? "Editar" : "Colapsar"}
+              </button>
+          </div>
+
+          {/* Render Form Group fields */}
+          {!steps[step].hidden && (
+              <div id={`step-${step}`}>
+                  <fieldset className="pt-3" onBlur={onBlur}>
+                      <div className="grid grid-cols-2 gap-4 pb-3">
+                          {fields.map((field, index) => (
+                              <FormItem
+                                  key={index}
+                                  name={field.name}
+                                  inputType={field.inputType}
+                                  value={item[field.name]}
+                                  onChange={handleChange}
+                                  label={field.label}
+                                  options={field.options}
+                                  required={field.required}
+                              />
+                          ))}
+                      </div>
+                  </fieldset>
+                  {children}
+              </div>
+          )}
+      </div>
+  );
+};
+
 
 const FormItem =({
     name,

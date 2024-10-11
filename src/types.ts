@@ -57,7 +57,7 @@ export type CustomerInfo = {
     street_1: string;
     street_2?: string;
     city: string;
-    state: ShippingState;
+    state: ShippingState | undefined;
     zip: string;
     country: string;
   };
