@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface HeroSectionProps {
   title: string;
@@ -22,7 +23,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, description, buttonTex
         <div className="p-6 max-w-md bg-white bg-opacity-75">
           <h1 className="text-4xl font-bold mb-4">{title}</h1>
           <p className="mb-8">{description}</p>
-          <button>{buttonText}</button>
+          <Link id='shopNow' href="/products">{buttonText}</Link>
         </div>
       </div>
     </div>

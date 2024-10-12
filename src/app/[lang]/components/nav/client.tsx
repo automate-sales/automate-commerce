@@ -15,12 +15,12 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 
-export const DropDown =({label, items, fixed=false, classNames=''}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string})=> {
+export const DropDown =({label, items, fixed=false, classNames='', id}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string, id?: string})=> {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
     return (
         <div className={`relative ${fixed && 'flex items-center'} ${classNames}`}>
-        <div className="flex items-center cursor-pointer" onClick={toggleDropdown}>
+        <div id={`${id}-selected`} className="flex items-center cursor-pointer" onClick={toggleDropdown}>
           {label}
           <ChevronRightIcon
             className={`h-4 w-4 transform transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`}
@@ -136,7 +136,7 @@ export const SideMenu = ({
                     <SearchInput />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
-                    {languages && <LangSelector languages={languages} />}
+                    {languages && <LangSelector id='mobile-lang' languages={languages} />}
                 </div>
             </div>
             {isMenuOpen && (
@@ -273,7 +273,7 @@ export const UserMenu = ({ user }: { user: any }) => {
 
 
 
-export const LangSelector = ({ languages, classNames='', fixed=false }: { languages: string[], classNames?: string, fixed?: boolean }) => {
+export const LangSelector = ({ languages, classNames='', fixed=false, id }: { languages: string[], classNames?: string, fixed?: boolean, id?: string }) => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -291,13 +291,13 @@ export const LangSelector = ({ languages, classNames='', fixed=false }: { langua
     };
 
     return (
-        <DropDown classNames={classNames} fixed={fixed} label={currentLocale || 'en'} items={langs.map((l, index) => (
+        <DropDown id={id} classNames={classNames} fixed={fixed} label={currentLocale || 'en'} items={langs.map((l, index) => (
             <div
                 key={index}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
             >
-                <button onClick={() => redirectLang(l)}>{l}</button>
+                <button id={`${id}-${l}`} onClick={() => redirectLang(l)}>{l}</button>
             </div>
         ))} />
     );
