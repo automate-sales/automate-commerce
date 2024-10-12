@@ -72,6 +72,12 @@ describe('New Person Enters the Site with cookies disabled', () => {
 
 
 
+// test lead relation via cookies
+// test lead relation via local storage
+// test lead relation via session storage
+// test lead relation via fingerprint
+
+
 
 //
 /* describe('Person Enters the Site with a Fake Lead ID', () => {

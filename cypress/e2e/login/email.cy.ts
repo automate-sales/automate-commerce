@@ -42,7 +42,7 @@ describe('An existing user signs in from the login page', () => {
     const existing_user_email = 'johndoe@doejohn.com'
     it('Is succesfull', () => {
       cy.clearAllCookies()
-      cy.visit('localhost:3000/products/chair-stackx-bl')
+      cy.visit('localhost:3000/products/chair-stack-gr')
       cy.get('#userIconBtn').click().wait(100)
       cy.get('#startSessionBtn').click().wait(1000)
       cy.url().should('include', '/login')
@@ -60,7 +60,7 @@ describe('An existing user signs in from the login page', () => {
         expect(url).to.not.be.empty
         cy.visit({url: url, method: 'POST'})
         .wait(1000)
-        cy.url().should('include', '/products/chair-stackx-bl')
+        cy.url().should('include', '/products/chair-stack-gr')
       })
     })
   })

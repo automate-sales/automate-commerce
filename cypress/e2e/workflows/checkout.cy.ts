@@ -1,5 +1,6 @@
 const LEAD_COOKIE = 'ergo_lead_id'
 
+import { error } from "console"
 // create a product with a price < $1 (declined payment)
 
 import { addProductFromPage, checkCart, clickMiddle, existingUserEmailLogin, fillForm, logOut } from "../utils"
@@ -43,22 +44,33 @@ const invalidVisa = {
   cvv: "999"
 }
 
+const productStocks = {
+  'chair-axis-wh': 2,
+  'stand-arm-alum-single-bl': 1,
+  'chair-executive-stratus-gr': 2,
+  'frame-double-bl': 1
+}
+
 describe('A lead tests the functionality of the checkout process', () => {
+  const uniqueSessionId = `lead-${new Date().getTime()}`;
   before(() => {
-    Cypress.session.clearAllSavedSessions()
-    cy.clearAllCookies()
-    cy.task('wipeTables')
-  })
-
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
   beforeEach(() => {
-
-      cy.visit('localhost:3000').wait(500)
-      cy.getCookie(LEAD_COOKIE).then(leadId => {
-        leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
-      })
-
-  })
-
+    cy.session(uniqueSessionId, () => {
+      cy.visit('localhost:3000').wait(1500);
+      cy.getCookie(LEAD_COOKIE).then((leadId) => {
+        if (leadId && leadId.value) {
+          cy.log('Setting LEAD_COOKIE: ', leadId.value);
+          cy.setCookie('leadId', leadId.value, { httpOnly: true });
+        } else {
+          cy.log('LEAD_COOKIE is null or undefined during session setup');
+        }
+      });
+    }, { cacheAcrossSpecs: true });
+  });
 
   it('Adds products to the cart', () => {
     cy.visit('localhost:3000').wait(500)
@@ -83,6 +95,9 @@ describe('A lead tests the functionality of the checkout process', () => {
   }) */
   it('tests the billing is same as shipping checkbox', () => {
     cy.viewport('macbook-15')
+    cy.getCookie(LEAD_COOKIE).then(leadId => {
+      cy.log('leadId ', leadId.value)
+    })
     cy.visit('localhost:3000/checkout').wait(1000)
     cy.get(`#step-2-btn`).click()
     cy.get(`#step-2`).scrollIntoView().should('be.visible')
@@ -99,24 +114,29 @@ describe('A lead tests the functionality of the checkout process', () => {
 })
 
 describe('A new lead makes a succesful order', () => {
+  const uniqueSessionId = `lead-${new Date().getTime()}`;
   before(() => {
-    Cypress.session.clearAllSavedSessions()
-    cy.clearAllCookies()
-    cy.task('wipeTables')
-  })
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
   beforeEach(() => {
-    cy.session('lead', () => {
-      cy.visit('localhost:3000')
-      .wait(500)
-      cy.getCookie('leadId').then(leadId => {
-        leadId && leadId.value && cy.setCookie('leadId', leadId.value, {httpOnly: true})
-      })
-    }, {cacheAcrossSpecs: true})
-  })
-  
+    cy.session(uniqueSessionId, () => {
+      cy.visit('localhost:3000').wait(1500);
+      cy.getCookie(LEAD_COOKIE).then((leadId) => {
+        if (leadId && leadId.value) {
+          cy.log('Setting LEAD_COOKIE: ', leadId.value);
+          cy.setCookie('leadId', leadId.value, { httpOnly: true });
+        } else {
+          cy.log('LEAD_COOKIE is null or undefined during session setup');
+        }
+      });
+    }, { cacheAcrossSpecs: true });
+  });
+
   it('Adds products to the cart', () => {
-    addProductFromPage('chair-gamer-prodigy-gr', 2)
-    addProductFromPage('frame-3stage-wh', 1)
+    addProductFromPage('chair-executive-stratus-gr', 2)
+    addProductFromPage('frame-double-bl', 1)
   })
   
   it('Checks cart', () => {
@@ -128,8 +148,8 @@ describe('A new lead makes a succesful order', () => {
       expect(text.trim().length).to.be.greaterThan(8);
     }); */
     const expectedStock = {
-      'chair-gamer-prodigy-gr': 2,
-      'frame-3stage-wh': 1
+      'chair-executive-stratus-gr': 2,
+      'frame-double-bl': 1
     }
     checkCart(Object.keys(expectedStock).length, expectedStock)
     cy.get('#checkoutBtn').click()
