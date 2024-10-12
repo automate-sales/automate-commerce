@@ -106,13 +106,11 @@ export const setCart = (cartId: string) => {
     setServerCart(cartId)
 }
  
-
 export const getCookiSettings = async(): Promise<{
     doNotTrack: boolean,
     cookiesEnabled: boolean,
     localStorageEnabled: boolean,
     sessionCookiesEnabled: boolean,
-    allCookiesDisabled: boolean,
     isBot: boolean 
 } | undefined>=> {
     if (typeof window !== 'undefined') {
@@ -121,9 +119,8 @@ export const getCookiSettings = async(): Promise<{
             doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
-            sessionCookiesEnabled: await areCookiesEnabled(),
-            allCookiesDisabled: false,
-            isBot: await isBot()
+            sessionCookiesEnabled: true,
+            isBot: isBot()
         }
     }
     return undefined
@@ -173,7 +170,7 @@ export const getOrCreateLead = async() => {
                 // add cookiesBlocked in the leads cookie settings 
                 console.log('ALL COOKIES DISABLED')
                 console.log('LEAD ID', await getLead())
-                if(cookieSettings) cookieSettings.allCookiesDisabled = true
+                if(cookieSettings) cookieSettings.sessionCookiesEnabled = false
                 
                 // perhaps ignore this route and simply use sessionStorage?
                 const params = new URLSearchParams()

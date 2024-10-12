@@ -13,10 +13,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, description, buttonTex
     <div className="relative h-screen w-full">
       <Image
         src={imageSrc}
-        layout="fill"
-        objectFit="cover"
+        fill
         alt="Background"
-        className="absolute z-0"
+        className="absolute z-0 object-cover"
         // You can include multiple sources within the Image component or use <picture> directly for more control
       />
       <div className="z-10 relative flex items-center justify-end h-full px-20">

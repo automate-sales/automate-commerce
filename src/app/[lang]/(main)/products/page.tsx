@@ -83,9 +83,9 @@ export default async function Page({
             key={index} 
             link={`/products/${product.sku}`} 
             title={getIntl(product.title, params.lang)} 
-            price={product.price} id={product.id} 
-            image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}`
-          }/>
+            price={product.price} id={product.id}
+            image={product.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}` : '/images/no-image.png'}
+          />
         )) : <div id='noResults' className="text-2xl text-gray-400 font-bold">{dict.products.noResults}</div>
         }
         </div>

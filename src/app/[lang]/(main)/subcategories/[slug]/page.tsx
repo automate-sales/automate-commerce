@@ -48,7 +48,14 @@ export default async function Page({
         <p className='text-xl text-center pb-16'>{getIntl(subcategoryData?.description, params.lang)}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {subcategoryData?.products.map((product: Product, index: number) => (
-            <Item key={index} price={product.price} link={`/products/${product.sku}`} title={getIntl(product.title, params.lang)} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}`} />
+            <Item 
+              key={index} 
+              price={product.price} 
+              link={`/products/${product.sku}`} 
+              title={getIntl(product.title, 
+              params.lang)} 
+              image={product.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}` : '/images/no-image.png'}
+            />
           ))}
         </div>
         <Pagination count={subcategoryData?._count.products || 0} pageSize={pageSize} pageNumber={pageNumber} model={`subcategories/${params.slug}`} />
