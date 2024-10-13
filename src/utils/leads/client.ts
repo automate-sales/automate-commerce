@@ -115,12 +115,13 @@ export const getCookiSettings = async(): Promise<{
 } | undefined>=> {
     if (typeof window !== 'undefined') {
         const dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+        const bot = await isBot()
         return {
             doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
             sessionCookiesEnabled: true,
-            isBot: isBot()
+            isBot: bot
         }
     }
     return undefined
@@ -147,7 +148,6 @@ export const getOrCreateLead = async() => {
         // RETREIVE ULI
         // 1. get the lead id from server or client
         const leadId = await getLead() || new URLSearchParams(window.location.search).get('hid')
-        
         // do this only once per session?
         // 2. check if the lead is active and get the active cart id (only has to be don once per session)  
         const activeLeadId = leadId && await isLeadActive(leadId) ? leadId : undefined

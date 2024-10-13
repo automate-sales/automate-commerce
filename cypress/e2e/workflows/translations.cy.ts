@@ -27,7 +27,7 @@ describe('Checks that the right language is chosen accoring to the users languag
 })
 
 
-describe('Changes the kanguage in the nav', () => {
+describe('Changes the language in the nav', () => {
     it('performs the search query on large screen', ()=> {
         cy.viewport('macbook-15')
         cy.visit({
@@ -53,9 +53,36 @@ describe('Changes the kanguage in the nav', () => {
 })
 
 // CHANGE LANG IN URL
-    // the url and content of the site change to the desired language
-    // the user clicks on another page -> the language is maintained
-    // the user closes the browser and opens it again -> the language is maintained
+describe('Changes the language in the url', () => {
+    it('performs the search query on large screen', ()=> {
+        cy.viewport('macbook-15')
+        cy.visit({
+            url: 'localhost:3000',
+            method: 'GET',
+            headers: {
+              'Accept-Language': 'en-EN,en;q=0.9'  // English as the main language
+            }
+        })
+        .wait(500)
+        cy.get('#lang-selected').then((elem) => {
+            expect(elem.text()).to.eq('en')
+        })
+        // navigate the url with /es at the end
+        cy.visit('localhost:3000/es')
+        cy.get('#lang-selected').then((elem) => {
+            expect(elem.text()).to.eq('es')
+        })
+        // navigate to another page from a button
+        cy.get('#shopNow').click().wait(500)
+        cy.url().should('include', '/es/products')
+        // navigate home through the url
+        cy.visit('localhost:3000')
+        cy.get('#lang-selected').then((elem) => {
+            expect(elem.text()).to.eq('es')
+        })
+    })
+})
+
 // CHANGE LANG DEPENDING ON LOCATION/LANG HEADER
     // the user enters the site with a given browser user-agent accept-language header
     // the site is displayed in the language of the user-agent header

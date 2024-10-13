@@ -73,7 +73,7 @@ const botUserAgents = [
 export const isBot =(): boolean => {
   const userAgent = headers().get('user-agent')
   if (!userAgent) return false;
-  return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase()));
+  return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase())) || false;
 }
 
 export const getCookie = (name: string) => {
