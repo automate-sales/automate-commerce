@@ -12,8 +12,7 @@ import {
     PutObjectCommand 
 } from "@aws-sdk/client-s3";
 import sharp from 'sharp';
-
-console.log('NODE NEV', NODE_ENV)
+import { readFileSync } from 'fs';
 
 const s3ClientConfig = NODE_ENV !== 'production' ? {
     credentials: {
@@ -107,5 +106,24 @@ export const uploadImageFromURL = async (
         return await uploadImageToS3(bucketName, key, optimizedImageBuffer);
     } catch (error) {
         console.error(`Error migrating image, ${imageUrl}, to S3: ${error}`);
+    }
+}
+
+export const uploadImageFromLocalPath = async (
+    bucketName: string,
+    localPath: string,   // Local file path
+    key: string          // S3 key
+) => {
+    try {
+        // Read the image file from the local path
+        const imageBuffer = readFileSync(localPath);
+        
+        // Optimize the image
+        const optimizedImageBuffer = await optimizeImage(imageBuffer);
+        
+        // Upload the optimized image to S3
+        return await uploadImageToS3(bucketName, key, optimizedImageBuffer);
+    } catch (error) {
+        console.error(`Error uploading image from local path, ${localPath}, to S3: ${error}`);
     }
 }

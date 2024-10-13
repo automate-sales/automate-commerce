@@ -41,7 +41,7 @@ export default async function Nav({
                 {search && <SearchInput classNames="hidden lg:flex" />}
                 <UserMenu user={user}/>
                 <ShoppingCart />
-                {languages && <LangSelector fixed languages={languages} classNames="hidden lg:flex pl-4"/>}
+                {languages && <LangSelector id='lang' fixed languages={languages} classNames="hidden lg:flex pl-4"/>}
             </div>
 
         </nav>

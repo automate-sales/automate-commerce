@@ -40,7 +40,13 @@ export default async function Page({
         <h1 className="text-4xl text-center font-bold py-16">{dict.subcategories.title}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {subcategories.map((subcategory: Subcategory, index: number) => (
-            <Item key={index} link={`/subcategories/${subcategory.slug}`} title={getIntl(subcategory.title, params.lang)} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/subcategories/${subcategory.images[0]}`} />
+            <Item 
+              key={index} 
+              link={`/subcategories/${subcategory.slug}`} 
+              title={getIntl(subcategory.title, 
+              params.lang)} 
+              image={subcategory.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/subcategories/${subcategory.images[0]}` : '/images/no-image.png'} 
+            />
           ))}
         </div>
         <Pagination count={count} pageSize={pageSize} pageNumber={pageNumber} model='subcategories' />
