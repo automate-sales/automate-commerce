@@ -81,6 +81,7 @@ export default defineConfig({
             console.log(process.env.DATABASE_URL)
             await prisma.$transaction([
               prisma.order.deleteMany({}),
+              prisma.user.deleteMany({}),
               prisma.cartItem.deleteMany({}),
               prisma.cart.deleteMany({}),
               prisma.lead.deleteMany({}),
@@ -101,9 +102,108 @@ export default defineConfig({
             console.error('Error getting leads:', error);
             throw new Error('Failed to get leads');
           }
-        }
+        },
 
-      })
+        async createUser( ) {
+          try {
+            const user = await prisma.user.create({
+              data: {
+                name: "John Doe",
+                username: "johndoe",
+                email: "johndoe@doejohn.com"
+              }
+            })
+            return user
+          }
+          catch (error) {
+            console.error('Error creating user with lead:', error);
+            throw new Error('Failed to create user with lead');
+          }
+        },
+
+        async createUserWithLead( leadId?: string ) {
+          try {
+            const leadOperation = leadId ? { connect: { id: leadId } } : { create: { fingerprint: 'fingerprint' } }
+            const userWithLead = await prisma.user.create({
+              data: {
+                email: 'user_with_current_lead@test.com',
+                username: 'user_with_current_lead',
+                leads: leadOperation
+              },
+              include: { leads: true },
+            })
+            return userWithLead
+          }
+          catch (error) {
+            console.error('Error creating user with lead:', error);
+            throw new Error('Failed to create user with lead');
+          }
+        },
+
+        async createUserWithLeadAndEmptyCart() {
+          try {
+            const userWithLeadAndCart = await prisma.user.create({
+              data: {
+                email: 'user_with_lead_and_cart@test.com',
+                username: 'user_with_lead_and_cart',
+                leads: {
+                  create: {
+                    fingerprint: 'fingerprint',
+                    carts: {
+                      create: {
+                        status: 'active',
+                      },
+                    },
+                  },
+                },
+              },
+              include: { leads: { include: { carts: true } } },
+            })
+            return userWithLeadAndCart
+          }
+          catch (error) {
+            console.error('Error creating user with lead and cart:', error);
+            throw new Error('Failed to create user with lead and cart');
+          }
+        },
+
+        async createUserWithLeadAndCartWithItems() {
+          try {
+            const userWithLeadAndCartWithItems = await prisma.user.create({
+              data: {
+                email: 'user_with_lead_and_cart_with_items@test.com',
+                username: 'user_with_lead_and_cart_with_items',
+                leads: {
+                  create: {
+                    fingerprint: 'fingerprint',
+                    carts: {
+                      create: {
+                        status: 'active',
+                        cartItems: {
+                          create: {
+                            qty: 1,
+                            price: 37,
+                            product: {
+                              connect: { sku: 'stand-cpu-under-bl' },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              include: { leads: { include: { carts: { include: { cartItems: { include: { product: true } } } } } } },
+            })
+            return userWithLeadAndCartWithItems
+          }
+          catch (error) {
+            console.error('Error creating user with lead and cart with items:', error);
+            throw new Error('Failed to create user with lead and cart with items');
+          }
+        },
+
+      });
       return config;
     },
   },

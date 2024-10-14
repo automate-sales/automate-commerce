@@ -7,6 +7,15 @@ beforeEach(() => {
   cy.task('wipeTables')
 })
 
+// test all methods
+// make sure lead is retrieved from cookies, local storage, session storage, and fingerprint
+
+// test only sesion storage
+// delete the fingerpirnt on the exsiting lead
+
+// test only the fingerprint
+// delete all the cookies and session and local storage
+
 describe('New Person Enters the Site', () => {
   it(`should create a lead in the DB and store the lead ID in a cookie`, 
   () => {

@@ -1,3 +1,11 @@
+/* 
+const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
+const sign_in_success_msg = 'Ha iniciado sesión'
+const logout_success_msg = 'Ha cerrado su sesión'
+const default_locale = 'en'
+*/
+
+import { addProductFromPage } from "../utils"
 
 // SEED DATA
 // 1. create a user without any leads
@@ -5,103 +13,169 @@
 // 3. create a user with an existing lead different to the current lead with an empty cart
 // 4. create a user with an existing lead different to the current lead with a nonempty cart
 
-describe('An existing user signs in from the login page', () => {
-    const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
-    const sign_in_success_msg = 'Ha iniciado sesión'
-    const logout_success_msg = 'Ha cerrado su sesión'
-    const default_locale = 'en'
-    const existing_user_email = 'johndoe@doejohn.com'
-    it('Is succesfull', () => {
-      cy.clearAllCookies()
-      cy.visit('localhost:3000/login')
+
+describe('A new lead with an empty cart signs up', () => {
+  it('Is succesfull', () => {
+    cy.clearAllCookies()
+    cy.visit('localhost:3000/login')
+    .wait(1000)
+    cy.get('#email')
+    .type('user@testuser.com')
+    .should('have.value', 'user@testuser.com')
+    .type('{enter}')
+    //cy.contains(email_confirmation_msg).should("be.visible")
+    .wait(1000)
+    cy.task('getLastEmail', 'user@testuser.com').then((email)=> {
+      const typedEmail = email as { body: string; html: string };
+      cy.log('EMAIl FOUND: ', typedEmail)
+      let body = typedEmail.body.toString()
+      let url = body.slice(body.indexOf('http'))
+      expect(url).to.not.be.empty
+      cy.visit({url: url, method: 'POST'})
       .wait(1000)
-      cy.get('#email')
-      .type(existing_user_email)
-      .should('have.value', existing_user_email)
-      .type('{enter}')
-      //cy.contains(email_confirmation_msg).should("be.visible")
-      .wait(1000)
-      cy.task('getLastEmail', existing_user_email).then((email)=> {
-        const typedEmail = email as { body: string; html: string };
-        cy.log('EMAIl FOUND: ', typedEmail)
-        let body = typedEmail.body.toString()
-        let url = body.slice(body.indexOf('http'))
-        expect(url).to.not.be.empty
-        cy.visit({url: url, method: 'POST'})
-        .wait(1000)
-        cy.url().should('not.include', '/user/info?first_login=true')
-      })
+      cy.url().should('include', '/user/info?first_login=true')
+      
+      //cy.contains(sign_in_success_msg).should("be.visible")
+      //fill out the user info
+      //cy.get('#userMenuBtn').click()
+      //cy.get('#signOutBtn').click()
+      //.wait(1000)
+      //cy.contains(logout_success_msg).should("be.visible")
+
+      // LOG BACK IN -> shouldnt contain first_login=true
     })
   })
+})
 
-  describe('An existing user signs in from a random page', () => {
-    const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
-    const sign_in_success_msg = 'Ha iniciado sesión'
-    const logout_success_msg = 'Ha cerrado su sesión'
-    const default_locale = 'en'
-    const existing_user_email = 'johndoe@doejohn.com'
-    it('Is succesfull', () => {
-      cy.clearAllCookies()
-      cy.visit('localhost:3000/products/chair-stack-gr')
-      cy.get('#userIconBtn').click().wait(100)
-      cy.get('#startSessionBtn').click().wait(1000)
-      cy.url().should('include', '/login')
-      cy.get('#email')
-      .type(existing_user_email)
-      .should('have.value', existing_user_email)
-      .type('{enter}')
-      //cy.contains(email_confirmation_msg).should("be.visible")
+describe('A new lead with a non empty cart signs up', () => { 
+  it('should keep the leads existing cart', () => {})
+})
+
+
+describe('An existing user without any leads signs in from the login page', () => {
+  const existing_user_email = 'johndoe@doejohn.com'
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+    cy.task('createUser')
+  });
+  it('The signin is succesfull', () => {
+    cy.clearAllCookies()
+    cy.visit('localhost:3000/login')
+    .wait(1000)
+    cy.get('#email')
+    .type(existing_user_email)
+    .should('have.value', existing_user_email)
+    .type('{enter}')
+    //cy.contains(email_confirmation_msg).should("be.visible")
+    .wait(1000)
+    cy.task('getLastEmail', existing_user_email).then((email)=> {
+      const typedEmail = email as { body: string; html: string };
+      cy.log('EMAIl FOUND: ', typedEmail)
+      let body = typedEmail.body.toString()
+      let url = body.slice(body.indexOf('http'))
+      expect(url).to.not.be.empty
+      cy.visit({url: url, method: 'POST'})
       .wait(1000)
-      cy.task('getLastEmail', existing_user_email).then((email)=> {
-        const typedEmail = email as { body: string; html: string };
-        cy.log('EMAIl FOUND: ', typedEmail)
-        let body = typedEmail.body.toString()
-        let url = body.slice(body.indexOf('http'))
-        expect(url).to.not.be.empty
-        cy.visit({url: url, method: 'POST'})
-        .wait(1000)
-        cy.url().should('include', '/products/chair-stack-gr')
-      })
+      cy.url().should('not.include', '/user/info?first_login=true')
     })
   })
+})
 
-
-describe('A new user signs up with an empty cart', () => {
-    const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
-    const sign_in_success_msg = 'Ha iniciado sesión'
-    const logout_success_msg = 'Ha cerrado su sesión'
-    const default_locale = 'en'
-    it('Is succesfull', () => {
-      cy.clearAllCookies()
-      cy.visit('localhost:3000/login')
+describe('An existing user signs in from a random page', () => {
+  const existing_user_email = 'johndoe@doejohn.com'
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+    cy.task('createUser')
+  });
+  it('Is succesfull', () => {
+    cy.clearAllCookies()
+    cy.visit('localhost:3000/products/chair-stack-gr')
+    cy.get('#userIconBtn').click().wait(100)
+    cy.get('#startSessionBtn').click().wait(1000)
+    cy.url().should('include', '/login')
+    cy.get('#email')
+    .type(existing_user_email)
+    .should('have.value', existing_user_email)
+    .type('{enter}')
+    //cy.contains(email_confirmation_msg).should("be.visible")
+    .wait(1000)
+    cy.task('getLastEmail', existing_user_email).then((email)=> {
+      const typedEmail = email as { body: string; html: string };
+      cy.log('EMAIl FOUND: ', typedEmail)
+      let body = typedEmail.body.toString()
+      let url = body.slice(body.indexOf('http'))
+      expect(url).to.not.be.empty
+      cy.visit({url: url, method: 'POST'})
       .wait(1000)
-      cy.get('#email')
-      .type('user@testuser.com')
-      .should('have.value', 'user@testuser.com')
-      .type('{enter}')
-      //cy.contains(email_confirmation_msg).should("be.visible")
-      .wait(1000)
-      cy.task('getLastEmail', 'user@testuser.com').then((email)=> {
-        const typedEmail = email as { body: string; html: string };
-        cy.log('EMAIl FOUND: ', typedEmail)
-        let body = typedEmail.body.toString()
-        let url = body.slice(body.indexOf('http'))
-        expect(url).to.not.be.empty
-        cy.visit({url: url, method: 'POST'})
-        .wait(1000)
-        cy.url().should('include', '/user/info?first_login=true')
-        
-        //cy.contains(sign_in_success_msg).should("be.visible")
-        //fill out the user info
-        //cy.get('#userMenuBtn').click()
-        //cy.get('#signOutBtn').click()
-        //.wait(1000)
-        //cy.contains(logout_success_msg).should("be.visible")
-
-        // LOG BACK IN -> shouldnt contain first_login=true
-      })
+      cy.url().should('include', '/products/chair-stack-gr')
     })
   })
+})
+
+describe('An existing user asociated to the current lead signs in', () => {
+  const LEAD_COOKIE = 'ergo_lead_id'
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
+  it('Keeps the current lead w cart', ()=> {
+    // visit localhost:3000
+    const current_lead_email = 'user_with_current_lead@test.com'
+    cy.viewport('macbook-15')
+    cy.visit('localhost:3000').wait(500)
+    addProductFromPage('frame-double-bl', 1)
+    cy.getCookie(LEAD_COOKIE).then(leadId => {
+      cy.log('leadId ', leadId.value)
+      cy.task('createUserWithLead', leadId.value).then((user) => {
+        cy.log('user ', user)
+        // sign in with user
+        cy.visit('localhost:3000/login')
+        .wait(1000)
+        cy.get('#email')
+        .type(current_lead_email)
+        .should('have.value', current_lead_email)
+        .type('{enter}')
+        //cy.contains(email_confirmation_msg).should("be.visible")
+        .wait(1000)
+        cy.task('getLastEmail', current_lead_email).then((email)=> {
+          const typedEmail = email as { body: string; html: string };
+          cy.log('EMAIl FOUND: ', typedEmail)
+          let body = typedEmail.body.toString()
+          let url = body.slice(body.indexOf('http'))
+          expect(url).to.not.be.empty
+          cy.visit({url: url, method: 'POST'})
+          .wait(1000)
+          cy.url().should('not.include', '/user/info?first_login=true')
+        })
+      })
+    })
+    // get the lead id from the cookies
+  })
+})
+
+describe('An existing user asociated to another lead with an empty cart signs in', () => {
+  // the lead has an empty cart
+  it('Keeps the current lead w empty cart')
+  // the lead does some shopping
+  it('Keeps the current lead w non empty cart')
+})
+
+describe('An existing user asociated to another lead with a non empty cart signs in', () => {
+  // the lead has an empty cart
+  it('automatically swaps the leads')
+  // the lead has a non empty cart
+  it('brings up a modal to ask the user if they want to replace the current cart', () => {
+    // the lead selects no
+    it('Keeps the current lead w non empty cart')
+    // the lead selects yes
+    it('swaps the leads')
+  })
+})
 
 
 // A new user signs up with a non empty cart
