@@ -5,6 +5,7 @@ dotenv.config({ path: '.env.test' })
 
 import prisma from "./src/db";
 import ms, { EmailInfo } from 'smtp-tester'
+import { Lead, User } from "@prisma/client";
 
 //type Device = 'desktop' | 'mobile'
 
@@ -121,13 +122,13 @@ export default defineConfig({
           }
         },
 
-        async createUserWithLead( leadId?: string ) {
+        async createUserWithLead( leadId?: string ): Promise<User & { leads: Lead[] }> {
           try {
             const leadOperation = leadId ? { connect: { id: leadId } } : { create: { fingerprint: 'fingerprint' } }
             const userWithLead = await prisma.user.create({
               data: {
-                email: 'user_with_current_lead@test.com',
-                username: 'user_with_current_lead',
+                email: 'user_with_lead@test.com',
+                username: 'user_with_lead',
                 leads: leadOperation
               },
               include: { leads: true },
@@ -137,6 +138,20 @@ export default defineConfig({
           catch (error) {
             console.error('Error creating user with lead:', error);
             throw new Error('Failed to create user with lead');
+          }
+        },
+
+        async getUserWithLead( email: string ) { 
+          try {
+            const userWithLead = await prisma.user.findUnique({
+              where: { email: email },
+              include: { leads: true }
+            })
+            return userWithLead
+          }
+          catch (error) {
+            console.error('Error getting user with lead:', error);
+            throw new Error('Failed to get user with lead');
           }
         },
 
@@ -193,7 +208,7 @@ export default defineConfig({
                   },
                 },
               },
-              include: { leads: { include: { carts: { include: { cartItems: { include: { product: true } } } } } } },
+              include: { leads: { include: { carts: { include: { cartItems: true } } } } },
             })
             return userWithLeadAndCartWithItems
           }

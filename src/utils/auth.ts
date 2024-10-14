@@ -20,7 +20,7 @@ export const getCurrentUser = async ()=> {
     const session = await getServerSession(authOptions)
     console.log('current session: ', session)
     if(session && session.user) {
-        return session.user as User
+        return session.user as User & { swapModal?: string }
     } else return undefined
 }
 
@@ -93,6 +93,7 @@ export const authOptions: NextAuthOptions = {
                 }}
               } }
             })
+
             const userLead = userWithLeadAndCart?.leads[0]
             const userCart = userLead?.carts[0]
 
@@ -110,11 +111,20 @@ export const authOptions: NextAuthOptions = {
               })
 
               if(userLead){
+                console.log('\n\n USERERRRR LEADDDD !!!!! \n\n', userLead)
                 await joinLeads(currentLeadId, userLead.id)
                 if(userCart?.cartItems.length && userCart?.cartItems.length > 0) {
                   if(currentCart.cartItems.length > 0) {
+
+                    console.log('REDIECTING TO CART !!!!!') 
                     // reroute the user to a pop up asking if they want to keep the current cart
-                    redirect(`/user/cart/${userCart.id}`)
+                    //redirect(`/user/cart/${userCart.id}`)
+                    session.user = {
+                      ...session.user, 
+                      swapModal: userCart.id
+                    } as any
+
+                    // add a parameter in the session that will trigger the modal
                   } else {
                     swapCarts(currentCart.id, userCart.id, currentLeadId)
                   }
