@@ -1,20 +1,19 @@
-/* 
+
 const email_confirmation_msg = 'Te hemos enviado un correo. Confirmalo para iniciar sesión.'
 const sign_in_success_msg = 'Ha iniciado sesión'
 const logout_success_msg = 'Ha cerrado su sesión'
 const default_locale = 'en'
-*/
+
 
 import { addProductFromPage, checkCart } from "../utils"
 
-// SEED DATA
-// 1. create a user without any leads
-// 2. create a user with an existing lead equal to the current lead
-// 3. create a user with an existing lead different to the current lead with an empty cart
-// 4. create a user with an existing lead different to the current lead with a nonempty cart
-
 
 describe('A new lead with an empty cart signs up', () => {
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
   it('Is succesfull', () => {
     cy.clearAllCookies()
     cy.visit('localhost:3000/login')
@@ -34,21 +33,65 @@ describe('A new lead with an empty cart signs up', () => {
       cy.visit({url: url, method: 'POST'})
       .wait(1000)
       cy.url().should('include', '/user/info?first_login=true')
-      
-      //cy.contains(sign_in_success_msg).should("be.visible")
-      //fill out the user info
-      //cy.get('#userMenuBtn').click()
-      //cy.get('#signOutBtn').click()
-      //.wait(1000)
-      //cy.contains(logout_success_msg).should("be.visible")
 
-      // LOG BACK IN -> shouldnt contain first_login=true
+      // check signup email subject and message
+
+      // add no info on the signup form
+      cy.get('#submitUserInfo').click().wait(500)
+      cy.url().should('include', '/user/info?first_login=true')
+      // should ask user to fill in atleast name
+      cy.get('#name').type('John Doe').should('have.value', 'John Doe')
+      cy.get('#submitUserInfo').click().wait(500)
+      // get the language from the browser
+      cy.get('html').invoke('attr', 'lang').then((lang) => {
+        cy.url().should('eq', 'http://localhost:3000/'+ lang)
+      })
     })
   })
 })
 
 describe('A new lead with a non empty cart signs up', () => { 
-  it('should keep the leads existing cart', () => {})
+  const expectedStock = {'frame-double-bl': 1}
+  const initialStock = Object.entries(expectedStock)[0]
+  const userEmail = 'test@user.com'
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
+  it('should keep the leads existing cart', () => {
+    cy.viewport('macbook-15')
+    cy.visit('localhost:3000').wait(500)
+    addProductFromPage(initialStock[0], initialStock[1])
+    cy.wait(5000)
+
+    cy.get('#userIconBtn').click().wait(100)
+    cy.get('#startSessionBtn').click().wait(1000)
+    cy.url().should('include', '/login')
+    cy.get('#email')
+    .type(userEmail)
+    .should('have.value', userEmail)
+    .type('{enter}')
+    //cy.contains(email_confirmation_msg).should("be.visible")
+    .wait(1000)
+    cy.task('getLastEmail', userEmail).then((email)=> {
+      const typedEmail = email as { body: string; html: string };
+      cy.log('EMAIl FOUND: ', typedEmail)
+      let body = typedEmail.body.toString()
+      let url = body.slice(body.indexOf('http'))
+      expect(url).to.not.be.empty
+      cy.visit({url: url, method: 'POST'})
+      .wait(1000)
+      cy.url().should('include', '/user/info?first_login=true')
+      // should ask user to fill in atleast name
+      cy.get('#name').type('John Doe').should('have.value', 'John Doe')
+      cy.get('#submitUserInfo').click().wait(500)
+      // get the language from the browser
+      //cy.url().should('include', 'frame-double-bl')
+      cy.visit('localhost:3000/cart').wait(500)
+      checkCart(Object.keys(expectedStock).length, expectedStock)
+    })
+  })
 })
 
 
@@ -394,7 +437,7 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
 })
 
 
-describe('A lead with an non-empty cart signs in with existing user thats asociated to another lead with a non-empty cart', () => {
+describe('A lead with an non-empty cart signs in with existing user thats asociated to another lead with a non-empty cart and cancels the swap', () => {
   const LEAD_COOKIE = 'ergo_lead_id'
   const user_email = 'user_with_lead_and_cart_with_items@test.com'
   const leadExpectedStock = {'frame-double-bl': 1}
@@ -445,11 +488,15 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
           
           cy.url().should('not.include', '/user/info?first_login=true')
           cy.url().should('include', '/user/cart')
-          /* // lead ID in the cookies should be the user lead Id
-          cy.getCookie(LEAD_COOKIE).then(leadId => {
-            cy.log('leadId ', leadId.value)
-            expect(leadId.value).to.eq(visitorLeadId)
-          })
+
+          cy.get('#swap-modal').should('be.visible')
+          cy.get('#cancel-swap').click().wait(500)
+          // the url should end with /cart
+          cy.url().should('include', '/cart')
+          cy.url().should('not.include', '/user/')
+
+          // cart should contain the intial cart
+          checkCart(Object.keys(leadExpectedStock).length, leadExpectedStock)
 
           // active lead id in the user should be the visitorLeadId
           cy.task('getUserWithLead', user_email).then((user) => {
@@ -462,15 +509,90 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
             })
           })
 
-          // review cart
-          cy.visit('localhost:3000/cart').wait(500)
-          checkCart(Object.keys(expectedStock).length, expectedStock) */
-
         })
       })
     })
   })
 })
+
+
+
+describe('A lead with an non-empty cart signs in with existing user thats asociated to another lead with a non-empty cart and confirms the swap', () => {
+  const LEAD_COOKIE = 'ergo_lead_id'
+  const user_email = 'user_with_lead_and_cart_with_items@test.com'
+  const leadExpectedStock = {'frame-double-bl': 1}
+  const userExpectedStock = {'stand-cpu-under-bl': 1}
+  const initialStock = Object.entries(leadExpectedStock)[0]
+
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+  });
+  it('Keeps the current lead w empty cart', () => {
+    
+    cy.task('createUserWithLeadAndCartWithItems').then((user) => {
+      // it expects the user to be created correctly with an active lead
+      const initialUserLead = user.leads[0]
+      const initialUserLeadId = initialUserLead.id
+      expect(initialUserLead.status).to.eq('lead')
+
+      // it expects a new active lead to be created by a new visitor
+      cy.viewport('macbook-15')
+      cy.visit('localhost:3000').wait(500)
+      cy.getCookie(LEAD_COOKIE).then(leadId => {
+        const visitorLeadId = leadId.value
+        cy.log('leadId ', visitorLeadId)
+        
+        // make some shopping
+        cy.viewport('macbook-15')
+        cy.visit('localhost:3000').wait(500)
+        addProductFromPage(initialStock[0], initialStock[1])
+
+        // sign in with the existing user
+        cy.visit('localhost:3000/login')
+        .wait(1000)
+        cy.get('#email')
+        .type(user_email)
+        .should('have.value', user_email)
+        .type('{enter}')
+        .wait(1000)
+        cy.task('getLastEmail', user_email).then((email)=> {
+          const typedEmail = email as { body: string; html: string };
+          cy.log('EMAIl FOUND: ', typedEmail)
+          let body = typedEmail.body.toString()
+          let url = body.slice(body.indexOf('http'))
+          expect(url).to.not.be.empty
+          cy.visit({url: url, method: 'POST'})
+          .wait(1000)
+          
+          cy.url().should('not.include', '/user/info?first_login=true')
+          cy.url().should('include', '/user/cart')
+
+          cy.get('#swap-modal').should('be.visible')
+          cy.get('#confirm-swap').click().wait(500)
+
+          cy.url().should('include', '/cart')
+          cy.url().should('not.include', '/user/')
+
+          checkCart(Object.keys(userExpectedStock).length, userExpectedStock)
+
+           // active lead id in the user should be the visitorLeadId
+           cy.task('getUserWithLead', user_email).then((user) => {
+            user.leads.map(lead => {
+              if(lead.id === visitorLeadId){
+                expect(lead.status).to.eq('lead')
+              } else {
+                expect(lead.status).to.eq('inactive')
+              }
+            })
+          })
+        })
+      })
+    })
+  })
+})
+
 
 // A new user signs up with a non empty cart
     // new lead accesses the index
