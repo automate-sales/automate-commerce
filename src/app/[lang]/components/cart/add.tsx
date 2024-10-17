@@ -6,6 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { getCart, getLead } from "@/utils/leads/client";
 import { addToCartEvent } from "@/utils/analytics";
+import { getCartWithItemsByLead } from "@/utils/leads/server";
+import { CartWithItems } from "@/types";
 
 export default function AddToCartButton({
   cartId,
@@ -16,7 +18,7 @@ export default function AddToCartButton({
   productTitle,
   productStock,
 }: {
-  cartId: string | undefined;
+  cartId?: string;
   productId: number;
   productPrice: number;
   productSku: string;

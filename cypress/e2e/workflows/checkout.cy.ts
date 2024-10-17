@@ -114,13 +114,14 @@ describe('A lead tests the functionality of the checkout process', () => {
 })
 
 describe('A new lead makes a succesful order', () => {
-  const uniqueSessionId = `lead-${new Date().getTime()}`;
+  
   before(() => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
     cy.task('wipeTables');
   });
   beforeEach(() => {
+    const uniqueSessionId = `lead-${new Date().getTime()}`;
     cy.session(uniqueSessionId, () => {
       cy.visit('localhost:3000').wait(1500);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {

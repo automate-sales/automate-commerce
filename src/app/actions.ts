@@ -160,6 +160,8 @@ export async function updateCartItem(
   quantity: number
 ): Promise<{ type: MsgType, text: string, item: CartItem }> {
   // Fetch the product's stock
+
+  console.log('UPDATING CART ITEM ', cartId, productId, quantity)
   const product = await prisma.product.findUnique({
     where: {
       id: productId,

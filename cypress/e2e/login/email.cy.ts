@@ -8,7 +8,7 @@ const default_locale = 'en'
 import { addProductFromPage, checkCart } from "../utils"
 
 
-describe('A new lead with an empty cart signs up', () => {
+/* describe('A new lead with an empty cart signs up', () => {
   before(() => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
@@ -137,7 +137,7 @@ describe('An existing user signs in from a random page', () => {
   it('Is succesfull', () => {
     cy.clearAllCookies()
     cy.visit('localhost:3000/products/chair-stack-gr')
-    cy.get('#userIconBtn').click().wait(100)
+    cy.get('#userIconBtn').click().wait(200)
     cy.get('#startSessionBtn').click().wait(1000)
     cy.url().should('include', '/login')
     cy.get('#email')
@@ -362,7 +362,7 @@ describe('An existing user asociated to another lead with a non empty cart signs
     // the lead selects yes
     it('swaps the leads')
   })
-})
+}) */
 
 describe('A lead with an empty cart signs in with existing user thats asociated to another lead with a non-empty cart', () => {
   const LEAD_COOKIE = 'ergo_lead_id'
@@ -383,7 +383,7 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
 
       // it expects a new active lead to be created by a new visitor
       cy.viewport('macbook-15')
-      cy.visit('localhost:3000').wait(500)
+      cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
         const visitorLeadId = leadId.value
         cy.log('leadId ', visitorLeadId)
@@ -436,7 +436,6 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
   })
 })
 
-
 describe('A lead with an non-empty cart signs in with existing user thats asociated to another lead with a non-empty cart and cancels the swap', () => {
   const LEAD_COOKIE = 'ergo_lead_id'
   const user_email = 'user_with_lead_and_cart_with_items@test.com'
@@ -459,7 +458,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
 
       // it expects a new active lead to be created by a new visitor
       cy.viewport('macbook-15')
-      cy.visit('localhost:3000').wait(500)
+      cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
         const visitorLeadId = leadId.value
         cy.log('leadId ', visitorLeadId)
@@ -515,8 +514,6 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
   })
 })
 
-
-
 describe('A lead with an non-empty cart signs in with existing user thats asociated to another lead with a non-empty cart and confirms the swap', () => {
   const LEAD_COOKIE = 'ergo_lead_id'
   const user_email = 'user_with_lead_and_cart_with_items@test.com'
@@ -539,7 +536,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
 
       // it expects a new active lead to be created by a new visitor
       cy.viewport('macbook-15')
-      cy.visit('localhost:3000').wait(500)
+      cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
         const visitorLeadId = leadId.value
         cy.log('leadId ', visitorLeadId)

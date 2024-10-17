@@ -3,15 +3,16 @@
 import { setCookie } from "@/app/actions";
 import { searchEvent } from "@/utils/analytics";
 import { getClientLead, getLead } from "@/utils/leads/client";
+import { getCartLength, getCartLengthByLead } from "@/utils/leads/server";
 import locales from "@/utils/locales";
 import { getIntl } from "@/utils/utils";
 import { Bars3Icon, ChevronRightIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
-import { UserIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
 import { Category, Subcategory } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 
@@ -387,3 +388,27 @@ const MobileCat =({cat, lang}: {cat: CategoryWithSubcategories, lang: string})=>
         </div>
     );
 }
+
+export const ShoppingCart = ({cartLength}:{cartLength: number | undefined}) => {
+    const [clength, setClength] = useState(cartLength);
+    useEffect(() => {
+        if(cartLength) setClength(cartLength);
+        else {
+            getLead().then((leadId) => {
+                getCartLengthByLead(leadId).then((len) => {
+                    setClength(len || 0);
+                })
+            })
+        }
+    }, [cartLength]); // Fix the useEffect dependency array
+    return (
+        <div className="relative flex items-center">
+            <Link id="cartBtn" href="/cart" className="relative inline-block">
+                <ShoppingCartIcon className="h-6 w-6" />
+                <span className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 bg-opacity-90 rounded-full -top-2 -right-2 dark:border-gray-900 border border-transparent">
+                    {clength}
+                </span>
+            </Link>
+        </div>
+    );
+};
