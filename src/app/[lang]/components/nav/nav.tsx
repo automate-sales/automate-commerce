@@ -1,8 +1,8 @@
 import { UserObj } from "@/utils/auth";
-import { LangSelector, NavElement, NavLinks, ProductsMenu, SearchInput, SideMenu, UserMenu } from "./client";
-import { Brand, ShoppingCart } from "./server";
+import { ShoppingCart, LangSelector, NavElement, NavLinks, ProductsMenu, SearchInput, SideMenu, UserMenu } from "./client";
+import { Brand } from "./server";
 import prisma from '@/db'
-import { getServerLead } from "@/utils/leads/server";
+import { getCartLengthByLead, getServerLead } from "@/utils/leads/server";
 
 type Props = {
     links: NavElement[];
@@ -28,7 +28,7 @@ export default async function Nav({
           priority: "asc",
         },
     });
-    const [leadId] = await getServerLead();
+    const cartLength = await getCartLengthByLead()
     return (
         <nav className="h-16 bg-gray-50 z-40 fixed fixed-top w-full grid grid-cols-3 px-5">
             <SideMenu categories={categories} links={links} languages={languages}/>
@@ -40,7 +40,7 @@ export default async function Nav({
             <div className="flex items-center justify-end gap-2">
                 {search && <SearchInput classNames="hidden lg:flex" />}
                 <UserMenu user={user}/>
-                <ShoppingCart />
+                <ShoppingCart cartLength={cartLength}/>
                 {languages && <LangSelector id='lang' fixed languages={languages} classNames="hidden lg:flex pl-4"/>}
             </div>
 

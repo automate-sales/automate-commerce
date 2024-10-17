@@ -16,6 +16,7 @@ export default async function SignIn({ params, searchParams }: { params: { lang:
   console.log('REDIRECT PATsH ', redirectPath)
   const user = await getCurrentUser()
   console.log('USER IO ', user)
+  
   if (user) {
     if (user.username) {
       console.log('USITOO ', user)

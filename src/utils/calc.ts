@@ -74,7 +74,7 @@ export const getTotalQty =(cart:Array<CartItem>)=>{
 //calculate the shiping costs
 export const getShippingCost =(cart:Array<CartItem>, province: keyof typeof shippingRates)=>{
     if(province === 'panama_ciudad' && getSubTotal(cart) > 100) return 0
-    else return cart.reduce((a:number, b:CartItem)=>a + shippingRates[province]*b.qty, 0)
+    else return cart.reduce((a:number, b:CartItem)=>a + shippingRates[province]*b.qty, 0) || 0
 }
   
 //calculate the assembly cost
@@ -122,23 +122,23 @@ export const getDiscount =async(
 //calculate the total tax
 export const getTax =(
     subTotal:number, 
-    discount:number, 
-    shippingFee:number, 
-    assemblyFee:number
+    discount?: number | null | undefined, 
+    shippingFee?: number | null | undefined, 
+    assemblyFee?: number | null | undefined
 )=>{
     const taxRate = .07
-    return ((subTotal-discount+shippingFee+assemblyFee)*taxRate)
+    return (((subTotal||0)-(discount||0)+(shippingFee||0)+(assemblyFee||0))*taxRate)
 }
 
 //get the cart total
 export const getTotal =(
     subTotal:number, 
-    discount:number, 
-    shippingFee:number, 
-    assemblyFee:number,
-    tax:number
+    discount?: number | null | undefined, 
+    shippingFee?: number | null | undefined, 
+    assemblyFee?: number | null | undefined,
+    tax?: number | null | undefined,
 )=> {
-    return subTotal-discount+shippingFee+assemblyFee+tax
+    return subTotal-(discount||0)+(shippingFee||0)+(assemblyFee||0)+(tax||0)
 }
 
 // method that checks the stock to see if the stock of any given product is correct

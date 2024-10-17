@@ -18,7 +18,7 @@ export type UserObj = {
 
 export const getCurrentUser = async ()=> {
     const session = await getServerSession(authOptions)
-    console.log('current session: ', session)
+    console.log('current sezzione: ', session)
     if(session && session.user) {
         return session.user as User & { swapModal?: string }
     } else return undefined
@@ -120,7 +120,8 @@ export const authOptions: NextAuthOptions = {
                     // reroute the user to a pop up asking if they want to keep the current cart
                     //redirect(`/user/cart/${userCart.id}`)
                     session.user = {
-                      ...session.user, 
+                      ...session.user,
+                      username: userWithLeadAndCart?.username ,
                       swapModal: userCart.id
                     } as any
 

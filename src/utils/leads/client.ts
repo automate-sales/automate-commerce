@@ -94,11 +94,8 @@ export const setClientCart = (cartId: string) => {
     return setLocalStorageItem('cart', cartId)
 }
 export const getCart = async () => {
-    const cookiesId = await getServerCartCookie()
-    if(cookiesId) return cookiesId
-    const localStorageCart = getClientCart()
-    if(localStorageCart) return localStorageCart
     const leadId = await getLead()
+    console.log('LEADFROTI ', leadId)
     return leadId && await getCartId(leadId)
 }
 export const setCart = (cartId: string) => {
