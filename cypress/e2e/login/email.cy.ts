@@ -385,7 +385,7 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
       cy.viewport('macbook-15')
       cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
-        const visitorLeadId = leadId.value
+        const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
         // verify that the shopping cart is empty
         cy.visit('localhost:3000/cart').wait(500)
@@ -411,8 +411,8 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
 
           // lead ID in the cookies should be the user lead Id
           cy.getCookie(LEAD_COOKIE).then(leadId => {
-            cy.log('leadId ', leadId.value)
-            expect(leadId.value).to.eq(visitorLeadId)
+            cy.log('leadId ', leadId?.value)
+            expect(leadId?.value).to.eq(visitorLeadId)
           })
 
           // active lead id in the user should be the visitorLeadId
@@ -460,7 +460,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
       cy.viewport('macbook-15')
       cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
-        const visitorLeadId = leadId.value
+        const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
         
         // make some shopping
@@ -538,7 +538,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
       cy.viewport('macbook-15')
       cy.visit('localhost:3000').wait(2000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
-        const visitorLeadId = leadId.value
+        const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
         
         // make some shopping

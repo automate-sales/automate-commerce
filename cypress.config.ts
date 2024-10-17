@@ -218,6 +218,30 @@ export default defineConfig({
           }
         },
 
+        async seedProducts() {
+          const qtys = {
+            'chair-vergex-bl': 0,
+            'light-arm-bl': 0,
+            'chair-xtc-gr': 1,
+            'chair-stack-gr': 2,
+            'chair-axis-wh': 3,
+            'stand-arm-alum-single-bl': 20,
+            'stand-arm-alum-double-gr': 18,
+            'stand-laptop-adjus-sl': 30,
+            'chair-executive-stratus-gr': 4,
+            'frame-double-bl': 5,
+            'anti-mat-shape1-bl': 3,
+            'stand-cpu-under-bl': 4
+          };
+          const qtyPromises = Object.entries(qtys).map(async ([q, qty]) => {
+            await prisma.product.update({
+              where: { sku: q },
+              data: { stock: qty }
+            });
+          });
+          return Promise.all(qtyPromises);
+        }
+
       });
       return config;
     },

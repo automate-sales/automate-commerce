@@ -57,14 +57,15 @@ describe('A lead tests the functionality of the checkout process', () => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
     cy.task('wipeTables');
+    cy.task('seedProducts');
   });
   beforeEach(() => {
     cy.session(uniqueSessionId, () => {
       cy.visit('localhost:3000').wait(1500);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {
-        if (leadId && leadId.value) {
-          cy.log('Setting LEAD_COOKIE: ', leadId.value);
-          cy.setCookie('leadId', leadId.value, { httpOnly: true });
+        if (leadId && leadId?.value) {
+          cy.log('Setting LEAD_COOKIE: ', leadId?.value);
+          cy.setCookie('leadId', leadId?.value, { httpOnly: true });
         } else {
           cy.log('LEAD_COOKIE is null or undefined during session setup');
         }
@@ -96,7 +97,7 @@ describe('A lead tests the functionality of the checkout process', () => {
   it('tests the billing is same as shipping checkbox', () => {
     cy.viewport('macbook-15')
     cy.getCookie(LEAD_COOKIE).then(leadId => {
-      cy.log('leadId ', leadId.value)
+      cy.log('leadId ', leadId?.value)
     })
     cy.visit('localhost:3000/checkout').wait(1000)
     cy.get(`#step-2-btn`).click()
@@ -119,15 +120,16 @@ describe('A new lead makes a succesful order', () => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
     cy.task('wipeTables');
+    cy.task('seedProducts');
   });
   beforeEach(() => {
     const uniqueSessionId = `lead-${new Date().getTime()}`;
     cy.session(uniqueSessionId, () => {
       cy.visit('localhost:3000').wait(1500);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {
-        if (leadId && leadId.value) {
-          cy.log('Setting LEAD_COOKIE: ', leadId.value);
-          cy.setCookie('leadId', leadId.value, { httpOnly: true });
+        if (leadId && leadId?.value) {
+          cy.log('Setting LEAD_COOKIE: ', leadId?.value);
+          cy.setCookie('leadId', leadId?.value, { httpOnly: true });
         } else {
           cy.log('LEAD_COOKIE is null or undefined during session setup');
         }

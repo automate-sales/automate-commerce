@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "monday:seed": "ts-node monday/seed.ts"
+    "test": "next test",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run",
+    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e --browser chrome\"",
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "e2e:headless:chrome": "start-server-and-test start http://localhost:3000 \"cypress run --e2e --browser chrome\"",
+    "e2e:headless:firefox": "start-server-and-test start http://localhost:3000 \"cypress run --e2e --browser firefox\""
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -34,7 +40,8 @@
     "react-toastify": "^10.0.5",
     "sharp": "^0.32.6",
     "swiper": "^11.1.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "start-server-and-test": "^1.15.3"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
