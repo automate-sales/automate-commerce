@@ -28,6 +28,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
     cy.task('wipeTables');
+    cy.task('seedProducts');
   });
   beforeEach(() => {
     cy.session(uniqueSessionId, () => {
@@ -97,6 +98,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.get(`#${productSku}-add-to-cart`).click()
     cy.contains(outOfStockMsg).should("be.visible")
     let productSku2 = 'chair-stack-gr'
+    cy.visit(`localhost:3000/products?query=${productSku2}`)
     cy.get(`#${productSku2}-add-to-cart`).click()
     .wait(500)
     cy.contains(`1 ${successMsg}`).should("be.visible")
@@ -289,6 +291,7 @@ describe('A new lead enters the site and shops for a variety of items without an
     cy.clearAllCookies();
     cy.clearLocalStorage();
     cy.task('wipeTables');
+    cy.task('seedProducts');
   });
   beforeEach(() => {
     cy.clearAllCookies();
@@ -313,7 +316,7 @@ describe('A new lead enters the site and shops for a variety of items without an
     cy.getCookie(LEAD_COOKIE).should('not.exist');
 
     // ADD PRODUCT FROM INDEX
-    let productSku = 'chair-xtc-gr'
+    let productSku = 'chair-xtc-gr' as keyof typeof expectedStock
     cy.visit('localhost:3000/products?query=xtc')
     cy.clearAllCookies();
     cy.clearLocalStorage();
@@ -326,7 +329,7 @@ describe('A new lead enters the site and shops for a variety of items without an
     cy.contains(warnMsg(0, 1)).should("be.visible")
 
     // ADD PRODUCT FROM PRODUCT PAGE
-    let productSku2 = 'stand-arm-alum-single-bl'
+    let productSku2 = 'stand-arm-alum-single-bl' as keyof typeof expectedStock
     let qty = 1
     cy.visit(`localhost:3000/products/${productSku2}`).wait(1500)
     cy.clearAllCookies();
