@@ -184,6 +184,8 @@ export default defineConfig({
 
         async createUserWithLeadAndCartWithItems() {
           try {
+            const products = await prisma.product.findMany()
+            console.log('Products: ', products)
             const userWithLeadAndCartWithItems = await prisma.user.create({
               data: {
                 email: 'user_with_lead_and_cart_with_items@test.com',
@@ -213,8 +215,8 @@ export default defineConfig({
             return userWithLeadAndCartWithItems
           }
           catch (error) {
-            console.error('Error creating user with lead and cart with items:', error);
-            throw new Error('Failed to create user with lead and cart with items');
+            console.log('Error creating user with lead and cart with items:', error);
+            throw new Error('Failed to create user with lead and cart with items: '+String(error));
           }
         },
 

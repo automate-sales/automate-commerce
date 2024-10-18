@@ -5,8 +5,8 @@ import { BasicProduct, CartItemWithProduct } from '@/types';
 const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
 export const init =()=> {
-  console.log('Posthog Init')
   if (typeof window !== 'undefined' && isAnalyticsEnabled) {
+    console.log('Posthog Init')
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY || '', {
       api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
       person_profiles: 'identified_only',
