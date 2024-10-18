@@ -11,7 +11,7 @@
       "en": "Support for all your devices including cell phones, tablets, laptops, desktop PCs, and monitors. Monitor arms along with the other mounts help you have a more efficient and productive workflow."
     },
     "images": [
-      "stands/stands-category-image.jpg"
+      "stands/1.jpg"
     ],
     "priority": 3,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -31,7 +31,7 @@
       "en": "The desk is the main part of your workspace or home office. Ergonomic desks consist of a motorized height-adjustable base and a tabletop. You can choose the material, color, and size of the tabletop that you like the most."
     },
     "images": [
-      "desks/standing-desk-bl-1.jpg"
+      "desks/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -51,7 +51,7 @@
       "en": "Accessories to add to your standing desk that help improve ergonomics and organize your workspace. Includes anti-fatigue mats, eco leather pads, lamps, cabinets, cable management, and others."
     },
     "images": [
-      "accesories/accesories-category-image.jpg"
+      "accesories/1.jpg"
     ],
     "priority": 4,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -71,7 +71,7 @@
       "en": "USB hubs, USB-C hubs, HDMI and USB-C cables, adapters for your laptops and devices, HDMI Splitters, and other products that make your connections easier and also expand the capability of your laptop or computer."
     },
     "images": [
-      "hubs_adapters/hubs-adap-category.jpg"
+      "hubs_adapters/1.jpg"
     ],
     "priority": 5,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -91,7 +91,7 @@
       "en": "Desktop speakers, soundbars, headphones, and sound products."
     },
     "images": [
-      "sound/sound-bookshelf-BT4in-bl-2.jpg"
+      "sound/1.jpg"
     ],
     "priority": 8,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -111,7 +111,7 @@
       "en": "Power outlets, USB chargers, and wireless chargers for your devices such as cell phones, computers, and 110v."
     },
     "images": [
-      "chargers/charge-strip-6outlet-bl-1.jpg"
+      "chargers/1.jpg"
     ],
     "priority": 7,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -131,7 +131,7 @@
       "en": "Wireless keyboards, mechanical keyboards, office mice, ergonomic mice, gaming mice, and other products for your home office."
     },
     "images": [
-      "keyboard_mouse/keyboard-mouse-category.jpg"
+      "keyboard_mouse/1.jpg"
     ],
     "priority": 6,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -151,7 +151,7 @@
       "en": "Products to keep your body healthy and free of pain. They include yoga mats, massagers, rollers, and others."
     },
     "images": [
-      "health/health-body-minigun-bl-1.jpg"
+      "health/1.jpg"
     ],
     "priority": 9,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -171,7 +171,7 @@
       "en": "Office and gaming monitors from LG and Samsung brands."
     },
     "images": [
-      "monitors/monitors-category.jpg"
+      "monitors/1.jpg"
     ],
     "priority": 11,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -191,7 +191,7 @@
       "en": "Decorations to create a work environment that makes you want to work, such as paintings, art, plants, and other products that add personality to your home office."
     },
     "images": [
-      "decoration/decoration-category-image.jpg"
+      "decoration/1.jpg"
     ],
     "priority": 10,
     "createdAt": "2022-02-07T05:57:41.000Z",
@@ -211,7 +211,7 @@
       "en": "High quality ergonomic chairs and stools for your home office. Our chairs are designed for those who spend long hours in front of the computer. They are an essential part of your home office setup."
     },
     "images": [
-      "seating/chair-category-image.jpg"
+      "seating/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:57:41.000Z",

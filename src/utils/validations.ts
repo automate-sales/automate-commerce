@@ -36,7 +36,7 @@ export const validateSubtotal = (order: OrderInfo, cart: CartItem[]): void => {
 
 // validate shipping
 export const validateShipping = (shipping: ShippingInfo, order: OrderInfo, cart: CartItem[]): void => {
-    if (getShippingCost(cart, shipping.state) !== order.shippingFee) {
+    if (shipping.state && getShippingCost(cart, shipping.state) !== order.shippingFee) {
         throw new Error('Invalid shipping fee');
     }
 }

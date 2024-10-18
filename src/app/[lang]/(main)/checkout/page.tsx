@@ -7,22 +7,13 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
 import { getDictionary } from "@/app/dictionaries";
 import CheckoutEvent from "../../components/analytics/checkout";
-import { getServerCart, getServerLead } from "@/utils/leads/server";
+import { getCartWithItemsByLead, getServerLeadId } from "@/utils/leads/server";
 
 export default async function Page({ params }: { params: { lang: string } }) {
-    const [leadId] = await getServerLead()
-    const cartId = await getServerCart()
+    const leadId = await getServerLeadId()
+    const cart = await getCartWithItemsByLead(leadId)
+    const dict = await getDictionary(params.lang)
     const user = await getCurrentUser()
-    const cart = await prisma.cart.findUnique({
-        where: { id: cartId },
-        include: { 
-            cartItems: {
-                where: { qty: { gt: 0 } },
-                include: { product: true },
-            },
-        }
-    })
-    const dict = await getDictionary(params.lang)                                                                  
     return(
         <>
         <CheckoutEvent />
@@ -34,10 +25,9 @@ export default async function Page({ params }: { params: { lang: string } }) {
             <div className="container mx-auto p-8">
             <h1 className="text-3xl text-center font-bold py-4">Checkout</h1>
                 <CheckoutForm
+                    leadID={leadId}
+                    cartWithItems={cart}
                     user={user}
-                    leadId={leadId}
-                    cartId={cartId}
-                    cart={cart as CartWithItems}
                 />
             </div>
         </>

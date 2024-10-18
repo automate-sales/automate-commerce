@@ -6,16 +6,30 @@ import { toast } from 'react-toastify';
 import { updateCartItem } from '@/app/actions';
 import { CartItemWithProduct } from '@/types';
 
-export default function UpdateCartButton({cartId, cartItem}:{cartId?: string, cartItem: CartItemWithProduct}) {
+export default function UpdateCartButton({
+  cartId, 
+  cartItem, 
+  fullWidth,
+  setCartChange
+}:{
+  cartId?: string, 
+  cartItem: CartItemWithProduct, 
+  fullWidth?: boolean,
+  setCartChange: (time: number) => void
+  }) {
     const router = useRouter();
+
+
     const [inputValue, setInputValue] = useState(String(cartItem.qty));
     const debounceRef = useRef(null as NodeJS.Timeout | null);
     const [userHasInteracted, setUserHasInteracted] = useState(false); // State to track user interaction
   
     const removeItemFromCart = async () => {
+    console.log('CART IDiot: ', cartId)
       if(!cartId) return toast.error('Cart not found');
       await updateCartItem(cartId, cartItem.product.id, 0);
       toast.success(`Item removed from cart`);
+      setCartChange(Date.now())
       return router.refresh();
     };
   
@@ -24,6 +38,7 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId?: string, ca
       const obj = await updateCartItem(cartId, cartItem.product.id, newQty)
       toast[obj.type](obj.text);
       setInputValue(obj.item.qty.toString());
+      setCartChange(Date.now())
       return router.refresh();
     };
   
@@ -68,7 +83,7 @@ export default function UpdateCartButton({cartId, cartItem}:{cartId?: string, ca
             Remove
           </button>
         </div>
-        <div id={`${cartItem.product.sku}-total`} className="text-xl">${cartItem.product.price * parseInt(inputValue || '0')}</div>
+        <div id={`${cartItem.product.sku}-total`} className={fullWidth ? `hidden md:flex text-xl` : 'hidden'}>${cartItem.product.price * parseInt(inputValue || '0')}</div>
       </div>
     );
   }
