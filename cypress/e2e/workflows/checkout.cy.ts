@@ -184,7 +184,7 @@ describe('A new lead makes a succesful order', () => {
     clickMiddle()
     cy.get('#mastercard-logo').should('be.visible')
     // validate subtotal, tax, delivery and total
-    cy.get('#checkout-btn').click()
+    cy.get('#checkout-btn').click().wait(4000)
     //const success_msg = '¡Gracias por tu compra!'
     //cy.contains(success_msg).should("be.visible")
     cy.url().should('include', '/orders/confirmation?id=')
