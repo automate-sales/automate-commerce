@@ -1,26 +1,48 @@
-//import { clearLocalStorage } from "../utils"
+const LEAD_COOKIE = 'ergo_lead_id'
+
+
+// ADD PRODUCT FROM INDEX / SEARCH
+// ADD PRODUCT FROM PRODUCT PAGE
+// ADD PRODUCT FROM CATEGORY/SUBCATEGORY
+// ADD PRODUCT FROM CAROUSEL
+
+// TEST THAT CATEGORIES ARE LISTED BY PRIORITY
+// TEST THAT SUBCATEGORIES ARE LISTED BY PRIORITY
+// TEST THAT PRODUCTS IN SUBCATEGORIES ARE LISTED BY PRIORITY
+// TEST THAT PRODUCTS IN INDEX ARE LISTED BY PRIORITY
+
+// TEST THAT INACTIVE PRODUCTS ARE NOT DISPLAYED
+
+// TEST THAT PRODUCT VARIANTS WORK CORRECTLY
+
+// TEST THAT CAROUSEL WITHOUT IMAGES ARE DISPLAYED CORRECTLY
+// TEST THAT PRODUCT WITHOUT IMAGES ARE DISPLAYED CORRECTLY
+// TEST THAT SUBCATEGORY WITHOUT IMAGES ARE DISPLAYED CORRECTLY
+// TEST THAT CATEGORY WITHOUT IMAGES ARE DISPLAYED CORRECTLY
+
+// TEST SHOPPING CART ICON UPDATES CORRECTLY AND REFLECTS THE CORRECT COUNT OF ITEMS
 
 describe('A new lead enters the site and shops for a variety of items', () => {
-  
+  const uniqueSessionId = `lead-${new Date().getTime()}`;
   before(() => {
-    cy.log('CLEARING COOKIES ...')
-    Cypress.session.clearAllSavedSessions()
-    cy.clearAllCookies()
-  })
-
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.task('wipeTables');
+    cy.task('seedProducts');
+  });
   beforeEach(() => {
-    //cy.clearCookies()
-    cy.session('lead', () => {
-      cy.visit('localhost:3000')
-      .wait(1000)
-      cy.getCookie('ergo_lead_id').then(leadId => {
-        if(leadId && leadId.value){
-          cy.log('LEAD ID ****** ', leadId.value)
-          cy.setCookie('leadId', leadId.value, {httpOnly: true})
+    cy.session(uniqueSessionId, () => {
+      cy.visit('localhost:3000').wait(1500);
+      cy.getCookie(LEAD_COOKIE).then((leadId) => {
+        if (leadId && leadId.value) {
+          cy.log('Setting LEAD_COOKIE: ', leadId.value);
+          cy.setCookie('leadId', leadId.value, { httpOnly: true });
+        } else {
+          cy.log('LEAD_COOKIE is null or undefined during session setup');
         }
-      })
-    }, {cacheAcrossSpecs: true})
-  })
+      });
+    }, { cacheAcrossSpecs: true });
+  });
 
   const outOfStockMsg = 'Item is out of stock'
   const successMsg = 'items were added to the cart'
@@ -30,9 +52,9 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   
   const expectedStock = {
     'chair-vergex-bl': 0,
-    'monitor-lg-20mk400h-bl': 0,
+    'light-arm-bl': 0,
     'chair-xtc-gr': 1,
-    'chair-stackx-bl': 1,
+    'chair-stack-gr': 1,
     'stand-arm-alum-single-bl': 3,
     'chair-axis-wh': 3
   }
@@ -41,36 +63,20 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   //'stand-laptop-adjus-sl': 30
   let cartSubtotal = 0
   it('Visits the index page', ()=> {
-    cy.log('must create a lead with a cart')
-    //cy.visit('localhost:3000')
-    //.wait(1500)
-    cy.getCookie('leadId').then(leadId => {
-      if(leadId && leadId.value){
-        cy.log('LEAD ID ****** ', leadId.value)
-        /* expect(leadId).to.not.be.null
-        cy.request('http://localhost:3000/api/trpc/lead.getOne?input='+encodeURIComponent(`{"json":"${leadId}"}`))
-        .then(response => expect(response.body).to.not.be.empty) */
-      }
+    cy.viewport('macbook-15')
+    cy.visit('localhost:3000').wait(1000)
+    cy.getCookie(LEAD_COOKIE).should('exist');
+    cy.window().its(`localStorage.${LEAD_COOKIE}`).then(leadId => {
+      expect(leadId).to.not.be.null
+    });
+    cy.window().its(`sessionStorage.${LEAD_COOKIE}`).then(leadId => {
+      expect(leadId).to.not.be.null
     })
   })
-  /* it('Searches for a product', ()=> {
-    //cy.restoreLocalStorage()
-    cy.log('search must work')
-    cy.viewport(1300, 800)
-    cy.visit('localhost:3000')
-    .wait(1500)
-    cy.get('#search')
-    .type('silla xtc')
-    .should('have.value', 'silla xtc')
-    .type('{enter}')
-    cy.url().should('include', '/products')
-    cy.url().should('include', 'query=silla%20xtc')
-    cy.log('results must be relevant to the serach. partial matching')
-  }) */
   it('Adds a product from the index', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-xtc-gr'
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/products?query=xtc')
     cy.get('#products').children().should('have.lengthOf', 1)
     cy.get(`#${productSku}-add-to-cart`).click()
@@ -86,12 +92,13 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('Adds an out-of-stock product from the index', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-vergex-bl'
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/products?query=chair%20x')
     cy.get('#products').children().should('have.lengthOf.greaterThan', 1)
     cy.get(`#${productSku}-add-to-cart`).click()
     cy.contains(outOfStockMsg).should("be.visible")
-    let productSku2 = 'chair-stackx-bl'
+    let productSku2 = 'chair-stack-gr'
+    cy.visit(`localhost:3000/products?query=${productSku2}`)
     cy.get(`#${productSku2}-add-to-cart`).click()
     .wait(500)
     cy.contains(`1 ${successMsg}`).should("be.visible")
@@ -100,7 +107,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     //cy.restoreLocalStorage()
     let productSku = 'stand-arm-alum-single-bl'
     let qty = 1
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit(`localhost:3000/products/${productSku}`)
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
@@ -113,8 +120,8 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Adds an out-of-stock product from the product page', ()=> {
     //cy.restoreLocalStorage()
-    let productSku = 'monitor-lg-20mk400h-bl'
-    cy.viewport(1300, 800)
+    let productSku = 'light-arm-bl'
+    cy.viewport('macbook-15')
     cy.visit(`localhost:3000/products/${productSku}`)
     cy.get(`#${productSku}-add-to-cart`).click()
     .wait(500)
@@ -123,7 +130,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('Adds a product with available stock and qty > available stock', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-axis-wh'
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit(`localhost:3000/products/${productSku}`)
     let requestedQty = 5
     cy.get(`#${productSku}-qty`).type('{backspace}').type(String(requestedQty))
@@ -134,7 +141,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('Adds a product with 0 available stock but stock > 0', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-xtc-gr'
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit(`localhost:3000/products/${productSku}`)
     let requestedQty = 3
     cy.get(`#${productSku}-qty`).type('{backspace}').type(String(requestedQty))
@@ -158,7 +165,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     //cy.restoreLocalStorage()
     cy.log('Must display the correct products with the correct qtys')
     cy.log('Must display the correct subtotal')
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     .wait(100)
     //has the correct number of items and items have the correct values
@@ -181,16 +188,20 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('Removes an item from the cart', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'chair-axis-wh' as keyof typeof expectedStock
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     .wait(100)
     cy.get(`#${productSku}-price`).then(price => {
       let productTotal = expectedStock[productSku] * Number(price.text().substring(1))
       cartSubtotal-=productTotal
       cy.get(`#${productSku}-remove`).click()
-      .wait(100)
+      .wait(1000)
       cy.contains(removeItemMsg).should("be.visible")
-      cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
+      cy.get('#cart-total').then(elem => {
+        expect(elem.text()).eq(`$${cartSubtotal}`)
+        cy.log('CART TOTAL ', elem.text())
+        cy.log('CART SUBTOTAL ', cartSubtotal)
+    })
     })
     cy.scrollTo('top')
   })
@@ -201,7 +212,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('Decreases qty of an item', ()=> {
     //cy.restoreLocalStorage()
     let productSku = 'stand-arm-alum-single-bl' as keyof typeof expectedStock
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     cy.get(`#${productSku}-price`).then(price => {
       let productTotal = Number(price.text().substring(1))
@@ -219,8 +230,8 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Increases qty of an item to a qty > stock', ()=> {
     //cy.restoreLocalStorage()
-    let productSku = 'chair-stackx-bl' as keyof typeof expectedStock
-    cy.viewport(1300, 800)
+    let productSku = 'chair-stack-gr' as keyof typeof expectedStock
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     cy.get(`#${productSku}-price`).then(price => {
       let productTotal = Number(price.text().substring(1))
@@ -240,14 +251,14 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   it('reviews the subtotal', ()=> {
     const finalExpectedStock = {
       'chair-vergex-bl': 0,
-      'monitor-lg-20mk400h-bl': 0,
+      'light-arm-bl': 0,
       'chair-xtc-gr': 1,
-      'chair-stackx-bl': 2,
+      'chair-stack-gr': 2,
       'stand-arm-alum-single-bl': 2,
       'chair-axis-wh': 0
     }
     //cy.restoreLocalStorage()
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit('localhost:3000/cart')
     .wait(100)
     //has the correct number of items and items have the correct values
@@ -262,6 +273,151 @@ describe('A new lead enters the site and shops for a variety of items', () => {
         cy.get(`#${sku}-total`).then(itemTotal => 
           expect(itemTotal.text()).eq(`$${total}`)
         )
+        cy.log('ITEM TOTAL ',sku, total)
+        finalCartSubtotal += total
+      })
+    })
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${finalCartSubtotal}`))
+ 
+  })
+})
+
+
+
+describe('A new lead enters the site and shops for a variety of items without any cookies or local storage', () => {
+  const uniqueSessionId = `lead-${new Date().getTime()}`;
+  before(() => {
+    Cypress.session.clearAllSavedSessions();
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.task('wipeTables');
+    cy.task('seedProducts');
+  });
+  beforeEach(() => {
+    cy.clearAllCookies();
+  });
+
+  const successMsg = 'items were added to the cart'
+  const updateQtyMsg = 'Item quantity updated'
+  const removeItemMsg = 'Item removed from cart'
+  const warnMsg =(allowableQty: number, requestedQty: number) => `${allowableQty} items were added to the cart, ${requestedQty - allowableQty} are not in stock`
+  
+  const expectedStock = {
+    'chair-xtc-gr': 1,
+    'stand-arm-alum-single-bl': 3,
+  }
+
+  let cartSubtotal = 0
+  it('Shops for some products', ()=> {
+    cy.log('must create a lead with a cart')
+    cy.visit('localhost:3000').wait(1500)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.getCookie(LEAD_COOKIE).should('not.exist');
+
+    // ADD PRODUCT FROM INDEX
+    let productSku = 'chair-xtc-gr' as keyof typeof expectedStock
+    cy.visit('localhost:3000/products?query=xtc')
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.get('#products').children().should('have.lengthOf', 1)
+    cy.get(`#${productSku}-add-to-cart`).click()
+    .wait(500)
+    cy.contains(`1 ${successMsg}`).should("be.visible")
+    cy.get(`#${productSku}-add-to-cart`).click()
+    .wait(500)
+    cy.contains(warnMsg(0, 1)).should("be.visible")
+
+    // ADD PRODUCT FROM PRODUCT PAGE
+    let productSku2 = 'stand-arm-alum-single-bl' as keyof typeof expectedStock
+    let qty = 1
+    cy.visit(`localhost:3000/products/${productSku2}`).wait(1500)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.get(`#${productSku2}-add-to-cart`).click()
+    .wait(500)
+    cy.contains(`1 ${successMsg}`).should("be.visible")
+    qty = 2
+    cy.get(`#${productSku2}-qty`).type('{backspace}').type(String(qty))
+    cy.get(`#${productSku2}-add-to-cart`).click()
+    .wait(500)
+    cy.contains(`2 ${successMsg}`).should("be.visible")
+
+    // VISIT THE CART PAGE
+    cy.visit('localhost:3000/cart').wait(1500)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.get('#cart-items').children().should("have.length", 2)
+    cy.get('#cart-items').children().each(elem => {
+      let sku = elem.find('div.cart-item-sku').text() as keyof typeof expectedStock
+
+      expect(Object.keys(expectedStock)).include(sku)
+      cy.get(`#${sku}-qty`).should('have.value', String(expectedStock[sku]))
+      cy.get(`#${sku}-price`).then(price => {
+        let total = expectedStock[sku] * Number(price.text().substring(1))
+        cy.get(`#${sku}-total`).then(itemTotal => 
+          expect(itemTotal.text()).eq(`$${total}`)
+        )
+        cartSubtotal += total
+      })
+    })
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${cartSubtotal}`))
+
+    // REMOVE AN ITEM FROM THE CART
+    cy.visit('localhost:3000/cart').wait(2500)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.get(`#${productSku}-price`).then(price => {
+      let productTotal = expectedStock[productSku] * Number(price.text().substring(1))
+      cartSubtotal-=productTotal
+      cy.get(`#${productSku}-remove`).click()
+      .wait(2500)
+      cy.contains(removeItemMsg).should("be.visible")
+      cy.get('#cart-total').then(elem => {
+        expect(elem.text()).eq(`$${cartSubtotal}`)
+        cy.log('CART TOTAL ', elem.text())
+        cy.log('CART SUBTOTAL ', cartSubtotal)
+      })
+    })
+    cy.scrollTo('top')
+
+    // DECREASE QTY OF AN ITEM
+    cy.visit('localhost:3000/cart').wait(2500)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    cy.get(`#${productSku2}-price`).then(price => {
+      let productTotal = Number(price.text().substring(1))
+      cartSubtotal-=productTotal
+      cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]))
+      cy.get(`#${productSku2}-qty`).type('{backspace}').type(String(expectedStock[productSku2]-1))
+      cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
+      .wait(1000)
+      cy.contains(updateQtyMsg).should("be.visible")
+      cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
+      cy.get('#cart-total').then(elem =>
+        expect(elem.text()).eq(`$${cartSubtotal}`)
+      )
+    })
+
+    const finalExpectedStock = {
+      'stand-arm-alum-single-bl': 2,
+    }
+    cy.visit('localhost:3000/cart').wait(1000)
+    cy.clearAllCookies();
+    cy.clearLocalStorage();
+    //has the correct number of items and items have the correct values
+    cy.get('#cart-items').children().should("have.length", 1)
+    let finalCartSubtotal = 0
+    cy.get('#cart-items').children().each(elem => {
+      let sku = elem.find('div.cart-item-sku').text() as keyof typeof finalExpectedStock
+      expect(Object.keys(finalExpectedStock)).include(sku)
+      cy.get(`#${sku}-qty`).should('have.value', String(finalExpectedStock[sku]))
+      cy.get(`#${sku}-price`).then(price => {
+        let total = finalExpectedStock[sku] * Number(price.text().substring(1))
+        cy.get(`#${sku}-total`).then(itemTotal => 
+          expect(itemTotal.text()).eq(`$${total}`)
+        )
+        cy.log('ITEM TOTAL ',sku, total)
         finalCartSubtotal += total
       })
     })
@@ -274,7 +430,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   clearLocalStorage()
   const productSku = 'chair-phaser-bl'
   it('Adds product to cart from product index', ()=> {
-      cy.viewport(1300, 800)
+      cy.viewport('macbook-15')
       //cy.visit('localhost:3000')
       .wait(1500)
       cy.get('#search')
@@ -300,7 +456,7 @@ describe('A new lead enters the site and shops for a variety of items', () => {
   })
   it('Updates product qty from the product page', ()=> {
     cy.restoreLocalStorage()
-    cy.viewport(1300, 800)
+    cy.viewport('macbook-15')
     cy.visit(`localhost:3000/products/${productSku}`)
     .wait(2000)
     cy.get(`#${productSku}-qty`).type('{backspace}').type('2').should('have.value', '2')

@@ -206,11 +206,11 @@ lead utilities are distributed into 2 main packages, one for the server and one 
 Inside the middleware there is a condition that checks for a previous URL, if the previous URL has an hid (hidden ID) searchParam in the URL, this will set the hid param in the next request as well. This is useful for visitors that have all cookies blocked, attaching their initial session leadID in the URL allows them to still use most of the functionality in the website.
 
 ## leadGen component
-the leadgen component is a client side react component that uses come of the clientside lead utilities with useEffect, so basically this function will execute everytime a page renders
+the leadgen component is a client side react component that uses some of the clientside lead utilities with useEffect, so basically this function will execute everytime a page renders
 
 ## getOrCreateLead
-1. getServerLead
-2. isLeadActive
+1. getServerLead: gets the lead from the server side cookies or http headers
+2. isLeadActive: checks weather the given lead exists in the databse and if its in status active
 3. fetch and set cart
 4. getCookieSettings
 5. get hid from url
@@ -289,3 +289,59 @@ const getOrCreateLead = async(
 
 
 ## cart sharing
+
+
+
+
+# TEST DATA
+
+## stock match
+
+shop
+'chair-vergex-bl': 0,
+'light-arm-bl': 0,
+'chair-xtc-gr': 1,
+'chair-stack-gr': 1,
+'stand-arm-alum-single-bl': 3,
+'chair-axis-wh': 3
+
+order
+'chair-axis-wh': 2,
+'stand-arm-alum-single-bl': 1,
+'chair-executive-stratus-gr': 2,
+'frame-double-bl': 1
+
+## variants
+melamine tabletop
+desk frame
+
+## Inactive products
+chair anion
+
+
+Power Outlets
+Monitor Arms
+Frames
+Keyboards
+Ergonomic Chairs
+Anti-fatigue Mats
+Mice
+USB hubs
+Pads
+Table Tops
+Laptop Stands
+Adapters
+Executive Chairs
+Wireless Chargers
+Tablet Stands
+Cabinets
+Phone Holders
+Headphone Stands
+Gaming chairs
+Lighting
+CPU Stands
+Cable Management
+Wrist rests
+Monitor Stands
+Balance Boards
+Under-desk Drawers

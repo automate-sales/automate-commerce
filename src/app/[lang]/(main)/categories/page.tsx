@@ -28,7 +28,13 @@ export default async function Page({
         <h1 className="text-4xl text-center font-bold py-16">{dict.categories.title}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {categories.map((category: Category, index: number) => (
-            <Item key={index} link={`/categories/${category.slug}`} title={getIntl(category.title, params.lang)} image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${category.images[0]}`} />
+            <Item 
+              key={index} 
+              link={`/categories/${category.slug}`} 
+              title={getIntl(category.title, 
+              params.lang)} 
+              image={category.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${category.images[0]}` : '/images/no-image.png'} 
+            />
           ))}
         </div>
       </div>

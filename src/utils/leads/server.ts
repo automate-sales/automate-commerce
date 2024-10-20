@@ -4,6 +4,7 @@ import { cookies, headers } from 'next/headers'
 import prisma from '@/db'
 import { LEAD_COOKIE, CART_COOKIE } from './constants'
 import { Cart, Lead } from '@prisma/client';
+
 //import { Lead } from '@prisma/client';
 
 /* import * as crypto from 'crypto';
@@ -72,9 +73,8 @@ const botUserAgents = [
 export const isBot =(): boolean => {
   const userAgent = headers().get('user-agent')
   if (!userAgent) return false;
-  return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase()));
+  return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase())) || false;
 }
-
 
 export const getCookie = (name: string) => {
   try {
@@ -84,6 +84,7 @@ export const getCookie = (name: string) => {
     return undefined
   }
 }
+
 export async function setCookie(name: string, value: string) {
     try {
       return cookies().set({
@@ -96,6 +97,7 @@ export async function setCookie(name: string, value: string) {
       return undefined
     }
 }
+
 export async function deleteCookie(name: string) {
     try {
       return cookies().delete(name)
@@ -115,6 +117,12 @@ export const getServerLead = async () => {
     return [cookiesId, headersId]
 }
 
+export const getServerLeadId = async () => {
+  const cookiesId = await getCookie(LEAD_COOKIE)
+  const headersId = headers().get('x-leadid') || undefined
+  return cookiesId || headersId
+}
+
 export const setServerCart = (cartId: string) => {
   console.log('SETTING SERVER CART: ', cartId)
     setCookie( CART_COOKIE , cartId)
@@ -123,13 +131,13 @@ export const setServerCart = (cartId: string) => {
 export const getServerCartCookie = async () => {
     return getCookie(CART_COOKIE)
 }
+
 export const getServerCart = async()=> {
     const cookiesId = await getServerCartCookie()
     if(cookiesId) return cookiesId
     const leadId = await getServerLead()
     return leadId[0] ? await getCartId(leadId[0]) : leadId[1] ? await getCartId(leadId[1]) : undefined
 }
-
 
 export const isLeadActive = async (leadId: string) => {
     try {
@@ -221,7 +229,6 @@ export async function getCartLength() {
     return cart?.cartItems.reduce((acc, curr) => acc + curr.qty, 0) || 0
 }
 
-
 export const joinLeads = async (currentLeadId: string, otherLeadId: string): Promise<Lead> => {
   try {
     let currentLead = await prisma.lead.findUnique({ where: { id: currentLeadId } }) as any;
@@ -267,3 +274,61 @@ export const joinLeads = async (currentLeadId: string, otherLeadId: string): Pro
     throw new Error('Error joining leads');
   }
 };
+
+
+export async function getCartWithItemsByLead(leadId?: string) {
+  try {
+    const leadID = leadId ? leadId : await getServerLeadId()
+    if(!leadID) return undefined 
+    console.log('LEADZONN ID ', leadID)
+    const cartId = leadID ? await getCartId(leadID) : undefined
+    return cartId ? await prisma.cart.findUnique({
+      where: { id: cartId, status: 'active' },
+      include: {
+        cartItems: {
+          where: { qty: { gt: 0 } },
+          orderBy: { createdAt: 'asc' },
+          include: {
+            product: {
+                select: { 
+                    id: true, 
+                    title: true,
+                    price: true,
+                    stock: true,
+                    images: true, 
+                    description: true,
+                    sku: true,
+                    color: true,
+                    size: true
+                },
+            }
+          },
+        },
+      },
+    }) : undefined
+  } catch (err) {
+    console.error('Error getting cart with items by lead', err)
+    return undefined
+  }
+}
+
+
+export async function getCartLengthByLead(leadId?: string) {
+  try {
+    const leadID = leadId ? leadId : await getServerLeadId()
+    if(!leadID) return undefined
+    const cartId = leadID ? await getCartId(leadID) : undefined
+    const results = cartId ? await prisma.cart.findUnique({
+      where: { id: cartId, status: 'active' },
+      include: {
+        cartItems: {
+          where: { qty: { gt: 0 } },
+        },
+      },
+    }) : undefined
+    return results? results.cartItems.reduce((acc, curr) => acc + curr.qty, 0) : undefined
+  } catch (err) {
+    console.error('Error getting cart length by lead', err)
+    return 0
+  }
+}
