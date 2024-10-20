@@ -73,7 +73,7 @@ export default defineConfig({
           return null
         },
         getLastEmail(email): EmailInfo {
-          return lastEmail[email]
+          return lastEmail[email] || null
         },
 
         async wipeTables() {

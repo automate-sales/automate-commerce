@@ -391,7 +391,7 @@ describe('A new lead enters the site and shops for a variety of items without an
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]))
       cy.get(`#${productSku2}-qty`).type('{backspace}').type(String(expectedStock[productSku2]-1))
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
-      .wait(500)
+      .wait(1000)
       cy.contains(updateQtyMsg).should("be.visible")
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
       cy.get('#cart-total').then(elem =>

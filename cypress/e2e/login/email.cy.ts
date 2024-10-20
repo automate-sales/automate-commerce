@@ -21,9 +21,9 @@ import { addProductFromPage, checkCart } from "../utils"
     cy.get('#email')
     .type('user@testuser.com')
     .should('have.value', 'user@testuser.com')
-    .type('{enter}')
+    .type('{enter}').wait(1000)
     //cy.contains(email_confirmation_msg).should("be.visible")
-    .wait(1000)
+    
     cy.task('getLastEmail', 'user@testuser.com').then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl FOUND: ', typedEmail)
@@ -71,9 +71,9 @@ describe('A new lead with a non empty cart signs up', () => {
     cy.get('#email')
     .type(userEmail)
     .should('have.value', userEmail)
-    .type('{enter}')
+    .type('{enter}').wait(1000)
     //cy.contains(email_confirmation_msg).should("be.visible")
-    .wait(1000)
+    
     cy.task('getLastEmail', userEmail).then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl FOUND: ', typedEmail)
@@ -110,9 +110,9 @@ describe('An existing user without any leads signs in from the login page', () =
     cy.get('#email')
     .type(existing_user_email)
     .should('have.value', existing_user_email)
-    .type('{enter}')
+    .type('{enter}').wait(1000)
     //cy.contains(email_confirmation_msg).should("be.visible")
-    .wait(1000)
+    
     cy.task('getLastEmail', existing_user_email).then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl FOUND: ', typedEmail)
@@ -143,9 +143,9 @@ describe('An existing user signs in from a random page', () => {
     cy.get('#email')
     .type(existing_user_email)
     .should('have.value', existing_user_email)
-    .type('{enter}')
+    .type('{enter}').wait(1000)
     //cy.contains(email_confirmation_msg).should("be.visible")
-    .wait(1000)
+    
     cy.task('getLastEmail', existing_user_email).then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl FOUND: ', typedEmail)
@@ -185,9 +185,9 @@ describe('An existing user asociated to the current lead signs in', () => {
         cy.get('#email')
         .type(current_lead_email)
         .should('have.value', current_lead_email)
-        .type('{enter}')
+        .type('{enter}').wait(1000)
         //cy.contains(email_confirmation_msg).should("be.visible")
-        .wait(1000)
+        
         cy.task('getLastEmail', current_lead_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
@@ -240,8 +240,8 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
         cy.get('#email')
         .type(current_lead_email)
         .should('have.value', current_lead_email)
-        .type('{enter}')
-        .wait(1000)
+        .type('{enter}').wait(1000)
+        
         cy.task('getLastEmail', current_lead_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
@@ -312,8 +312,8 @@ describe('A lead with a non-empty cart signs in with an existing user asociated 
         cy.get('#email')
         .type(current_lead_email)
         .should('have.value', current_lead_email)
-        .type('{enter}')
-        .wait(1000)
+        .type('{enter}').wait(1000)
+        
         cy.task('getLastEmail', current_lead_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
@@ -397,8 +397,8 @@ describe('A lead with an empty cart signs in with existing user thats asociated 
         cy.get('#email')
         .type(user_email)
         .should('have.value', user_email)
-        .type('{enter}')
-        .wait(1000)
+        .type('{enter}').wait(1500)
+        
         cy.task('getLastEmail', user_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
@@ -474,8 +474,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
         cy.get('#email')
         .type(user_email)
         .should('have.value', user_email)
-        .type('{enter}')
-        .wait(1000)
+        .type('{enter}').wait(1500)
         cy.task('getLastEmail', user_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
@@ -552,8 +551,7 @@ describe('A lead with an non-empty cart signs in with existing user thats asocia
         cy.get('#email')
         .type(user_email)
         .should('have.value', user_email)
-        .type('{enter}')
-        .wait(1000)
+        .type('{enter}').wait(1500)
         cy.task('getLastEmail', user_email).then((email)=> {
           const typedEmail = email as { body: string; html: string };
           cy.log('EMAIl FOUND: ', typedEmail)
