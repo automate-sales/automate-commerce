@@ -18,8 +18,8 @@ async function searchProducts(
   const productsQuery = Prisma.sql`
     SELECT * FROM "Product"
     WHERE "sku" = ${searchTerm}
-    OR similarity(title->>${locale}, ${searchTerm}) > 0.1
-    OR similarity(description->>${locale}, ${searchTerm}) > 0.3
+    OR similarity(title->>${locale}, ${searchTerm}) > 0.2
+    OR similarity(description->>${locale}, ${searchTerm}) > 0.4
     ORDER BY (
       CASE
         WHEN "sku" = ${searchTerm} THEN 1
@@ -78,15 +78,16 @@ export default async function Page({
       <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold py-16">{dict.products.title}</h1>
       <div id="products" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products?.map((product: Product, index: number) => (
+        {products && products.length > 0 ? products?.map((product: Product, index: number) => (
           <Item 
             key={index} 
             link={`/products/${product.sku}`} 
             title={getIntl(product.title, params.lang)} 
-            price={product.price} id={product.id} 
-            image={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}`
-          }/>
-        ))}
+            price={product.price} id={product.id}
+            image={product.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}` : '/images/no-image.png'}
+          />
+        )) : <div id='noResults' className="text-2xl text-gray-400 font-bold">{dict.products.noResults}</div>
+        }
         </div>
         <Pagination count={count} pageSize={pageSize} pageNumber={pageNumber} model='products' query={query} />
       </div>

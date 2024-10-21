@@ -82,7 +82,8 @@
   },
   "products": {
     "title": "Products",
-    "description": "Browse our extensive collection of ergonomic office furniture. Find the perfect standing desk, ergonomic chair, and more to create your ideal workspace."
+    "description": "Browse our extensive collection of ergonomic office furniture. Find the perfect standing desk, ergonomic chair, and more to create your ideal workspace.",
+    "noResults": "No Results"
   },
   "cart": {
     "title": "Cart",

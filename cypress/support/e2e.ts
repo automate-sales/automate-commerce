@@ -15,6 +15,31 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-export {}
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+import { User, Lead, CartItem, Cart } from '@prisma/client'
+
+// Extend the Cypress namespace to define custom task types
+declare global {
+    namespace Cypress {
+      interface Chainable {
+        task(
+          event: 'createUserWithLead',
+          leadId?: string
+        ): Cypress.Chainable<User & { leads: Lead[] }>;
+        task(
+            event: 'getUserWithLead',
+            email: string
+        ): Cypress.Chainable<User & { leads: Lead[] }>;
+        task(
+            event: 'createUserWithLeadAndEmptyCart'
+        ): Cypress.Chainable<User & { leads: Lead[] }>;
+        task(
+            event: 'createUserWithLeadAndCartWithItems'
+        ): Cypress.Chainable<User & { 
+            leads: Lead & {
+                carts: Cart & { cartItems: CartItem[] }[]
+            } }>;
+      }
+    }
+  }
+  
+  export {};

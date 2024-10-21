@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
         ${getSubTotal(cart.cartItems)}
       </div>
       <div className="flex justify-end pb-5">
-        <Link className='bg-gray-400 text-white text-xl px-4 py-2' href="/checkout" passHref>Checkout</Link>
+        <Link id='checkoutBtn' className='bg-gray-400 text-white text-xl px-4 py-2' href="/checkout" passHref>Checkout</Link>
       </div>
     </div>
     </>

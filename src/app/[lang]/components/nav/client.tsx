@@ -15,12 +15,12 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 
-export const DropDown =({label, items, fixed=false, classNames=''}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string})=> {
+export const DropDown =({label, items, fixed=false, classNames='', id}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string, id?: string})=> {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
     return (
         <div className={`relative ${fixed && 'flex items-center'} ${classNames}`}>
-        <div className="flex items-center cursor-pointer" onClick={toggleDropdown}>
+        <div id={`${id}-selected`} className="flex items-center cursor-pointer" onClick={toggleDropdown}>
           {label}
           <ChevronRightIcon
             className={`h-4 w-4 transform transition-transform duration-300 ${isOpen ? 'rotate-90' : 'rotate-0'}`}
@@ -118,11 +118,12 @@ export const SideMenu = ({
     return (
         <>
             <div className="lg:hidden flex items-center">
-                <button onClick={openDrawer}>
+                <button id='hamburgerMenu' onClick={openDrawer}>
                     {!isMenuOpen && <Bars3Icon className="h-6 w-6" />}
                 </button>
             </div>
             <div
+                id='sideMenu'
                 ref={drawerRef}
                 className={`fixed top-0 left-0 w-80 h-full bg-gray-50 bg-opacity-90 z-40 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}
                 style={{ transform: `translateX(${drawerPosition})` }}
@@ -131,11 +132,11 @@ export const SideMenu = ({
                 onTouchEnd={handleTouchEnd}
             >
                 <div className="p-5 flex flex-col gap-3">
-                    <XMarkIcon className="h-6 w-6 mb-4" onClick={closeDrawer} />
+                    <XMarkIcon id='closeDrawerBtn' className="h-6 w-6 mb-4" onClick={closeDrawer} />
                     <SearchInput />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
-                    {languages && <LangSelector languages={languages} />}
+                    {languages && <LangSelector id='mobile-lang' languages={languages} />}
                 </div>
             </div>
             {isMenuOpen && (
@@ -168,13 +169,15 @@ export const SearchInput = ({
     };
 
     return (
+        <div className="relative z-80">
+        
         <form
             className={`flex items-center px-1 lg:px-2 lg:border-b-2 lg:border-blue-200 ${classNames}`}
             onSubmit={(ev) => searchProducts(ev)}
         >
             <MagnifyingGlassIcon className="h-6 w-6 lg:hidden" />
             <input
-                id="search"
+                id='search'
                 type="text"
                 className="w-36 p-1 bg-transparent text-gray-700 focus:outline-none"
                 required
@@ -184,12 +187,14 @@ export const SearchInput = ({
                 placeholder="search"
             />
             <button
+                id='searchBtn'
                 type="submit"
                 className="focus:outline-none items-center justify-center hidden lg:flex"
             >
                 <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
             </button>
         </form>
+        </div>
     );
 };
 
@@ -268,7 +273,7 @@ export const UserMenu = ({ user }: { user: any }) => {
 
 
 
-export const LangSelector = ({ languages, classNames='', fixed=false }: { languages: string[], classNames?: string, fixed?: boolean }) => {
+export const LangSelector = ({ languages, classNames='', fixed=false, id }: { languages: string[], classNames?: string, fixed?: boolean, id?: string }) => {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -286,13 +291,13 @@ export const LangSelector = ({ languages, classNames='', fixed=false }: { langua
     };
 
     return (
-        <DropDown classNames={classNames} fixed={fixed} label={currentLocale || 'en'} items={langs.map((l, index) => (
+        <DropDown id={id} classNames={classNames} fixed={fixed} label={currentLocale || 'en'} items={langs.map((l, index) => (
             <div
                 key={index}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
             >
-                <button onClick={() => redirectLang(l)}>{l}</button>
+                <button id={`${id}-${l}`} onClick={() => redirectLang(l)}>{l}</button>
             </div>
         ))} />
     );
