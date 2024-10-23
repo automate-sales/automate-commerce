@@ -91,7 +91,6 @@ export async function findOrCreateLeadWithCart(fingerprint: string, id?: string)
   const lead = await findLeadByFingerprint(fingerprint)
   if (lead) return { leadId: lead.id, cartId: lead.carts[0].id }
   else {
-    console.log('CREATING LEAD WITH CART ', id)
     return createLeadWithCart(fingerprint, id)
   }
 }
@@ -127,8 +126,6 @@ export async function addToCart(
   // Calculate the current quantity and requested quantity
   const currentQty = existingCartItem ? existingCartItem.qty : 0;
   const allowableQty = Math.min(quantity, product.stock - currentQty);
-
-  console.log(existingCartItem, product, currentQty, quantity, allowableQty)
   // Perform the upsert operation with the allowable quantity
   const cartItem = await prisma.cartItem.upsert({
     where: {
@@ -160,8 +157,6 @@ export async function updateCartItem(
   quantity: number
 ): Promise<{ type: MsgType, text: string, item: CartItem }> {
   // Fetch the product's stock
-
-  console.log('UPDATING CART ITEM ', cartId, productId, quantity)
   const product = await prisma.product.findUnique({
     where: {
       id: productId,

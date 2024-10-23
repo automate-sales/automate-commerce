@@ -11,7 +11,6 @@ export default async function Page({ params }: { params: { lang: string } }) {
   const leadId = await getServerLeadId()
   const cart = await getCartWithItemsByLead(leadId)
   const dict = await getDictionary(params.lang)
-  console.log('cartou', cart)
   return (
     <>
     <CartEvent />

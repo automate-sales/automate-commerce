@@ -13,18 +13,14 @@ export default async function SignIn({ params, searchParams }: { params: { lang:
   //const visitorId = cookieStore.get('ergo_lead_id')?.value
   const dict = await getDictionary(params.lang)
   let redirectPath = searchParams.redirect ? searchParams.redirect : '/'
-  console.log('REDIRECT PATsH ', redirectPath)
   const user = await getCurrentUser()
-  console.log('USER IO ', user)
   
   if (user) {
     if (user.username) {
-      console.log('USITOO ', user)
       //toast.success(`Welcome back ${user.username}`)
       // redirect to a client side page that will trigger a success notification and redirect via clientside
       // if cart of user is defferent to lead 
       if(user.swapModal) {
-        console.log('SWAP MODAL ', user)
         redirectPath = `/user/cart/${user.swapModal}`
       }
       redirect(redirectPath)

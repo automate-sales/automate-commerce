@@ -124,7 +124,6 @@ export const getServerLeadId = async () => {
 }
 
 export const setServerCart = (cartId: string) => {
-  console.log('SETTING SERVER CART: ', cartId)
     setCookie( CART_COOKIE , cartId)
 }
 
@@ -185,9 +184,7 @@ export async function getCartId(leadId: string) {
 
 export async function getCartWithItems(id?: string) {
     const cartId = id ? id : await getServerCart()
-    const leadID = await getServerLead()
-    console.log('CARTO ID ', cartId)
-    console.log('LEADIO ID ', leadID)
+    //const leadID = await getServerLead()
     if(!cartId) return undefined   
     return await prisma.cart.findUnique({
       where: { id: cartId, status: 'active' },
@@ -280,7 +277,6 @@ export async function getCartWithItemsByLead(leadId?: string) {
   try {
     const leadID = leadId ? leadId : await getServerLeadId()
     if(!leadID) return undefined 
-    console.log('LEADZONN ID ', leadID)
     const cartId = leadID ? await getCartId(leadID) : undefined
     return cartId ? await prisma.cart.findUnique({
       where: { id: cartId, status: 'active' },
