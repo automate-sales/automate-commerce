@@ -72,8 +72,9 @@ const Pagination = ({
                 </p>
             </div>
             <div className='md:text-right'>
-                <nav className="isolate inline-flex gap-4" aria-label="Pagination">
+                <nav id='pagination' className="isolate inline-flex gap-4" aria-label="Pagination">
                     <Link
+                        id='paginationPrevious'
                         aria-disabled={pageNumber === 0}
                         tabIndex={pageNumber === 0 ? -1 : undefined}
                         href={`/${model}?page=${pageNumber - 1}${queryParam}`}
@@ -86,6 +87,7 @@ const Pagination = ({
                     </Link>
                     {getPageItems()}
                     <Link
+                        id='paginationNext'
                         aria-disabled={pageNumber === totalPages - 1}
                         tabIndex={pageNumber === totalPages - 1 ? -1 : undefined}
                         href={`/${model}?page=${pageNumber + 1}${queryParam}`}

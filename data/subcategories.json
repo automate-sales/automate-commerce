@@ -1,89 +1,5 @@
 [
   {
-    "id": 24,
-    "slug": "desk_casters",
-    "title": {
-      "es": "Ruedas para base de standing desk",
-      "en": "Casters for standing desk"
-    },
-    "description": {
-      "es": "Ruedas para las bases de standing desks.  ",
-      "en": "Casters for standing desk"
-    },
-    "images": [
-      "desk_casters/desk caster 1.png"
-    ],
-    "priority": 0,
-    "createdAt": "2022-08-24T23:10:54.000Z",
-    "updatedAt": "2022-08-24T23:10:55.498Z",
-    "createdBy": "tester@user-tester.com",
-    "updatedBy": null,
-    "categorySlug": "accesories"
-  },
-  {
-    "id": 32,
-    "slug": "body",
-    "title": {
-      "es": "Cuerpo",
-      "en": "Body"
-    },
-    "description": {
-      "es": "Todos los productos que ayuden a tu cuerpo mantenerse saludable como yoga mats, masajeadores, y otros.",
-      "en": "All products that help your body stay healthy such as yoga mats, massagers, and others."
-    },
-    "images": [
-      "body/health-body-minigun-bl-1.jpg"
-    ],
-    "priority": 1,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "health"
-  },
-  {
-    "id": 23,
-    "slug": "flat",
-    "title": {
-      "es": "Planos",
-      "en": "Flat"
-    },
-    "description": {
-      "es": "Monitores planos último modelos de las marcas LG y Samsung.",
-      "en": "Flat monitors latest models from the brands LG and Samsung."
-    },
-    "images": [
-      "flat/monitors-flat.jpg"
-    ],
-    "priority": 1,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "monitors"
-  },
-  {
-    "id": 38,
-    "slug": "bookshelf_speakers",
-    "title": {
-      "es": "Bocinas De Escritorio",
-      "en": "Desktop Speakers"
-    },
-    "description": {
-      "es": "Las bocinas de escritorio con bluetooth son de tamaño compacto ideal para tu escritorio.  El sonido es impactante y de alta calidad. ",
-      "en": "Desktop Bluetooth speakers are compact in size, ideal for your desktop. The sound is impressive and high quality."
-    },
-    "images": [
-      "bookshelf_speakers/sound-bookshelf-BT4in-bl-1.jpg"
-    ],
-    "priority": 1,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "sound"
-  },
-  {
     "id": 34,
     "slug": "power_strips",
     "title": {
@@ -91,11 +7,11 @@
       "en": "Power Outlets"
     },
     "description": {
-      "es": "Tomacorrientes heavy duty para que puedan conectar todos tus dispositivos organizadamente. ",
+      "es": "Tomacorrientes heavy duty para que puedan conectar todos tus dispositivos organizadamente.",
       "en": "Heavy-duty power outlets so you can connect all your devices in an organized way."
     },
     "images": [
-      "power_strips/charge-strip-6outlet-bl-1.jpg"
+      "power_strips/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -105,27 +21,6 @@
     "categorySlug": "chargers"
   },
   {
-    "id": 14,
-    "slug": "usbc_hubs",
-    "title": {
-      "es": "Hubs Tipo C",
-      "en": "USB Type C Hubs"
-    },
-    "description": {
-      "es": "Hubs con salida tipo c.  ",
-      "en": "Hubs with type C output."
-    },
-    "images": [
-      "usbc_hubs/hubs-usbc-6in1-1-gr-2.jpg"
-    ],
-    "priority": 1,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "hubs_adapters"
-  },
-  {
     "id": 2,
     "slug": "monitor_arms",
     "title": {
@@ -133,11 +28,11 @@
       "en": "Monitor Arms"
     },
     "description": {
-      "es": "Los Brazos para monitores son esencial para tener las pantallas en la posición correcta.",
-      "en": "The Monitor Arms are essential for positioning the screens correctly."
+      "es": "Los brazos para monitores son esenciales para mantener las pantallas en la posición correcta.",
+      "en": "Monitor arms are essential for keeping screens positioned correctly."
     },
     "images": [
-      "monitor_arms/stand-arm-alum-double-bl-1.jpg"
+      "monitor_arms/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -154,11 +49,11 @@
       "en": "Frames"
     },
     "description": {
-      "es": "Las bases motorizadas para tus escritorios de altura ajustables / standing desks. Puedes escoger el modelo y color que más se ajuste a tu necesidad.",
-      "en": "The motorized frames for your standing desks. You can choose the model and color that best suits your needs."
+      "es": "Las bases motorizadas para escritorios ajustables en altura. Puedes elegir el modelo y color que más se ajuste a tus necesidades.",
+      "en": "Motorized frames for height-adjustable desks. You can choose the model and color that best suits your needs."
     },
     "images": [
-      "desk_frames/frame-double-wh-1.jpg"
+      "desk_frames/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -168,27 +63,6 @@
     "categorySlug": "desks"
   },
   {
-    "id": 29,
-    "slug": "art",
-    "title": {
-      "es": "Decoración",
-      "en": "Decoration"
-    },
-    "description": {
-      "es": "Los productos de decoración incluyen cuadros, artes para colgar en las paredes , plantas en potes y otros.",
-      "en": "The decoration products include paintings, wall art, potted plants, and others."
-    },
-    "images": [
-      "art/decoration-category-image.jpg"
-    ],
-    "priority": 1,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "decoration"
-  },
-  {
     "id": 16,
     "slug": "keyboards",
     "title": {
@@ -196,11 +70,11 @@
       "en": "Keyboards"
     },
     "description": {
-      "es": "Los teclado inalámbricos y mecánicos de buena calidad para tu setup.   ",
-      "en": "Wireless and high-quality mechanical keyboards for your setup."
+      "es": "Teclados inalámbricos y mecánicos de alta calidad para tu escritorio.",
+      "en": "Wireless and high-quality mechanical keyboards for your desk."
     },
     "images": [
-      "keyboards/keyboard-btoffice-us-gr-1.jpg"
+      "keyboards/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -217,11 +91,11 @@
       "en": "Ergonomic Chairs"
     },
     "description": {
-      "es": "Sillas ergonómicas de alta calidad para tu home office.",
+      "es": "Sillas ergonómicas de alta calidad para tu oficina en casa.",
       "en": "High-quality ergonomic chairs for your home office."
     },
     "images": [
-      "chairs/chair-ajax-bl-1.jpg"
+      "chairs/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -238,11 +112,11 @@
       "en": "Anti-fatigue Mats"
     },
     "description": {
-      "es": "La alfombras antifatiga son esenciales para la configuración de tu escritorio o standing desk ergonómico.  Reducen la tensión de estar parado.  Cuando lo pruebes sentirás la diferencia al instante.",
-      "en": "Anti-fatigue mats are essential for setting up your ergonomic desk or standing desk. They reduce the strain of standing. When you try it, you will feel the difference instantly."
+      "es": "Las alfombras antifatiga son esenciales para escritorios ergonómicos o standing desks. Reducen la tensión de estar de pie.",
+      "en": "Anti-fatigue mats are essential for ergonomic desks or standing desks. They reduce strain from standing."
     },
     "images": [
-      "anti_fatigue_mats/anti-mat-shape1-bl-1.jpg"
+      "anti_fatigue_mats/1.jpg"
     ],
     "priority": 1,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -259,11 +133,11 @@
       "en": "Mice"
     },
     "description": {
-      "es": "Mouses ergonómicos de oficina y de gamers",
+      "es": "Mouses ergonómicos de oficina y para gamers.",
       "en": "Ergonomic office and gaming mice."
     },
     "images": [
-      "mouse/mouse-vertical-rg-bl-1.jpg"
+      "mouse/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -284,7 +158,7 @@
       "en": "Hubs with USB output."
     },
     "images": [
-      "usb_hubs/hubs-usb-7port-1-gr-1.jpg"
+      "usb_hubs/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -294,39 +168,18 @@
     "categorySlug": "hubs_adapters"
   },
   {
-    "id": 40,
-    "slug": "usb_chargers",
-    "title": {
-      "es": "Cargadores Usb",
-      "en": "USB Chargers"
-    },
-    "description": {
-      "es": "Los cargadores USB de alta velocidad te permiten conectar todos tus dispositivos USB que necesitan carga en un solo cargador.",
-      "en": "High-speed USB chargers allow you to connect all your USB devices that need charging to a single charger."
-    },
-    "images": [
-      "usb_chargers/charge-usb-10port-bl-1.jpg"
-    ],
-    "priority": 2,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "chargers"
-  },
-  {
     "id": 31,
     "slug": "pads",
     "title": {
-      "es": "Pads",
-      "en": "Almohadillas"
+      "es": "Almohadillas",
+      "en": "Pads"
     },
     "description": {
-      "es": "Los pads te protegen el sobre de la mesa y le dan  personalizada a tu escritorio. ",
-      "en": "The pads protect the desk from scratches and add a personal touch to your workspace."
+      "es": "Las almohadillas protegen tu escritorio de arañazos y le dan un toque personalizado.",
+      "en": "Pads protect your desk from scratches and add a personal touch."
     },
     "images": [
-      "pads/pad-ecoleather-80x40-gr-1.jpg"
+      "pads/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -343,11 +196,11 @@
       "en": "Table Tops"
     },
     "description": {
-      "es": "Los sobres para tu standing desk.  Puedes escoger el tamaño, color y acabado.",
-      "en": "The table tops for your standing desk. You can choose the size, color, and finish."
+      "es": "Sobres para standing desks. Puedes escoger el tamaño, color y acabado.",
+      "en": "Table tops for standing desks. You can choose the size, color, and finish."
     },
     "images": [
-      "table_tops/top-mela-white-152-1.jpg"
+      "table_tops/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -360,15 +213,15 @@
     "id": 27,
     "slug": "laptop_stands",
     "title": {
-      "es": "Soporte De Laptops",
-      "en": "Laptop Stand"
+      "es": "Soportes para Laptops",
+      "en": "Laptop Stands"
     },
     "description": {
-      "es": "Los soportes de laptops te ayudan a tener la configuración más eficiente y a mantener tu escritorio organizado.",
-      "en": "Laptop stands help you have the most efficient setup and keep your desk organized."
+      "es": "Los soportes de laptops te ayudan a tener una configuración más eficiente y a mantener tu escritorio organizado.",
+      "en": "Laptop stands help you have a more efficient setup and keep your desk organized."
     },
     "images": [
-      "laptop_stands/stand-laptop-x-gr-1.jpg"
+      "laptop_stands/1.jpg"
     ],
     "priority": 2,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -378,90 +231,6 @@
     "categorySlug": "stands"
   },
   {
-    "id": 9,
-    "slug": "stools",
-    "title": {
-      "es": "Stool",
-      "en": "Taburet"
-    },
-    "description": {
-      "es": "Los stools son una solución ergonómica para tu standing desk.",
-      "en": "The stools are an ergonomic solution for your standing desk."
-    },
-    "images": [
-      "stools/stool-wobble-bl-1.jpg"
-    ],
-    "priority": 2,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "seating"
-  },
-  {
-    "id": 36,
-    "slug": "curved",
-    "title": {
-      "es": "Curvos",
-      "en": "Curved"
-    },
-    "description": {
-      "es": "Monitores curvos último modelos de las marcas LG y Samsung.",
-      "en": "Curved monitors latest models from LG and Samsung brands."
-    },
-    "images": [
-      "curved/monitors-curved.jpg"
-    ],
-    "priority": 2,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "monitors"
-  },
-  {
-    "id": 11,
-    "slug": "air",
-    "title": {
-      "es": "Aire",
-      "en": "Air"
-    },
-    "description": {
-      "es": "Los productos para el aire incluyen purificadores de aire con filtros HEPA, difusores de aceites esenciales y otro productos que mantienen el el aire limpio y fresco.",
-      "en": "Air products include air purifiers with HEPA filters, essential oil diffusers, and other products that keep the air clean and fresh."
-    },
-    "images": [
-      "air/health-air-deskhepa-bl-2.jpg"
-    ],
-    "priority": 2,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "health"
-  },
-  {
-    "id": 21,
-    "slug": "soundbars",
-    "title": {
-      "es": "Soundbar",
-      "en": "Soundbar"
-    },
-    "description": {
-      "es": "Las bocinas soundbar con bluetooth tienen una forma y tamaño ideal para diferentes configuraciones.   El sonido es impactante y de alta calidad. ",
-      "en": "The soundbar speakers with bluetooth have an ideal shape and size for different setups. The sound is impressive and of high quality."
-    },
-    "images": [
-      "soundbars/sound-soundbar-speaker28in-bl-1.jpg"
-    ],
-    "priority": 2,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "sound"
-  },
-  {
     "id": 22,
     "slug": "adapters",
     "title": {
@@ -469,11 +238,11 @@
       "en": "Adapters"
     },
     "description": {
-      "es": "Adaptadores para USB, Tipo C, y diferentes conexiones/salidas.  ",
+      "es": "Adaptadores para USB, Tipo C, y diferentes conexiones/salidas.",
       "en": "USB adapters, Type C, and different connections/outputs."
     },
     "images": [
-      "adapters/hubs-adap-usbctohdmi-bl-1.jpg"
+      "adapters/1.jpg"
     ],
     "priority": 3,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -484,18 +253,16 @@
   },
   {
     "id": 1,
-    "slug": "Executive",
+    "slug": "executive",
     "title": {
       "es": "Sillas Ejecutivas",
       "en": "Executive Chairs"
     },
     "description": {
-      "es": "Sillas ejecutivas de cuero para oficinas en panama",
-      "en": "Executive leather chairs for offices in Panama"
+      "es": "Sillas ejecutivas de cuero para oficinas en Panamá.",
+      "en": "Executive leather chairs for offices in Panama."
     },
-    "images": [
-      "Executive/Asset 11-100 (1.jpg"
-    ],
+    "images": [],
     "priority": 3,
     "createdAt": "2023-01-18T21:40:32.000Z",
     "updatedAt": "2023-01-18T21:40:32.611Z",
@@ -511,11 +278,11 @@
       "en": "Wireless Chargers"
     },
     "description": {
-      "es": "Los cargadores inalámbricos te mantienen tu escritorio organizado y al mismo tiempo cargando tus dispositivos.  ",
-      "en": "Wireless chargers keep your desk organized while charging your devices at the same time."
+      "es": "Los cargadores inalámbricos mantienen tu escritorio organizado mientras cargan tus dispositivos.",
+      "en": "Wireless chargers keep your desk organized while charging your devices."
     },
     "images": [
-      "wireless_chargers/charge-wireless-fastpad-bl-4.jpg"
+      "wireless_chargers/1.jpg"
     ],
     "priority": 3,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -525,60 +292,18 @@
     "categorySlug": "chargers"
   },
   {
-    "id": 25,
-    "slug": "headphones",
-    "title": {
-      "es": "Headphones",
-      "en": "Auriculares"
-    },
-    "description": {
-      "es": "Los headphones con active noise cancelling te permite escuchar tu música sin interrupciones de ruido en tu ambiente.",
-      "en": "The headphones with active noise canceling allow you to listen to your music without interruptions from noise in your environment."
-    },
-    "images": [
-      "headphones/sound-head-anchead1-bl-1.jpg"
-    ],
-    "priority": 3,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "sound"
-  },
-  {
-    "id": 30,
-    "slug": "sanitizers",
-    "title": {
-      "es": "Sanitizadores",
-      "en": "Sanitizers"
-    },
-    "description": {
-      "es": "Los sanitizadores son una solución eficiente para mantener la higiene en tus manos y no ensuciar los dispositivos.",
-      "en": "Sanitizers are an efficient solution to keep your hands clean and not dirty your devices."
-    },
-    "images": [
-      "sanitizers/health-sani-atom-bl-1.jpg"
-    ],
-    "priority": 3,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "health"
-  },
-  {
     "id": 33,
     "slug": "tablet_stands",
     "title": {
-      "es": "Soporte De Tabletas",
-      "en": "Tablet Stand"
+      "es": "Soportes para Tabletas",
+      "en": "Tablet Stands"
     },
     "description": {
-      "es": "Los soportes de tabletas ayudan a mantener tus dispositivos organizados y    de fácil alcance. ",
+      "es": "Los soportes para tabletas te ayudan a mantener tus dispositivos organizados y accesibles.",
       "en": "Tablet stands help keep your devices organized and easily accessible."
     },
     "images": [
-      "tablet_stands/stand-tablet-adjus-sl-1.jpg"
+      "tablet_stands/1.jpg"
     ],
     "priority": 3,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -599,7 +324,7 @@
       "en": "Cabinets help you keep all your documents organized and safe."
     },
     "images": [
-      "cabinets/cabinet-3drawer-wh-1.jpg"
+      "cabinets/1.jpg"
     ],
     "priority": 3,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -612,15 +337,15 @@
     "id": 28,
     "slug": "phone_stands",
     "title": {
-      "es": "Soporte De Celulares",
-      "en": "Phone Holder"
+      "es": "Soportes para Celulares",
+      "en": "Phone Holders"
     },
     "description": {
-      "es": "Los soportes de celular ayudan a mantener tu dispositivos organizados y siempre al alcance.",
-      "en": "Cell phone stands help keep your devices organized and always at hand."
+      "es": "Los soportes para celular te ayudan a mantener tus dispositivos organizados y al alcance.",
+      "en": "Phone holders help keep your devices organized and within reach."
     },
     "images": [
-      "phone_stands/stand-phone-clasic-gr-1.jpg"
+      "phone_stands/1.jpg"
     ],
     "priority": 4,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -633,15 +358,15 @@
     "id": 3,
     "slug": "headphone_stands",
     "title": {
-      "es": "Soporte De Headphones",
-      "en": "Headphone Stand"
+      "es": "Soportes para Headphones",
+      "en": "Headphone Stands"
     },
     "description": {
-      "es": "Los soportes de headphone ayudan a mantener tu auriculares organizados y protegidos.",
+      "es": "Los soportes para headphones te ayudan a mantener tus auriculares organizados y protegidos.",
       "en": "Headphone stands help keep your headphones organized and protected."
     },
     "images": [
-      "headphone_stands/stand-head-desk-sl-1.jpg"
+      "headphone_stands/1.jpg"
     ],
     "priority": 4,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -651,40 +376,17 @@
     "categorySlug": "stands"
   },
   {
-    "id": 6,
-    "slug": "cables",
-    "title": {
-      "es": "Cables",
-      "en": "Cables"
-    },
-    "description": {
-      "es": "Cables para conectar los monitores a tu laptop o PC. ",
-      "en": "Cables to connect the monitors to your laptop or PC."
-    },
-    "images": [
-      "cables/hubs-cables-hdmibraid1_5-gold-1.jpg"
-    ],
-    "priority": 4,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "hubs_adapters"
-  },
-  {
     "id": 4,
-    "slug": "Gamer",
+    "slug": "gamer",
     "title": {
       "es": "Sillas Gamers",
-      "en": "Gaming chairs"
+      "en": "Gaming Chairs"
     },
     "description": {
-      "es": "Sillas gamers ergonomicas de lujo",
-      "en": "Luxury ergonomic gaming chairs"
+      "es": "Sillas gamers ergonómicas de lujo.",
+      "en": "Luxury ergonomic gaming chairs."
     },
-    "images": [
-      "Gamer/ ynynny-100.jpg"
-    ],
+    "images": [],
     "priority": 4,
     "createdAt": "2023-01-19T05:26:04.000Z",
     "updatedAt": "2023-01-19T05:26:05.104Z",
@@ -701,10 +403,10 @@
     },
     "description": {
       "es": "La iluminación correcta es esencial para tener un ambiente de trabajo productivo.",
-      "en": "The correct lighting is essential to have a productive work environment."
+      "en": "The right lighting is essential for creating a productive work environment."
     },
     "images": [
-      "lighting/light-screenbar-bl-1.jpg"
+      "lighting/1.jpg"
     ],
     "priority": 4,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -714,39 +416,18 @@
     "categorySlug": "accesories"
   },
   {
-    "id": 13,
-    "slug": "splitters",
-    "title": {
-      "es": "Splitters",
-      "en": "Splitters"
-    },
-    "description": {
-      "es": "Spitters te permiten agregar una configuración de dos pantallas o más a través de una sola salida HDMI, Tipo C y otras conexiones.",
-      "en": "Spitters allow you to add a dual-screen or multi-screen setup through a single HDMI, Type C, and other connections."
-    },
-    "images": [
-      "splitters/hubs-split-usbctodualhdmi-bl-1.jpg"
-    ],
-    "priority": 5,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "hubs_adapters"
-  },
-  {
     "id": 37,
     "slug": "cpu_stands",
     "title": {
-      "es": "Soporte De Cpu",
-      "en": "CPU Stand"
+      "es": "Soportes para CPU",
+      "en": "CPU Stands"
     },
     "description": {
-      "es": "Los soportes de CPU te ayudan a ahorrar espacio y mantener tu escritorio organizado.  ",
+      "es": "Los soportes para CPU te ayudan a ahorrar espacio y mantener tu escritorio organizado.",
       "en": "CPU stands help you save space and keep your desk organized."
     },
     "images": [
-      "cpu_stands/stand-cpu-under-bl-1.jpg"
+      "cpu_stands/1.jpg"
     ],
     "priority": 6,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -759,15 +440,15 @@
     "id": 5,
     "slug": "cable_management",
     "title": {
-      "es": "Manejo De Cables",
+      "es": "Manejo de Cables",
       "en": "Cable Management"
     },
     "description": {
-      "es": "Los accesorios para manejo de cable te mantienen tu escritorio organizado y visualmente impecable.  ",
-      "en": "\"Cable management accessories keep your desk organized and visually impeccable.\""
+      "es": "Los accesorios para manejo de cables te ayudan a mantener tu escritorio organizado y visualmente impecable.",
+      "en": "Cable management accessories help you keep your desk organized and visually clean."
     },
     "images": [
-      "cable_management/cable-tray-bl-1.jpg"
+      "cable_management/1.jpg"
     ],
     "priority": 5,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -777,39 +458,18 @@
     "categorySlug": "accesories"
   },
   {
-    "id": 10,
-    "slug": "iphone_hubs",
-    "title": {
-      "es": "Hubs Iphone",
-      "en": "IPhone Hubs"
-    },
-    "description": {
-      "es": "Hubs para el iphone.",
-      "en": "Hubs for the iPhone."
-    },
-    "images": [
-      "iphone_hubs/hubs-iphone-hdmi-1-wh-1.jpg"
-    ],
-    "priority": 6,
-    "createdAt": "2022-02-07T05:58:49.000Z",
-    "updatedAt": "2022-02-07T05:58:49.000Z",
-    "createdBy": "admin@test-admin.com",
-    "updatedBy": null,
-    "categorySlug": "hubs_adapters"
-  },
-  {
     "id": 8,
     "slug": "wrist_rests",
     "title": {
       "es": "Reposamuñecas",
-      "en": "Wrist rest"
+      "en": "Wrist Rests"
     },
     "description": {
-      "es": "El reposamuñecas hace la experiencia de tipear más agradable y te protege las muñecas.",
-      "en": "The wrist rest makes the typing experience more comfortable and protects your wrists."
+      "es": "Los reposamuñecas hacen que la experiencia de tipear sea más cómoda y protegen tus muñecas.",
+      "en": "Wrist rests make typing more comfortable and protect your wrists."
     },
     "images": [
-      "wrist_rests/wrist-rest-combo-bl-1.jpg"
+      "wrist_rests/1.jpg"
     ],
     "priority": 6,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -822,15 +482,15 @@
     "id": 42,
     "slug": "monitor_risers",
     "title": {
-      "es": "Alza Monitor",
-      "en": "Monitor StandS"
+      "es": "Alzas para Monitor",
+      "en": "Monitor Stands"
     },
     "description": {
-      "es": "Los alza monitor te permite poner las pantallas a una mayor altura.",
-      "en": "The monitor stand allows you to place the screens at a higher height."
+      "es": "Las alzas para monitor te permiten colocar las pantallas a mayor altura.",
+      "en": "Monitor stands allow you to place your screens at a higher height."
     },
     "images": [
-      "monitor_risers/stand-riser-monitor-sl-1.jpg"
+      "monitor_risers/1.jpg"
     ],
     "priority": 7,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -843,15 +503,15 @@
     "id": 17,
     "slug": "balance_boards",
     "title": {
-      "es": "Tablas De Balance",
-      "en": "Balance Sheets"
+      "es": "Tablas de Balance",
+      "en": "Balance Boards"
     },
     "description": {
-      "es": "Las tablas de balance te mantienen activos durante el trabajo, ayudan a fortalecer tu core y a reducir los dolores de espalda.  ",
-      "en": "Balance boards keep you active during work, help strengthen your core, and reduce back pain."
+      "es": "Las tablas de balance te mantienen activo durante el trabajo, fortalecen tu core y reducen dolores de espalda.",
+      "en": "Balance boards keep you active while working, strengthen your core, and reduce back pain."
     },
     "images": [
-      "balance_boards/balance-board-1-bl-1.jpg"
+      "balance_boards/1.jpg"
     ],
     "priority": 7,
     "createdAt": "2022-02-07T05:58:49.000Z",
@@ -865,11 +525,11 @@
     "slug": "under_desk_drawer",
     "title": {
       "es": "Gavetas",
-      "en": "Drawers"
+      "en": "Under-desk Drawers"
     },
     "description": {
-      "es": "Gavetas para debajo del escritorio.  Son especiales para tu standing desk o cualquier escritorio donde quieres agregar una gaveta. ",
-      "en": "Drawers for under the desk. They are perfect for your standing desk or any desk where you want to add a drawer."
+      "es": "Las gavetas debajo del escritorio son ideales para escritorios ajustables o cualquier escritorio donde quieras agregar almacenamiento.",
+      "en": "Under-desk drawers are perfect for height-adjustable desks or any desk where you want to add storage."
     },
     "images": [],
     "priority": 8,
@@ -877,27 +537,6 @@
     "updatedAt": "2022-08-19T01:16:38.000Z",
     "createdBy": "tester@user-tester.com",
     "updatedBy": "tester@user-tester.com",
-    "categorySlug": "accesories"
-  },
-  {
-    "id": 35,
-    "slug": "foot_rest",
-    "title": {
-      "es": "Reposapiés",
-      "en": "Footrest"
-    },
-    "description": {
-      "es": "Reposapiés para la oficina.  Te ayuda a mantener la postura correcta cuando estas sentado.  Úsalo en conjunto con tu silla y espacio de trabajo ergonómico.  ",
-      "en": "Footrest for the office. It helps you maintain the correct posture when you are sitting. Use it together with your chair and ergonomic workspace."
-    },
-    "images": [
-      "foot_rest/footrest-rocking-1.jpg"
-    ],
-    "priority": 8,
-    "createdAt": "2022-08-14T20:02:10.000Z",
-    "updatedAt": "2022-08-14T20:02:11.367Z",
-    "createdBy": "tester@user-tester.com",
-    "updatedBy": null,
     "categorySlug": "accesories"
   }
 ]

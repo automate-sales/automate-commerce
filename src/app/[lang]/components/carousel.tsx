@@ -107,7 +107,7 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, l
                     alt={item.heading || `Carousel item ${idx}`}
                     width={itemSize.width - 32} // Deduct padding for actual image size
                     height={itemSize.height - 32} // Deduct padding for actual image size
-                    objectFit="contain"
+                    className="object-contain"
                   />
 
                 </Link>

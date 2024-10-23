@@ -4,12 +4,12 @@ import Negotiator from "negotiator";
 //import { cookies } from 'next/headers'
 import locales from "./utils/locales";
 //import { createId } from '@paralleldrive/cuid2';
+const defaultLocale = 'en'
 
 const getLocale =(request: NextRequest): string=> {
   console.log(request.headers.get("accept-language"))
   let headers = { "accept-language": request.headers.get("accept-language") || "en" }
   let languages = new Negotiator({ headers }).languages()
-  let defaultLocale = 'en'
   return match(languages, locales, defaultLocale)
 }
 
@@ -27,16 +27,13 @@ const pathHasLocale =(path: string)=> {
 };
 
 export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
   const { href, pathname, search } = request.nextUrl;
-
   const currentUrl = href
   const previousUrl = request.headers.get('referer');
 
   const requestHeaders = new Headers(request.headers)
-  //!requestHeaders.get('x-leadid') && requestHeaders.set('x-leadid', createId() )
 
-
+  // get hid from previous url and set it in headers and search params
   if (previousUrl) {
       const previousUrlObj = new URL(previousUrl);
       if (previousUrlObj.searchParams.has('hid')) {
@@ -48,7 +45,7 @@ export function middleware(request: NextRequest) {
       }
   }
   
-  
+  // if the path has a locale and the previous url does not have a hid or the current url has a hid
   if (pathHasLocale(pathname) && !hasHid(previousUrl) || pathHasLocale(pathname) && hasHid(currentUrl)) {
     const response = NextResponse.next({
       request: {
@@ -58,13 +55,16 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  let cookiesLocale = request.cookies.get('locale')?.value;
-  const locale = cookiesLocale ? cookiesLocale : getLocale(request);
+  // get locale from the previous url
+  const previousPath = previousUrl ? new URL(previousUrl).pathname : '';
+  const previousLocale = pathHasLocale(previousPath) && previousPath.split('/')[1];
+  const cookiesLocale = request.cookies.get('locale')?.value;
+  const browserLocale = getLocale(request);
+  const locale = previousLocale || cookiesLocale || browserLocale || defaultLocale;
   if(!pathHasLocale(pathname)) request.nextUrl.pathname = `/${locale}${pathname}`;
 
-
   const response = NextResponse.redirect(request.nextUrl);
-  response.cookies.set("locale", locale)
+  response.cookies.set("locale", locale || 'en')
   
   return response;
 }

@@ -82,7 +82,8 @@
   },
   "products": {
     "title": "Productos",
-    "description": "Explore nuestra amplia colección de muebles de oficina ergonómicos. Encuentre el escritorio de pie, la silla ergonómica y más para crear su espacio de trabajo ideal."
+    "description": "Explore nuestra amplia colección de muebles de oficina ergonómicos. Encuentre el escritorio de pie, la silla ergonómica y más para crear su espacio de trabajo ideal.",
+    "noResults": "Sin Resultados"
   },
   "cart": {
     "title": "Cart",

@@ -1,3 +1,8 @@
+const outOfStockMsg = 'Item is out of stock'
+const successMsg = 'items were added to the cart'
+const updateQtyMsg = 'Item quantity updated'
+const removeItemMsg = 'Item removed from cart'
+
 export const clearLocalStorage = () => {
   it('should clear local storage', () => {
     cy.clearLocalStorage();
@@ -21,7 +26,7 @@ export const checkCart =(expectedLength:number, expectedStock: {[key:string]: nu
         subtotal += total
       })
     })
-    cy.get('#sub-total').then(elem => expect(elem.text()).eq(`$${subtotal}`))
+    cy.get('#cart-total').then(elem => expect(elem.text()).eq(`$${subtotal}`))
 }
 
 export const addProductFromPage = (sku:string, qty:number) => {
@@ -30,16 +35,30 @@ export const addProductFromPage = (sku:string, qty:number) => {
   cy.get(`#${sku}-qty`).type('{backspace}').type(String(qty))
   cy.get(`#${sku}-add-to-cart`).click()
   .wait(500)
-  const success_msg = `Has agregado ${qty} ${sku} al carrito`
-  cy.contains(success_msg).should("be.visible")
+  cy.contains(successMsg).should("be.visible")
+}
+
+export const clickMiddle =() => {
+  cy.window().then((win) => {
+    const width = win.innerWidth;
+    const height = win.innerHeight;
+    cy.get('body').click(width / 2, height / 2);
+  });
 }
 
 export const fillForm = (id: string, data: {[key:string]: string}, selects: Array<string>=[]) => {
   cy.log(`Filling form ${id} . . .`)
   Object.keys(data).map(key => {
     if(selects.includes(key)){
-      cy.get(`#${id}`).click()
-      cy.contains(data[key]).click({force: true})
+      cy.get("#".concat(id)).click();
+      cy.get('body').then(($body) => {
+        if ($body.find(`option[value="${data[key]}"]`).length > 0) {
+          cy.log(`Found option: ${data[key]}`);
+        } else {
+          cy.log(`Option not found: ${data[key]}`);
+        }
+      });
+      cy.get(`#${key}`).select(data[key]);
     } else {
       cy.get(`#${id}`).find(`input[name="${key}"]`)
       .clear()
