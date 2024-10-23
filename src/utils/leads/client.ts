@@ -166,9 +166,7 @@ export const getOrCreateLead = async() => {
             if(!await getCookie(LEAD_COOKIE)){
                 // add cookiesBlocked in the leads cookie settings 
                 console.log('ALL COOKIES DISABLED')
-                console.log('LEAD ID', await getLead())
                 if(cookieSettings) cookieSettings.sessionCookiesEnabled = false
-                
                 // perhaps ignore this route and simply use sessionStorage?
                 const params = new URLSearchParams()
                 // set encrypted value in the URL
@@ -177,7 +175,6 @@ export const getOrCreateLead = async() => {
                 window.history.pushState(null, '', `?${params.toString()}`)
             }
         }
-        console.log('LEAD ID', await getLead())
         return cookieSettings
     } catch (err) {
         console.error('Error getting or creating lead', err)
