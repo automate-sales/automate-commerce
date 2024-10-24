@@ -25,7 +25,6 @@ export default function UpdateCartButton({
     const [userHasInteracted, setUserHasInteracted] = useState(false); // State to track user interaction
   
     const removeItemFromCart = async () => {
-    console.log('CART IDiot: ', cartId)
       if(!cartId) return toast.error('Cart not found');
       await updateCartItem(cartId, cartItem.product.id, 0);
       toast.success(`Item removed from cart`);

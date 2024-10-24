@@ -59,7 +59,6 @@ export const isLocalStorageEnabled =()=> {
 export const generateFingerprint = async () => {
     const fp = await FingerprintJS.load();
     const result = await fp.get();
-    console.log("Fingerprint:", result);
     return result.visitorId
 };
 
@@ -95,7 +94,6 @@ export const setClientCart = (cartId: string) => {
 }
 export const getCart = async () => {
     const leadId = await getLead()
-    console.log('LEADFROTI ', leadId)
     return leadId && await getCartId(leadId)
 }
 export const setCart = (cartId: string) => {

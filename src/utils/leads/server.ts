@@ -70,8 +70,8 @@ const botUserAgents = [
 ];
 
 // Function to check if the user-agent belongs to a bot
-export const isBot =(): boolean => {
-  const userAgent = headers().get('user-agent')
+export const isBot = async(): Promise<boolean> => {
+  const userAgent = (await headers()).get('user-agent')
   if (!userAgent) return false;
   return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase())) || false;
 }

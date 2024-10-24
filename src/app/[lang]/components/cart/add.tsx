@@ -58,7 +58,7 @@ export default function AddToCartButton({
         id={`${productSku}-qty`}
         type="number"
         className="p-2 border rounded"
-        value={qty}
+        value={String(qty)}
         onChange={(e) => setQty(parseInt(e.target.value))}
       /> }
     </form>

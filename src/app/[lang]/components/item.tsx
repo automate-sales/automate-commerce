@@ -10,6 +10,7 @@ interface ItemProps {
     description?: string;
     id?: number;
     price?: number;
+    priority?: boolean;
 }
 
 export default async function Item({ 
@@ -18,14 +19,20 @@ export default async function Item({
     title, 
     description, 
     id, 
-    price 
+    price,
+    priority=false
 }: ItemProps) {
     const cartId = await getServerCart()
     return (
         <div className='flex flex-col items-center text-center gap-2 pb-4 bg-white shadow-md rounded-lg overflow-hidden'>
             <Link href={link} className="flex flex-col gap-2 w-full">
                 <div className="h-64 relative">
-                    <Image src={image} alt={title || 'Item Image'} fill sizes="(max-width: 640px) 100vw, (max-width: 770px) 33vw, 35vw"/>
+                    <Image 
+                        src={image} alt={title || 'Item Image'}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 910px) 50vw, 400px"
+                        priority={priority}
+                    />
                 </div>
                 {title && <div className=''><h4 className="text-lg font-semibold">{title}</h4></div>}
                 {description && <p className="text-sm text-gray-600">{description}</p>}
