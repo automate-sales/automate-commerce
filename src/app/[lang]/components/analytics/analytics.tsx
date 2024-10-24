@@ -6,24 +6,32 @@ import { usePathname } from "next/navigation"
 import { Identify, init } from "@/utils/analytics/posthog"
 import Script from "next/script"
 import { getLead } from "@/utils/leads/client"
+const isAnalyticsEnabled = process.env.NEXT_PUBLIC_USE_ANALYTICS;
 
-init()
+if (isAnalyticsEnabled) {
+  init()
+}
 
 export default function Analytics() {
-    const [leadId, setLeadId] = useState(null as null | string)
-    const path = usePathname()
-    useEffect(() => {
+  const [leadId, setLeadId] = useState(null as null | string)
+  const path = usePathname()
+  useEffect(() => {
+    if (isAnalyticsEnabled) {
       getLead().then((id) => {
-        console.log('CLIENTT IDDD ', id)
         id && setLeadId(id)
         id && Identify(id)
       })
-    }, [])
-    useEffect(() => {
-      leadId && pageview(leadId)
-      }, [path, leadId])
-    return (<>
-    <Script
+    }
+  }, [])
+  useEffect(() => {
+    if (isAnalyticsEnabled && leadId) {
+      pageview(leadId)
+    }
+  }, [path, leadId])
+  if (!isAnalyticsEnabled) { return null }
+  return (
+    <>
+      <Script
         strategy='lazyOnload'
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
       />

@@ -21,7 +21,7 @@ function SwapCartDialog(
             <p className="py-3">Warning: you have an active shopping cart with items. clicking on replace will deactivate this cart.</p>
             <div className="flex justify-center gap-3">
                 <button id='cancel-swap' className="p-2 rounded-sm bg-blue-400" onClick={() => router.push('/cart')}>Cancel</button>
-                <button id='confirm-swap' className="p-2 rounded-sm bg-red-400" onClick={() => swapCarts(currentCartId, newCartId, leadId)}>Replace</button>
+                <button id='confirm-swap' className="p-2 rounded-sm bg-red-400" onClick={() => swapCarts(currentCartId, newCartId, leadId).then(()=>router.push('/cart'))}>Replace</button>
             </div>
         </div>
     </div>

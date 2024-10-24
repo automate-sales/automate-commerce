@@ -1,19 +1,15 @@
 import Cart from '@/app/[lang]/components/cart/summary'
-import Link from 'next/link'
-import { getSubTotal } from '@/utils/calc'
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, Props, seoCompotnent } from '../../components/seo';
 import { getDictionary } from '@/app/dictionaries'
-import { getCartWithItems } from '@/utils/leads/server'
+import { getCartWithItemsByLead, getServerLeadId } from '@/utils/leads/server'
 import CartEvent from '../../components/analytics/cart';
+import Link from 'next/link';
 
 
 export default async function Page({ params }: { params: { lang: string } }) {
-  const cart = await getCartWithItems()
-  console.log('CARRITOOOOOOOOOP', cart)
-  if (!cart) {
-    return <div>No cart found</div>;
-  }
+  const leadId = await getServerLeadId()
+  const cart = await getCartWithItemsByLead(leadId)
   const dict = await getDictionary(params.lang)
   return (
     <>
@@ -24,10 +20,7 @@ export default async function Page({ params }: { params: { lang: string } }) {
     ]} />
     <div className="container mx-auto p-8">
       <h1 className="text-4xl text-center font-bold py-16">Cart</h1>
-      <Cart cartWithItems={cart} />
-      <div id='cart-total' className="flex justify-end pt-5 pb-2">
-        ${getSubTotal(cart.cartItems)}
-      </div>
+      <Cart cartWithItems={cart} fullWidth={true} lang={params.lang}/>
       <div className="flex justify-end pb-5">
         <Link id='checkoutBtn' className='bg-gray-400 text-white text-xl px-4 py-2' href="/checkout" passHref>Checkout</Link>
       </div>

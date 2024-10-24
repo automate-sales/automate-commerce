@@ -6,7 +6,6 @@ import { createTransport } from "nodemailer"
 import type { Adapter } from 'next-auth/adapters';
 import { getCartWithItems, getServerLead, joinLeads } from "./leads/server";
 import { User } from "@prisma/client";
-import { redirect } from "next/navigation";
 import { swapCarts } from "@/app/actions";
 
 export type UserObj = {
@@ -18,7 +17,6 @@ export type UserObj = {
 
 export const getCurrentUser = async ()=> {
     const session = await getServerSession(authOptions)
-    console.log('current session: ', session)
     if(session && session.user) {
         return session.user as User & { swapModal?: string }
     } else return undefined
@@ -57,14 +55,13 @@ export const authOptions: NextAuthOptions = {
               const failed = result.rejected.concat(result.pending).filter(Boolean)
               if (failed.length) {
                 throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
-              } else console.info(`Sent a verification email from ${process.env.EMAIL_HOST}`)
+              } else console.info(`Sent a verification email to ${email}`)
           },
         })
     ],
     adapter: PrismaAdapter(prisma) as Adapter,
     callbacks: {
         async signIn({ user }: {user: UserObj}) {
-          console.log('user signing in: ', user)
           return true
         },
         async session({ session, token, user }) {
@@ -72,11 +69,7 @@ export const authOptions: NextAuthOptions = {
             const leads = await getServerLead()
             const currentLeadId = leads[0] || leads[1]
             const currentCart = await getCartWithItems()
-            console.log('current lead id: ', currentLeadId)
-            console.log('current cart id: ', currentCart)
             if(!currentLeadId || !currentCart) return session
-            console.log('current session user: ', user)
-            
             const userWithLeadAndCart = await prisma.user.findUnique({
               where: { id: user.id },
               include : { leads: {
@@ -111,29 +104,25 @@ export const authOptions: NextAuthOptions = {
               })
 
               if(userLead){
-                console.log('\n\n USERERRRR LEADDDD !!!!! \n\n', userLead)
+
                 await joinLeads(currentLeadId, userLead.id)
                 if(userCart?.cartItems.length && userCart?.cartItems.length > 0) {
                   if(currentCart.cartItems.length > 0) {
-
-                    console.log('REDIECTING TO CART !!!!!') 
                     // reroute the user to a pop up asking if they want to keep the current cart
                     //redirect(`/user/cart/${userCart.id}`)
                     session.user = {
-                      ...session.user, 
+                      ...session.user,
+                      username: userWithLeadAndCart?.username,
                       swapModal: userCart.id
                     } as any
-
                     // add a parameter in the session that will trigger the modal
                   } else {
-                    swapCarts(currentCart.id, userCart.id, currentLeadId)
+                    await swapCarts(currentCart.id, userCart.id, currentLeadId)
                   }
                 }
 
               }
             }          
-
-            
             return session;
           } catch (err) {
             console.error('Error getting session', err)

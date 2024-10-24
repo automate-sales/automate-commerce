@@ -91,7 +91,6 @@ export async function findOrCreateLeadWithCart(fingerprint: string, id?: string)
   const lead = await findLeadByFingerprint(fingerprint)
   if (lead) return { leadId: lead.id, cartId: lead.carts[0].id }
   else {
-    console.log('CREATING LEAD WITH CART ', id)
     return createLeadWithCart(fingerprint, id)
   }
 }
@@ -127,8 +126,6 @@ export async function addToCart(
   // Calculate the current quantity and requested quantity
   const currentQty = existingCartItem ? existingCartItem.qty : 0;
   const allowableQty = Math.min(quantity, product.stock - currentQty);
-
-  console.log(existingCartItem, product, currentQty, quantity, allowableQty)
   // Perform the upsert operation with the allowable quantity
   const cartItem = await prisma.cartItem.upsert({
     where: {
@@ -370,19 +367,27 @@ export const swapCarts = async (
   currentCartId: string,
   newCartId: string,
   leadId: string,
-  reroute: boolean = true
-) => {
+  reroute: boolean = false
+): Promise<boolean> => {
   // set current cart inactive
-  await prisma.cart.update({
-    where: { id: currentCartId },
-    data: { status: 'inactive' }
-  })
-  // set leadID on new cart
-  await prisma.cart.update({
-    where: { id: newCartId },
-    data: { leadId: leadId, status: 'active'}
-  })
-  await setServerCart(newCartId)
-  reroute && redirect('/cart')
-  return 
+  try {
+    const data = await prisma.cart.update({
+      where: { id: currentCartId },
+      data: { status: 'inactive' }
+    })
+    console.log('current cart set to inactive ', data)
+    // set leadID on new cart
+    const newdata = await prisma.cart.update({
+      where: { id: newCartId },
+      data: { leadId: leadId, status: 'active'}
+    })
+    console.log('new cart set to active ', newdata)
+    //await setServerCart(newCartId)
+    reroute && redirect('/cart')
+    return true
+  } catch (err: any) {
+    const msg = 'Error swaping carts'
+    console.error(msg, err)
+    throw new Error(msg)
+  }
 }

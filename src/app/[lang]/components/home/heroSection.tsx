@@ -15,6 +15,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, description, buttonTex
       <Image
         src={imageSrc}
         fill
+        priority
         alt="Background"
         className="absolute z-0 object-cover"
         // You can include multiple sources within the Image component or use <picture> directly for more control

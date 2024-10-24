@@ -13,35 +13,36 @@ const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 export default async function Page({
   params
 }: {
-  params: { sku: string, lang: string }
+  params: { sku: string, lang: 'en' | 'es' }
 }) {
   const productData = await prisma.product.findUnique({
     where: {
       sku: params.sku
     }
   }) as Product
+  const lang = params.lang
   const cartId = await getServerCart()
-  const dict = await getDictionary(params.lang)
-  const productTitle = getIntl(productData?.title, params.lang)
+  const dict = await getDictionary(lang)
+  const productTitle = getIntl(productData?.title, lang)
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(productData, params.lang)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(productData, lang)) }}
       />
       <Breadcrumbs crumbs={[
         {name: dict.breadCrumbs.home, path: '/'},
         {name: dict.products.title, path: '/products'},
-        {name: getIntl(productData?.title, params.lang), path: `/products/${productData?.sku}`}
+        {name: getIntl(productData?.title, lang), path: `/products/${productData?.sku}`}
       ]} />
       <div className="max-w-4xl mx-auto p-4">
         <div className="flex justify-between items-center mb-8"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <ImageDipslay product={productData} />
+          <ImageDipslay product={productData} lang={lang} priority={true}/>
           <div>
             <h1 className="text-3xl font-bold">{productTitle}</h1>
             <p className="text-xl my-2">{productData?.price}</p>
-            <p className="mb-4">{getIntl(productData?.description, params.lang)}</p>
+            <p className="mb-4">{getIntl(productData?.description, lang)}</p>
             <div className="flex items-center">
             <AddToCartButton
               cartId={cartId} 

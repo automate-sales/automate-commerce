@@ -21,7 +21,8 @@ import OrderCostSummary from './costSummary';
 import { createOrder } from '@/app/actions';
 import { toast } from 'react-toastify';
 import { paymentInfoEvent, purchaseEvent } from '@/utils/analytics';
-import { setCart } from '@/utils/leads/client';
+import { getLead, setCart } from '@/utils/leads/client';
+import { getCartWithItemsByLead } from '@/utils/leads/server';
 
 // Form Data Initial Values
 const initialFormData = {
@@ -55,11 +56,11 @@ const initialFormData = {
     order: {
         subtotal: 0,
         discount: 0,
-        tax: 0,
         shipping: false,
         shippingFee: 0,
         assembly: false,
         assemblyFee: 0,
+        tax: 0,
         total: 0,
         coupon: '',
         source: 'ecommerce',
@@ -120,10 +121,8 @@ const useCheckoutForm = (initialData: any) => {
     };
 
     const handleBlur = (step: number, optionalFields: any = {}) => {
-        console.log('BLURRRRRR ')
         const currentData = formData[Object.keys(formData)[step - 1]];
         if (Object.entries(currentData).every(([key, value]) => value || optionalFields[key])) {
-            console.log('COMPLETEEE')
             setSteps((prevSteps: any) => ({
                 ...prevSteps,
                 // if step is not last step
@@ -132,31 +131,48 @@ const useCheckoutForm = (initialData: any) => {
             }));
         }
     };
-
     return { formData, steps, setSteps, updateFormData, handleBlur };
 }
 
-export default function CheckoutForm({ user, cart, cartId, leadId }: {
-    user: any,
-    cart: CartWithItems,
-    cartId?: string,
-    leadId?: string
+export default function CheckoutForm({ leadID, cartWithItems, lang='en' }: {
+    leadID?: string,
+    cartWithItems?: CartWithItems | undefined | null
+    user?: any,
+    lang?: string 
 }) {
     const router = useRouter();
-    const { formData, steps, setSteps, updateFormData, handleBlur } = useCheckoutForm(initialFormData);
+    const [ leadId, setLeadId ] = useState(leadID)
+    const [cart, setCart] = useState(cartWithItems)
+    const cartId = cart?.id
+    
+    useEffect(() => {
+        if(!cart){
+            getLead().then((id) => {
+                setLeadId(id)
+                getCartWithItemsByLead(id).then((data) => {
+                console.log('CART DATA: ', data)
+                setCart(data)
+                })
+            })
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    const subtotal = getSubTotal(Object.values(cart.cartItems));
-    const shippingFee = getShippingCost(Object.values(cart.cartItems), formData.shipping.state);
-    const assemblyFee = formData.order.assembly ? getAssemblyCost(Object.values(cart.cartItems)) : 0;
-    const tax = getTax(subtotal, formData.discount, shippingFee, assemblyFee);
-    const total = getTotal(subtotal, formData.discount, shippingFee, assemblyFee, tax);
+    const { formData, steps, setSteps, updateFormData, handleBlur } = useCheckoutForm(initialFormData);
+    
+    const subtotal = cart && getSubTotal(Object.values(cart.cartItems));
+    const shippingFee = cart && getShippingCost(Object.values(cart.cartItems), formData.shipping.state);
+    const assemblyFee = cart && formData.order.assembly ? getAssemblyCost(Object.values(cart.cartItems)) : 0;
+    const tax = subtotal && getTax(subtotal, formData.discount, shippingFee, assemblyFee);
+    const total = subtotal && getTotal(subtotal, formData.discount, shippingFee, assemblyFee, tax);
 
     const calcDiscount = async (couponCode: string) => {
-        const discount = await getDiscount(cart.cartItems, couponCode);
+        const discount = cart && await getDiscount(cart.cartItems, couponCode);
         updateFormData('order', { ...formData.order, coupon: couponCode });
         updateFormData('discount', discount);
     };
 
+    // order should only receive leadID nad should get tthe leads latest active cart
     const submitCheckout = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         updateFormData('submitting', true);
@@ -188,8 +204,9 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                 }
             });
             if (!sentEmail) toast.warning('Failed to send confirmation email');
-            setCart(String(newCartId));
-            await purchaseEvent({
+            //setCart({ ...cart, id: String(newCartId), status: 'active', leadId: leadId || null });
+            setCart(undefined)
+            cart && await purchaseEvent({
                 id: orderId,
                 email: formData.customer.email,
                 ...formData.order
@@ -244,9 +261,13 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                     <div className="inline">
                         <span className="pr-2 text-l">Igual a la dirección de envío?</span>
                         <input
-                            id="same_as_shipping"
+                            id="same-as-shipping"
                             type="checkbox"
-                            onChange={(ev) => ev.target.checked ? updateFormData('billing', formData.shipping) : updateFormData('billing', initialFormData.billing)}
+                            onMouseLeave={() => handleBlur(3, { street_2: true })}
+                            onChange={ async(ev) => {
+                                updateFormData('checked', ev.target.checked)
+                                ev.target.checked && updateFormData('billing', formData.shipping)
+                            }}
                             checked={formData.checked}
                         />
                     </div>
@@ -285,12 +306,12 @@ export default function CheckoutForm({ user, cart, cartId, leadId }: {
                             <Cart cartWithItems={cart} />
                         </div>
                         <OrderCostSummary
-                            subtotal={subtotal}
+                            subtotal={subtotal || 0}
                             discount={formData.discount}
-                            tax={tax}
-                            shippingFee={shippingFee}
+                            tax={tax || 0}
+                            shippingFee={shippingFee || 0}
                             assemblyFee={assemblyFee}
-                            total={total}
+                            total={total || 0}
                         />
                     </div>
                 </div>
