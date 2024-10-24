@@ -46,25 +46,29 @@ export type NavElement = {
     options?: { id: string; label: string; url: string }[];
 };
 
-export const NavLinks = ({ links, fixed=false }: { links: NavElement[], fixed?: boolean }) => {
-    return links.map((link, index) => {
-        return (
-            <div key={index}>
-                {link.type === 'dropdown' &&  link.options? (
-                    <DropDown label={link.label} fixed={fixed} items={link.options?.map((option, oi) => (
+export const NavLinks = ({ links, fixed = false }: { links: NavElement[], fixed?: boolean }) => {
+    return links.map((link, index) => (
+        <div key={index}>
+            {link.type === 'dropdown' && link.options ? (
+                <DropDown
+                    label={link.label}
+                    fixed={fixed}
+                    items={link.options.map((option, oi) => (
                         <div key={oi}>
-                            <Link scroll={false} passHref href={option.url}>{option.label}</Link>
+                            <Link scroll={false} passHref href={option.url}>
+                                {option.label}
+                            </Link>
                         </div>
-                    ) || [])} />
-                ) : (
-                    <Link scroll={false} passHref href={link.url || '#'}>
-                        {link.label}
-                    </Link>
-                )}
-            </div>
-        );
-    })
-}
+                    ))}
+                />
+            ) : (
+                <Link scroll={false} passHref href={link.url || '#'}>
+                    {link.label}
+                </Link>
+            )}
+        </div>
+    ));
+};
 
 
 export const SideMenu = ({ 
@@ -134,7 +138,7 @@ export const SideMenu = ({
             >
                 <div className="p-5 flex flex-col gap-3">
                     <XMarkIcon id='closeDrawerBtn' className="h-6 w-6 mb-4" onClick={closeDrawer} />
-                    <SearchInput />
+                    <SearchInput group='mobile' />
                     <ProductsMenu lang={lang} categories={categories} />
                     <NavLinks links={links} />
                     {languages && <LangSelector id='mobile-lang' languages={languages} />}
@@ -154,9 +158,11 @@ export const SideMenu = ({
 };
 
 export const SearchInput = ({
-    classNames
+    classNames,
+    group
 }: {
     classNames?: string;
+    group?: string;
 }) => {
     const [query, setQuery] = useState("");
     const router = useRouter();
@@ -178,7 +184,7 @@ export const SearchInput = ({
         >
             <MagnifyingGlassIcon className="h-6 w-6 lg:hidden" />
             <input
-                id='search'
+                id={`${group}-search`}
                 type="text"
                 className="w-36 p-1 bg-transparent text-gray-700 focus:outline-none"
                 required
@@ -188,7 +194,7 @@ export const SearchInput = ({
                 placeholder="search"
             />
             <button
-                id='searchBtn'
+                id={`${group}-searchBtn`}
                 type="submit"
                 className="focus:outline-none items-center justify-center hidden lg:flex"
             >
@@ -372,18 +378,18 @@ const DesktopCat =({cat, lang}: {cat: CategoryWithSubcategories, lang: string})=
     )
 }
 
-const MobileCat =({cat, lang}: {cat: CategoryWithSubcategories, lang: string})=> {
+const MobileCat = ({ cat, lang }: { cat: CategoryWithSubcategories, lang: string }) => {
     return (
         <div className="lg:hidden">
             <DropDown 
                 label={getIntl(cat.title, lang)} 
-                items={cat.subcategories?.map((subcat: any, si: number) => (
+                items={(cat.subcategories ?? []).map((subcat, si) => (
                     <div key={`sub-${si}`}>
                         <Link scroll={false} passHref href={`/subcategories/${subcat.slug}`}>
                             {getIntl(subcat.title, lang)}
                         </Link>
                     </div>
-                ) || [])}
+                ))}
             />
         </div>
     );

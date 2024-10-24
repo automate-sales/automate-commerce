@@ -33,7 +33,6 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cy.visit('localhost:3000').wait(1000);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {
         if (leadId && leadId.value) {
-          cy.log('Setting LEAD_COOKIE: ', leadId.value);
           cy.setCookie('leadId', leadId.value, { httpOnly: true });
         } else {
           cy.log('LEAD_COOKIE is null or undefined during session setup');

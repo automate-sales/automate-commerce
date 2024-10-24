@@ -38,7 +38,7 @@ export default async function Nav({
                 <NavLinks links={links} fixed/>
             </div>
             <div className="flex items-center justify-end gap-2">
-                {search && <SearchInput classNames="hidden lg:flex" />}
+                {search && <SearchInput group='dsktp' classNames="hidden lg:flex" />}
                 <UserMenu user={user}/>
                 <ShoppingCart cartLength={cartLength}/>
                 {languages && <LangSelector id='lang' fixed languages={languages} classNames="hidden lg:flex pl-4"/>}

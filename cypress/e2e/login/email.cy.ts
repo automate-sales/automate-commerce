@@ -167,36 +167,38 @@ describe('An existing user asociated to the current lead signs in', () => {
     addProductFromPage(initialStock[0], initialStock[1])
     cy.getCookie(LEAD_COOKIE).then(leadId => {
       const initialLeadId = leadId as { value: string };
-      cy.log('leadId ', leadId.value)
-      cy.task('createUserWithLead', leadId.value).then((user) => {
-        cy.log('user ', user)
-        // sign in with user
-        cy.visit('localhost:3000/login')
-        .wait(1000)
-        cy.get('#email')
-        .type(current_lead_email)
-        .should('have.value', current_lead_email)
-        .type('{enter}').wait(1000)
-        //cy.contains(email_confirmation_msg).should("be.visible")
-        
-        cy.task('getLastEmail', current_lead_email).then((email)=> {
-          const typedEmail = email as { body: string; html: string };
-          cy.log('EMAIl FOUND: ', typedEmail)
-          let body = typedEmail.body.toString()
-          let url = body.slice(body.indexOf('http'))
-          expect(url).to.not.be.empty
-          cy.visit({url: url, method: 'POST'})
-          .wait(1000)
-          cy.url().should('not.include', '/user/info?first_login=true')
-          cy.getCookie(LEAD_COOKIE).then(leadId => {
-            cy.log('leadId ', leadId.value)
-            expect(leadId.value).to.eq(initialLeadId.value)
+      expect(initialLeadId).to.not.be.empty
+      if(initialLeadId){
+        cy.log('leadId ', initialLeadId)
+        cy.task('createUserWithLead', initialLeadId).then((user) => {
+          cy.log('user ', user)
+          // sign in with user
+          cy.visit('localhost:3000/login')
+          cy.get('#email', {timeout: 1500})
+          .type(current_lead_email)
+          .should('have.value', current_lead_email)
+          .type('{enter}').wait(1000)
+          //cy.contains(email_confirmation_msg).should("be.visible")
+          
+          cy.task('getLastEmail', current_lead_email).then((email)=> {
+            const typedEmail = email as { body: string; html: string };
+            cy.log('EMAIl FOUND: ', typedEmail)
+            let body = typedEmail.body.toString()
+            let url = body.slice(body.indexOf('http'))
+            expect(url).to.not.be.empty
+            cy.visit({url: url, method: 'POST'})
+            .wait(1000)
+            cy.url().should('not.include', '/user/info?first_login=true')
+            cy.getCookie(LEAD_COOKIE).then(leadId => {
+              expect(leadId).to.not.be.empty
+              expect(leadId?.value).to.eq(initialLeadId.value)
+            })
+            // visit the cart page and make sure the cart contains the item
+            cy.visit('localhost:3000/cart').wait(500)
+            checkCart(Object.keys(expectedStock).length, expectedStock)
           })
-          // visit the cart page and make sure the cart contains the item
-          cy.visit('localhost:3000/cart').wait(500)
-          checkCart(Object.keys(expectedStock).length, expectedStock)
         })
-      })
+      }
     })
   })
 })
@@ -215,14 +217,13 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
     cy.task('createUserWithLead').then((user) => {
       // it expects the user to be created correctly with an active lead
       const initialUserLead = user.leads[0]
-      const initialUserLeadId = initialUserLead.id
       expect(initialUserLead.status).to.eq('lead')
 
       // it expects a new active lead to be created by a new visitor
       cy.viewport('macbook-15')
       cy.visit('localhost:3000').wait(1000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
-        const visitorLeadId = leadId.value
+        const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
   
         // sign in with the existing user
@@ -245,8 +246,8 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
 
           // lead ID in the cookies should be the visitorLeadId
           cy.getCookie(LEAD_COOKIE).then(leadId => {
-            cy.log('leadId ', leadId.value)
-            expect(leadId.value).to.eq(visitorLeadId)
+            cy.log('leadId ', leadId?.value)
+            expect(leadId?.value).to.eq(visitorLeadId)
           })
 
           // active lead id in the user should be the visitorLeadId
@@ -289,7 +290,7 @@ describe('A lead with a non-empty cart signs in with an existing user asociated 
       cy.viewport('macbook-15')
       cy.visit('localhost:3000').wait(1000)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
-        const visitorLeadId = leadId.value
+        const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
 
         // make some shopping
@@ -317,8 +318,8 @@ describe('A lead with a non-empty cart signs in with an existing user asociated 
 
           // lead ID in the cookies should be the visitorLeadId
           cy.getCookie(LEAD_COOKIE).then(leadId => {
-            cy.log('leadId ', leadId.value)
-            expect(leadId.value).to.eq(visitorLeadId)
+            cy.log('leadId ', leadId?.value)
+            expect(leadId?.value).to.eq(visitorLeadId)
           })
 
           // active lead id in the user should be the visitorLeadId

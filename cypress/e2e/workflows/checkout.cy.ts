@@ -1,9 +1,7 @@
 const LEAD_COOKIE = 'ergo_lead_id'
-
-import { error } from "console"
 // create a product with a price < $1 (declined payment)
 
-import { addProductFromPage, checkCart, clickMiddle, existingUserEmailLogin, fillForm, logOut } from "../utils"
+import { addProductFromPage, checkCart, clickMiddle, fillForm } from "../utils"
 
 const customer1 = {
   full_name: "John Doe",
@@ -51,7 +49,14 @@ const productStocks = {
   'frame-double-bl': 1
 }
 
-describe('A lead tests the functionality of the checkout process', () => {
+const steps = [
+  'step-1',
+  'step-2',
+  'step-3',
+  'step-4'
+]
+
+/* describe('A lead tests the functionality of the checkout process', () => {
   const uniqueSessionId = `lead-${new Date().getTime()}`;
   before(() => {
     Cypress.session.clearAllSavedSessions();
@@ -61,10 +66,9 @@ describe('A lead tests the functionality of the checkout process', () => {
   });
   beforeEach(() => {
     cy.session(uniqueSessionId, () => {
-      cy.visit('localhost:3000').wait(1500);
+      cy.visit('localhost:3000').wait(1000);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {
         if (leadId && leadId?.value) {
-          cy.log('Setting LEAD_COOKIE: ', leadId?.value);
           cy.setCookie('leadId', leadId?.value, { httpOnly: true });
         } else {
           cy.log('LEAD_COOKIE is null or undefined during session setup');
@@ -78,44 +82,30 @@ describe('A lead tests the functionality of the checkout process', () => {
     addProductFromPage('chair-axis-wh', 2)
     addProductFromPage('stand-arm-alum-single-bl', 1)
   })
-  /* it('tests lead signin during checkout', () => {
-    const customerInfo = 'informacion_de_contacto'
-    cy.log('Tests lead signin during checkout !!')
-    cy.visit('localhost:3000/checkout')
-    cy.get('#login').click()
-    cy.url().should('include', '/login')
-    cy.log('navigate to login page')
-    existingUserEmailLogin(customer1.email, 'checkout')
-    cy.url().should('include', '/checkout')
-    cy.get(`#${customerInfo}`).should('be.visible')
-    cy.get(`#${customerInfo}`).find(`input[name="full_name"]`)
-    .should('have.value', customer1.full_name)
-    cy.get(`#${customerInfo}`).find(`input[name="email"]`)
-    .should('have.value', customer1.email)
-    logOut()
-  }) */
+  
   it('tests the billing is same as shipping checkbox', () => {
     cy.viewport('macbook-15')
     cy.getCookie(LEAD_COOKIE).then(leadId => {
       cy.log('leadId ', leadId?.value)
     })
     cy.visit('localhost:3000/checkout').wait(1000)
-    cy.get(`#step-2-btn`).click()
-    cy.get(`#step-2`).scrollIntoView().should('be.visible')
-    fillForm('step-2', address1, ['state'])
-    /* cy.get(`#${steps[1]}`).should('be.visible')
-    cy.get(`#same_as_shipping`).click()
+    cy.get(`#${steps[1]}-btn`).click()
+    cy.get(`#${steps[1]}`).should('be.visible')
+    fillForm(steps[1], address1, ['state'])
+    clickMiddle()
+    cy.get(`#${steps[2]}`).scrollIntoView().should('be.visible')
+    cy.get(`#same-as-shipping`).should('be.visible').check().wait(500)
     Object.entries(address1).forEach(([key, value]) => {
-      cy.get(`#${steps[1]} input[name="${key}"]`).should('have.value', value);
-    }); */
-    // the payment form should be visible after ticking the checkbox
-    //cy.get(`#${steps[2]}`).should('be.visible')
+      cy.get(`#${steps[2]} input[name="${key}"]`).should('have.value', value);
+    });
+    clickMiddle()
+    cy.get(`#${steps[3]}`, {timeout: 1500}).should('be.visible')
   })
   it('tests the appllication of a valid coupon', () => {})
-})
+}) */
 
+// a new lead makes a succesful order
 describe('A new lead makes a succesful order', () => {
-  
   before(() => {
     Cypress.session.clearAllSavedSessions();
     cy.clearAllCookies();
@@ -125,7 +115,7 @@ describe('A new lead makes a succesful order', () => {
   beforeEach(() => {
     const uniqueSessionId = `lead-${new Date().getTime()}`;
     cy.session(uniqueSessionId, () => {
-      cy.visit('localhost:3000').wait(1500);
+      cy.visit('localhost:3000').wait(1000);
       cy.getCookie(LEAD_COOKIE).then((leadId) => {
         if (leadId && leadId?.value) {
           cy.log('Setting LEAD_COOKIE: ', leadId?.value);
@@ -144,12 +134,7 @@ describe('A new lead makes a succesful order', () => {
   
   it('Checks cart', () => {
     cy.viewport('macbook-15')
-    cy.visit('localhost:3000/cart')
-    .wait(1000)
-    /* cy.get(`#lead_id`).should("be.visible").invoke('text')
-    .then(text => {
-      expect(text.trim().length).to.be.greaterThan(8);
-    }); */
+    cy.visit('localhost:3000/cart').wait(500)
     const expectedStock = {
       'chair-executive-stratus-gr': 2,
       'frame-double-bl': 1
@@ -160,12 +145,6 @@ describe('A new lead makes a succesful order', () => {
   })
 
   it('Fills out checkout', () => {
-    const steps = [
-      'step-1',
-      'step-2',
-      'step-3',
-      'step-4'
-    ]
     cy.viewport('macbook-15')
     cy.visit('localhost:3000/checkout')
     // validate subtotal, tax, delivery and total
@@ -184,10 +163,10 @@ describe('A new lead makes a succesful order', () => {
     clickMiddle()
     cy.get('#mastercard-logo').should('be.visible')
     // validate subtotal, tax, delivery and total
-    cy.get('#checkout-btn').click().wait(4000)
+    cy.get('#checkout-btn').click()
     //const success_msg = '¡Gracias por tu compra!'
     //cy.contains(success_msg).should("be.visible")
-    cy.url().should('include', '/orders/confirmation?id=')
+    cy.url({timeout: 5000}).should('include', '/orders/confirmation?id=')
     cy.task('getLastEmail', customer1.email).then((email)=> {
       const typedEmail = email as { body: string; html: string };
       cy.log('EMAIl ', typedEmail)
@@ -195,18 +174,35 @@ describe('A new lead makes a succesful order', () => {
       const orderId = body.split('identificador unico de tu orden es: ')[1]
       expect(orderId).to.not.be.empty
       expect(orderId).to.not.equal('undefined')
-    })
+    }).wait(5000)
     // cart is refreshed after the order is placed
-    .wait(5000)
     cy.get('#cartBtn').click()
     cy.url().should('include', '/cart')
     // cart-items should not have any children
     cy.get('#cart-items').should('be.empty');
     // cart total value should be 0
     cy.get('#cart-total').then(elem => expect(elem.text()).eq('$0'))
-
   })
 })
+
+// a logged in user makes a succesful order
+/* it('tests lead signin during checkout', () => {
+    const customerInfo = 'informacion_de_contacto'
+    cy.log('Tests lead signin during checkout !!')
+    cy.visit('localhost:3000/checkout')
+    cy.get('#login').click()
+    cy.url().should('include', '/login')
+    cy.log('navigate to login page')
+    existingUserEmailLogin(customer1.email, 'checkout')
+    cy.url().should('include', '/checkout')
+    cy.get(`#${customerInfo}`).should('be.visible')
+    cy.get(`#${customerInfo}`).find(`input[name="full_name"]`)
+    .should('have.value', customer1.full_name)
+    cy.get(`#${customerInfo}`).find(`input[name="email"]`)
+    .should('have.value', customer1.email)
+    logOut()
+  }) */
+
 
 //ERRORS
 

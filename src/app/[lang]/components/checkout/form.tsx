@@ -121,10 +121,8 @@ const useCheckoutForm = (initialData: any) => {
     };
 
     const handleBlur = (step: number, optionalFields: any = {}) => {
-        console.log('BLURRRRRR ')
         const currentData = formData[Object.keys(formData)[step - 1]];
         if (Object.entries(currentData).every(([key, value]) => value || optionalFields[key])) {
-            console.log('COMPLETEEE')
             setSteps((prevSteps: any) => ({
                 ...prevSteps,
                 // if step is not last step
@@ -133,9 +131,6 @@ const useCheckoutForm = (initialData: any) => {
             }));
         }
     };
-
-    console.log('FORM DATA: ', formData)   
-
     return { formData, steps, setSteps, updateFormData, handleBlur };
 }
 
@@ -266,9 +261,15 @@ export default function CheckoutForm({ leadID, cartWithItems, lang='en' }: {
                     <div className="inline">
                         <span className="pr-2 text-l">Igual a la dirección de envío?</span>
                         <input
-                            id="same_as_shipping"
+                            id="same-as-shipping"
                             type="checkbox"
-                            onChange={(ev) => ev.target.checked ? updateFormData('billing', formData.shipping) : updateFormData('billing', initialFormData.billing)}
+                            onBlur={() => handleBlur(3, { street_2: true })}
+                            onChange={ async(ev) => {
+                                console.log('SHIPPING DATA: ', formData.shipping)
+                                console.log('CHECKED: ', ev.target.checked)
+                                updateFormData('checked', ev.target.checked)
+                                ev.target.checked && updateFormData('billing', formData.shipping)
+                            }}
                             checked={formData.checked}
                         />
                     </div>
