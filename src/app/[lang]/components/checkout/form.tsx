@@ -263,10 +263,8 @@ export default function CheckoutForm({ leadID, cartWithItems, lang='en' }: {
                         <input
                             id="same-as-shipping"
                             type="checkbox"
-                            onBlur={() => handleBlur(3, { street_2: true })}
+                            onMouseLeave={() => handleBlur(3, { street_2: true })}
                             onChange={ async(ev) => {
-                                console.log('SHIPPING DATA: ', formData.shipping)
-                                console.log('CHECKED: ', ev.target.checked)
                                 updateFormData('checked', ev.target.checked)
                                 ev.target.checked && updateFormData('billing', formData.shipping)
                             }}
