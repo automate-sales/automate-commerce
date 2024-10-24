@@ -367,19 +367,27 @@ export const swapCarts = async (
   currentCartId: string,
   newCartId: string,
   leadId: string,
-  reroute: boolean = true
-) => {
+  reroute: boolean = false
+): Promise<boolean> => {
   // set current cart inactive
-  await prisma.cart.update({
-    where: { id: currentCartId },
-    data: { status: 'inactive' }
-  })
-  // set leadID on new cart
-  await prisma.cart.update({
-    where: { id: newCartId },
-    data: { leadId: leadId, status: 'active'}
-  })
-  await setServerCart(newCartId)
-  reroute && redirect('/cart')
-  return 
+  try {
+    const data = await prisma.cart.update({
+      where: { id: currentCartId },
+      data: { status: 'inactive' }
+    })
+    console.log('current cart set to inactive ', data)
+    // set leadID on new cart
+    const newdata = await prisma.cart.update({
+      where: { id: newCartId },
+      data: { leadId: leadId, status: 'active'}
+    })
+    console.log('new cart set to active ', newdata)
+    //await setServerCart(newCartId)
+    reroute && redirect('/cart')
+    return true
+  } catch (err: any) {
+    const msg = 'Error swaping carts'
+    console.error(msg, err)
+    throw new Error(msg)
+  }
 }

@@ -4,9 +4,7 @@ const sign_in_success_msg = 'Ha iniciado sesión'
 const logout_success_msg = 'Ha cerrado su sesión'
 const default_locale = 'en'
 
-
 import { addProductFromPage, checkCart } from "../utils"
-
 
 describe('A new lead with an empty cart signs up', () => {
   before(() => {
@@ -165,8 +163,8 @@ describe('An existing user asociated to the current lead signs in', () => {
     cy.viewport('macbook-15')
     cy.visit('localhost:3000').wait(1000)
     addProductFromPage(initialStock[0], initialStock[1])
-    cy.getCookie(LEAD_COOKIE).then(leadId => {
-      const initialLeadId = leadId as { value: string };
+    cy.getCookie(LEAD_COOKIE).then( (leadId: { value: string })  => {
+      const initialLeadId = leadId?.value
       expect(initialLeadId).to.not.be.empty
       if(initialLeadId){
         cy.log('leadId ', initialLeadId)
@@ -191,7 +189,7 @@ describe('An existing user asociated to the current lead signs in', () => {
             cy.url().should('not.include', '/user/info?first_login=true')
             cy.getCookie(LEAD_COOKIE).then(leadId => {
               expect(leadId).to.not.be.empty
-              expect(leadId?.value).to.eq(initialLeadId.value)
+              expect(leadId?.value).to.eq(initialLeadId)
             })
             // visit the cart page and make sure the cart contains the item
             cy.visit('localhost:3000/cart').wait(500)
@@ -202,6 +200,9 @@ describe('An existing user asociated to the current lead signs in', () => {
     })
   })
 })
+
+
+// correct falkies in this half
 
 
 describe('A lead with an empty cart signs in with an existing user asociated to another lead with an empty cart', () => {

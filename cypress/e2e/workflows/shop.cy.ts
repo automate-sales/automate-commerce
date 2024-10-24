@@ -349,8 +349,8 @@ describe('A new lead enters the site and shops for a variety of items without an
     cy.get(`#${productSku}-price`).then(price => {
       let productTotal = expectedStock[productSku] * Number(price.text().substring(1))
       cartSubtotal-=productTotal
-      cy.get(`#${productSku}-remove`).click()
-      cy.contains(removeItemMsg, {timeout: 2000}).should("be.visible").wait(500)
+      cy.get(`#${productSku}-remove`).click().wait(1500)
+      cy.contains(removeItemMsg).should("be.visible")
       cy.get('#cart-total').then(elem => {
         expect(elem.text()).eq(`$${cartSubtotal}`)
         cy.log('CART TOTAL ', elem.text())

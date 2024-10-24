@@ -108,7 +108,7 @@ export async function deleteCookie(name: string) {
 }
 
 export const setServerLead = async (leadId: string) => {
-    setCookie(LEAD_COOKIE, leadId)
+  await setCookie(LEAD_COOKIE, leadId)
 }
 
 export const getServerLead = async () => {
@@ -123,8 +123,8 @@ export const getServerLeadId = async () => {
   return cookiesId || headersId
 }
 
-export const setServerCart = (cartId: string) => {
-    setCookie( CART_COOKIE , cartId)
+export const setServerCart = async (cartId: string) => {
+  await setCookie( CART_COOKIE , cartId)
 }
 
 export const getServerCartCookie = async () => {

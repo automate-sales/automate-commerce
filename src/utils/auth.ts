@@ -112,12 +112,12 @@ export const authOptions: NextAuthOptions = {
                     //redirect(`/user/cart/${userCart.id}`)
                     session.user = {
                       ...session.user,
-                      username: userWithLeadAndCart?.username ,
+                      username: userWithLeadAndCart?.username,
                       swapModal: userCart.id
                     } as any
                     // add a parameter in the session that will trigger the modal
                   } else {
-                    swapCarts(currentCart.id, userCart.id, currentLeadId)
+                    await swapCarts(currentCart.id, userCart.id, currentLeadId)
                   }
                 }
 
