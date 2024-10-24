@@ -110,13 +110,12 @@ export const getCookiSettings = async(): Promise<{
 } | undefined>=> {
     if (typeof window !== 'undefined') {
         const dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-        const bot = await isBot()
         return {
             doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
             sessionCookiesEnabled: true,
-            isBot: bot
+            isBot: (await isBot())
         }
     }
     return undefined
@@ -161,7 +160,7 @@ export const getOrCreateLead = async() => {
             setCart(response.cartId)
 
             // checks if all cookies disabled
-            if(!await getCookie(LEAD_COOKIE)){
+            if( !(await getCookie(LEAD_COOKIE)) ){
                 // add cookiesBlocked in the leads cookie settings 
                 console.log('ALL COOKIES DISABLED')
                 if(cookieSettings) cookieSettings.sessionCookiesEnabled = false

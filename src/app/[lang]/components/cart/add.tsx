@@ -28,13 +28,13 @@ export default function AddToCartButton({
 }) {
   const router = useRouter();
   const path = usePathname();
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState('1');
   return (
     <form className="flex gap-3" onSubmit={ async(ev) => {
       ev.preventDefault()
       let cart = cartId ? cartId : await getCart()
       if(!cart) return toast.error('Cart not found')
-      const msg = await addToCart(cart, productId, productPrice, qty)
+      const msg = await addToCart(cart, productId, productPrice, parseInt(qty))
       const leadId = await getLead()
       addToCartEvent({
         id: productId, 
@@ -42,7 +42,7 @@ export default function AddToCartButton({
         sku: productSku, 
         title: productTitle || productSku,
         ...(productStock && { stock: productStock })
-      }, qty, path, leadId)
+      }, parseInt(qty), path, leadId)
       toast[msg.type](msg.text)
       router.refresh();
     } 
@@ -59,7 +59,10 @@ export default function AddToCartButton({
         type="number"
         className="p-2 border rounded"
         value={String(qty)}
-        onChange={(e) => setQty(parseInt(e.target.value))}
+        onChange={(e) => {
+          setQty(typeof parseInt(e.target.value) === 'number' ?
+          e.target.value : String())
+        }}
       /> }
     </form>
   );

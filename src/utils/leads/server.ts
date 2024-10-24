@@ -76,7 +76,7 @@ export const isBot = async(): Promise<boolean> => {
   return botUserAgents.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase())) || false;
 }
 
-export const getCookie = (name: string) => {
+export const getCookie = async (name: string) => {
   try {
     return cookies().get(name)?.value || undefined
   } catch (err) {

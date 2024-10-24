@@ -1,6 +1,5 @@
 const LEAD_COOKIE = 'ergo_lead_id'
 
-
 // ADD PRODUCT FROM INDEX / SEARCH
 // ADD PRODUCT FROM PRODUCT PAGE
 // ADD PRODUCT FROM CATEGORY/SUBCATEGORY
@@ -12,7 +11,6 @@ const LEAD_COOKIE = 'ergo_lead_id'
 // TEST THAT PRODUCTS IN INDEX ARE LISTED BY PRIORITY
 
 // TEST THAT INACTIVE PRODUCTS ARE NOT DISPLAYED
-
 // TEST THAT PRODUCT VARIANTS WORK CORRECTLY
 
 // TEST THAT CAROUSEL WITHOUT IMAGES ARE DISPLAYED CORRECTLY
@@ -353,7 +351,7 @@ describe('A new lead enters the site and shops for a variety of items without an
       let productTotal = expectedStock[productSku] * Number(price.text().substring(1))
       cartSubtotal-=productTotal
       cy.get(`#${productSku}-remove`).click()
-      cy.contains(removeItemMsg, {timeout: 2500}).should("be.visible")
+      cy.contains(removeItemMsg, {timeout: 2000}).should("be.visible").wait(500)
       cy.get('#cart-total').then(elem => {
         expect(elem.text()).eq(`$${cartSubtotal}`)
         cy.log('CART TOTAL ', elem.text())
@@ -372,7 +370,7 @@ describe('A new lead enters the site and shops for a variety of items without an
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]))
       cy.get(`#${productSku2}-qty`).type('{backspace}').type(String(expectedStock[productSku2]-1))
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
-      cy.contains(updateQtyMsg, {timeout: 2500}).should("be.visible")
+      cy.contains(updateQtyMsg, {timeout: 2000}).should("be.visible").wait(500)
       cy.get(`#${productSku2}-qty`).should('have.value', String(expectedStock[productSku2]-1))
       cy.get('#cart-total').then(elem =>
         expect(elem.text()).eq(`$${cartSubtotal}`)
