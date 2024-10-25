@@ -180,8 +180,8 @@ describe('A new lead enters the site and shops for a variety of items', () => {
     cy.get(`#${productSku}-price`, {timeout: 1500}).then(price => {
       let productTotal = expectedStock[productSku] * Number(price.text().substring(1))
       cartSubtotal-=productTotal
-      cy.get(`#${productSku}-remove`).click()
-      cy.contains(removeItemMsg, {timeout: 1500}).should("be.visible").wait(500)
+      cy.get(`#${productSku}-remove`).click().wait(2000)
+      cy.contains(removeItemMsg).should("be.visible").wait(500)
       cy.get('#cart-total').then(elem => {
         expect(elem.text()).eq(`$${cartSubtotal}`)
       })
@@ -202,8 +202,8 @@ describe('A new lead enters the site and shops for a variety of items', () => {
       cartSubtotal-=productTotal
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]))
       cy.get(`#${productSku}-qty`).type('{backspace}').type(String(expectedStock[productSku]-1))
-      cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]-1))
-      cy.contains(updateQtyMsg, {timeout: 1500}).should("be.visible")
+      cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]-1)).wait(1500)
+      cy.contains(updateQtyMsg).should("be.visible")
       cy.get(`#${productSku}-qty`).should('have.value', String(expectedStock[productSku]-1))
       cy.get('#cart-total').then(elem =>
         expect(elem.text()).eq(`$${cartSubtotal}`)

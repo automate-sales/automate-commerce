@@ -324,7 +324,9 @@ export async function getCartLengthByLead(leadId?: string) {
     }) : undefined
     return results? results.cartItems.reduce((acc, curr) => acc + curr.qty, 0) : undefined
   } catch (err) {
-    console.error('Error getting cart length by lead', err)
+    let header = 'Error getting cart length by lead: '
+    if (err instanceof Error) console.error(header+err.message);
+    else console.error('Unknown error occurred: ', err);
     return 0
   }
 }

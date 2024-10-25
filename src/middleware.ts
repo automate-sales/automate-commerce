@@ -27,46 +27,56 @@ const pathHasLocale =(path: string)=> {
 };
 
 export function middleware(request: NextRequest) {
-  const { href, pathname, search } = request.nextUrl;
-  const currentUrl = href
-  const previousUrl = request.headers.get('referer');
+  try {
+    const { href, pathname, search } = request.nextUrl;
+    const currentUrl = href
+    const previousUrl = request.headers.get('referer');
 
-  const requestHeaders = new Headers(request.headers)
+    const requestHeaders = new Headers(request.headers)
 
-  // get hid from previous url and set it in headers and search params
-  if (previousUrl) {
-      const previousUrlObj = new URL(previousUrl);
-      if (previousUrlObj.searchParams.has('hid')) {
-        const hidValue = previousUrlObj.searchParams.get('hid');
-        // set encrypted value in headers and search params
-        // const decryptedHid = await decryptUuid(hidValue);
-        hidValue && request.nextUrl.searchParams.set('hid', hidValue);
-        hidValue && requestHeaders.set('x-leadid', hidValue )
-      }
+    // get hid from previous url and set it in headers and search params
+    if (previousUrl) {
+        const previousUrlObj = new URL(previousUrl);
+        if (previousUrlObj.searchParams.has('hid')) {
+          const hidValue = previousUrlObj.searchParams.get('hid');
+          // set encrypted value in headers and search params
+          // const decryptedHid = await decryptUuid(hidValue);
+          hidValue && request.nextUrl.searchParams.set('hid', hidValue);
+          hidValue && requestHeaders.set('x-leadid', hidValue )
+        }
+    }
+    
+    // if the path has a locale and the previous url does not have a hid or the current url has a hid
+    if (pathHasLocale(pathname) && !hasHid(previousUrl) || pathHasLocale(pathname) && hasHid(currentUrl)) {
+      const response = NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      })
+      return response
+    }
+
+    // get locale from the previous url
+    const previousPath = previousUrl ? new URL(previousUrl).pathname : '';
+    const previousLocale = pathHasLocale(previousPath) && previousPath.split('/')[1];
+    const cookiesLocale = request.cookies.get('locale')?.value;
+    const browserLocale = getLocale(request);
+    const locale = previousLocale || cookiesLocale || browserLocale || defaultLocale;
+    if(!pathHasLocale(pathname)) request.nextUrl.pathname = `/${locale}${pathname}`;
+
+    const response = NextResponse.redirect(request.nextUrl);
+    response.cookies.set("locale", locale || 'en')
+    
+    return response;
+  } catch (err: any) {
+    if (err.code === 'ECONNRESET' || err.code === 'ECONNABORTED') {
+      console.warn('Connection reset by peer:', err);
+      return new NextResponse('Connection aborted', { status: 400 });
+    } else {
+      console.error('Unhandled middleware error:', err);
+      return new NextResponse('Internal Server Error', { status: 500 });
+    }
   }
-  
-  // if the path has a locale and the previous url does not have a hid or the current url has a hid
-  if (pathHasLocale(pathname) && !hasHid(previousUrl) || pathHasLocale(pathname) && hasHid(currentUrl)) {
-    const response = NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    })
-    return response
-  }
-
-  // get locale from the previous url
-  const previousPath = previousUrl ? new URL(previousUrl).pathname : '';
-  const previousLocale = pathHasLocale(previousPath) && previousPath.split('/')[1];
-  const cookiesLocale = request.cookies.get('locale')?.value;
-  const browserLocale = getLocale(request);
-  const locale = previousLocale || cookiesLocale || browserLocale || defaultLocale;
-  if(!pathHasLocale(pathname)) request.nextUrl.pathname = `/${locale}${pathname}`;
-
-  const response = NextResponse.redirect(request.nextUrl);
-  response.cookies.set("locale", locale || 'en')
-  
-  return response;
 }
 
 

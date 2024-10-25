@@ -184,8 +184,6 @@ export default defineConfig({
 
         async createUserWithLeadAndCartWithItems() {
           try {
-            const products = await prisma.product.findMany()
-            console.log('Products: ', products)
             const userWithLeadAndCartWithItems = await prisma.user.create({
               data: {
                 email: 'user_with_lead_and_cart_with_items@test.com',
