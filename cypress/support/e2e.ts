@@ -35,9 +35,12 @@ declare global {
         task(
             event: 'createUserWithLeadAndCartWithItems'
         ): Cypress.Chainable<User & { 
-            leads: Lead & {
-                carts: Cart & { cartItems: CartItem[] }[]
-            } }>;
+            leads: (Lead & {
+                carts: (Cart & { cartItems: CartItem[] })[]
+            })[] }>;
+        task(
+          event: 'getLeads'
+        ): Cypress.Chainable<Lead[]>;
       }
     }
   }

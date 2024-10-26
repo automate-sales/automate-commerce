@@ -7,7 +7,7 @@ import categories from "../data/categories.json"
 import subcategories from "../data/subcategories.json"
 import products from "../data/products.json";
 
-import { uploadImageFromLocalPath, wipeS3Bucket } from "../src/utils/s3";
+import { createPublicBucket, uploadImageFromLocalPath, wipeS3Bucket } from "../src/utils/s3";
 const prisma = new PrismaClient()
 
 const bucketName = `${process.env.PROJECT_NAME}-media`
@@ -18,8 +18,8 @@ async function wipeRelatedEntities() {
   await prisma.cartItem.deleteMany();
   await prisma.cart.deleteMany();
   await prisma.lead.deleteMany();
-  await prisma.user.deleteMany();
   await prisma.session.deleteMany();
+  await prisma.user.deleteMany();
 }
 
 async function wipeProductsSubcategoriesAndCategories() {
@@ -164,7 +164,9 @@ async function seedTestData() {
     //order
     'chair-executive-stratus-gr': 4,
     'frame-double-bl': 5,
-    'anti-mat-shape1-bl': 3
+    'anti-mat-shape1-bl': 3,
+    // cart
+    'stand-cpu-under-bl': 4
   };
   console.log('Updating data for testing');
   const qtyPromises = Object.entries(qtys).map(async ([q, qty]) => {
@@ -197,9 +199,9 @@ async function seedTestData() {
 
 async function main() {
   try {
-    /* if (NODE_ENV !== 'production') {
+    if (NODE_ENV !== 'production') {
       await createPublicBucket(bucketName)
-    } */
+    }
     await wipeData()
     await seedData()
     await seedTestData()

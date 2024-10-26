@@ -99,12 +99,12 @@ export default async function Footer({params}: {params: {lang:string}}) {
           </div>
         </div>
         <div className="border-b border-blue-300 py-5" />
-        <div className="flex justify-center py-5">
-          <div className="flex px-3 py-2">
-            <div className="px-2"><Image src="/icons/visa.jpg" height={30} width={50} alt="visa" /></div>
-            <div className="px-2"><Image src="/icons/mastercard.svg" height={30} width={50} alt="mastercard" /></div>
-            <div className="px-2"><Image src="/icons/yappy.svg" height={30} width={50} alt="yappy" /></div>
-            <div className="px-2"><Image src="/icons/ach.png" height={30} width={70} alt="ach directo" /></div>
+        <div  className=" py-5">
+          <div style={{height: '36px'}} className="flex justify-center gap-4">
+            <div><Image style={{height: '100%', width: '100%'}} src="/icons/visa.jpg" height={30} width={50} alt="visa" /></div>
+            <div><Image style={{height: '100%', width: '100%'}} src="/icons/mastercard.svg" height={30} width={50} alt="mastercard" /></div>
+            <div><Image style={{height: '100%', width: '100%'}} src="/icons/yappy.svg" height={30} width={50} alt="yappy" /></div>
+            <div><Image style={{height: '100%', width: '100%'}} src="/icons/ach.png" height={30} width={70} alt="ach directo" /></div>
           </div>
         </div>
       </div>

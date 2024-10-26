@@ -59,7 +59,6 @@ export const isLocalStorageEnabled =()=> {
 export const generateFingerprint = async () => {
     const fp = await FingerprintJS.load();
     const result = await fp.get();
-    console.log("Fingerprint:", result);
     return result.visitorId
 };
 
@@ -94,10 +93,6 @@ export const setClientCart = (cartId: string) => {
     return setLocalStorageItem('cart', cartId)
 }
 export const getCart = async () => {
-    const cookiesId = await getServerCartCookie()
-    if(cookiesId) return cookiesId
-    const localStorageCart = getClientCart()
-    if(localStorageCart) return localStorageCart
     const leadId = await getLead()
     return leadId && await getCartId(leadId)
 }
@@ -115,13 +110,12 @@ export const getCookiSettings = async(): Promise<{
 } | undefined>=> {
     if (typeof window !== 'undefined') {
         const dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-        const bot = await isBot()
         return {
             doNotTrack: dnt === "1" || dnt === "yes" || dnt === "true",
             cookiesEnabled: navigator.cookieEnabled,
             localStorageEnabled: isLocalStorageEnabled(),
             sessionCookiesEnabled: true,
-            isBot: bot
+            isBot: (await isBot())
         }
     }
     return undefined
@@ -166,12 +160,10 @@ export const getOrCreateLead = async() => {
             setCart(response.cartId)
 
             // checks if all cookies disabled
-            if(!await getCookie(LEAD_COOKIE)){
+            if( !(await getCookie(LEAD_COOKIE)) ){
                 // add cookiesBlocked in the leads cookie settings 
                 console.log('ALL COOKIES DISABLED')
-                console.log('LEAD ID', await getLead())
                 if(cookieSettings) cookieSettings.sessionCookiesEnabled = false
-                
                 // perhaps ignore this route and simply use sessionStorage?
                 const params = new URLSearchParams()
                 // set encrypted value in the URL
@@ -180,7 +172,6 @@ export const getOrCreateLead = async() => {
                 window.history.pushState(null, '', `?${params.toString()}`)
             }
         }
-        console.log('LEAD ID', await getLead())
         return cookieSettings
     } catch (err) {
         console.error('Error getting or creating lead', err)
