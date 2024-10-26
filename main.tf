@@ -100,6 +100,10 @@ variable "vercel_team_id" {
   type = string
 }
 
+variable "s3_bucket_name" {
+  type = string
+}
+
 resource "random_password" "main_db_password" {
   length           = 32
   special          = false
@@ -186,6 +190,7 @@ resource "aws_iam_user_policy" "s3_crud_policy" {
 }
 
 locals {
+  cloudfront_url = "https://${aws_cloudfront_distribution.media_cdn.domain_name}"
   minio_endpoint = "https://${aws_s3_bucket.media.bucket_regional_domain_name}"
   s3_origin_id = "${aws_s3_bucket.media.bucket}-origin"
 	database_url = "postgresql://${aws_db_instance.main.username}:${aws_db_instance.main.password}@${aws_db_instance.main.endpoint}/${aws_db_instance.main.db_name}"
@@ -286,8 +291,6 @@ resource "vercel_project" "main" {
   }
   build_command = <<-EOT
     export DATABASE_URL="${local.database_url}"
-    npx prisma db push
-    npx prisma db seed
     npx prisma generate
     npm run build
   EOT
@@ -306,7 +309,7 @@ resource "vercel_project" "main" {
     {
       target = ["preview", "production"]
 			key   = "NEXT_PUBLIC_IMAGE_HOST"
-      value = "https://${aws_cloudfront_distribution.media_cdn.domain_name}"
+      value = local.cloudfront_url
     },
     {
       target = ["preview", "production"]
@@ -432,6 +435,11 @@ resource "vercel_project" "main" {
       target = ["preview", "production"]
       key   = "NEXT_PUBLIC_POSTHOG_HOST"
       value = var.next_public_posthog_host
+    },
+    {
+      target = ["preview", "production"]
+      key   = "S3_BUCKET_NAME"
+      value = var.s3_bucket_name
     }
   ]
 }
@@ -440,4 +448,18 @@ resource "vercel_deployment" "main" {
   project_id = vercel_project.main.id
   ref        = "master"
   production = false
+}
+
+output "database_url" {
+  value = local.database_url
+  sensitive = true
+}
+output "cloudfront_url" {
+  value = local.cloudfront_url
+}
+output "s3_origin_id" {
+  value = local.s3_origin_id
+}
+output "minio_endpoint" {
+  value = local.minio_endpoint
 }

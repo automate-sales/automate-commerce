@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 dotenv.config({ path: `.env.${NODE_ENV}`});
+const S3_ENDPOINT = NODE_ENV == 'production' ? `https://${process.env.S3_BUCKET_NAME}.${process.env.AWS_REGION}.amazonaws.com` : process.env.MINIO_ENDPOINT;
 
 import { 
     S3Client, 
@@ -19,7 +20,7 @@ const s3ClientConfig = NODE_ENV !== 'production' ? {
         accessKeyId: 'minio',
         secretAccessKey: 'password',
     },
-    endpoint: process.env.MINIO_ENDPOINT,
+    endpoint: S3_ENDPOINT,
     forcePathStyle: true,
     signatureVersion: 'v4'
 } : {};
@@ -68,15 +69,41 @@ export const wipeS3Bucket = async (bucketName: string) => {
     deletePromises && await Promise.all(deletePromises);
 }
 
+export const getMimeFromPath = (path: string) => {
+    const extension = path.split('.').pop()
+    switch (extension) {
+      case "jpg":
+      case "jpeg":
+        return "image/jpeg";
+      case "png":
+        return "image/png";
+      case "mp4":
+        return "video/mp4";
+      case "pdf":
+        return "application/pdf";
+      case "csv":
+        return "text/csv";
+      case "webp":
+        return "image/webp";
+      case "ogg":
+        return "audio/ogg";
+      default:
+        return "application/octet-stream";
+    }
+};
+
 export const uploadImageToS3 = async (
     bucketName: string,
     key: string,
     imageBuffer: Buffer
 ) => {
+    const mime_type = getMimeFromPath(key);
     return await s3Client.send(new PutObjectCommand({
         Bucket: bucketName,
         Key: key,
-        Body: imageBuffer
+        Body: imageBuffer,
+        ContentDisposition: "inline",
+        ...(mime_type && { ContentType: mime_type })
     }));
 }
 
