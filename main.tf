@@ -56,6 +56,50 @@ variable "nmi_security_key" {
 	type = string
 }
 
+variable "next_public_use_analytics" {
+  type = bool
+}
+
+variable "next_public_project_name" {
+  type = string
+}
+
+variable "next_public_lead_cookie" {
+  type = string
+}
+
+variable "next_public_cart_cookie" {
+  type = string
+}
+
+variable "fb_access_token" {
+  type = string
+}
+
+variable "fb_test_code" {
+  type = string
+}
+
+variable "next_public_fb_pixel_id" {
+  type = string 
+}
+
+variable "next_public_ga_tracking_id" {
+  type = string
+}
+
+variable "next_public_posthog_key" {
+  type = string
+}
+
+variable "next_public_posthog_host" {
+  type = string 
+}
+
+variable "vercel_team_id" {
+  type = string
+}
+
 resource "random_password" "main_db_password" {
   length           = 32
   special          = false
@@ -74,38 +118,19 @@ resource "aws_security_group" "main" {
   }
 }
 
-resource "aws_db_instance" "main" {
-  identifier = "${var.project_name}-main"
-  allocated_storage            = 10
-  db_name                      = var.project_name
-  engine                       = "postgres"
-  instance_class               = "db.t3.micro"
-  username                     = "postgres"
-  password                     = random_password.main_db_password.result
-  backup_retention_period      = 30
-  publicly_accessible = true
-  performance_insights_enabled = true
-  skip_final_snapshot = true
-  vpc_security_group_ids = [aws_security_group.main.id]
-  tags = {
-    Project = var.project_name
-  }
-  provisioner "local-exec" {
-    command = "npx prisma db push && npx prisma db seed"
-    when = create
-  }
-}
-
 resource "aws_s3_bucket" "media" {
-  bucket = "${var.project_name}-media"
+  bucket = "${var.project_name}-ac-media"
 	tags = {
     Project = var.project_name
   }
 }
 
-resource "aws_s3_bucket_acl" "media_bucket_acl" {
+resource "aws_s3_bucket_public_access_block" "media_public_access" {
   bucket = aws_s3_bucket.media.id
-  acl    = "public-read"
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_s3_bucket_policy" "media_public_access" {
@@ -129,7 +154,7 @@ data "aws_iam_policy_document" "public_access" {
 }
 
 resource "aws_iam_user" "s3_admin_user" {
-  name = "${var.project_name}-s3-admin-user"
+  name = "${var.project_name}-ac-s3-admin-user"
 }
 
 resource "aws_iam_access_key" "s3_admin_user_key" {
@@ -161,8 +186,39 @@ resource "aws_iam_user_policy" "s3_crud_policy" {
 }
 
 locals {
+  minio_endpoint = "https://${aws_s3_bucket.media.bucket_regional_domain_name}"
   s3_origin_id = "${aws_s3_bucket.media.bucket}-origin"
 	database_url = "postgresql://${aws_db_instance.main.username}:${aws_db_instance.main.password}@${aws_db_instance.main.endpoint}/${aws_db_instance.main.db_name}"
+}
+
+resource "aws_db_instance" "main" {
+  identifier = "${var.project_name}-main"
+  allocated_storage            = 10
+  db_name                      = var.project_name
+  engine                       = "postgres"
+  instance_class               = "db.t3.micro"
+  username                     = "postgres"
+  password                     = random_password.main_db_password.result
+  backup_retention_period      = 30
+  publicly_accessible = true
+  performance_insights_enabled = true
+  skip_final_snapshot = true
+  vpc_security_group_ids = [aws_security_group.main.id]
+
+  depends_on = [aws_s3_bucket.media]
+
+  tags = {
+    Project = var.project_name
+  }
+  provisioner "local-exec" {
+    command = <<-EOT
+      export MINIO_ENDPOINT="${local.minio_endpoint}" 
+      export DATABASE_URL="postgresql://${self.username}:${random_password.main_db_password.result}@${self.endpoint}/${self.db_name}"
+      npx prisma db push
+      npx prisma db seed
+    EOT
+    when = create
+  }
 }
 
 resource "aws_cloudfront_origin_access_control" "media_cdn" {
@@ -228,6 +284,14 @@ resource "vercel_project" "main" {
     type = "github"
     repo = var.project_repo
   }
+  build_command = <<-EOT
+    export DATABASE_URL="${local.database_url}"
+    npx prisma db push
+    npx prisma db seed
+    npx prisma generate
+    npm run build
+  EOT
+
   environment = [
     {
       target = ["preview", "production"]
@@ -318,6 +382,56 @@ resource "vercel_project" "main" {
       target = ["preview", "production"]
       key   = "AWS_SECRET_ACCESS_KEY"
       value = aws_iam_access_key.s3_admin_user_key.secret
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_USE_ANALYTICS"
+      value = var.next_public_use_analytics
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_PROJECT_NAME"
+      value = var.next_public_project_name
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_LEAD_COOKIE"
+      value = var.next_public_lead_cookie
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_CART_COOKIE"
+      value = var.next_public_cart_cookie
+    },
+    {
+      target = ["preview", "production"]
+      key   = "FB_ACCESS_TOKEN"
+      value = var.fb_access_token
+    },
+    {
+      target = ["preview", "production"]
+      key   = "FB_TEST_CODE"
+      value = var.fb_test_code
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_FB_PIXEL_ID"
+      value = var.next_public_fb_pixel_id
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_GA_TRACKING_ID"
+      value = var.next_public_ga_tracking_id
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_POSTHOG_KEY"
+      value = var.next_public_posthog_key
+    },
+    {
+      target = ["preview", "production"]
+      key   = "NEXT_PUBLIC_POSTHOG_HOST"
+      value = var.next_public_posthog_host
     }
   ]
 }

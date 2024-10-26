@@ -22,11 +22,4 @@ export TF_VAR_next_public_posthog_key=$NEXT_PUBLIC_POSTHOG_KEY
 export TF_VAR_next_public_posthog_host=$NEXT_PUBLIC_POSTHOG_HOST
 export TF_VAR_vercel_team_id=$VERCEL_TEAM_ID
 
-terraform init
-terraform validate
-terraform plan -out=plan && read -p "Apply this plan? (y/n) " confirm
-if [[ $confirm == [yY] ]]; then
-  terraform apply plan
-else
-  echo "Plan not applied."
-fi
+terraform destroy
