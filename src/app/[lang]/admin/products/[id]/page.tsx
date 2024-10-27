@@ -1,54 +1,9 @@
 
+import AdminForm from '@/app/[lang]/components/admin/form/form';
 import prisma from '@/db';
+import { PrismaFieldTypes } from '@/types';
 import { extractEnums, extractModels } from '@/utils/prisma';
 import { Product } from '@prisma/client';
-
-
-type FormFieldTypes = 
-'text' |
-'trasnlatedText' |
-'select' |
-'checkbox' |
-'list' |
-'json' |
-'translatedJson' |
-'parent' |
-'children'
-'money'
-
-type HtmlInputTypes = 
-  | "text"
-  | "password"
-  | "email"
-  | "tel"
-  | "url"
-  | "search"
-  | "number"
-  | "date"
-  | "datetime-local"
-  | "month"
-  | "week"
-  | "time"
-  | "checkbox"
-  | "radio"
-  | "range"
-  | "file"
-  | "color"
-  | "hidden"
-  | "submit"
-  | "reset"
-  | "button"
-  | "image";
-
-type PrismaFieldTypes = 
-    | 'String'
-    | 'Int'
-    | 'Float'
-    | 'Boolean'
-    | 'Json'
-    | 'String[]'
-    | 'Json[]'
-    | 'DateTime'
 
 const settings = {
     defaultFields: {
@@ -134,8 +89,8 @@ export default async function Page({
 
     const models = extractModels('prisma/schema.prisma')
     const enums = extractEnums('prisma/schema.prisma')
-    const model = models.Product
-    console.log('MODEL: ', model)
+    const modelName = 'Product'
+    const model = models[modelName]
 
     // a function that will read a product and will return a json that has all of the keys and the designated form input for each
     // it will use the settings as a guide to slect fields by name of the field or if not by type of field.
@@ -145,12 +100,14 @@ export default async function Page({
 
     const getFormFields = (model: Record<string, string>, settings: Record<string, any>) => {
         const fields = Object.keys(model)
+        
         const formFields = fields.map(field => {
             const typeField = model[field].split('?')
             const required = typeField.length > 1 ? false : true
             const fielded = typeField[0].split('[]')
             const fieldType = fielded[0]
             const isList = fielded.length > 1 ? true : false
+            console.log('ENUMS: ',enums)
             
             // by name
             if (settings.defaultFields[field]) {
@@ -213,7 +170,9 @@ export default async function Page({
     return(
         <div className="py-8 px-16">
             <h1 className="text-center text-2xl pb-5">Product {productData.sku}</h1>
-
+            <div>
+                <AdminForm  model={modelName} formFields={formfields} modelItem={productData} />
+            </div>
         </div>
     )
 }

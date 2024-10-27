@@ -10,7 +10,7 @@ type Props = {
   onChange: (e: { target: { name: string; value: string[] } }) => void;
 };
 
-const List = ({
+const ListInput = ({
   name,
   value,
   placeholder = '',
@@ -36,5 +36,5 @@ const List = ({
   );
 };
 
-export default List;
+export default ListInput;
 

@@ -94,3 +94,65 @@ export type CustomerInfo = {
     paymentInfo: PaymentInfo;
   };
   
+
+
+export type FormFieldTypes = 
+'text' |
+'trasnlatedText' |
+'select' |
+'checkbox' |
+'list' |
+'json' |
+'translatedJson' |
+'parent' |
+'children' |
+'money' |
+'images'
+
+export type HtmlInputTypes = 
+  | "text"
+  | "password"
+  | "email"
+  | "tel"
+  | "url"
+  | "search"
+  | "number"
+  | "date"
+  | "datetime-local"
+  | "month"
+  | "week"
+  | "time"
+  | "checkbox"
+  | "radio"
+  | "range"
+  | "file"
+  | "color"
+  | "hidden"
+  | "submit"
+  | "reset"
+  | "button"
+  | "image";
+
+export type PrismaFieldTypes = 
+    | 'String'
+    | 'Int'
+    | 'Float'
+    | 'Boolean'
+    | 'Json'
+    | 'String[]'
+    | 'Json[]'
+    | 'DateTime'
+
+export type PrismaModelName = 
+  'Product' |
+  'Category' |
+  'Subcategory'
+
+export type FormField = {
+  name: string;
+  field: FormFieldTypes;
+  type?: HtmlInputTypes;
+  required?: boolean;
+  options?: String[];
+  isId?: boolean;
+}

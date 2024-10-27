@@ -12,7 +12,7 @@ type Props = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Text = ({
+const TextInput = ({
   name,
   value,
   inputType = 'text',
@@ -23,7 +23,7 @@ const Text = ({
   onChange,
 }: Props) => {
   return (
-    <div className="w-full md:w-1/2 p-2">
+    <div className="w-full md:w-1/2">
       <label className="block text-sm font-medium text-gray-700">{label || name}</label>
       <input
         type={inputType}
@@ -39,4 +39,4 @@ const Text = ({
   );
 };
 
-export default Text;
+export default TextInput;

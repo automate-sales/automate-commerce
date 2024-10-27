@@ -9,7 +9,7 @@ type Props = {
     lang?: string;
 };
 
-const Children = ({
+const ChildrenObjectsInput = ({
   modelName,
   values,
   lang = 'en',
@@ -39,4 +39,4 @@ const Children = ({
   );
 };
 
-export default Children;
+export default ChildrenObjectsInput;
