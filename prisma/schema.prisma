@@ -61,9 +61,7 @@ model Product {
   assembly            Float
   shipping            Json?
   display             Boolean     @default(true)
-  
   cartItems           CartItem[]
-  
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
   createdBy           String?
