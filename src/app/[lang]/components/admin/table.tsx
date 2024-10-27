@@ -1,4 +1,5 @@
 import prisma from "@/db";
+import Image from "next/image";
 import Link from "next/link";
 
 type Field = {
@@ -62,9 +63,15 @@ export default async function Table({
         case 'images':
             return (
             <div className="flex">
-                {value?.map((src: string, index: number) => (
-                <img key={index} src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/${model}s/${src}`} alt={`image-${index}`} className="w-16 h-16 object-cover mr-2" />
-                ))}
+              {value && value.length > 0 ? 
+                <div>
+                  <Image src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/${model}s/${value[0]}`} alt={`product image`} width={64} height={64} />
+                  {value.length > 1 && <p className="text-xs text-gray-400">+{value.length-1} images</p>}
+                </div> : <div>
+                  <Image src='/images/no-image.png' alt={`no-image`} width={64} height={64} />
+                  <p>No images</p>
+                </div>
+              }
             </div>
             );
         case 'boolean':
@@ -78,7 +85,7 @@ export default async function Table({
         }
     };
 
-    const data = await prisma[model].findMany()
+    const data = await (prisma[model] as any).findMany();
 
   return (
     <div className="w-full">
@@ -104,7 +111,7 @@ export default async function Table({
           </tr>
         </thead>
         <tbody>
-          {data.map((item: { [x: string]: any; }, index: Key | null | undefined) => (
+          {data.map((item: { [x: string]: any; }, index: number | null | undefined) => (
             <tr key={index}>
               {Object.entries(fields).map(([key, val]) => (
                 <td key={`${key}-${index}`} className="py-2 px-4 border-b border-gray-200">
