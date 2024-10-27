@@ -39,3 +39,9 @@ next-env.d.ts
 /cypress/videos
 /cypress/screenshots
 /cypress/downloads
+
+.terraform.lock.hcl
+.terraform/
+plan
+terraform.tfstate
+terraform.tfstate.backup

@@ -10,7 +10,7 @@ import products from "../data/products.json";
 import { createPublicBucket, uploadImageFromLocalPath, wipeS3Bucket } from "../src/utils/s3";
 const prisma = new PrismaClient()
 
-const bucketName = `${process.env.PROJECT_NAME}-media`
+const bucketName = process.env.S3_BUCKET_NAME || `${process.env.PROJECT_NAME || 'automate'}-media`;
 
 async function wipeRelatedEntities() {
   console.log('Wiping related entities')

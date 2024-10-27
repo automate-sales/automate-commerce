@@ -7,6 +7,8 @@ const nextConfig = {
         remotePatterns: [
             { hostname: 'localhost' },
             { hostname: 'minio' },
+            { hostname: 'ergonomica-ac-media.s3.us-east-1.amazonaws.com' },
+            { hostname: 'd1j0s1nyo2b00d.cloudfront.net' }
         ],
     },
     webpack: (config, { isServer }) => {
