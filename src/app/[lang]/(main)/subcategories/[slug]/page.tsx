@@ -23,6 +23,8 @@ export default async function Page({
     },
     include: {
       products: {
+        distinct: ['skuGroup'],  // Retrieve unique skuGroups
+        orderBy: { createdAt: 'asc' }, // Adjust to ensure the "first" product per skuGroup
         take: pageSize,
         skip: pageSize * pageNumber,
       },
