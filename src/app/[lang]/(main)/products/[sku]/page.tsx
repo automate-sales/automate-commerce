@@ -13,6 +13,7 @@ import Image from 'next/image';
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 async function getColorSizeMappings(skuGroup: string) {
+  // Fetch all products in the specified skuGroup with distinct color and size combinations
   const products = await prisma.product.findMany({
     where: { skuGroup },
     select: {
@@ -20,39 +21,44 @@ async function getColorSizeMappings(skuGroup: string) {
       size: true,
       sku: true,
     },
-    distinct: ['color', 'size', 'sku'],
+    distinct: ['color', 'size'],
   });
 
-  const colors: Record<
-    string,
-    { firstSku: string; sizes: string[] }
-  > = {};
+  const colors: Record<string, { firstSku: string | null; sizes: string[] | null }> = {};
+  const sizes: Record<string, string[] | null> = {};
 
-  const sizes: Record<string, string[]> = {};
-
-  // Populate mappings
+  // Initialize mappings with all unique colors and sizes
   for (const { color, size, sku } of products) {
-    if (color && size && sku) { // Ensure non-null color, size, and sku
-
-      // Initialize colors entry if not already present
-      if (!colors[color]) {
-        colors[color] = { firstSku: sku, sizes: [] };
-      }
-      
-      // Add size to color's sizes array if not already present
-      if (!colors[color].sizes.includes(size)) {
-        colors[color].sizes.push(size);
-      }
-
-      // Initialize sizes entry if not already present
-      if (!sizes[size]) sizes[size] = [];
-
-      // Add color to size's colors array if not already present
-      if (!sizes[size].includes(color)) {
-        sizes[size].push(color);
-      }
+    if (color && !colors[color]) {
+      colors[color] = { firstSku: sku || null, sizes: [] };
+    }
+    if (size && !sizes[size]) {
+      sizes[size] = [];
     }
   }
+
+  // Populate mappings with actual size and color combinations
+  for (const { color, size, sku } of products) {
+    if (color && size && sku) {
+      colors[color].sizes!.push(size);
+      sizes[size]!.push(color);
+    }
+  }
+
+  // Set sizes to null if no sizes are associated with a color
+  for (const color in colors) {
+    if (colors[color].sizes && colors[color].sizes.length === 0) {
+      colors[color].sizes = null;
+    }
+  }
+
+  // Set sizes to null if no colors are associated with a size
+  for (const size in sizes) {
+    if (sizes[size] && sizes[size]!.length === 0) {
+      sizes[size] = null;
+    }
+  }
+
   return { colors, sizes };
 }
 
@@ -67,9 +73,15 @@ export default async function Page({
       sku: params.sku
     }
   }) as Product
+  console.log('PRODUCT DATA: ', productData)
   const { colors, sizes } = await getColorSizeMappings(productData.skuGroup)
+  console.log('COLORS: ', colors)
+  console.log('SIZES: ', sizes)
   const currentColor = productData.color;
   const currentSize = productData.size
+  const availableSizes = currentColor ? colors[currentColor].sizes : currentSize ? Object.keys(sizes) : null;
+  console.log('AVAILABLE SIZES: ', availableSizes)
+  console.log('CURRENT SIZE: ', currentSize)
   const productUrl = (skuGroup: string, color?: string|null, size?: string|null) => `/products/${skuGroup}${color? `-${color}`:''}${size? `-${size}`:''}`
 
   const lang = params.lang
@@ -96,40 +108,43 @@ export default async function Page({
             <p className="text-xl my-2">{productData?.price}</p>
             <p className="mb-4">{getIntl(productData?.description, lang)}</p>
 
-            <div className="pb-4">
-              <span className="block pb-2 text-main">Color:</span>
-                <div className="grid grid-cols-5 lg:grid-cols-6 gap-2">
-                  {
-                    currentColor && Object.keys(colors).map((c, i) => 
-                      <Link scroll={false} passHref href={currentSize && colors[c].sizes.includes(currentSize) ? productUrl(productData.skuGroup, c, currentSize) : `/products/${colors[c].firstSku}`} key={i}>
-                        <div className={`text-center link ${c === currentColor && 'border-3 border-blue-300'}`}>
-                          <Image
-                            src={`/images/colors/${c}.jpg`} 
-                            alt={`Ergonomica - ${c}`}
-                            width={80}
-                            height={80}
-                          />
-                        </div>
-                      </Link>
-                    )
-                  }
+              { currentColor &&
+                <div className="pb-4">
+                  <span className="block pb-2 text-main">Color:</span>
+                  <div className="grid grid-cols-5 lg:grid-cols-6 gap-2">
+                    {
+                      Object.keys(colors).map((c, i) => 
+                        <Link scroll={false} passHref href={currentSize && colors[c].sizes && colors[c].sizes.includes(currentSize) ? productUrl(productData.skuGroup, c, currentSize) : `/products/${colors[c].firstSku}`} key={i}>
+                          <div className={`text-center link ${c === currentColor && 'border-2 border-blue-300'}`}>
+                            <Image
+                              src={`/images/colors/${c}.jpg`} 
+                              alt={`Ergonomica - ${c}`}
+                              width={80}
+                              height={80}
+                            />
+                          </div>
+                        </Link>
+                      )
+                    }
+                  </div>
                 </div>
-              </div>
+              }
 
-              <div className="pb-4">
-              <span className="block pb-2 text-main">Tamaño:</span>
-              <div className="flex flex-wrap gap-3">
-                { 
-                  ( currentColor ? colors[currentColor].sizes : Object.keys(sizes) ).map((s, i) => 
-                    <Link scroll={false} passHref href={productUrl(productData.skuGroup, currentColor, s)} key={i}>
-                      <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-3 border-blue-300'}`}>
-                        {s?.toString()}
-                      </div>
-                    </Link>
-                  )
-                }
-              </div>
-            </div>
+              { availableSizes && <div className="pb-4">
+                  <span className="block pb-2 text-main">Tamaño:</span>
+                  <div className="flex flex-wrap gap-3">
+                    { 
+                      availableSizes.map((s, i) => 
+                        <Link scroll={false} passHref href={productUrl(productData.skuGroup, currentColor, s)} key={i}>
+                          <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-2 border-blue-300'}`}>
+                            {s?.toString()}
+                          </div>
+                        </Link>
+                      )
+                    }
+                  </div>
+                </div>
+              } 
 
             <div className="flex items-center">
               <AddToCartButton
