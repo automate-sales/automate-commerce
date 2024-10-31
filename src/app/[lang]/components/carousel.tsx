@@ -1,13 +1,8 @@
 'use client'
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Navigation } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/autoplay';
+import { useState, useRef, useEffect } from 'react';
+import NextImage from 'next/image';
+import Link from 'next/link';
 
 type Item = {
   imageUrl: string;
@@ -18,106 +13,150 @@ type Item = {
 
 type CarouselProps = {
   items: Item[];
-  autoplay?: number; // Autoplay speed in milliseconds for changing slides
   size?: 'sm' | 'md' | 'lg';
-  infiniteScroll?:boolean;
-  lang?: string;
-}
+};
 
-const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, lang = 'en' }: CarouselProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const itemsRef = useRef([...items, ...items]); // Duplicate items for an infinite loop
+const Carousel = ({ items, size = 'md' }: CarouselProps) => {
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const itemWidth = 200; // Set based on actual item width
+  const isTransitioning = useRef(false); // Track if a transition is in progress
 
+  // Calculate size classes for different item sizes
+  const itemSizeClass = {
+    sm: 'w-32 h-32 p-2',
+    md: 'w-40 h-40 p-4',
+    lg: 'w-48 h-48 p-4',
+  }[size];
 
+  // Prepare duplicated items array for infinite effect
+  const itemsToDisplay = [...items, ...items]; // Duplicate items for looping effect
+  const totalItems = itemsToDisplay.length;
+
+  // Move to the next item
+  const moveToNext = () => {
+    if (isTransitioning.current) return; // Prevent overlapping transitions
+
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+    isTransitioning.current = true;
+  };
+
+  // Move to the previous item
+  const moveToPrev = () => {
+    console.log('moveToPrev');
+    console.log(currentIndex);
+    if (isTransitioning.current) return;
+    setCurrentIndex((prevIndex) => prevIndex - 1);
+
+    isTransitioning.current = true;
+  };
+
+  // Handle end of transition
   useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      () => setCurrentIndex((prevIndex) =>
-        prevIndex === itemsRef.current.length / 2 - 1 ? 0 : prevIndex + 1
-      ),
-      autoplay
-    );
-
-    return () => {
-      resetTimeout();
+    const handleTransitionEnd = () => {
+      isTransitioning.current = false;
+      console.log('PUITOU JOSE')
+      // Seamlessly loop back to the start of the original items
+      if (currentIndex === items.length) {
+        setCurrentIndex(0);
+        containerRef.current!.style.transition = 'none'; // Temporarily disable transition
+        containerRef.current!.style.transform = `translateX(0px)`;
+        // Force a reflow to apply styles immediately
+        void containerRef.current!.offsetHeight;
+        containerRef.current!.style.transition = 'transform 0.3s ease';
+      } else if (!currentIndex || currentIndex<= 0) {
+        console.log('PUPU JOSE')
+        setCurrentIndex(items.length - 1);
+        containerRef.current!.style.transition = 'none';
+        containerRef.current!.style.transform = `translateX(-${items.length * itemWidth}px)`;
+        void containerRef.current!.offsetHeight;
+        containerRef.current!.style.transition = 'transform 0.3s ease';
+      }
     };
-  }, [currentIndex, autoplay]);
 
+    containerRef.current?.addEventListener('transitionend', handleTransitionEnd);
+    return () => containerRef.current?.removeEventListener('transitionend', handleTransitionEnd);
+  }, [currentIndex, items.length]);
 
-  const resetTimeout = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+  // Update the translate position when currentIndex changes
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+    }
+  }, [currentIndex]);
+
+  // Start dragging
+  const handleDragStart = (event: React.DragEvent) => {
+    event.dataTransfer.setDragImage(new Image(), 0, 0); // Hide ghost image
+    event.dataTransfer.effectAllowed = 'move';
+    containerRef.current!.style.transition = 'none';
+  };
+
+  // Dragging handler
+  const handleDrag = (event: React.DragEvent) => {
+    if (event.clientX === 0) return; // Ignore events with no position data
+
+    const translateX = -currentIndex * itemWidth + event.clientX - event.clientX % itemWidth;
+    containerRef.current!.style.transform = `translateX(${translateX}px)`;
+  };
+  const handleDragEnd = (event: React.DragEvent) => {
+    containerRef.current!.style.transition = 'transform 0.3s ease';
+
+    const draggedBy = event.clientX % itemWidth;
+    const threshold = itemWidth / 4;
+
+    if (draggedBy > threshold) {
+      moveToNext();
+    } else if (draggedBy < -threshold) {
+      moveToPrev();
+    } else {
+      containerRef.current!.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
     }
   };
 
-  // Adjust item sizes based on the 'size' prop
-  const itemSize = {
-    'sm': { width: 150, height: 150, padding: 'p-2' },
-    'md': { width: 200, height: 200, padding: 'p-4' },
-    'lg': { width: 250, height: 250, padding: 'p-4' },
-  }[size];
-
-
-  const swiperStyle = {
-    '--swiper-navigation-size': '20px !important',  
-    '--swiper-theme-color': '#000 !important',
-    '--swiper-navigation-color': 'var(--swiper-theme-color)',
-    padding: '10px 30px !important',
-  };
-
   return (
-    <div className="w-full overflow-hidden px-8 py-8">
-      <div >
-        <Swiper
-          style={swiperStyle}
-          loop={infiniteScroll}
-          navigation
-          spaceBetween={20}
-          slidesPerView={10}
-          rewind
-          autoplay={{
-            delay: autoplay,
-            disableOnInteraction: false // Ye line add karein
-          }}
-          modules={[Navigation, Autoplay]}
-          className=' w-full rounded-lg'
-          breakpoints={{
-            320: {slidesPerView: 1},
-            640: {slidesPerView: 2},
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4,},
-            1170: { slidesPerView: 6,},
-            1440: { slidesPerView: 8,},
-            1920: { slidesPerView: 10,},
-          }}
-          
+    <div className="w-full overflow-hidden relative">
+      <div
+        className="flex"
+        ref={containerRef}
+        draggable
+        onDragStart={handleDragStart}
+        onDrag={handleDrag}
+        onDragEnd={handleDragEnd}
+        style={{ transform: `translateX(-${currentIndex * itemWidth}px)`, transition: 'transform 0.3s ease' }}
+      >
+        {itemsToDisplay.map((item, idx) => (
+          <div key={idx} className={`flex-shrink-0 ${itemSizeClass} bg-white m-2 rounded-lg`}>
+            <Link href={item.link || '#'} className="flex items-center justify-center h-full">
+              <NextImage
+                src={item.imageUrl}
+                alt={item.heading || `Carousel item ${idx}`}
+                width={itemWidth}
+                height={200}
+                className="object-contain"
+              />
+            </Link>
+            <h2 className="text-sm font-semibold">{item.heading}</h2>
+            <p className="text-xs">{item.subheading}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="absolute inset-y-0 left-4 flex items-center">
+        <button
+          onClick={moveToPrev}
+          className="bg-gray-300 p-2 rounded-full"
         >
-          {itemsRef.current.map((item, idx) => (
-            <SwiperSlide className={'swiper-slide'} key={idx}>
-              <div
-                className={`${itemSize.padding} swiper-slide-inner bg-white flex flex-col justify-center items-center text-center m-2 rounded-lg p-5`}
-                key={idx}
-                style={{ width: `${itemSize.width}px`, height: `${itemSize.height}px` }}
-              >
-                <Link className="flex items-center justify-center h-full" href={item.link || '#'}>
-
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.heading || `Carousel item ${idx}`}
-                    width={itemSize.width - 32} // Deduct padding for actual image size
-                    height={itemSize.height - 32} // Deduct padding for actual image size
-                    className="object-contain"
-                  />
-
-                </Link>
-                <h2 className="text-sm font-semibold w-full">{item.heading}</h2>
-                <p className="text-xs">{item.subheading}</p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
+          &lt;
+        </button>
+      </div>
+      <div className="absolute inset-y-0 right-4 flex items-center">
+        <button
+          onClick={moveToNext}
+          className="bg-gray-300 p-2 rounded-full"
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );
