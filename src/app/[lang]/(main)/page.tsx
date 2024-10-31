@@ -11,6 +11,7 @@ import { getIntl } from '@/utils/utils'
 import { Breadcrumbs, Props, seoCompotnent } from '../components/seo'
 import type { Metadata, ResolvingMetadata } from 'next'
 import { headers } from 'next/headers'
+import { ArrowTurnUpLeftIcon, FaceSmileIcon, ShieldCheckIcon, TruckIcon } from '@heroicons/react/24/outline'
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Home({ 
@@ -42,22 +43,27 @@ export default async function Home({
       <TextAndVideoSection text={dict.home.textImageSection.text} imageSrc="/images/no-image.png" textDirection="right" padding="8" />
       <SpecsSection specs={[
         {
-          icon: '/images/no-image.png',
-          title: dict.home.specsSection.feature1.title,
-          paragraph: dict.home.specsSection.feature1.paragraph,
+          icon: <FaceSmileIcon className="h-8 w-8"/>,
+          title: dict.home.specsSection['0'].title,
+          paragraph: dict.home.specsSection['0'].paragraph,
         },
         {
-          icon: '/images/no-image.png',
-          title: dict.home.specsSection.feature2.title,
-          paragraph: dict.home.specsSection.feature2.paragraph,
+          icon: <TruckIcon className="h-8 w-8"/>,
+          title: dict.home.specsSection['1'].title,
+          paragraph: dict.home.specsSection['1'].paragraph,
         },
         {
-          icon: '/images/no-image.png',
-          title: dict.home.specsSection.feature3.title,
-          paragraph: dict.home.specsSection.feature3.paragraph,
+          icon: <ArrowTurnUpLeftIcon className="h-8 w-8"/>,
+          title: dict.home.specsSection['2'].title,
+          paragraph: dict.home.specsSection['2'].paragraph,
+        },
+        {
+          icon: <ShieldCheckIcon className="h-8 w-8"/>,
+          title: dict.home.specsSection['3'].title,
+          paragraph: dict.home.specsSection['3'].paragraph,
         }
-      ]} padding="8"/>
-      <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" padding="0" content={dict.home.centeredImageSection.content2} />
+      ]}/>
+      <CenteredImageSection imageSrc="/images/home/mission-desktop.jpg" paddingY="8" content={dict.home.centeredImageSection.content2} />
       <Carousel lang={params.lang} items={mainProducts.map((p: Product) => { return {link: `/products/${p.sku}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${p.images[0]}`, heading: getIntl(p.title, params.lang), subheading: `$${p.price}`} })} />
     </>
   )

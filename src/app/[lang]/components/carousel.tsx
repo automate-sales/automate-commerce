@@ -67,7 +67,7 @@ const Carousel = ({ items, autoplay = 3000, size = 'md', infiniteScroll= true, l
   };
 
   return (
-    <div className="w-full overflow-hidden p-8">
+    <div className="w-full overflow-hidden px-8 py-8">
       <div >
         <Swiper
           style={swiperStyle}
