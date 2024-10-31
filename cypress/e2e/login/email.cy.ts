@@ -227,8 +227,7 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
         cy.log('leadId ', visitorLeadId)
   
         // sign in with the existing user
-        cy.visit('localhost:3000/login')
-        .wait(1000)
+        cy.visit('localhost:3000/login').wait(1000)
         cy.get('#email')
         .type(current_lead_email)
         .should('have.value', current_lead_email)
@@ -240,8 +239,7 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
           let body = typedEmail.body.toString()
           let url = body.slice(body.indexOf('http'))
           expect(url).to.not.be.empty
-          cy.visit({url: url, method: 'POST'})
-          .wait(1000)
+          cy.visit({url: url, method: 'POST'}).wait(1500)
           cy.url().should('not.include', '/user/info?first_login=true')
 
           // lead ID in the cookies should be the visitorLeadId

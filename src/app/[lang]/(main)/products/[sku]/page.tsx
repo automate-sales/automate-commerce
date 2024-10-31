@@ -8,7 +8,54 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
 import { getDictionary } from '@/app/dictionaries';
 import { getServerCart } from '@/utils/leads/server';
+import Link from 'next/link';
+import Image from 'next/image';
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+
+async function getColorSizeMappings(skuGroup: string) {
+  const products = await prisma.product.findMany({
+    where: { skuGroup },
+    select: {
+      color: true,
+      size: true,
+      sku: true,
+    },
+    distinct: ['color', 'size', 'sku'],
+  });
+
+  const colors: Record<
+    string,
+    { firstSku: string; sizes: string[] }
+  > = {};
+
+  const sizes: Record<string, string[]> = {};
+
+  // Populate mappings
+  for (const { color, size, sku } of products) {
+    if (color && size && sku) { // Ensure non-null color, size, and sku
+
+      // Initialize colors entry if not already present
+      if (!colors[color]) {
+        colors[color] = { firstSku: sku, sizes: [] };
+      }
+      
+      // Add size to color's sizes array if not already present
+      if (!colors[color].sizes.includes(size)) {
+        colors[color].sizes.push(size);
+      }
+
+      // Initialize sizes entry if not already present
+      if (!sizes[size]) sizes[size] = [];
+
+      // Add color to size's colors array if not already present
+      if (!sizes[size].includes(color)) {
+        sizes[size].push(color);
+      }
+    }
+  }
+  return { colors, sizes };
+}
+
 
 export default async function Page({
   params
@@ -20,6 +67,11 @@ export default async function Page({
       sku: params.sku
     }
   }) as Product
+  const { colors, sizes } = await getColorSizeMappings(productData.skuGroup)
+  const currentColor = productData.color;
+  const currentSize = productData.size
+  const productUrl = (skuGroup: string, color?: string|null, size?: string|null) => `/products/${skuGroup}${color? `-${color}`:''}${size? `-${size}`:''}`
+
   const lang = params.lang
   const cartId = await getServerCart()
   const dict = await getDictionary(lang)
@@ -43,16 +95,52 @@ export default async function Page({
             <h1 className="text-3xl font-bold">{productTitle}</h1>
             <p className="text-xl my-2">{productData?.price}</p>
             <p className="mb-4">{getIntl(productData?.description, lang)}</p>
+
+            <div className="pb-4">
+              <span className="block pb-2 text-main">Color:</span>
+                <div className="grid grid-cols-5 lg:grid-cols-6 gap-2">
+                  {
+                    currentColor && Object.keys(colors).map((c, i) => 
+                      <Link scroll={false} passHref href={currentSize && colors[c].sizes.includes(currentSize) ? productUrl(productData.skuGroup, c, currentSize) : `/products/${colors[c].firstSku}`} key={i}>
+                        <div className={`text-center link ${c === currentColor && 'border-3 border-blue-300'}`}>
+                          <Image
+                            src={`/images/colors/${c}.jpg`} 
+                            alt={`Ergonomica - ${c}`}
+                            width={80}
+                            height={80}
+                          />
+                        </div>
+                      </Link>
+                    )
+                  }
+                </div>
+              </div>
+
+              <div className="pb-4">
+              <span className="block pb-2 text-main">Tamaño:</span>
+              <div className="flex flex-wrap gap-3">
+                { 
+                  ( currentColor ? colors[currentColor].sizes : Object.keys(sizes) ).map((s, i) => 
+                    <Link scroll={false} passHref href={productUrl(productData.skuGroup, currentColor, s)} key={i}>
+                      <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-3 border-blue-300'}`}>
+                        {s?.toString()}
+                      </div>
+                    </Link>
+                  )
+                }
+              </div>
+            </div>
+
             <div className="flex items-center">
-            <AddToCartButton
-              cartId={cartId} 
-              productId={productData?.id} 
-              productSku={productData.sku}
-              productPrice={productData?.price}
-              productTitle={productTitle}
-              productStock={productData?.stock}
-              displayQty
-            />
+              <AddToCartButton
+                cartId={cartId} 
+                productId={productData?.id} 
+                productSku={productData.sku}
+                productPrice={productData?.price}
+                productTitle={productTitle}
+                productStock={productData?.stock}
+                displayQty
+              />
             </div>
           </div>
         </div>
