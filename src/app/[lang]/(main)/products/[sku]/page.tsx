@@ -73,17 +73,11 @@ export default async function Page({
       sku: params.sku
     }
   }) as Product
-  console.log('PRODUCT DATA: ', productData)
   const { colors, sizes } = await getColorSizeMappings(productData.skuGroup)
-  console.log('COLORS: ', colors)
-  console.log('SIZES: ', sizes)
   const currentColor = productData.color;
   const currentSize = productData.size
   const availableSizes = currentColor ? colors[currentColor].sizes : currentSize ? Object.keys(sizes) : null;
-  console.log('AVAILABLE SIZES: ', availableSizes)
-  console.log('CURRENT SIZE: ', currentSize)
   const productUrl = (skuGroup: string, color?: string|null, size?: string|null) => `/products/${skuGroup}${color? `-${color}`:''}${size? `-${size}`:''}`
-
   const lang = params.lang
   const cartId = await getServerCart()
   const dict = await getDictionary(lang)
@@ -104,18 +98,17 @@ export default async function Page({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <ImageDipslay product={productData} lang={lang} priority={true}/>
           <div>
-            <h1 className="text-3xl font-bold">{productTitle}</h1>
-            <p className="text-xl my-2">{productData?.price}</p>
+            <h1 className="text-3xl font-bold pb-4">{productTitle}</h1>
             <p className="mb-4">{getIntl(productData?.description, lang)}</p>
-
+            <p className="text-xl font-bold my-2">$ {productData?.price}</p>
               { currentColor &&
                 <div className="pb-4">
-                  <span className="block pb-2 text-main">Color:</span>
+                  <span className="block text-sm">Color:</span>
                   <div className="grid grid-cols-5 lg:grid-cols-6 gap-2">
                     {
                       Object.keys(colors).map((c, i) => 
                         <Link scroll={false} passHref href={currentSize && colors[c].sizes && colors[c].sizes.includes(currentSize) ? productUrl(productData.skuGroup, c, currentSize) : `/products/${colors[c].firstSku}`} key={i}>
-                          <div className={`text-center link ${c === currentColor && 'border-2 border-blue-300'}`}>
+                          <div className={`text-center link ${c === currentColor && 'border-2 border-blue-400'}`}>
                             <Image
                               src={`/images/colors/${c}.jpg`} 
                               alt={`Ergonomica - ${c}`}
@@ -131,12 +124,12 @@ export default async function Page({
               }
 
               { availableSizes && <div className="pb-4">
-                  <span className="block pb-2 text-main">Tamaño:</span>
+                  <span className="block text-sm">Tamaño:</span>
                   <div className="flex flex-wrap gap-3">
                     { 
                       availableSizes.map((s, i) => 
                         <Link scroll={false} passHref href={productUrl(productData.skuGroup, currentColor, s)} key={i}>
-                          <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-2 border-blue-300'}`}>
+                          <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-2 border-blue-400'}`}>
                             {s?.toString()}
                           </div>
                         </Link>

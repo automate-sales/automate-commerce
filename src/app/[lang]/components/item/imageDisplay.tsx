@@ -62,7 +62,7 @@ export default function ImageDisplay({ product, lang = 'en', priority = false }:
             </div>
             <div className="flex justify-center space-x-4 my-4">
                 {product?.images.map((img, index) => (
-                    <div key={index} className={`cursor-pointer w-24 h-full border-2 ${selectedImage === index ? 'border-blue-500' : ''}`} onClick={() => handleThumbnailClick(index)}>
+                    <div key={index} className={`cursor-pointer w-24 h-full border-2 ${selectedImage === index ? 'border-blue-400' : ''}`} onClick={() => handleThumbnailClick(index)}>
                         <Image
                             src={`${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${img}`}
                             width={100}

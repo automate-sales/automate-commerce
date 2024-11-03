@@ -5,6 +5,7 @@ import { getIntl } from '@/utils/utils'
 import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
 import { getDictionary } from '@/app/dictionaries'
+import Link from 'next/link'
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
 export default async function Page({ 
@@ -47,6 +48,7 @@ export default async function Page({
         ))}
       </div>
     </div>
+    <div className='flex justify-center pb-8 pt-4'><Link href='/subcategories/' className='p-4 bg-gray-300'>View all subcategories</Link></div>
     </>
   )
 }
