@@ -2,12 +2,15 @@ import Image from 'next/image'
 import Link from 'next/link';
 import AddToCartButton from './cart/add';
 import { getServerCart } from '@/utils/leads/server';
+import { Product } from '@prisma/client';
 
 interface ItemProps {
     image: string;
     link: string;
     title?: string;
     description?: string;
+    variants?: number;
+    product?: Product;
     id?: number;
     price?: number;
     priority?: boolean;
@@ -17,7 +20,8 @@ export default async function Item({
     image, 
     link, 
     title, 
-    description, 
+    description,
+    variants,
     id, 
     price,
     priority=false
@@ -34,6 +38,7 @@ export default async function Item({
                         priority={priority}
                     />
                 </div>
+                {variants && <div className="h-2 leading-2 text-xs pb-5">{variants > 1 ? `+${variants-1} colors/sizes` : '' }</div>} 
                 {title && <div className=''><h4 className="text-lg font-semibold">{title}</h4></div>}
                 {description && <p className="text-sm text-gray-600">{description}</p>}
                 {price && <p className="text-lg font-bold">$ {price}.00</p>}
