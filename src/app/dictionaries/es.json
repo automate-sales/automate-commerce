@@ -54,17 +54,21 @@
       "text": "Esta es una sección de texto e imagen."
     },
     "specsSection": {
-      "feature1": {
-        "title": "Característica 1",
-        "paragraph": "Esta es la primera característica."
+      "0": {
+        "title": "Atención al cliente 24/7",
+        "paragraph": "La atención al cliente está en el centro de nuestros valores. Estamos siempre a disposición para ayudarte y responder cualquier consulta que tengas."
       },
-      "feature2": {
-        "title": "Característica 2",
-        "paragraph": "Esta es la segunda característica."
+      "1": {
+        "title": "Entrega al día siguiente",
+        "paragraph": "Recibe tus pedidos rápidamente. Todas las órdenes superiores a $99 incluyen entrega gratuita dentro de la ciudad de Panamá."
       },
-      "feature3": {
-        "title": "Característica 3",
-        "paragraph": "Esta es la tercera característica."
+      "2": {
+        "title": "Devoluciones en 7 días",
+        "paragraph": "¿No estás seguro si el producto es adecuado para ti? ¡No te preocupes! Tienes hasta 7 días para realizar la devolución."
+      },
+      "3": {
+        "title": "Garantías prolongadas",
+        "paragraph": "Confiamos en la calidad de nuestros productos. Por eso ofrecemos garantías extendidas de 1 a 5 años."
       }
     }
   },

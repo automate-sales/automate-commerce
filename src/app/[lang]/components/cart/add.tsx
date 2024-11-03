@@ -50,14 +50,14 @@ export default function AddToCartButton({
       <button
         type="submit"
         id={`${productSku}-add-to-cart`}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="hover:bg-blue-200 text-blue-400 font-bold py-2 px-4 rounded-sm border-2 border-blue-400"
       >
         Add to Cart
       </button>
       { displayQty && <input
         id={`${productSku}-qty`}
         type="number"
-        className="p-2 border rounded"
+        className="p-2 border rounded-sm"
         value={String(qty)}
         onChange={(e) => {
           setQty(typeof parseInt(e.target.value) === 'number' ?

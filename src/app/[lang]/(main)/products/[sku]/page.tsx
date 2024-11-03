@@ -8,7 +8,60 @@ import type { Metadata, ResolvingMetadata } from 'next'
 import { Breadcrumbs, seoCompotnent } from '@/app/[lang]/components/seo'
 import { getDictionary } from '@/app/dictionaries';
 import { getServerCart } from '@/utils/leads/server';
+import Link from 'next/link';
+import Image from 'next/image';
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
+
+async function getColorSizeMappings(skuGroup: string) {
+  // Fetch all products in the specified skuGroup with distinct color and size combinations
+  const products = await prisma.product.findMany({
+    where: { skuGroup },
+    select: {
+      color: true,
+      size: true,
+      sku: true,
+    },
+    distinct: ['color', 'size'],
+  });
+
+  const colors: Record<string, { firstSku: string | null; sizes: string[] | null }> = {};
+  const sizes: Record<string, string[] | null> = {};
+
+  // Initialize mappings with all unique colors and sizes
+  for (const { color, size, sku } of products) {
+    if (color && !colors[color]) {
+      colors[color] = { firstSku: sku || null, sizes: [] };
+    }
+    if (size && !sizes[size]) {
+      sizes[size] = [];
+    }
+  }
+
+  // Populate mappings with actual size and color combinations
+  for (const { color, size, sku } of products) {
+    if (color && size && sku) {
+      colors[color].sizes!.push(size);
+      sizes[size]!.push(color);
+    }
+  }
+
+  // Set sizes to null if no sizes are associated with a color
+  for (const color in colors) {
+    if (colors[color].sizes && colors[color].sizes.length === 0) {
+      colors[color].sizes = null;
+    }
+  }
+
+  // Set sizes to null if no colors are associated with a size
+  for (const size in sizes) {
+    if (sizes[size] && sizes[size]!.length === 0) {
+      sizes[size] = null;
+    }
+  }
+
+  return { colors, sizes };
+}
+
 
 export default async function Page({
   params
@@ -20,6 +73,11 @@ export default async function Page({
       sku: params.sku
     }
   }) as Product
+  const { colors, sizes } = await getColorSizeMappings(productData.skuGroup)
+  const currentColor = productData.color;
+  const currentSize = productData.size
+  const availableSizes = currentColor ? colors[currentColor].sizes : currentSize ? Object.keys(sizes) : null;
+  const productUrl = (skuGroup: string, color?: string|null, size?: string|null) => `/products/${skuGroup}${color? `-${color}`:''}${size? `-${size}`:''}`
   const lang = params.lang
   const cartId = await getServerCart()
   const dict = await getDictionary(lang)
@@ -40,19 +98,57 @@ export default async function Page({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <ImageDipslay product={productData} lang={lang} priority={true}/>
           <div>
-            <h1 className="text-3xl font-bold">{productTitle}</h1>
-            <p className="text-xl my-2">{productData?.price}</p>
+            <h1 className="text-3xl font-bold pb-4">{productTitle}</h1>
             <p className="mb-4">{getIntl(productData?.description, lang)}</p>
+            <p className="text-xl font-bold my-2">$ {productData?.price}</p>
+              { currentColor &&
+                <div className="pb-4">
+                  <span className="block text-sm">Color:</span>
+                  <div className="grid grid-cols-5 lg:grid-cols-6 gap-2">
+                    {
+                      Object.keys(colors).map((c, i) => 
+                        <Link scroll={false} passHref href={currentSize && colors[c].sizes && colors[c].sizes.includes(currentSize) ? productUrl(productData.skuGroup, c, currentSize) : `/products/${colors[c].firstSku}`} key={i}>
+                          <div className={`text-center link ${c === currentColor && 'border-2 border-blue-400'}`}>
+                            <Image
+                              src={`/images/colors/${c}.jpg`} 
+                              alt={`Ergonomica - ${c}`}
+                              width={80}
+                              height={80}
+                            />
+                          </div>
+                        </Link>
+                      )
+                    }
+                  </div>
+                </div>
+              }
+
+              { availableSizes && <div className="pb-4">
+                  <span className="block text-sm">Tamaño:</span>
+                  <div className="flex flex-wrap gap-3">
+                    { 
+                      availableSizes.map((s, i) => 
+                        <Link scroll={false} passHref href={productUrl(productData.skuGroup, currentColor, s)} key={i}>
+                          <div className={`text-center link px-3 py-2 bg-gray-100 ${s === currentSize && 'border-2 border-blue-400'}`}>
+                            {s?.toString()}
+                          </div>
+                        </Link>
+                      )
+                    }
+                  </div>
+                </div>
+              } 
+
             <div className="flex items-center">
-            <AddToCartButton
-              cartId={cartId} 
-              productId={productData?.id} 
-              productSku={productData.sku}
-              productPrice={productData?.price}
-              productTitle={productTitle}
-              productStock={productData?.stock}
-              displayQty
-            />
+              <AddToCartButton
+                cartId={cartId} 
+                productId={productData?.id} 
+                productSku={productData.sku}
+                productPrice={productData?.price}
+                productTitle={productTitle}
+                productStock={productData?.stock}
+                displayQty
+              />
             </div>
           </div>
         </div>

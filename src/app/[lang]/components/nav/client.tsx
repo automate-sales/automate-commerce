@@ -325,7 +325,7 @@ export const ProductsMenu = ({lang, categories}:{lang: string, categories: Categ
                 />
             </button>
             <div className="hidden lg:flex items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-                <Link passHref href="/products">Products</Link>
+                <Link passHref href="/categories">Products</Link>
             </div>
 
 

@@ -54,17 +54,21 @@
       "text": "This is a text and image section."
     },
     "specsSection": {
-      "feature1": {
-        "title": "Feature 1",
-        "paragraph": "This is the first feature."
+      "0": {
+        "title": "24/7 Customer Service",
+        "paragraph": "Customer service is at the heart of our values. We are always happy to listen and answer any questions you may have."
       },
-      "feature2": {
-        "title": "Feature 2",
-        "paragraph": "This is the second feature."
+      "1": {
+        "title": "Next-Day Delivery",
+        "paragraph": "Get your orders quickly. All orders over $99 come with free delivery within Panama City."
       },
-      "feature3": {
-        "title": "Feature 3",
-        "paragraph": "This is the third feature."
+      "2": {
+        "title": "7-Day Returns",
+        "paragraph": "Not sure if the product is right for you? No problem! You have up to 7 days to return it."
+      },
+      "3": {
+        "title": "Extended Warranties",
+        "paragraph": "We believe in the quality of our products. That's why we offer extended warranties of 1 to 5 years."
       }
     }
   },

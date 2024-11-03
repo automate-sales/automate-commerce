@@ -23,6 +23,8 @@ export default async function Page({
     },
     include: {
       products: {
+        distinct: ['skuGroup'],  // Retrieve unique skuGroups
+        orderBy: { createdAt: 'asc' }, // Adjust to ensure the "first" product per skuGroup
         take: pageSize,
         skip: pageSize * pageNumber,
       },
@@ -31,6 +33,18 @@ export default async function Page({
       }
     }
   })
+
+  const groups = await prisma.product.groupBy({
+    by: ['skuGroup'],
+    where: {
+      subcategoryId: subcategoryData?.id, // Adjust to match your subcategory ID
+    },
+    _count: {
+      skuGroup: true, // Count of products in each skuGroup (optional)
+    },
+  });
+  console.log('GROUPS ', groups)
+  
   const dict = await getDictionary(params.lang)
   return (
     <>
@@ -49,11 +63,12 @@ export default async function Page({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {subcategoryData?.products.map((product: Product, index: number) => (
             <Item 
-              key={index} 
-              price={product.price} 
-              link={`/products/${product.sku}`} 
-              title={getIntl(product.title, 
-              params.lang)} 
+              key={index}
+              id={product.id}
+              price={product.price}
+              link={`/products/${product.sku}`}
+              title={getIntl(product.title, params.lang)}
+              variants={groups.find((group) => group.skuGroup === product.skuGroup)?._count?.skuGroup}
               image={product.images.length > 0 ? `${process.env.NEXT_PUBLIC_IMAGE_HOST}/products/${product.images[0]}` : '/images/no-image.png'}
             />
           ))}
