@@ -221,7 +221,7 @@ describe('A lead with an empty cart signs in with an existing user asociated to 
 
       // it expects a new active lead to be created by a new visitor
       cy.viewport('macbook-15')
-      cy.visit('localhost:3000').wait(1000)
+      cy.visit('localhost:3000').wait(1500)
       cy.getCookie(LEAD_COOKIE).then(leadId => {
         const visitorLeadId = leadId?.value
         cy.log('leadId ', visitorLeadId)
