@@ -5,6 +5,7 @@ import LeadGen from './[lang]/components/leadGen'
 import Analytics from './[lang]/components/analytics/analytics'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import Banner from './[lang]/components/consentBanner'
 const inter = Inter({ subsets: ['latin'] })
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
@@ -121,6 +122,7 @@ export default function RootLayout({
           <Analytics />
           {children}
           <ToastContainer/>
+          <Banner />
         </body>
         
       </html>
