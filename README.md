@@ -345,3 +345,53 @@ Wrist rests
 Monitor Stands
 Balance Boards
 Under-desk Drawers
+
+# Admin
+
+## Admin form inputs
+**Text**: a text component
+Translated Text: a text component with translations enabled
+Select: a select component used for an enum.
+Checkbox: a checkbox input used for a boolean value.
+List: an input that displays a multiple select input. It is used for items of type string list and will receive an options prop.
+Json: an input that expands and allows you to set key/vals of a jeson field type
+
+Parent: this is a field used in M-to-1 relations and it references the parent and features a searchbox select in which the admin can search for other parents and change the relation.
+Children: this is a field used in 1-to-M relations
+Image: a component that allows you to view and also drag/drop add photos into s3
+
+Date: a datepicker
+
+
+the generator function will read your prisma schema and generate:
+ 1. an index json file with the format
+ ```
+ {
+    [model]: {
+        name: string
+        view: 'shoppingCart' | 'blog' | 'default'
+    }
+ }
+ ```
+
+2. for each modeel will create the follwoing dirs/files
+```
+- {model}/
+   - fields.json
+   - page.tsx
+   - [id]/
+      - page.tsx
+```
+
+the fields.json file created will have the following format:
+```
+{
+    name: string
+    type: FieldType
+    options?: SelectOption[]
+    ...
+}
+```
+
+the json files are created with the default fieldType corresponding to the prisma type and the fieldName. You can later modify this file as you wish.
+
