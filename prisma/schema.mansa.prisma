@@ -1,0 +1,266 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id            Int      @id @default(autoincrement())
+  slug          String        @unique
+  title         Json
+  description   Json?
+  images        String[]      @default([])
+  subcategories Subcategory[]
+  priority      Int?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  createdBy     String?
+  updatedBy     String?
+}
+
+model Subcategory {
+  id          Int      @id @default(autoincrement())
+  slug        String    @unique
+  title       Json
+  description Json?
+  images      String[]  @default([])
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  products    Product[]
+  priority    Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  createdBy   String?
+  updatedBy   String?
+}
+
+model Product {
+  id                  Int      @id @default(autoincrement())
+  sku                 String      @unique
+  skuGroup            String
+  title               Json
+  description         Json?
+  subcategoryId       Int
+  subcategory         Subcategory @relation(fields: [subcategoryId], references: [id])
+  price               Float
+  stock               Int
+  color               String?
+  size                String?
+  brand               String?
+  warranty            String?
+  specs               Json?
+  images              String[]    @default([])
+  assembly            Float
+  shipping            Json?
+  display             Boolean     @default(true)
+  
+  cartItems           CartItem[]
+  
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  createdBy           String?
+  updatedBy           String?
+}
+
+enum LeadStatus {
+  lead
+  prospect
+  customer
+  loyalty
+  inactive
+}
+
+model Lead {
+  id            String    @id @default(cuid())
+  fingerprint String
+  status LeadStatus @default(lead)
+  name String?
+  email String?
+  phone_numbers String[] @default([])
+  address String?
+  birth_date String?
+  carts Cart[]
+  orders Order[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  createdBy     String?
+  updatedBy     String?
+  userId           String?
+  user           User?    @relation(fields: [userId], references: [id])
+}
+
+enum CartStatus {
+  active
+  inactive
+  purchased
+  abandoned
+}
+model Cart {
+  id String   @id @default(cuid())
+  status CartStatus @default(active)
+  leadId String?
+  lead              Lead?    @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  cartItems      CartItem[]
+  purchasedAt   DateTime?
+  orders Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+}
+
+model CartItem {
+  id          String   @id @default(cuid())
+  status CartItemStatus  @default(new)
+  price Float
+  qty Int
+  cartId           String
+  cart             Cart    @relation(fields: [cartId], references: [id])
+  productId           Int
+  product             Product    @relation(fields: [productId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+  @@unique([cartId, productId])
+}
+
+enum CartItemStatus {
+  new
+  sold
+  abandoned
+  returned
+}
+
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  username      String?
+  migrated      Boolean @default(false)
+  leads Lead[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Order {
+  id               String   @id @default(cuid())
+  status           OrderStatus @default(unpaid)
+  //customer information
+  full_name        String
+  phone_number     String
+  email            String
+  shippingAddress  Json
+  billingAddress   Json
+  // order options
+  shipping         Boolean  @default(false)
+  assembly         Boolean  @default(false)
+  coupon           String?
+  // charges
+  subtotal         Float
+  discount         Float?
+  shippingFee     Float?
+  assemblyFee     Float?
+  shippingDate    DateTime?
+  tax              Float
+  total            Float
+  // additional information
+  loggedIn         Boolean @default(false)
+  referredBy      String?
+  source           String @default("ecommerce")
+  paymentMethod   PaymentMethod @default(unknown)
+  paymentId        String?
+  invoiceId        String?
+  errorMsg    String?
+  //relations
+  cartId            String
+  cart              Cart @relation(fields: [cartId], references: [id])           
+  leadId            String?
+  lead              Lead?    @relation(fields: [leadId], references: [id])
+  //timestamps
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  createdBy        String?
+  updatedBy        String?
+}
+
+enum OrderStatus {
+  unpaid
+  partial_payment
+  complete_payment
+  payment_declined
+  payment_error
+  ready_to_ship
+  on_route
+  delivered
+  confirmed
+}
+
+enum PaymentMethod {
+  visa
+  mastercard
+  yappy
+  ach
+  cash
+  unknown
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  code      String   @unique
+  title       String
+  valid_till  String
+  discount    Float
+  description String?
+  products    Int[] @default([])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?
+  updatedBy   String?
+}
