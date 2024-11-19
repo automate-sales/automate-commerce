@@ -203,8 +203,8 @@ async function main() {
       await createPublicBucket(bucketName)
     }
     await wipeData()
-    await seedData()
-    await seedTestData()
+    // await seedData()
+    // await seedTestData()
   } catch (err) {
     console.error(err)
   }

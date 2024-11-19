@@ -80,15 +80,24 @@ enum LeadStatus {
 
 model Lead {
   id            String    @id @default(cuid())
-  fingerprint String
+  fingerprint String?
   status LeadStatus @default(lead)
   name String?
-  email String?
+  whatsappName String?
+  email String? @unique
+  phoneNumber String?
+  externalId String?
+  nameId String?
+  source String?
+  profilePicture String?
+  isCompany Boolean @default(false)
+  country String?
   phone_numbers String[] @default([])
   address String?
   birth_date String?
   carts Cart[]
   orders Order[]
+  lastInteraction DateTime?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   createdBy     String?
