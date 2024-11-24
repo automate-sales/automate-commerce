@@ -37,7 +37,17 @@ export default async function Home({
       <Breadcrumbs crumbs={[
         {name: dict.breadCrumbs.home, path: '/'},
       ]} hide/>
-      <HeroSection imageSrc='/images/home/header-desktop.jpg' title={dict.home.heroSection.title} description={dict.home.heroSection.description}  buttonText={dict.home.heroSection.btnText} />
+      <HeroSection 
+        imageSrc='/images/home/header-desktop.jpg' 
+        srcSet={{
+          sm: '/images/home/header-mobile.jpg',
+          md: '/images/home/header-desktop.jpg',
+          lg: '/images/home/header-desktop.jpg'
+        }}
+        title={dict.home.heroSection.title} 
+        description={dict.home.heroSection.description}  
+        buttonText={dict.home.heroSection.btnText} 
+      />
       <Carousel lang={params.lang} items={categories.map((c: Category) => { return {link: `/categories/${c.slug}`, imageUrl: `${process.env.NEXT_PUBLIC_IMAGE_HOST}/categories/${c.images[0]}`, heading: getIntl(c.title, params.lang)} } )} />
       <CenteredImageSection imageSrc="/images/home/combinations-desktop.jpg" padding="8" content={dict.home.centeredImageSection.content1}  />
       <TextAndVideoSection text={dict.home.textImageSection.text} imageSrc="/images/no-image.png" textDirection="right" padding="8" />
