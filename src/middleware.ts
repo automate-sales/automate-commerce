@@ -26,13 +26,29 @@ const pathHasLocale =(path: string)=> {
   return locales.some((locale) => {return path.startsWith(`/${locale}/`) || path === `/${locale}` })
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   try {
     const { href, pathname, search } = request.nextUrl;
     const currentUrl = href
     const previousUrl = request.headers.get('referer');
 
     const requestHeaders = new Headers(request.headers)
+
+    const ip = request.headers.get('x-forwarded-for') || request.ip || '127.0.0.1';
+    const host = request.headers.get('host');
+    const protocol = request.headers.get('x-forwarded-proto') || 'http';
+    const geoUrl = `${protocol}://${host}/api/geo`
+    console.log('GEOURL ', geoUrl)
+    
+    const geoResponse = await fetch(geoUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ip }),
+    })
+    const geoData = await geoResponse.json()
+    console.log('GEO ', geoData)
 
     // get hid from previous url and set it in headers and search params
     if (previousUrl) {
@@ -53,6 +69,10 @@ export function middleware(request: NextRequest) {
           headers: requestHeaders,
         },
       })
+      if(geoData){
+        response.headers.set('x-country', geoData.country)
+        response.headers.set('x-city', geoData.city)
+      }
       return response
     }
 
@@ -66,6 +86,10 @@ export function middleware(request: NextRequest) {
 
     const response = NextResponse.redirect(request.nextUrl);
     response.cookies.set("locale", locale || 'en')
+    if(geoData){
+      response.headers.set('x-country', geoData.country)
+      response.headers.set('x-city', geoData.city)
+    }
     
     return response;
   } catch (err: any) {

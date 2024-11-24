@@ -43,16 +43,16 @@ export default function Banner() {
           px-16
           text-left
           rounded-sm
-          shadow-md
+          shadow-lg
           flex
           flex-col
           gap-3
         ">
           <h4 className="text-lg font-bold">We value your privacy</h4>
           <p>
-          We use cookies 🍪 to enhance your shopping experience! <br/>
+          We use cookies 🍪 to enhance your shopping experience.<br/>
           They help us remember your preferences, and improve your user experience in our website. By continuing, you agree to our use of cookies. Learn more in our 
-          <Link href="/policies/cookies/">Cookie Policy</Link>.
+          <Link className="text-blue-400 hover:underline" href="/policies/cookies/"> Cookie Policy</Link>.
           </p>
           <div className="flex gap-2">
             <button type="button" onClick={handleDeclineCookies} className="border-blue-400 border-2 py-2 px-4 rounded-sm">Decline cookies</button>
