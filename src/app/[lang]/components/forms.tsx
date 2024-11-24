@@ -233,7 +233,14 @@ export const FormGroup = ({
           </div>
 
           {/* Render Form Group fields */}
-          {!steps[step].hidden && (
+          {steps[step].hidden ? 
+            <div id={`disabled-${step}`}>
+                  <div className="grid grid-cols-2 gap-2 pb-3">
+                      {fields.map((field, index) => <p key={index} className="text-gray-500 text-sm">{item[field.name]}</p> )}
+                  </div>
+              {children}
+          </div>
+          :(
               <div id={`step-${step}`}>
                   <fieldset className="pt-3" onMouseLeave={onBlur}>
                       <div className="grid grid-cols-2 gap-4 pb-3">
