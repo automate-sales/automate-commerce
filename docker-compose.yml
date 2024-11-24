@@ -34,6 +34,20 @@ services:
       - postgres
     restart: unless-stopped
 
+  ngrok:
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - 4040:4040
+
+
 networks:
   postgres:
     driver: bridge

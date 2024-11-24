@@ -5,6 +5,8 @@ import LeadGen from './[lang]/components/leadGen'
 import Analytics from './[lang]/components/analytics/analytics'
 import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import Banner from './[lang]/components/consentBanner'
+import { headers } from 'next/headers'
 const inter = Inter({ subsets: ['latin'] })
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
 
@@ -104,6 +106,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const allHeaders = headers();
+  const userAgent = allHeaders.get('user-agent'); // Example: Access a specific header
+  const country = allHeaders.get('x-country') || 'Unknown Country'; // Retrieve x-country
+  const city = allHeaders.get('x-city') || 'Unknown Location'; // Retrieve x-location
+  console.log('Country:', country);
+  console.log('City:', city);
+
     return (
       <html lang="en">
         <head>
@@ -121,6 +131,7 @@ export default function RootLayout({
           <Analytics />
           {children}
           <ToastContainer/>
+          <Banner />
         </body>
         
       </html>

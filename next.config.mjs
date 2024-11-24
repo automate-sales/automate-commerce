@@ -2,6 +2,10 @@ import createMDX from '@next/mdx'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
+    experimental: {
+      serverComponentsExternalPackages: ["geoip-lite"],
+    },
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     images: {
         remotePatterns: [
@@ -11,22 +15,6 @@ const nextConfig = {
             { hostname: 'd1j0s1nyo2b00d.cloudfront.net' }
         ],
     },
-    webpack: (config, { isServer }) => {
-        if (isServer) {
-          process.on('uncaughtException', (err) => {
-            if (err.code === 'ECONNRESET' || err.message === 'aborted') {
-              console.warn('Connection reset by peer:', err);
-            } else {
-              console.error('Unhandled exception:', err);
-            }
-          });
-    
-          process.on('unhandledRejection', (reason, promise) => {
-            console.error('Unhandled rejection at:', promise, 'reason:', reason);
-          });
-        }
-        return config;
-    }
 }
 
 const withMDX = createMDX({
