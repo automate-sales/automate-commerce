@@ -1,5 +1,6 @@
 // app/banner.js
 'use client';
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export function cookieConsentGiven() {
@@ -38,18 +39,25 @@ export default function Banner() {
           bottom-0 
           w-full 
           bg-white 
-          bg-opacity-70
-          p-4
-          text-center
+          py-8
+          px-16
+          text-left
+          rounded-sm
+          shadow-md
+          flex
+          flex-col
+          gap-3
         ">
+          <h4 className="text-lg font-bold">We value your privacy</h4>
           <p>
-            We use tracking cookies to understand how you use 
-            the product and help us improve it.
-            Please accept cookies to help us improve.
+          We use cookies 🍪 to enhance your shopping experience! <br/>
+          They help us remember your preferences, and improve your user experience in our website. By continuing, you agree to our use of cookies. Learn more in our 
+          <Link href="/policies/cookies/">Cookie Policy</Link>.
           </p>
-          <button type="button" onClick={handleDeclineCookies} className="py-2 px-4">Decline cookies</button>
-          <span> </span>
-          <button type="button" onClick={handleAcceptCookies} className="border-blue-400 border-2 py-2 px-4 rounded-sm">Accept cookies</button>
+          <div className="flex gap-2">
+            <button type="button" onClick={handleDeclineCookies} className="border-blue-400 border-2 py-2 px-4 rounded-sm">Decline cookies</button>
+            <button type="button" onClick={handleAcceptCookies} className="bg-blue-400 border-blue-400 border-2 py-2 px-4 rounded-sm">Accept cookies</button>
+          </div>
         </div>
       )}
     </div>

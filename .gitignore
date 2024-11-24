@@ -45,3 +45,5 @@ next-env.d.ts
 plan
 terraform.tfstate
 terraform.tfstate.backup
+
+ngrok.yml

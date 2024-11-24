@@ -35,6 +35,33 @@ FB_TEST_CODE=TEST75581
 SECRET_KEY=someRandomString
 ```
 
+
+## Setting up ngrock
+ngrok creates an ip tunnel soi that you can access your site in the www while on development. This makes it easy to test functionalities that get actiavted from different IPs or for having somebody (non-developer) check a particular feature before a test-release cycle.
+1. create a free ngrock account to recieve a static tunnel domain, this way when you stop/start the server you dont need to reconfigure your webhooks
+2. create an ngrok.yml file with the following content:
+```
+version: 2
+authtoken: <your_ngrok_auth_token>
+log_level: info
+tunnels:
+  first:
+    proto: http
+    addr: host.docker.internal:8000
+    domain: <your_static_domain>
+```
+
+## Setting up emails with nodemailer
+### connecting gmail
+1. [create an app password](https://security.google.com/settings/security/apppasswords) in your gmail account
+2. Add the following to your .env.development file
+```
+EMAIL_HOST=gmail
+EMAIL_USER=<your_email>@gmail.com
+EMAIL_PASSWORD=<gmail_app_password>
+```
+
+
 ## Seeding the database
 - to seed the database you can run `npx prisma db seed`. this command will clear and re-seed the DB
 - after running the seed command you must clear http cookies as well as local storage to remove any old leads / carts
