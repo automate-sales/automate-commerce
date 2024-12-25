@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { updateCartItem } from '@/app/actions';
 import { CartItemWithProduct } from '@/types';
 

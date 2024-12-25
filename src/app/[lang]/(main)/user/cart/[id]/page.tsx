@@ -1,7 +1,7 @@
 import SwapCartDialog from '@/app/[lang]/components/swapCartDialog'
 import { getServerCart, getServerLead } from '@/utils/leads/server'
 import { redirect } from 'next/navigation'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 export default async function Page({ 
     params,

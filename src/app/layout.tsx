@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import LeadGen from './[lang]/components/leadGen'
 import Analytics from './[lang]/components/analytics/analytics'
-import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'sonner';
+
 import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ['latin'] })
 const SITE_ROOT = process.env.NEXT_PUBLIC_WEB_HOST;
@@ -120,7 +121,7 @@ export default function RootLayout({
           <LeadGen />
           <Analytics />
           {children}
-          <ToastContainer/>
+          <Toaster position='top-right' offset={0} style={{marginTop: '4.4rem', marginRight: '1%'}}/>
         </body>
         
       </html>

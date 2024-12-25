@@ -1,7 +1,7 @@
 "use client";
 
 import { addToCart } from "@/app/actions";
-import {  toast } from "react-toastify";
+import {  toast } from 'sonner';
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { getCart, getLead } from "@/utils/leads/client";
@@ -43,7 +43,7 @@ export default function AddToCartButton({
         title: productTitle || productSku,
         ...(productStock && { stock: productStock })
       }, parseInt(qty), path, leadId)
-      toast[msg.type](msg.text)
+      toast.success(msg.text)
       router.refresh();
     } 
     }>

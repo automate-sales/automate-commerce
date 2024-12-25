@@ -94,7 +94,7 @@ export function CcNumInput({
         disabled={disabled}
         autoComplete="cc-number"
       />
-      <span className="flex felx-col justify-end -mt-8 pb-4 pr-3">
+      <span className="flex felx-col justify-end pb-4 pr-3">
         {
           ccType == 'visa' ? <Image id="visa-logo" alt="credit card logo" height="20" width="30" className="card-logo" src='/icons/visa.jpg'/>
           : ccType == 'mastercard' ? <Image id="mastercard-logo" alt="credit card logo" height="20" width="30" className="card-logo" src='/icons/mastercard.svg'/>
