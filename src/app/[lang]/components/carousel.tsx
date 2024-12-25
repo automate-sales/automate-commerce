@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import NextImage from 'next/image';
 import Link from 'next/link';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 type Item = {
   imageUrl: string;
@@ -14,148 +15,234 @@ type Item = {
 type CarouselProps = {
   items: Item[];
   size?: 'sm' | 'md' | 'lg';
+  autoScrollInterval?: number;
 };
 
-const Carousel = ({ items, size = 'md' }: CarouselProps) => {
+const Carousel = ({
+  items,
+  size = 'md',
+  autoScrollInterval = 3000,
+}: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const itemWidth = 200; // Set based on actual item width
-  const isTransitioning = useRef(false); // Track if a transition is in progress
+  const isTransitioning = useRef(false);
 
-  // Calculate size classes for different item sizes
+  // For pointer-based dragging:
+  const startPositionRef = useRef<number | null>(null);
+
+  // Set each item's width (including margin if desired).
+  // Adjust so items + margin/padding look nice in your layout.
+  const itemWidth = 240; 
+
+  // Apply different sizes for the grid item
   const itemSizeClass = {
     sm: 'w-32 h-32 p-2',
     md: 'w-40 h-40 p-4',
     lg: 'w-48 h-48 p-4',
   }[size];
 
-  // Prepare duplicated items array for infinite effect
-  const itemsToDisplay = [...items, ...items]; // Duplicate items for looping effect
-  const totalItems = itemsToDisplay.length;
+  // Duplicate items for infinite loop
+  const itemsToDisplay = [...items, ...items];
 
-  // Move to the next item
-  const moveToNext = () => {
-    if (isTransitioning.current) return; // Prevent overlapping transitions
-
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    isTransitioning.current = true;
-  };
-
-  // Move to the previous item
-  const moveToPrev = () => {
-    console.log('moveToPrev');
-    console.log(currentIndex);
+  // ========================
+  // Navigation
+  // ========================
+  const moveToNext = useCallback(() => {
     if (isTransitioning.current) return;
-    setCurrentIndex((prevIndex) => prevIndex - 1);
-
+    setCurrentIndex((prev) => prev + 1);
     isTransitioning.current = true;
-  };
+  }, []);
 
-  // Handle end of transition
+  const moveToPrev = useCallback(() => {
+    if (isTransitioning.current) return;
+    setCurrentIndex((prev) => prev - 1);
+    isTransitioning.current = true;
+  }, []);
+
+  // ========================
+  // Auto-Scroll
+  // ========================
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      moveToNext();
+    }, autoScrollInterval);
+
+    return () => clearInterval(intervalId);
+  }, [moveToNext, autoScrollInterval]);
+
+  // ========================
+  // Transition End
+  // ========================
   useEffect(() => {
     const handleTransitionEnd = () => {
       isTransitioning.current = false;
-      console.log('PUITOU JOSE')
-      // Seamlessly loop back to the start of the original items
+
+      // Jump forward
       if (currentIndex === items.length) {
         setCurrentIndex(0);
-        containerRef.current!.style.transition = 'none'; // Temporarily disable transition
-        containerRef.current!.style.transform = `translateX(0px)`;
-        // Force a reflow to apply styles immediately
-        void containerRef.current!.offsetHeight;
-        containerRef.current!.style.transition = 'transform 0.3s ease';
-      } else if (!currentIndex || currentIndex<= 0) {
-        console.log('PUPU JOSE')
+        if (containerRef.current) {
+          containerRef.current.style.transition = 'none';
+          containerRef.current.style.transform = `translateX(0px)`;
+          // Force reflow so next transition can apply
+          void containerRef.current.offsetHeight;
+          containerRef.current.style.transition = 'transform 0.3s ease';
+        }
+      }
+      // Jump backward
+      else if (currentIndex < 0) {
         setCurrentIndex(items.length - 1);
-        containerRef.current!.style.transition = 'none';
-        containerRef.current!.style.transform = `translateX(-${items.length * itemWidth}px)`;
-        void containerRef.current!.offsetHeight;
-        containerRef.current!.style.transition = 'transform 0.3s ease';
+        if (containerRef.current) {
+          containerRef.current.style.transition = 'none';
+          containerRef.current.style.transform = `translateX(-${
+            (items.length - 1) * itemWidth
+          }px)`;
+          void containerRef.current.offsetHeight;
+          containerRef.current.style.transition = 'transform 0.3s ease';
+        }
       }
     };
 
-    containerRef.current?.addEventListener('transitionend', handleTransitionEnd);
-    return () => containerRef.current?.removeEventListener('transitionend', handleTransitionEnd);
-  }, [currentIndex, items.length]);
+    const el = containerRef.current;
+    el?.addEventListener('transitionend', handleTransitionEnd);
+    return () => {
+      el?.removeEventListener('transitionend', handleTransitionEnd);
+    };
+  }, [currentIndex, items.length, itemWidth]);
 
-  // Update the translate position when currentIndex changes
+  // Update transform on index change
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+      containerRef.current.style.transform = `translateX(-${
+        currentIndex * itemWidth
+      }px)`;
+      containerRef.current.style.transition = 'transform 0.3s ease';
     }
-  }, [currentIndex]);
+  }, [currentIndex, itemWidth]);
 
-  // Start dragging
-  const handleDragStart = (event: React.DragEvent) => {
-    event.dataTransfer.setDragImage(new Image(), 0, 0); // Hide ghost image
-    event.dataTransfer.effectAllowed = 'move';
-    containerRef.current!.style.transition = 'none';
+  // ========================
+  // Drag Handlers
+  // ========================
+  const handlePointerDown = (clientX: number) => {
+    if (containerRef.current) {
+      containerRef.current.style.transition = 'none'; // no smooth transition while dragging
+    }
+    startPositionRef.current = clientX;
   };
 
-  // Dragging handler
-  const handleDrag = (event: React.DragEvent) => {
-    if (event.clientX === 0) return; // Ignore events with no position data
+  const handlePointerMove = (clientX: number) => {
+    if (startPositionRef.current === null) return;
 
-    const translateX = -currentIndex * itemWidth + event.clientX - event.clientX % itemWidth;
-    containerRef.current!.style.transform = `translateX(${translateX}px)`;
+    const dragDistance = clientX - startPositionRef.current;
+    const newTranslateX = -(currentIndex * itemWidth) + dragDistance;
+
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${newTranslateX}px)`;
+    }
   };
-  const handleDragEnd = (event: React.DragEvent) => {
-    containerRef.current!.style.transition = 'transform 0.3s ease';
 
-    const draggedBy = event.clientX % itemWidth;
-    const threshold = itemWidth / 4;
+  const handlePointerUp = (clientX: number) => {
+    if (startPositionRef.current === null) return;
+    const dragDistance = clientX - startPositionRef.current;
+    const threshold = itemWidth / 4; // 25% threshold
 
-    if (draggedBy > threshold) {
-      moveToNext();
-    } else if (draggedBy < -threshold) {
+    if (containerRef.current) {
+      containerRef.current.style.transition = 'transform 0.3s ease';
+    }
+
+    if (dragDistance > threshold) {
       moveToPrev();
+    } else if (dragDistance < -threshold) {
+      moveToNext();
     } else {
-      containerRef.current!.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+      // Snap back to current
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(-${
+          currentIndex * itemWidth
+        }px)`;
+      }
     }
+
+    startPositionRef.current = null;
   };
 
   return (
-    <div className="w-full overflow-hidden relative">
-      <div
-        className="flex"
-        ref={containerRef}
-        draggable
-        onDragStart={handleDragStart}
-        onDrag={handleDrag}
-        onDragEnd={handleDragEnd}
-        style={{ transform: `translateX(-${currentIndex * itemWidth}px)`, transition: 'transform 0.3s ease' }}
-      >
-        {itemsToDisplay.map((item, idx) => (
-          <div key={idx} className={`flex-shrink-0 ${itemSizeClass} bg-white m-2 rounded-lg`}>
-            <Link href={item.link || '#'} className="flex items-center justify-center h-full">
-              <NextImage
-                src={item.imageUrl}
-                alt={item.heading || `Carousel item ${idx}`}
-                width={itemWidth}
-                height={200}
-                className="object-contain"
-              />
-            </Link>
-            <h2 className="text-sm font-semibold">{item.heading}</h2>
-            <p className="text-xs">{item.subheading}</p>
+    <div className="relative w-full">
+      {/* 
+        Outer Wrapper: 
+        - Apply your horizontal padding here so it doesn't interfere with the overflow. 
+      */}
+      <div className="px-12">
+        {/*
+          Inner container (overflow-hidden) so your items
+          don't spill beyond the container even with padding
+        */}
+        <div
+          className="overflow-hidden relative w-full"
+          onMouseDown={(e) => handlePointerDown(e.clientX)}
+          onMouseMove={(e) => {
+            if (startPositionRef.current !== null) {
+              handlePointerMove(e.clientX);
+            }
+          }}
+          onMouseUp={(e) => handlePointerUp(e.clientX)}
+          onMouseLeave={(e) => {
+            if (startPositionRef.current !== null) {
+              handlePointerUp(e.clientX);
+            }
+          }}
+          onTouchStart={(e) => handlePointerDown(e.touches[0].clientX)}
+          onTouchMove={(e) => handlePointerMove(e.touches[0].clientX)}
+          onTouchEnd={(e) => handlePointerUp(e.changedTouches[0].clientX)}
+        >
+          <div
+            ref={containerRef}
+            className="flex gap-4"
+            style={{ transform: `translateX(-${currentIndex * itemWidth}px)` }}
+          >
+            {itemsToDisplay.map((item, idx) => (
+              <div
+                key={idx}
+                className={`bg-white flex-shrink-0 text-center ${itemSizeClass} m-2 rounded-lg`}
+              >
+                <Link
+                  href={item.link || '#'}
+                  className="flex h-full w-full items-center justify-center"
+                >
+                  <NextImage
+                    src={item.imageUrl}
+                    alt={item.heading || `Carousel item ${idx}`}
+                    width={itemWidth}
+                    height={200}
+                    className="object-contain"
+                  />
+                </Link>
+                {item.heading && (
+                  <h2 className="text-sm font-semibold">{item.heading}</h2>
+                )}
+                {item.subheading && (
+                  <p className="text-xs">{item.subheading}</p>
+                )}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
-      <div className="absolute inset-y-0 left-4 flex items-center">
+      {/* Controls */}
+      <div className="absolute inset-y-0 left-0 flex items-center">
         <button
           onClick={moveToPrev}
-          className="bg-gray-300 p-2 rounded-full"
+          className="p-2 ml-2 text-gray-400 hover:text-gray-600 transition"
         >
-          &lt;
+          <ChevronLeftIcon className="h-6 w-6" />
         </button>
       </div>
-      <div className="absolute inset-y-0 right-4 flex items-center">
+      <div className="absolute inset-y-0 right-0 flex items-center">
         <button
           onClick={moveToNext}
-          className="bg-gray-300 p-2 rounded-full"
+          className="p-2 mr-2 text-gray-400 hover:text-gray-600 transition"
         >
-          &gt;
+          <ChevronRightIcon className="h-6 w-6" />
         </button>
       </div>
     </div>
