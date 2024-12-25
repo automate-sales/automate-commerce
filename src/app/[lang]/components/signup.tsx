@@ -6,7 +6,7 @@ import { ListInput, TextInput } from './forms';
 import { getLead } from '@/utils/leads/client';
 import { updateLead } from '@/app/actions';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { UserObj } from '@/utils/auth';
 
 interface FormData {

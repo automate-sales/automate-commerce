@@ -19,7 +19,7 @@ import {
 import { CartWithItems, CustomerInfo, OrderInfo, PaymentInfo, ShippingInfo } from '@/types';
 import OrderCostSummary from './costSummary';
 import { createOrder } from '@/app/actions';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { paymentInfoEvent, purchaseEvent } from '@/utils/analytics';
 import { getLead, setCart } from '@/utils/leads/client';
 import { getCartWithItemsByLead } from '@/utils/leads/server';

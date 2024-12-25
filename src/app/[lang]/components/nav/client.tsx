@@ -13,7 +13,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 
 export const DropDown =({label, items, fixed=false, classNames='', id}: {label: string | JSX.Element, items: Array<string|JSX.Element>, fixed?: boolean, classNames?: string, id?: string})=> {

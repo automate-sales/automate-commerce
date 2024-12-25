@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { signIn } from "next-auth/react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { loginEvent } from "@/utils/analytics";
 import { getLead } from "@/utils/leads/client";
 
